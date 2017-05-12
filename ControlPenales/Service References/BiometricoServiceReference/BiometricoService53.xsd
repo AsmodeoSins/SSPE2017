@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="IMPUTADO_BIOMETRICO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BIOMETRICO" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="BIOMETRICO_TIPO" nillable="true" type="tns:BIOMETRICO_TIPO" />
+      <xs:element minOccurs="0" name="CALIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ANIO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_CENTRO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_FORMATO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_IMPUTADO" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_BIOMETRICO" type="xs:short" />
+      <xs:element minOccurs="0" name="IMPUTADO" nillable="true" type="tns:IMPUTADO_BM" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IMPUTADO_BIOMETRICO" nillable="true" type="tns:IMPUTADO_BIOMETRICO" />
+  <xs:complexType name="BIOMETRICO_TIPO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_TIPO_BIOMETRICO" type="xs:short" />
+      <xs:element minOccurs="0" name="IMPUTADO_BIOMETRICO" nillable="true" type="tns:ArrayOfIMPUTADO_BIOMETRICO" />
+      <xs:element minOccurs="0" name="PERSONA_BIOMETRICO" nillable="true" type="tns:ArrayOfPERSONA_BIOMETRICO" />
+      <xs:element minOccurs="0" name="TIPO_BIOMETRICO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BIOMETRICO_TIPO" nillable="true" type="tns:BIOMETRICO_TIPO" />
+  <xs:complexType name="ArrayOfIMPUTADO_BIOMETRICO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="IMPUTADO_BIOMETRICO" nillable="true" type="tns:IMPUTADO_BIOMETRICO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfIMPUTADO_BIOMETRICO" nillable="true" type="tns:ArrayOfIMPUTADO_BIOMETRICO" />
+  <xs:complexType name="ArrayOfPERSONA_BIOMETRICO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PERSONA_BIOMETRICO" nillable="true" type="tns:PERSONA_BIOMETRICO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPERSONA_BIOMETRICO" nillable="true" type="tns:ArrayOfPERSONA_BIOMETRICO" />
+  <xs:complexType name="PERSONA_BIOMETRICO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BIOMETRICO" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="BIOMETRICO_TIPO" nillable="true" type="tns:BIOMETRICO_TIPO" />
+      <xs:element minOccurs="0" name="ID_FORMATO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_PERSONA" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_BIOMETRICO" type="xs:short" />
+      <xs:element minOccurs="0" name="NORIGINAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PERSONA" nillable="true" type="tns:PERSONA" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PERSONA_BIOMETRICO" nillable="true" type="tns:PERSONA_BIOMETRICO" />
+  <xs:complexType name="PERSONA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CORIGINAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CORREO_ELECTRONICO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CURP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOMICILIO_CALLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOMICILIO_CODIGO_POSTAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DOMICILIO_NUM_EXT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DOMICILIO_NUM_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ESTADO_CIVIL" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="FEC_NACIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_COLONIA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_ENTIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ETNIA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_MUNICIPIO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_PAIS" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_PERSONA" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_DISCAPACIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_TIPO_PERSONA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="IFE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="INGRESO" nillable="true" type="tns:ArrayOfINGRESO_BM" />
+      <xs:element minOccurs="0" name="LUGAR_NACIMIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NACIONALIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="NOMBRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NORIGINAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERSONA_BIOMETRICO" nillable="true" type="tns:ArrayOfPERSONA_BIOMETRICO" />
+      <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEXO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SMATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SNOMBRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SPATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO_MOVIL" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PERSONA" nillable="true" type="tns:PERSONA" />
+  <xs:complexType name="ArrayOfINGRESO_BM">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="INGRESO_BM" nillable="true" type="tns:INGRESO_BM" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfINGRESO_BM" nillable="true" type="tns:ArrayOfINGRESO_BM" />
+  <xs:complexType name="INGRESO_BM">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ANIO_GOBIERNO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="AV_PREVIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="A_DISPOSICION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOCINTERNACION_NUM_OFICIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOCUMENTO_INTERNACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FEC_INGRESO_CERESO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_REGISTRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FOLIO_GOBIERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ANIO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_AUTORIDAD_INTERNA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_CENTRO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_CLASIFICACION_JURIDICA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_DISPOSICION" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ESTATUS_ADMINISTRATIVO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_IMPUTADO" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_IMPUTADO_EXPEDIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_INGRESO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_INGRESO_DELITO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_PERSONA_PG" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_DOCUMENTO_INTERNACION" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_TIPO_INGRESO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_TIPO_SEGURIDAD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_UB_CAMA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_UB_CELDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_UB_CENTRO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_UB_EDIFICIO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_UB_SECTOR" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="IMPUTADO" nillable="true" type="tns:IMPUTADO_BM" />
+      <xs:element minOccurs="0" name="NUC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERSONA" nillable="true" type="tns:PERSONA" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="INGRESO_BM" nillable="true" type="tns:INGRESO_BM" />
+  <xs:complexType name="IMPUTADO_BM">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BI_FECALTA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BI_USER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CURP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOMICILIO_CALLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOMICILIO_CODIGO_POSTAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DOMICILIO_NUM_EXT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DOMICILIO_NUM_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOMICILIO_TRABAJO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ESTATURA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ANIO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_CENTRO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_COLONIA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_DIALECTO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ENTIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ESCOLARIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ESTADO_CIVIL" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ETNIA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_IDIOMA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_IMPUTADO" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_MUNICIPIO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_NACIONALIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_OCUPACION" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_PAIS" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_RELIGION" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_TIPO_DISCAPACIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="IFE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMPUTADO_BIOMETRICO" nillable="true" type="tns:ArrayOfIMPUTADO_BIOMETRICO" />
+      <xs:element minOccurs="0" name="INGRESO" nillable="true" type="tns:ArrayOfINGRESO_BM" />
+      <xs:element minOccurs="0" name="LUGAR_RESIDENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MADRE_FINADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MATERNO_MADRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MATERNO_PADRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NACIMIENTO_ESTADO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="NACIMIENTO_FECHA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NACIMIENTO_LUGAR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NACIMIENTO_MUNICIPIO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="NACIMIENTO_PAIS" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="NIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOMBRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOMBRE_MADRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOMBRE_PADRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUMERO_IDENTIFICACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PADRE_FINADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PATERNO_MADRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PATERNO_PADRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PESO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="RESIDENCIA_ANIOS" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="RESIDENCIA_MESES" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEXO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SMATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SNOMBRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SPATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TABAJADOR_CERESO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="TELORIGINAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TRADUCTOR" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IMPUTADO_BM" nillable="true" type="tns:IMPUTADO_BM" />
+</xs:schema>

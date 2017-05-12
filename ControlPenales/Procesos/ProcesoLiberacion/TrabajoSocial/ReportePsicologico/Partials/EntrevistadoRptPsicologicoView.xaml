@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="ControlPenales.EntrevistadoRptPsicologicoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Name="WindowEntrevistadoRptPsicologico"
+             Width="auto" Height="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding EntrevistadoRptPsicologicoLoading}" CommandParameter="{Binding ElementName=WindowEntrevistadoRptPsicologico}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <AdornerDecorator>
+        <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="DESCRIPCIÓN ENTREVISTADO" Grid.Column="0" Grid.Row="0" Margin="5">
+                <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock   Name="DescripcionEntrv" Grid.Column="0" Grid.ColumnSpan="2">(Condiciones de aseo, aliño, actitud ante entrevistador, etc.)</TextBlock>
+                    <TextBox  MaxWidth="{Binding MaxWhidthEntrevistadoRptpsicologic}" Width="{Binding MaxWhidthEntrevistadoRptpsicologic}" HorizontalAlignment="Left"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" MaxLength="{Binding DescrEntrevistado_MaxLenght}" Height="100"  AcceptsReturn="True" CharacterCasing="Upper" Text="{Binding TextDescripcionEntrv, ValidatesOnDataErrors=True}"></TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="TÉCNICAS UTILIZADAS" Grid.Column="0" Grid.Row="1" Margin="5">
+                <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Name="TecnicasUtilizadas">(Entrevista Clínica, pruebas, psicológicas, observación directa, etc.)</TextBlock>
+                    <TextBox Grid.Row="1"  MaxWidth="{Binding MaxWhidthEntrevistadoRptpsicologic}" Width="{Binding MaxWhidthEntrevistadoRptpsicologic}" HorizontalAlignment="Left" Height="100" MaxLength="{Binding TecnicasUtiliz_MaxLenght}" AcceptsReturn="True" CharacterCasing="Upper" Text="{Binding TextTecnicasUtilizadas, ValidatesOnDataErrors=True}"></TextBox>
+                </Grid>
+
+            </GroupBox>
+
+            <GroupBox Header="EXAMEN MENTAL" Grid.Column="0" Grid.Row="2" Margin="5">
+                <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="txtExamenMental">(Pensamiento, conciencia, juicio, orientación, memoria, senso percepción, estado de ánimo, lenguaje, etc.)</TextBlock>
+                    <TextBox Grid.Row="1" MaxWidth="{Binding MaxWhidthEntrevistadoRptpsicologic}" HorizontalAlignment="Left" Width="{Binding MaxWhidthEntrevistadoRptpsicologic}" Height="100" AcceptsReturn="True" MaxLength="{Binding ExamenMental_MaxLenght}" CharacterCasing="Upper" Text="{Binding TextExamenMental, ValidatesOnDataErrors=True}"></TextBox>
+                </Grid>
+
+            </GroupBox>
+
+            <GroupBox Header="PERSONALIDAD" Grid.Column="0" Grid.Row="3" Margin="5">
+                <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Name="txtPersonalidad">(Estructura, dinámica, reacciones impulsivas, mecanismos de defensa, área sexual, rasgos patológicos, área, personal-social, etc.)</TextBlock>
+                    <TextBox Grid.Row="1" MaxWidth="{Binding MaxWhidthEntrevistadoRptpsicologic}" HorizontalAlignment="Left" Height="100" AcceptsReturn="True" Width="{Binding MaxWhidthEntrevistadoRptpsicologic}" CharacterCasing="Upper" MaxLength="{Binding Personalidad_MaxLenght}" Text="{Binding TextPersonalidad, ValidatesOnDataErrors=True}" Margin="0,1,0,-1"></TextBox>
+                </Grid>
+
+            </GroupBox>
+            <GroupBox Header="NÚCLEO FAMILIAR PRIMARIO" Grid.Column="0" Grid.Row="4" Margin="5">
+                <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="NucleoFamPrim">(Descripción y Relación)</TextBlock>
+                    <TextBox Grid.Row="1" MaxWidth="{Binding MaxWhidthEntrevistadoRptpsicologic}" HorizontalAlignment="Left" Width="{Binding MaxWhidthEntrevistadoRptpsicologic}" Height="100" MaxLength="{Binding NuceloFamprimario_MaxLenght}" AcceptsReturn="True" CharacterCasing="Upper" Text="{Binding TextNuceloFamPrimario, ValidatesOnDataErrors=True}"></TextBox>
+                </Grid>
+
+            </GroupBox>
+            <GroupBox Header="NÚCLEO FAMILIAR SECUNDARIO" Grid.Column="0" Grid.Row="5" Margin="5">
+                <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Name="NucleoFamSec">(Descripción y Relación)</TextBlock>
+                    <TextBox Grid.Row="1" MaxWidth="{Binding MaxWhidthEntrevistadoRptpsicologic}" HorizontalAlignment="Left" Width="{Binding MaxWhidthEntrevistadoRptpsicologic}" Height="100" MaxLength="{Binding NuceloFamsec_MaxLenght}" AcceptsReturn="True" CharacterCasing="Upper" Text="{Binding TextNuceloFamSecundario, ValidatesOnDataErrors=True}"></TextBox>
+                </Grid>
+
+            </GroupBox>
+            <GroupBox Header="OBSERVACIONES" Grid.Column="0" Grid.Row="6" Margin="5">
+                <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock  Name="lblObservaciones">(Descripción de situaciones de conflicto, eventos significativos  de la persona, etc.)</TextBlock>
+                    <TextBox  Grid.Row="1"  Height="100" MaxWidth="{Binding MaxWhidthEntrevistadoRptpsicologic}" HorizontalAlignment="Left" Width="{Binding MaxWhidthEntrevistadoRptpsicologic}" MaxLength="{Binding Observ_MaxLenght}" AcceptsReturn="True" CharacterCasing="Upper"  Text="{Binding TextObsrv, ValidatesOnDataErrors=True}" ></TextBox>
+                </Grid>
+
+            </GroupBox>
+
+            <GroupBox Header="SUGERENCIAS" Grid.Column="0" Grid.Row="7" Margin="5" Name="GrbSugerencias">
+                <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="1" Height="100" MaxWidth="{Binding MaxWhidthEntrevistadoRptpsicologic}" HorizontalAlignment="Left"  MaxLength="{Binding Sugerencias_MaxLenght}" Width="{Binding MaxWhidthEntrevistadoRptpsicologic}" AcceptsReturn="True" CharacterCasing="Upper" Text="{Binding TextSugerencia, ValidatesOnDataErrors=True}" Margin="0,-1,0,1"></TextBox>
+                </Grid>
+
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

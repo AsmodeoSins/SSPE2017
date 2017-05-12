@@ -1,0 +1,224 @@
+﻿<UserControl x:Class="ControlPenales.RegistroProgramasReinsercionView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid Margin="0 50 0 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0"  Content="Modelo Estratégico" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <GroupBox Header="Exclusivo Consultas" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+            <DataGrid MaxHeight="100" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Departamento"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tipo Programa"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tipo Actividad"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Programa"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Inicia"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Finaliza"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Etapa"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Status"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <GroupBox Header="Datos del Grupo" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Departamento</Label>
+                <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">Responsable</Label>
+                <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="5">Descripción del Programa</Label>
+                <Label Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="4">Objetivo</Label>
+                <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></ComboBox>
+                <ComboBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3"></ComboBox>
+                <TextBox Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="5"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="10" Grid.ColumnSpan="4"></TextBox>
+
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1">Etapa</Label>
+                <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">Tipo de Programa</Label>
+                <Label Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2">Tipo de Actividad</Label>
+                <Label Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="1">Status</Label>
+                <Label Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2">Area</Label>
+                <Label Grid.Row="2" Grid.Column="8" Grid.ColumnSpan="2">Recurrencia</Label>
+                <Label Grid.Row="2" Grid.Column="10" Grid.ColumnSpan="2">Fecha Inicial</Label>
+                <Label Grid.Row="2" Grid.Column="12" Grid.ColumnSpan="2">Fecha Final</Label>
+                <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1"></ComboBox>
+                <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"></ComboBox>
+                <ComboBox Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"></ComboBox>
+                <ComboBox Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="1"></ComboBox>
+                <ComboBox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2"></ComboBox>
+                <ComboBox Grid.Row="3" Grid.Column="8" Grid.ColumnSpan="2"></ComboBox>
+                <DatePicker Grid.Row="3" Grid.Column="10" Grid.ColumnSpan="2" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+                <DatePicker Grid.Row="3" Grid.Column="12" Grid.ColumnSpan="2" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+            </Grid>
+        </GroupBox>
+
+        <Controls:MetroAnimatedSingleRowTabControl TabStripPlacement="Top" Grid.Column="0" Grid.Row="3" Grid.RowSpan="3">
+            <TabItem Header="PARTICIPANTES" Style="{StaticResource HeaderTabStyle}">
+                <GroupBox Header="Listado de Participantes" Grid.RowSpan="3" FontSize="11.5">
+                    <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Apellido Paterno"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Apellido Materno"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Folio"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Status"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Evaluación"></DataGridTextColumn>
+                            <DataGridCheckBoxColumn Header="H_Duplex"></DataGridCheckBoxColumn>
+                            <DataGridCheckBoxColumn Header="Prioridad"></DataGridCheckBoxColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="PROGRAMADOS" Style="{StaticResource HeaderTabStyle}">
+                <GroupBox Header="Seleccionar Interno para Agregar al Grupo" FontSize="11.5">
+                    <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Apellido Paterno"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Apellido Materno"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Folio"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Fecha Registro"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Status"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Lista"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Por Compurgar"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </TabItem>
+            <TabItem Header="{Binding SuspendidosTabName}" Style="{StaticResource HeaderTabStyle}">
+                <StackPanel>
+                    <GroupBox Header="Suspendidos" FontSize="11.5">
+                        <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Apellido Paterno"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Apellido Materno"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Status"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Evaluacion"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Cancelados" Visibility="{Binding Path=CanceladosVisible, Converter={StaticResource booleanToVisibilityConverter}}" FontSize="11.5">
+                        <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Apellido Paterno"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Apellido Materno"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Status"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Evaluacion"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+        <GroupBox Header="Diariamente"  Grid.Column="1" Grid.Row="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">Hora de Inicio</Label>
+                <Label Grid.Row="0" Grid.Column="1">Hora de Termino</Label>
+                <TextBox Grid.Row="1" Grid.Column="0"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Semanal" Grid.Column="1" Grid.Row="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">Día</Label>
+                <Label Grid.Row="0" Grid.Column="1">Hora de Inicio</Label>
+                <Label Grid.Row="0" Grid.Column="2">Hora de Termino</Label>
+                <ComboBox Grid.Row="1" Grid.Column="0"></ComboBox>
+                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="2"></TextBox>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Fecha Especifica" Grid.Column="1" Grid.Row="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">Día</Label>
+                <Label Grid.Row="0" Grid.Column="1">Hora de Inicio</Label>
+                <Label Grid.Row="0" Grid.Column="2">Hora de Termino</Label>
+                <ComboBox Grid.Row="1" Grid.Column="0"></ComboBox>
+                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="2"></TextBox>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

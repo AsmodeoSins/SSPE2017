@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="ControlPenales.SancionesDisciplinariasView"
+             x:Name="SancionesDisciplinariasWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SancionesDisciplinariasLoading}" CommandParameter="{Binding ElementName=SancionesDisciplinariasWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+
+        <Label Grid.Column="0" Grid.Row="1" Content="Sanciones Disciplinarias" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <GroupBox Header="Datos del Expediente" Grid.Column="0" Grid.Row="2">
+            <Views:DatosExpedienteView />
+        </GroupBox>
+
+        <GroupBox Header="Incidentes Reportados" Grid.Column="0" Grid.Row="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <DataGrid Grid.Column="0" Grid.Row="0" MaxHeight="150" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding LstIncidente,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedIncidente}" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Fecha Registro" Binding="{Binding REGISTRO_FEC,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding INCIDENTE_TIPO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Motivo" Binding="{Binding MOTIVO}" ></DataGridTextColumn>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="nuevo_incidente" />
+                            <MenuItem Header="Editar"  Command="{Binding OnClick}" CommandParameter="editar_incidente"/>
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_incidente"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+                <Label Grid.Column="0" Grid.Row="1" FontStyle="Italic" HorizontalAlignment="Center" Visibility="{Binding EmptyIncidente,Converter={StaticResource booleanToVisibilityConverter}}">No hay información.</Label>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Sanciones" Grid.Column="0" Grid.Row="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid MaxHeight="150" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                        ItemsSource="{Binding SelectedIncidente.SANCION,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SancionSelected}" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Sanción" Binding="{Binding SANCION_TIPO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha Inicio" Binding="{Binding INICIA_FEC,StringFormat=dd/MM/yyyy hh:mm tt}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha Final" Binding="{Binding TERMINA_FEC,StringFormat=dd/MM/yyyy hh:mm tt}"></DataGridTextColumn>
+
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="nuevo_sancion" Visibility="{Binding VAgregarSancion}" />
+                            <MenuItem Header="Editar"  Command="{Binding OnClick}" CommandParameter="editar_sancion" Visibility="{Binding VEditarSancion}"/>
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_sancion"  Visibility="{Binding VEliminarSancion}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+                <Label Grid.Column="0" Grid.Row="1" FontStyle="Italic" HorizontalAlignment="Center" Visibility="{Binding EmptySanciones,Converter={StaticResource booleanToVisibilityConverter}}">No hay información.</Label>
+            </Grid>
+        </GroupBox>
+
+                <!--<Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="4" TabStripPlacement="Top" Controls:ControlsHelper.IsUnderlined="True" >
+            <TabItem Header="DATOS" Style="{StaticResource HeaderTabStyle}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Header="Datos del Incidente" FontSize="11.5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0">Fecha de Registro</Label>
+                            <Label Grid.Row="0" Grid.Column="1">Motivo</Label>
+                            <Label Grid.Row="2" Grid.Column="0">Tipo de Incidente</Label>
+
+                            <DatePicker Grid.Row="1" Grid.Column="0" Controls:TextboxHelper.Watermark="Selecciona una fecha" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="3"></TextBox>
+                            <ComboBox Grid.Row="3" Grid.Column="0"></ComboBox>
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Sanciones" Grid.Row="1" FontSize="11.5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                            <DataGrid MinHeight="120">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Sancion"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Inicio"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Final"></DataGridTextColumn>
+                                    
+                                </DataGrid.Columns>                               
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Insertar" Name="InsertarSancion1" Command="{Binding ClickPageCommand}" CommandParameter="insertar_sancion" />
+                                        <MenuItem Header="Borrar" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+
+                        </Grid>
+                </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="REPORTE" Style="{StaticResource HeaderTabStyle}" IsEnabled="False">
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>-->
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,19 @@
+﻿namespace ControlPenales
+{
+    public enum enumTipoDocumentoImputado
+    {
+        ACTA_CONSEJO_TECNICO_INTERDICIPLINARIO = 108,
+        SALA_CABOS = 162,
+        ORDEN_LIBERTAD = 337,
+        PARTIDA_JURIDICA = 338,
+        BOLETA_LIBERTAD = 339,
+        FORMATO_EVENTO = 340,
+        ASESORIA_JURIDICA = 341,
+        ATENCION_INTERNO = 342,
+        CITATORIO_INTERNO = 343,
+        HOJA_REFERENCIA_MEDICA=344,
+        OFICIO_ASIGNACION_NSJ = 345,
+        OFICIO_ASIGNACION_TRADICIONAL = 346,
+        OFICIO_CONCLUSION = 347
+    }
+}

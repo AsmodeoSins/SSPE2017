@@ -1,0 +1,181 @@
+﻿<UserControl x:Class="ControlPenales.AmparoDirectoView"
+             x:Name="AmparoDirectoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding AmparoDirectoOnLoading}" CommandParameter="{Binding ElementName=AmparoDirectoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="3" VerticalAlignment="Center" Margin="5 5 5 0" HorizontalAlignment="Right">
+            <Label HorizontalAlignment="Center" Content="Digitalización Documentos" Padding="0" />
+            <Button Grid.Row="0" Width="50" Height="50"
+                ToolTip="Digitalización Documentos" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" 
+                CommandParameter="digitalizar_amparo_directo" IsEnabled="{Binding DAmparoDirecto}" >
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_printer_text}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <Label Grid.Column="0" Grid.Row="1" Content="No. Oficio"></Label>
+        <Label Grid.Column="1" Grid.Row="1" Content="Fecha Documento"></Label>
+        <Label Grid.Column="2" Grid.Row="1" Content="Fecha Notificación"></Label>
+
+        <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding ADNoOficio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper">
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="20" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <!--<DatePicker Grid.Column="1" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding ADFechaDocumento,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />-->
+        <!--<Border Grid.Column="1" Grid.Row="2" BorderBrush="Red" ToolTipService.IsEnabled="{Binding ADFechaDocumentoValid, Converter={Views:BoolToOppositeBoolConverter}}">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ADFechaDocumentoValid,ValidatesOnDataErrors=True}" Value="False">
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <ToolTipService.ToolTip>
+                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                    <ToolTip.Content>
+                        <TextBlock Text="FECHA DE DOCUMENTO ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                    </ToolTip.Content>
+                </ToolTip>
+            </ToolTipService.ToolTip>-->
+            <DatePicker Grid.Column="1" Grid.Row="2" Controls:TextBoxHelper.Watermark ="Selecciona una fecha"  SelectedDate="{Binding ADFechaDocumento,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+        <!--</Border>-->
+
+        <!--<DatePicker Grid.Column="2" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding ADFechaNotificacion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />-->
+        <!--<Border Grid.Column="2" Grid.Row="2" BorderBrush="Red" ToolTipService.IsEnabled="{Binding ADFechaNotificacionValid, Converter={Views:BoolToOppositeBoolConverter}}">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ADFechaNotificacionValid,ValidatesOnDataErrors=True}" Value="False">
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <ToolTipService.ToolTip>
+                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                    <ToolTip.Content>
+                        <TextBlock Text="FECHA DE NOTIFICACION ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                    </ToolTip.Content>
+                </ToolTip>
+            </ToolTipService.ToolTip>-->
+            <DatePicker Grid.Column="2" Grid.Row="2" Controls:TextBoxHelper.Watermark ="Selecciona una fecha"  SelectedDate="{Binding ADFechaNotificacion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+        <!--</Border>-->
+
+        <Label Grid.Column="0" Grid.Row="3" Content="Fecha Suspensión"></Label>
+        <Label Grid.Column="1" Grid.Row="3" Content="Autoridad Informa"></Label>
+
+
+        <!--<DatePicker Grid.Column="0" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding ADFechaSuspencion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />-->
+        <!--<Border Grid.Column="0" Grid.Row="4" BorderBrush="Red" ToolTipService.IsEnabled="{Binding ADFechaSuspencionValid, Converter={Views:BoolToOppositeBoolConverter}}">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ADFechaSuspencionValid,ValidatesOnDataErrors=True}" Value="False">
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <ToolTipService.ToolTip>
+                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                    <ToolTip.Content>
+                        <TextBlock Text="LFECHA DE SUSPENCION ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                    </ToolTip.Content>
+                </ToolTip>
+            </ToolTipService.ToolTip>-->
+            <DatePicker Grid.Column="0" Grid.Row="4" Controls:TextBoxHelper.Watermark ="Selecciona una fecha"  SelectedDate="{Binding ADFechaSuspencion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+        <!--</Border>-->
+        <ComboBox Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" ItemsSource="{Binding LstJuzgadoAmparo,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR" SelectedValuePath="ID_JUZGADO" SelectedValue="{Binding ADAutoridadInforma,ValidatesOnDataErrors=True}"></ComboBox>
+
+        
+        <GroupBox Header="Seguimiento" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="No. Amparo"></Label>
+                <Label Grid.Column="1" Grid.Row="0" Content="Autoridad que Notifica"></Label>
+
+                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding ADNoAmparo,UpdateSourceTrigger=PropertyChanged }" CharacterCasing="Upper">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="20" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LstJuzgadoAmparo,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR" SelectedValuePath="ID_JUZGADO" SelectedValue="{Binding ADAutoridadNotifica }"></ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="No. Oficio"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Content="Fecha del Documento"></Label>
+                <Label Grid.Column="2" Grid.Row="2" Content="Fecha de Sentencia"></Label>
+
+                <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding ADNoOficioResuelve ,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="20" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding ADFechaDocumentoResuelve ,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />
+                <DatePicker Grid.Column="2" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding ADFechaSentenciaResuelve ,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />
+
+                <Label Grid.Column="0" Grid.Row="4" Content="Resultado"></Label>
+                <Label Grid.Column="1" Grid.Row="4" Content="Autoridad que Resuelve"></Label>
+
+                <ComboBox Grid.Column="0" Grid.Row="5" ItemsSource="{Binding LstSentenciaAD,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID_SEN_AMP_RESULTADO" DisplayMemberPath="DESCR" SelectedValue="{Binding ADResultadoSentencia}"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource="{Binding LstJuzgadoAmparo,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR" SelectedValuePath="ID_JUZGADO" SelectedValue="{Binding ADAutoridadResuelve}"></ComboBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

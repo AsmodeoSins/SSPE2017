@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="ControlPenales.InformeSeccionVigilanciaFFView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1100" d:DesignHeight="600">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Header="Datos del imputado">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Nombre" Name="lblRe1"></Label>
+                    <TextBox Grid.Column="0" MaxLength="100" Grid.Row="1" Text="{ Binding NombreImpVigilanciaFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe1, Path=ActualWidth}"></TextBox>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Fecha de ingreso"></Label>
+                    <DatePicker Grid.Column="1" Grid.Row="1" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{ Binding FecIngresoImputado, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Centro de reclusión de donde procede"></Label>
+                    <TextBox Grid.Column="2" Grid.Row="1" MaxLength="100" Text="{ Binding NombreCentroProcede, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe1, Path=ActualWidth}"></TextBox>
+                </Grid>
+            </GroupBox>
+            <Label Grid.Column="0" Grid.Row="1" Content="Conducta que se observó en el mismo"></Label>
+            <ComboBox SelectedValuePath="Tag" Grid.Column="0" Grid.Row="2" SelectedValue="{ Binding IdConducta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="EXCELENTE" Tag="E"></ComboBoxItem>
+                <ComboBoxItem Content="BUENA" Tag="B"></ComboBoxItem>
+                <ComboBoxItem Content="REGULAR" Tag="R"></ComboBoxItem>
+                <ComboBoxItem Content="MALA" Tag="M"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="1" Grid.Row="1" Content="Motivo de traslado" Name="lblRee1"></Label>
+            <TextBox Grid.Column="1" MaxLength="500" Grid.Row="2" MaxWidth="{ Binding ElementName=lblRee1, Path=ActualWidth}" Text="{ Binding MotivoTraslado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+            <Label Grid.Column="2" Grid.Row="1" Content="Conducta con sus superiores"></Label>
+            <ComboBox SelectedValuePath="Tag" Grid.Column="2" Grid.Row="2" SelectedValue="{ Binding IdConductaSuperiores, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="EXCELENTE" Tag="E"></ComboBoxItem>
+                <ComboBoxItem Content="BUENA" Tag="B"></ComboBoxItem>
+                <ComboBoxItem Content="REGULAR" Tag="R"></ComboBoxItem>
+                <ComboBoxItem Content="MALA" Tag="M"></ComboBoxItem>
+            </ComboBox>
+            <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="0" Grid.Row="3" Text="Relación con sus compañeros (Aislamiento, agresividad, camaraderia, dominante, indiferente)"></TextBlock>
+            <TextBox Grid.Column="0" MaxLength="500" MaxWidth="{ Binding ElementName=lblRee1, Path=ActualWidth}" Grid.Row="4" CharacterCasing="Upper" Text="{ Binding RelacionCompaneros, UpdateSourceTrigger=PropertyChanged}"  ></TextBox>
+            <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="1" Grid.Row="3" Text="Descripción de su conducta (Rebelde, agresivo, docil, disciplinado, se adapta sin conflictos)"></TextBlock>
+            <TextBox Grid.Column="1" CharacterCasing="Upper" Grid.Row="4" MaxLength="500" MaxWidth="{ Binding ElementName=lblRee1, Path=ActualWidth}" Text="{ Binding DescripcionConducta, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Grid.Column="2" Grid.Row="3" Content="Higiene personal"></Label>
+            <ComboBox SelectedValuePath="Tag" Grid.Column="2" Grid.Row="4" SelectedValue="{ Binding IdHigienePersonal, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="BUENA" Tag="B"></ComboBoxItem>
+                <ComboBoxItem Content="REGULAR" Tag="R"></ComboBoxItem>
+                <ComboBoxItem Content="MALA" Tag="M"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="5" Content="Higiene en su celda"></Label>
+            <ComboBox SelectedValuePath="Tag" Grid.Column="0" Grid.Row="6" SelectedValue="{ Binding IdHigieneEnCelda, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="BUENA" Tag="B"></ComboBoxItem>
+                <ComboBoxItem Content="REGULAR" Tag="R"></ComboBoxItem>
+                <ComboBoxItem Content="MALA" Tag="M"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="1" Grid.Row="5" Content="Recibe visitas"></Label>
+            <ComboBox SelectedValuePath="Tag" Grid.Column="1" Grid.Row="6" SelectedValue="{ Binding IdRecibeVisita, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="2" Grid.Row="5" Content="Frecuencia" Name="lblRe4"></Label>
+            <TextBox Grid.Column="2" MaxLength="100" IsEnabled="{ Binding IsEnabledCamposV2, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" 
+                 CharacterCasing="Upper" Text="{ Binding RecibeVisitaFrecuencia, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblRe4, Path=ActualWidth}"></TextBox>
+            <Label Grid.Column="0" Grid.Row="7" Content="De quiénes"></Label>
+            <Grid Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBox MaxLength="500" Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="0" IsEnabled="{ Binding IsEnabledCamposV2, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                 Text="{ Binding QuienesRecibeVisita, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                <Button Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Grid.Column="5" Grid.Row="0" IsEnabled="{ Binding IsEnabledCamposV2, UpdateSourceTrigger=PropertyChanged}"
+                CommandParameter="seleccionar_quienes_visitan_vigilancia_federal" Command="{Binding OnClick}" Content="Seleccionar"></Button>
+            </Grid>
+            <Label Grid.Column="2" Grid.Row="7" Content="Conducta con la familia"></Label>
+            <ComboBox SelectedValuePath="Tag" Grid.Column="2" Grid.Row="8" SelectedValue="{ Binding IdConductaConFam, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="BUENA" Tag="B"></ComboBoxItem>
+                <ComboBoxItem Content="REGULAR" Tag="R"></ComboBoxItem>
+                <ComboBoxItem Content="MALA" Tag="M"></ComboBoxItem>
+            </ComboBox>
+            <GroupBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="3" Header="Correctivos disciplinarios">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid ItemsSource="{ Binding LstCorrectivosFF}" IsReadOnly="True" AutoGenerateColumns="False" Height="auto" CanUserAddRows="False" Grid.ColumnSpan="2"
+                        Style="{StaticResource MetroDataGrid}" SelectedItem="{ Binding SeleCorrecFF}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Fecha"  Binding="{ Binding FECHA }" />
+                            <DataGridTextColumn Header="Motivo" Binding="{ Binding MOTIVO }" />
+                            <DataGridTextColumn Header="Resolución del H. consejo técnico" Binding="{ Binding RESOLUCION }" />
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="agregar_sanc_ff" Visibility="{Binding MostrarOpcion}" />
+                                <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_sanc_ff" Visibility="{Binding MostrarOpcion}" />
+                                <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_sanc_ff" Visibility="{Binding MostrarOpcion}" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+            <Label Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Content="Estímulos por buena conducta" Name="lblRe6"></Label>
+            <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" MaxLength="500" Text="{ Binding EstimulosBuenaConducta, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe6, Path=ActualWidth}"></TextBox>
+            <Label Grid.Column="2" Grid.Row="10" Content="Clasificación de la conducta en general"></Label>
+            <ComboBox SelectedValuePath="Tag" Grid.Column="2" Grid.Row="11" SelectedValue="{ Binding IdClasificConductaGral, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="EXCELENTE" Tag="E"></ComboBoxItem>
+                <ComboBoxItem Content="BUENA" Tag="B"></ComboBoxItem>
+                <ComboBoxItem Content="REGULAR" Tag="R"></ComboBoxItem>
+                <ComboBoxItem Content="MALA" Tag="M"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="12" Content="Conclusiones" Grid.ColumnSpan="3" Name="lblReferenciaConclusiones"></Label>
+            <TextBox Grid.Column="0" Grid.Row="13" MaxLength="500" Grid.ColumnSpan="3" MinHeight="40" Text="{ Binding ConclusionesGrales, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferenciaConclusiones, Path=ActualWidth}"></TextBox>
+            <Label Grid.Column="0" Grid.Row="14" Content="Fecha del estudio"></Label>
+            <DatePicker Grid.Column="0" Grid.Row="15" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{ Binding FecVigiFF, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+            <Label Grid.Column="1" Grid.Row="14" Content="Lugar" Grid.ColumnSpan="2" Name="lblreeeee2"></Label>
+            <TextBox Grid.Column="1" Grid.Row="15" CharacterCasing="Upper" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblreeeee2, Path=ActualWidth}" Text="{ Binding LugarVigi, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"></TextBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

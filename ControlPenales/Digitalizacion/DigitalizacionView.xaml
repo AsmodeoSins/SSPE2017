@@ -1,0 +1,347 @@
+﻿<UserControl x:Class="ControlPenales.DigitalizacionView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="300" MinWidth="300"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+            <ColumnDefinition Width="75"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition MaxHeight="390" MinHeight="390"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Digitalización de Expedientes" Style="{DynamicResource DescriptionHeaderStyle}" />
+        
+        <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Header="Datos del Expediente">
+            <Views:DatosExpedienteView></Views:DatosExpedienteView>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="2" Grid.Row="1" Header="Visualización">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <Button Grid.Column="1" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cursor_hand}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <Button Grid.Column="2" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <Button Grid.Column="3" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <Button Grid.Column="4" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_minus}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">Acercamiento</Label>
+                
+                <ComboBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Height="25" Margin="0 0 10 0"></ComboBox>
+                
+                <Button Grid.Column="3" Grid.Row="1" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_arrow_right}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+                <Button Grid.Column="4" Grid.Row="1" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_arrow_left}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+            </Grid>
+        </GroupBox>
+
+        <Grid Grid.Column="3" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Buscar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+            
+            <Button Grid.Column="0" Grid.Row="1" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Borrar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="None" Visual="{DynamicResource appbar_minus}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button Grid.Column="0" Grid.Row="2" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+
+        </Grid>
+        
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Documento a Digitalizar">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition MaxWidth="50" MinWidth="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Tipo"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Content="Brillo"></Label>
+                <Slider Grid.Column="0" Grid.Row="3" Minimum="-1000" Maximum="1000" Value="{Binding ValueBrillo,Mode=TwoWay}" Name="sTest" LargeChange="10" SmallChange="1" Margin="0, 10, 0, 0" />
+                <Label Grid.Column="1" Grid.Row="3" Content="{Binding ValueBrillo}"></Label>
+
+                <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Contraste"></Label>
+                <Slider Grid.Column="0" Grid.Row="5" Minimum="-1000" Maximum="1000" Value="{Binding ValueContraste,Mode=TwoWay}" LargeChange="10" SmallChange="1" Margin="0, 10, 0, 0" />
+                <Label Grid.Column="1" Grid.Row="5" Content="{Binding ValueContraste}" ></Label>
+
+                <Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Resolución"></Label>
+                <Slider Grid.Column="0" Grid.Row="7" Minimum="50" Maximum="600" Value="{Binding ValueResolucion, Mode=TwoWay}" LargeChange="10" SmallChange="1" Margin="0, 10, 0, 0" />
+                <Label Grid.Column="1" Grid.Row="7" Content="{Binding Resolucion}"></Label>
+
+                <Grid Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Izquierda"></Label>
+                    <TextBox Grid.Column="1" Grid.Row="0"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="0" Content="in"></Label>
+
+                    <Label Grid.Column="3" Grid.Row="0" Content="Derecha"></Label>
+                    <TextBox Grid.Column="4" Grid.Row="0"></TextBox>
+                    <Label Grid.Column="5" Grid.Row="0" Content="in"></Label>
+
+                    <Label Grid.Column="0" Grid.Row="1" Content="Superior" Margin="0 10 0 0"></Label>
+                    <TextBox Grid.Column="1" Grid.Row="1"  Margin="0 10 0 0"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="1" Content="in"  Margin="0 10 0 0"></Label>
+
+                    <Label Grid.Column="3" Grid.Row="1" Content="Inferior"  Margin="0 10 0 0"></Label>
+                    <TextBox Grid.Column="4" Grid.Row="1"  Margin="0 10 0 0"></TextBox>
+                    <Label Grid.Column="5" Grid.Row="1" Content="in"  Margin="0 10 0 0"></Label>
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Column="0" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+
+                    <Button Grid.Column="1" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+
+                    <Button Grid.Column="2" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="3" Header="Documento Actual">
+        </GroupBox>
+
+        <Grid Grid.Column="0" Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="2" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button Grid.Column="3" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_play}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button Grid.Column="1" Grid.Row="1" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_rewind_variant}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button Grid.Column="2" Grid.Row="1" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_rewind}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button Grid.Column="3" Grid.Row="1" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_fastforward}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button Grid.Column="4" Grid.Row="1" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_control_fastforward_variant}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Bold" HorizontalAlignment="Center" Width="77" Content="Documento"></Label>
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Bold" Padding="0 20 0 0" HorizontalAlignment="Center" Content="0 de 0"></Label>
+
+            <Label Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Bold" HorizontalAlignment="Center" Content="Página"></Label>
+            <Label Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Bold" Padding="0 20 0 0" HorizontalAlignment="Center" Content="0 de 0"></Label>
+        </Grid>
+
+        <!--<DocumentViewer Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="4" />-->
+        <ScrollViewer Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="4"  Margin="10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Image Source="{Binding Digitalizacion}" Width="auto" >
+                <Image.RenderTransform>
+                    <ScaleTransform ScaleX="{Binding ElementName=sTest,Path=Value}" ScaleY="{Binding ElementName=sTest,Path=Value }"/>
+                </Image.RenderTransform>
+            </Image>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="GESAL.Views.RechazoProductoEntradaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Converters="clr-namespace:MVVMShared.Converters;assembly=MVVMShared"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:HLDatePicker="clr-namespace:GESAL.Views.Controles.HighlightDatesDatePicker">
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" Width="888"
+					CornerRadius="10,0,10,0"  HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="420" MinHeight="320">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource estiloTituloControlTextBlock}" Text="{Binding EncabezadoIncidenciaProducto}" Width="800" HorizontalAlignment="Left" TextWrapping="Wrap"></TextBlock>
+                    <GroupBox Header="Capturar Indicencia" Visibility="{Binding IsCapturarIncidenciaVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".2*"></ColumnDefinition>
+                                <ColumnDefinition Width=".8*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Tipo de Incidencia:" Margin="5"></TextBlock>
+                            <ComboBox Grid.Column="1" ItemsSource="{Binding Incidencia_Tipos}" SelectedItem="{Binding SelectedIncidencia_Tipo, ValidatesOnDataErrors=True}" Margin="5" DisplayMemberPath="DESCR"></ComboBox>
+                            <TextBlock Text="Observaciones:" Grid.Row="1" Margin="5"></TextBlock>
+                            <TextBox Margin="5" Text="{Binding Observacion_Incidencia,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" MaxLength="1000" CharacterCasing="Upper" 
+                         AcceptsReturn="True" Height="100" Grid.Row="1" Grid.Column="1"></TextBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Recalendarizar producto" Visibility="{Binding IsRecalendarizarVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".2*"></ColumnDefinition>
+                                <ColumnDefinition Width=".8*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Cantidad a Recalendarizar" Margin="5"></TextBlock>
+                            <TextBlock Grid.Column="1"  Text="{Binding Producto_Rechazar.RESTANTE}" Margin="5"></TextBlock>
+                            <TextBlock Text="Recalendarizar" Grid.Row="1" Margin="5"></TextBlock>
+                            <Border BorderBrush="Red" HorizontalAlignment="Left" ToolTipService.IsEnabled="{Binding IsFechaValid, Converter={Converters:BoolToOppositeBoolConverter}}" Grid.Column="1" Grid.Row="1" Margin="5">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                        <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsFechaValid}" Value="False">
+                                                <Setter Property="BorderThickness" Value="1"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                        <ToolTip.Content>
+                                            <TextBlock Text="LA FECHA TIENE QUE SER VALIDA!" Style="{StaticResource errorLabel}"/>
+                                        </ToolTip.Content>
+                                    </ToolTip>
+                                </ToolTipService.ToolTip>
+                                <!--Cuidado:El datepicker no puede ser validado directamente bajo las reglas del viewmodel -->
+                                <HLDatePicker:HighlightDatesDatePicker HorizontalAlignment="Left" AlternativeCalendarStyle="{StaticResource MetroCalendarCustom}" SelectedDate="{Binding FechaRecalidarizarProductoRechazado}" WatermarkText="Selecciona una fecha"
+                                                                      HighlightedDateList="{Binding SelectedFechasEntregaProveedor, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" ShowDateHighlighting="True" ShowHighlightedDateText="False" 
+                                                                      DateHighlightBrush="LightSkyBlue" DisplayDate="{Binding RecalendarizarDisplayDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayDateStart="{Binding FechaActual}"/>
+                            </Border>
+                            
+                        </Grid>
+                    </GroupBox>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Aceptar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdRechazarProducto}" CommandParameter="ok" HorizontalAlignment="Center"></Button>
+                        <Button Content="Cancelar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdCancelarRechazarProducto}" CommandParameter="cancelado" HorizontalAlignment="Center" ></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

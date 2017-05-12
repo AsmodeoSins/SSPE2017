@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ControlPenales.PandillasEstatusAdminView"
+             x:Name="PandillasEstatusAdminWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+               xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding PandillasLoading}" CommandParameter="{Binding ElementName=PandillasEstatusAdminWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <GroupBox Header="pandilla(s) a las que pertenece y/o se le relaciona">
+        <Grid>
+            <DataGrid Height="500" Style="{StaticResource MetroDataGrid}" Margin="0,0,0,10" ItemsSource="{Binding ImputadoPandilla}" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedImputadoPandilla}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Pandilla" Width="250" Binding="{Binding PANDILLA.NOMBRE}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Notas" Width="500" Binding="{Binding NOTAS}" ></DataGridTextColumn>
+                </DataGrid.Columns>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_pandilla" />
+                        <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_pandilla" />
+                        <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_pandilla" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
+    </GroupBox>
+</UserControl>

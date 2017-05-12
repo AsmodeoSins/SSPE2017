@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="ControlPenales.HistoricoTratamientoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+    <AdornerDecorator>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                     MaxHeight="500" MinHeight="500" MinWidth="666" MaxWidth="666">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Grid.Column="0" Grid.Row="0"  Content="Histórico de Tratamiento" Style="{DynamicResource DescriptionHeaderStyle}" />
+                    
+                    <Grid Grid.Column="0" Grid.Row="1" Name="DynamicGridHistorico" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="True" Background="LightSteelBlue" />
+                    
+                    <Button Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cerrar_historico_tratamiento" Command="{Binding OnClick}">Cerrar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

@@ -1,0 +1,174 @@
+﻿<UserControl x:Class="ControlPenales.CatalogoCentrosView"
+             x:Name="CentrosWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CentroLoading}" CommandParameter="{Binding ElementName=CentroWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:CatalogosEstatus x:Key="EstatusNull"/>
+    </UserControl.Resources>
+    <StackPanel>
+
+        <Views:MenuCatalogosView />
+
+        <Grid Visibility="{Binding GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="{Binding CatalogoHeader,Mode=TwoWay}" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label>Búsqueda</Label>
+                <TextBox IsEnabled="{Binding BuscarHabilitado}" Margin="2" MinWidth="200" MaxWidth="500" Text="{Binding Busqueda}" CharacterCasing="Upper" MaxLength="{Binding MaxLength}" Name="txtBuscar">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Estado</Label>
+                    <ComboBox IsEnabled="{Binding EstadoHabilitado}" Margin="2" MinWidth="200" MaxWidth="500" DisplayMemberPath="DESCR" ItemsSource="{Binding ListEntidadFiltro}" SelectedValue="{Binding SelectedEntidad}">
+                        <ComboBox.InputBindings>
+                            <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                        </ComboBox.InputBindings>
+                    </ComboBox>
+                    <Label>Municipio</Label>
+                    <ComboBox IsEnabled="{Binding MunicipioHabilitado}" Margin="2" MinWidth="200" MaxWidth="500" ItemsSource="{Binding ListMunicipios}" DisplayMemberPath="MUNICIPIO1" SelectedValue="{Binding SelectedMunicipio}" >
+                        <ComboBox.InputBindings>
+                            <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                        </ComboBox.InputBindings>
+                    </ComboBox>
+                </StackPanel>
+                <Button IsEnabled="{Binding BuscarHabilitado}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar" Content="Buscar"
+                Command="{Binding OnClick}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </Button.InputBindings>
+                </Button>
+            </StackPanel>
+
+            <DataGrid Grid.Row="2" Margin="10" MaxHeight="700" ItemsSource="{Binding ListItems}" SelectedItem="{Binding SelectedItem}" IsReadOnly="True" AutoGenerateColumns="False" 
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedIndex="{Binding SeleccionIndice}" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Municipio" Binding="{Binding MUNICIPIO.MUNICIPIO1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Descripción" Binding="{Binding DESCR}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Calle" Binding="{Binding CALLE}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Núm. Ext" Binding="{Binding NUM_EXT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Núm. Int" Binding="{Binding NUM_INT}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Colonia" Binding="{Binding COLONIA}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="CP" Binding="{Binding CP}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Teléfono" Binding="{Binding TELEFONO}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fax" Binding="{Binding FAX}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Director" Binding="{Binding DIRECTOR}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Estatus" Binding="{Binding ESTATUS,Converter={StaticResource EstatusNull}}"></DataGridTextColumn>
+                </DataGrid.Columns>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Style.Triggers>
+                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding EmptyVisible, Converter={StaticResource booleanToVisibilityConverter}}" Content="No hay información"></Label>
+        </Grid>
+
+        <Grid Visibility="{Binding AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}" Margin="10,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Content="{Binding HeaderAgregar}" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <Label Grid.Column="0" Grid.Row="1" Content="Nombre"></Label>
+            <TextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Nombre,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  CharacterCasing="Upper" MaxLength="30"></TextBox>
+            <Label Grid.Column="2" Grid.Row="1" Content="Estatus"></Label>
+            <ComboBox Grid.Column="2" Grid.Row="2" ItemsSource="{Binding Lista_Estatus.LISTA_ESTATUS}" DisplayMemberPath="DESCRIPCION" SelectedItem="{Binding SelectedEstatus,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+            <Label Grid.Column="0" Grid.Row="3" FontWeight="Bold" Content="Dirección"></Label>
+            
+            <Label Grid.Column="0" Grid.Row="4" Content="Estado"></Label>
+            <Label Grid.Column="1" Grid.Row="4" Content="Municipio"></Label> 
+            <Label Grid.Column="2" Grid.Row="4" Content="Colonia"></Label>
+
+            <!--<ComboBox Grid.Column="0" Grid.Row="5" ItemsSource="{Binding ListEntidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ENTIDAD" SelectedValue="{Binding Centro.ID_ENTIDAD, Mode=TwoWay}" SelectedItem="{Binding Entidad}" ></ComboBox>-->
+            <ComboBox Grid.Column="0" Grid.Row="5" ItemsSource="{Binding ListEntidad}" DisplayMemberPath="DESCR"
+                      SelectedItem="{Binding SelectEntidad,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+            <ComboBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding ListMunicipio}" DisplayMemberPath="MUNICIPIO1" 
+                      SelectedItem="{Binding SelectMunicipio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding Colonia,Mode=TwoWay}" CharacterCasing="Upper" MaxLength="40"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="6" Content="Calle"></Label>
+            <TextBox Grid.Column="0" Grid.Row="7" Text="{Binding Calle,Mode=TwoWay}" CharacterCasing="Upper" MaxLength="30"></TextBox>
+
+            <Grid Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Column="0" Grid.Row="0" Content="No.Exterior"></Label>
+                <Label Grid.Column="1" Grid.Row="0" Content="No.Interior"></Label>
+                <Label Grid.Column="2" Grid.Row="0" Content="Código Postal"></Label>
+
+                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding No_exterior,Mode=TwoWay}" CharacterCasing="Upper" MaxLength="6"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding No_interior,Mode=TwoWay}" CharacterCasing="Upper" MaxLength="6"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Codigo_postal,Mode=TwoWay}" CharacterCasing="Upper" MaxLength="5"></TextBox>
+            </Grid>
+
+            <Label Grid.Column="0" Grid.Row="8" Content="Contacto" FontWeight="Bold"></Label>
+
+            <Label Grid.Column="0" Grid.Row="9" Content="Teléfono"></Label>
+            <Label Grid.Column="1" Grid.Row="9" Content="Fax"></Label>
+
+            <TextBox Grid.Column="0" Grid.Row="10" Text="{Binding Telefono,Mode=TwoWay}" CharacterCasing="Upper" MaxLength="16"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding Fax,Mode=TwoWay}" CharacterCasing="Upper" MaxLength="16"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="11" Content="Director" FontWeight="Bold"></Label>
+
+            <TextBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" Text="{Binding Director,Mode=TwoWay}" CharacterCasing="Upper" MaxLength="40"></TextBox>
+           
+        </Grid>
+    </StackPanel>
+</UserControl>

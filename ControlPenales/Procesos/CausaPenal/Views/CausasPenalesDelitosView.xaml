@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ControlPenales.CausasPenalesDelitosView"
+             x:Name="CausaPenalDelitosWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+    <UserControl.Resources>
+        <Views:SiNoConverter x:Key="ConvertirSiNo"/>
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CausaPenalDelitosLoading}" CommandParameter="{Binding ElementName=CausaPenalDelitosWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid VerticalAlignment="Top" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold" Content="Delitos de la Causa Penal"></Label>
+        <DataGrid Grid.Column="0" Grid.Row="1" MaxHeight="100" ItemsSource="{Binding LstCausaPenalDelitos}" SelectedItem="{Binding SelectedCausaPenalDelito}" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Delito" Binding="{Binding MODALIDAD_DELITO.DELITO.DESCR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Modalidad" Binding="{Binding DESCR_DELITO}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Grave" Binding="{Binding MODALIDAD_DELITO.DELITO.GRAVE,Converter={StaticResource ConvertirSiNo}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tipo" Binding="{Binding TIPO_DELITO.DESCR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cantidad" Binding="{Binding CANTIDAD}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Objeto" Binding="{Binding OBJETO}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_delito_causa_penal_listado" Visibility="{Binding MostrarOpcion}" />
+                    <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_delito_causa_penal_listado" Visibility="{Binding MostrarOpcion}" />
+                    <!--<MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_delito_causa_penal_listado" />-->
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding CausaPenalDelitoEmpty, Converter={StaticResource booleanToVisibilityConverter}}">No hay información.</Label>
+
+        <Label Grid.Column="0" Grid.Row="3" FontWeight="Bold" Padding="0 20 0 0" Content="Delitos de la Sentencia"></Label>
+        <DataGrid Grid.Column="0" Grid.Row="4" ItemsSource="{Binding LstSentenciaDelitos}" SelectedItem="{Binding SelectedSentenciaDelito}" MaxHeight="100" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Delito" Binding="{Binding MODALIDAD_DELITO.DELITO.DESCR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Modalidad" Binding="{Binding DESCR_DELITO}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Grave" Binding="{Binding MODALIDAD_DELITO.DELITO.GRAVE,Converter={StaticResource ConvertirSiNo}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tipo" Binding="{Binding TIPO_DELITO.DESCR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cantidad" Binding="{Binding CANTIDAD}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Objeto" Binding="{Binding OBJETO}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_delito_sentencia_listado" Visibility="{Binding MostrarOpcion}" />
+                    <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_delito_sentencia_listado" Visibility="{Binding MostrarOpcion}" />
+                    <!--<MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_delito_sentencia_listado" />-->
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Label Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding SentenciaDelitoEmpty, Converter={StaticResource booleanToVisibilityConverter}}">No hay información.</Label>
+        
+    </Grid>
+</UserControl>

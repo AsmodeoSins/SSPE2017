@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="ControlPenales.EstudioTraslado"
+             x:Name="EstudioTrasladoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1250">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding EstudioTrasladoLoading}" CommandParameter="{Binding ElementName=EstudioTrasladoWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding EstudioTrasladoUnloading}" CommandParameter="{Binding ElementName=EstudioTrasladoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Grid Name="GV_Uno">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" Grid.Column="0" Header="Estudios y Traslados" HorizontalAlignment="Stretch" Height="auto">
+                <Grid Name="GV_Dos">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Name="lvlVersionDelito">Versión del Delito</Label>
+                    <TextBox Grid.Column="0"
+                         Grid.Row="1"
+                         Name="tbVersionDelito"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         MinHeight="100"
+                         MaxHeight="100"
+                         MaxLength="4000"
+                         MaxWidth="{ Binding ElementName=lvlVersionDelito, Path=ActualWidth}"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding VersionDelito,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="2" Style="{DynamicResource DescriptionHeaderStyle}">Periodo de Libertad Entre Ingresos</Label>
+                    <Grid Grid.Column="0" Grid.Row="3" Name="GV_Tres">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="200" MaxWidth="200"></ColumnDefinition>
+                            <ColumnDefinition MinWidth="200" MaxWidth="200"></ColumnDefinition>
+                            <ColumnDefinition Width="100*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Name="lblMenorPeriodo">Menor Período Libre Reingreso</Label>
+                        <Label Grid.Column="1" Grid.Row="0" Name="lblMayorTiempoReingreso" Grid.ColumnSpan="1" Width="200">Mayor Período Libre Reingreso</Label>
+                        <ComboBox Grid.Column="0" Grid.Row="1" Name="cbMenorPeriodoReingreso" SelectedValue="{Binding MenorPeriodoLibreReingreso,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                              SelectedValuePath="Tag">
+                            <ComboBox.Items>
+                                <ComboBoxItem Tag="NINGUNO" Content="NINGUNO"/>
+                                <ComboBoxItem Tag="MENORA1" Content="MENOR A 1 AÑO"/>
+                                <ComboBoxItem Tag="DE1A5" Content="DE 1 A 5 AÑOS"/>
+                                <ComboBoxItem Tag="MAS5" Content="MAS DE 5 AÑOS"/>
+                            </ComboBox.Items>
+                        </ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Name="cbMayorPeriodoReingreso" SelectedValue="{Binding MayorPeriodoLibreReingreso,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag">
+                            <ComboBox.Items>
+                                <ComboBoxItem Tag="NINGUNO" Content="NINGUNO"/>
+                                <ComboBoxItem Tag="MENORA1" Content="MENOR A 1 AÑO"/>
+                                <ComboBoxItem Tag="DE1A5" Content="DE 1 A 5 AÑOS"/>
+                                <ComboBoxItem Tag="MAS5" Content="MAS DE 5 AÑOS"/>
+                            </ComboBox.Items>
+                        </ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" >Le han Practicado Estudios</Label>
+                        <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Name="lblCuando">¿Cuando?</Label>
+                        <RadioButton Grid.Column="0" Grid.Row="3" GroupName="estudio" Name="rbSiEstudio" IsChecked="{Binding PracticadoEstudios}">Si</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="3" Margin="50,0,0,0" GroupName="estudio" Name="rbNoEstudio" IsChecked="True">No</RadioButton>
+                        <TextBox Grid.Column="1"
+                             Grid.Row="3"
+                             Grid.ColumnSpan="2"
+                             Name="tbCuandoPracticoEstudio"
+                             IsEnabled="{Binding IsCuandoEstudiosEnabled}"
+                             MaxWidth="{ Binding ElementName=lblCuando, Path=ActualWidth}"
+                             Text="{Binding Cuando,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                                 MaxLength="60"
+                             CharacterCasing="Upper"></TextBox>
+
+                        <Label Grid.Column="0" Grid.Row="4" >¿Desea Traslado?</Label>
+                        <Label Grid.Column="1" Grid.Row="4"  Name="lblDonde" Grid.ColumnSpan="2">¿A Donde?</Label>
+                        <RadioButton Grid.Column="0"
+                                 Grid.Row="5"
+                                 GroupName="traslado"
+                                 Name="rbSiTraslado"
+                                  IsChecked="{Binding Traslado,Mode=TwoWay}">Si</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="5" Margin="50,0,0,0" GroupName="traslado" Name="rbNoTraslado" IsChecked="True">No</RadioButton>
+                        <TextBox Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                             Grid.Row="5"
+                             MaxWidth="{ Binding ElementName=lblDonde, Path= ActualWidth}"
+                             Name="tbTransladoDonde"
+                             IsEnabled="{Binding IsDeseaTrasladoEnabled}"
+                             Text="{Binding Donde,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                             MaxLength="60"
+                             CharacterCasing="Upper"></TextBox>
+                        <Label Grid.Column="0"
+                           Grid.Row="6"
+                           Grid.ColumnSpan="3"
+                           Name="lblPorque"
+                           MaxWidth="{ Binding ElementName=GV_Dos, Path=ActualWidth}">¿Porque Motivo?</Label>
+                        <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="3" MaxLength="200"
+                             MaxWidth="{ Binding ElementName=lblPorque, Path= ActualWidth}" Name="tbMotivoTraslado" IsEnabled="{Binding IsDeseaTrasladoEnabled}" 
+                             AcceptsReturn="True" MinLines="3" Text="{Binding PorqueMotivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

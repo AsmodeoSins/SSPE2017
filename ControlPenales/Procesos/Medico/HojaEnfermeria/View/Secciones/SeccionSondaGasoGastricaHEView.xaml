@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="ControlPenales.SeccionSondaGasoGastricaHEView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:actb="clr-namespace:ControlPenales.Controls"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight">
+    <UserControl.Resources>
+        <Views:SiNoConverter x:Key="SiNoConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuSondasHEView Grid.Column="0" Grid.Row="0"></Views:MenuSondasHEView>
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Histórico de sondas">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" ItemsSource="{Binding LstSondas}" IsReadOnly="True" Style="{StaticResource MetroDataGrid}" SelectedItem="{Binding SelectedSonda}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Fecha de instalación de la sonda" Binding="{Binding INSTALACION_FEC ,StringFormat=dd/MM/yyyy HH:mm }" />
+                        <DataGridTextColumn Header="retiró" Binding="{Binding RETIRO, Converter={StaticResource SiNoConverter}}" />
+                        <DataGridTextColumn Header="Fecha de retiro" Binding="{Binding FECHA_RETIRO ,StringFormat=dd/MM/yyyy HH:mm }" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_sonda" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" />
+                            <MenuItem Header="Retiro" Command="{Binding OnClick}" CommandParameter="retiro_sonda" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Sonda nasogástrica">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Fecha de Instalación"></Label>
+                <xctk:DateTimePicker Grid.Column="0" Format="Custom" FormatString="dd/MM/yyyy HH:mm" Grid.Row="1" Controls:TextBoxHelper.Watermark="Seleccione una fecha" Text="{ Binding FechaInstalacionSondaHE, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, StringFormat=dd/MM/yyyy HH:mm}" IsEnabled="{Binding EnabledEdicionSonda, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_sonda"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </xctk:DateTimePicker>
+                <Label Grid.Column="1" Grid.Row="0" Content="Retiró"></Label>
+                <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{Binding SelectedRetiroSondaNHE,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledretirarSondasHE, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="2" Grid.Row="0" Content="Fecha de Retiro"></Label>
+                <xctk:DateTimePicker Format="Custom" FormatString="dd/MM/yyyy HH:mm" Grid.Column="2" Grid.Row="1" Controls:TextBoxHelper.Watermark="Seleccione una fecha" Text="{ Binding FechaRetiroSondaHE, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True, StringFormat=dd/MM/yyyy HH:mm}" IsEnabled="{Binding IsEnabledFechaSonda, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_sonda"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </xctk:DateTimePicker>
+                <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Content="Observaciones" Name="lblReferencia"></Label>
+                <TextBox Grid.Column="0" Grid.Row="3" MaxLength="1000" MinHeight="50" MaxWidth="{Binding ElementName=lblReferencia, Path=ActualWidth}" Text="{Binding ObservacionesSondaN, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" Grid.ColumnSpan="3"></TextBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

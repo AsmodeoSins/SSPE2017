@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ControlPenales.ConsultaCitasView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+             xmlns:dic="clr-namespace:Resources.ControlPenales.Buscar;assembly=Resources"
+             Height="auto" Width="auto">
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuInternoBusquedaView Grid.Column="0" Grid.Row="0"></Views:MenuInternoBusquedaView>
+        
+        <Label Grid.Column="0" Grid.Row="1" Content="{x:Static dic:ConsultaCitasView.consulta_citas}" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <DataGrid Grid.Column="0" Grid.Row="2" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Año"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.apellido_pat}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.apellido_mat}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.nombre}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.fecha}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.hora}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.asunto}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dic:ConsultaCitasView.solicitante}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.departamento}"></DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static dicGeneral:General.estatus}"></DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+    </Grid>
+</UserControl>

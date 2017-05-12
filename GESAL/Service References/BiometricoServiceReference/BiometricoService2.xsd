@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://10.3.205.108/WCF_BiometricoService/BiometricoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Helpers" />
+  <xs:import schemaLocation="http://10.3.205.108/WCF_BiometricoService/BiometricoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" />
+  <xs:import schemaLocation="http://10.3.205.108/WCF_BiometricoService/BiometricoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" />
+  <xs:element name="GetData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="value" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDataResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarWSQ">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ID_CENTRO" type="xs:short" />
+        <xs:element minOccurs="0" name="ID_ANIO" type="xs:short" />
+        <xs:element minOccurs="0" name="ID_IMPUTADO" type="xs:int" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Helpers" minOccurs="0" name="Dedo" type="q1:enumTipoBiometrico" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Helpers" minOccurs="0" name="Formato" type="q2:enumTipoFormato" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DescargarWSQResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DescargarWSQResult" nillable="true" type="xs:base64Binary" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarHuellaImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q3:IMPUTADO_BIOMETRICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarHuellaImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarHuellaImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarHuellasImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q4:ArrayOfIMPUTADO_BIOMETRICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarHuellasImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarHuellasImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarHuellasImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q5:ArrayOfIMPUTADO_BIOMETRICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarHuellasImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarHuellasImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RollBackImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q6:IMPUTADO_BIOMETRICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RollBackImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RollBackImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExistenHuellasImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" minOccurs="0" name="Huellas" nillable="true" type="q7:ArrayOfComparationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExistenHuellasImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ExistenHuellasImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompararHuellaImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" minOccurs="0" name="DataCompare" nillable="true" type="q8:ComparationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompararHuellaImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" minOccurs="0" name="CompararHuellaImputadoResult" nillable="true" type="q9:CompareResponseImputado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarHuellaPersona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q10:PERSONA_BIOMETRICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarHuellaPersonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarHuellaPersonaResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarHuellasPersona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q11:ArrayOfPERSONA_BIOMETRICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarHuellasPersonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarHuellasPersonaResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarHuellasPersona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q12:ArrayOfPERSONA_BIOMETRICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarHuellasPersonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarHuellasPersonaResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RollBackPersona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q13:PERSONA_BIOMETRICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RollBackPersonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RollBackPersonaResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompararHuellaPersona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" minOccurs="0" name="DataCompare" nillable="true" type="q14:ComparationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompararHuellaPersonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" minOccurs="0" name="CompararHuellaPersonaResult" nillable="true" type="q15:CompareResponsePersona" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBAInsertarHuellaImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q16:IMPUTADO_BIOMETRICO2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBAInsertarHuellaImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PRUEBAInsertarHuellaImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBAInsertarHuellasImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q17:ArrayOfIMPUTADO_BIOMETRICO2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBAInsertarHuellasImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PRUEBAInsertarHuellasImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBAActualizarHuellasImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q18:ArrayOfIMPUTADO_BIOMETRICO2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBAActualizarHuellasImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PRUEBAActualizarHuellasImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBARollBackImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" minOccurs="0" name="Data" nillable="true" type="q19:IMPUTADO_BIOMETRICO2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBARollBackImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PRUEBARollBackImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBAExistenHuellasImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" minOccurs="0" name="Huellas" nillable="true" type="q20:ArrayOfComparationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBAExistenHuellasImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PRUEBAExistenHuellasImputadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBACompararHuellaImputado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" minOccurs="0" name="DataCompare" nillable="true" type="q21:ComparationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PRUEBACompararHuellaImputadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" minOccurs="0" name="PRUEBACompararHuellaImputadoResult" nillable="true" type="q22:CompareResponseImputado" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

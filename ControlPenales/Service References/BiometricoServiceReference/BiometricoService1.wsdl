@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BiometricoService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://10.3.205.140/WCF_BiometricoService/BiometricoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://10.3.205.140/WCF_BiometricoService/BiometricoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://10.3.205.140/WCF_BiometricoService/BiometricoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Helpers" />
+      <xsd:import schemaLocation="http://10.3.205.140/WCF_BiometricoService/BiometricoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" />
+      <xsd:import schemaLocation="http://10.3.205.140/WCF_BiometricoService/BiometricoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IBiometricoService_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_DescargarWSQ_InputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarWSQ" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_DescargarWSQ_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DescargarWSQResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_InsertarHuellaImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarHuellaImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_InsertarHuellaImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarHuellaImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_InsertarHuellasImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarHuellasImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_InsertarHuellasImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarHuellasImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_ActualizarHuellasImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarHuellasImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_ActualizarHuellasImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarHuellasImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_RollBackImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:RollBackImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_RollBackImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RollBackImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_ExistenHuellasImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExistenHuellasImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_ExistenHuellasImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExistenHuellasImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_CompararHuellaImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompararHuellaImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_CompararHuellaImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompararHuellaImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_CompararHuellaImputadoPorUbicacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompararHuellaImputadoPorUbicacion" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_CompararHuellaImputadoPorUbicacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompararHuellaImputadoPorUbicacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_CompararHuellaImputadoPrueba_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompararHuellaImputadoPrueba" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_CompararHuellaImputadoPrueba_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompararHuellaImputadoPruebaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_InsertarHuellaPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarHuellaPersona" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_InsertarHuellaPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarHuellaPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_InsertarHuellasPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarHuellasPersona" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_InsertarHuellasPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarHuellasPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_ActualizarHuellasPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarHuellasPersona" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_ActualizarHuellasPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarHuellasPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_RollBackPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:RollBackPersona" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_RollBackPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RollBackPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_CompararHuellaPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompararHuellaPersona" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_CompararHuellaPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompararHuellaPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBAInsertarHuellaImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBAInsertarHuellaImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBAInsertarHuellaImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBAInsertarHuellaImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBAInsertarHuellasImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBAInsertarHuellasImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBAInsertarHuellasImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBAInsertarHuellasImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBAActualizarHuellasImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBAActualizarHuellasImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBAActualizarHuellasImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBAActualizarHuellasImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBARollBackImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBARollBackImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBARollBackImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBARollBackImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBAExistenHuellasImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBAExistenHuellasImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBAExistenHuellasImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBAExistenHuellasImputadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBACompararHuellaImputado_InputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBACompararHuellaImputado" />
+  </wsdl:message>
+  <wsdl:message name="IBiometricoService_PRUEBACompararHuellaImputado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PRUEBACompararHuellaImputadoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IBiometricoService">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/GetData" message="tns:IBiometricoService_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/GetDataResponse" message="tns:IBiometricoService_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DescargarWSQ">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/DescargarWSQ" message="tns:IBiometricoService_DescargarWSQ_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/DescargarWSQResponse" message="tns:IBiometricoService_DescargarWSQ_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarHuellaImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/InsertarHuellaImputado" message="tns:IBiometricoService_InsertarHuellaImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/InsertarHuellaImputadoResponse" message="tns:IBiometricoService_InsertarHuellaImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarHuellasImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/InsertarHuellasImputado" message="tns:IBiometricoService_InsertarHuellasImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/InsertarHuellasImputadoResponse" message="tns:IBiometricoService_InsertarHuellasImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarHuellasImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/ActualizarHuellasImputado" message="tns:IBiometricoService_ActualizarHuellasImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/ActualizarHuellasImputadoResponse" message="tns:IBiometricoService_ActualizarHuellasImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RollBackImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/RollBackImputado" message="tns:IBiometricoService_RollBackImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/RollBackImputadoResponse" message="tns:IBiometricoService_RollBackImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExistenHuellasImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/ExistenHuellasImputado" message="tns:IBiometricoService_ExistenHuellasImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/ExistenHuellasImputadoResponse" message="tns:IBiometricoService_ExistenHuellasImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararHuellaImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/CompararHuellaImputado" message="tns:IBiometricoService_CompararHuellaImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/CompararHuellaImputadoResponse" message="tns:IBiometricoService_CompararHuellaImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararHuellaImputadoPorUbicacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/CompararHuellaImputadoPorUbicacion" message="tns:IBiometricoService_CompararHuellaImputadoPorUbicacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/CompararHuellaImputadoPorUbicacionResponse" message="tns:IBiometricoService_CompararHuellaImputadoPorUbicacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararHuellaImputadoPrueba">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/CompararHuellaImputadoPrueba" message="tns:IBiometricoService_CompararHuellaImputadoPrueba_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/CompararHuellaImputadoPruebaResponse" message="tns:IBiometricoService_CompararHuellaImputadoPrueba_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarHuellaPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/InsertarHuellaPersona" message="tns:IBiometricoService_InsertarHuellaPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/InsertarHuellaPersonaResponse" message="tns:IBiometricoService_InsertarHuellaPersona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarHuellasPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/InsertarHuellasPersona" message="tns:IBiometricoService_InsertarHuellasPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/InsertarHuellasPersonaResponse" message="tns:IBiometricoService_InsertarHuellasPersona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarHuellasPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/ActualizarHuellasPersona" message="tns:IBiometricoService_ActualizarHuellasPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/ActualizarHuellasPersonaResponse" message="tns:IBiometricoService_ActualizarHuellasPersona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RollBackPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/RollBackPersona" message="tns:IBiometricoService_RollBackPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/RollBackPersonaResponse" message="tns:IBiometricoService_RollBackPersona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompararHuellaPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/CompararHuellaPersona" message="tns:IBiometricoService_CompararHuellaPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/CompararHuellaPersonaResponse" message="tns:IBiometricoService_CompararHuellaPersona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBAInsertarHuellaImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBAInsertarHuellaImputado" message="tns:IBiometricoService_PRUEBAInsertarHuellaImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBAInsertarHuellaImputadoResponse" message="tns:IBiometricoService_PRUEBAInsertarHuellaImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBAInsertarHuellasImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBAInsertarHuellasImputado" message="tns:IBiometricoService_PRUEBAInsertarHuellasImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBAInsertarHuellasImputadoResponse" message="tns:IBiometricoService_PRUEBAInsertarHuellasImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBAActualizarHuellasImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBAActualizarHuellasImputado" message="tns:IBiometricoService_PRUEBAActualizarHuellasImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBAActualizarHuellasImputadoResponse" message="tns:IBiometricoService_PRUEBAActualizarHuellasImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBARollBackImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBARollBackImputado" message="tns:IBiometricoService_PRUEBARollBackImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBARollBackImputadoResponse" message="tns:IBiometricoService_PRUEBARollBackImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBAExistenHuellasImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBAExistenHuellasImputado" message="tns:IBiometricoService_PRUEBAExistenHuellasImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBAExistenHuellasImputadoResponse" message="tns:IBiometricoService_PRUEBAExistenHuellasImputado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBACompararHuellaImputado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBACompararHuellaImputado" message="tns:IBiometricoService_PRUEBACompararHuellaImputado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBiometricoService/PRUEBACompararHuellaImputadoResponse" message="tns:IBiometricoService_PRUEBACompararHuellaImputado_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="http" type="tns:IBiometricoService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DescargarWSQ">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/DescargarWSQ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarHuellaImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/InsertarHuellaImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarHuellasImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/InsertarHuellasImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarHuellasImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/ActualizarHuellasImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RollBackImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/RollBackImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExistenHuellasImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/ExistenHuellasImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararHuellaImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/CompararHuellaImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararHuellaImputadoPorUbicacion">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/CompararHuellaImputadoPorUbicacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararHuellaImputadoPrueba">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/CompararHuellaImputadoPrueba" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarHuellaPersona">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/InsertarHuellaPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarHuellasPersona">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/InsertarHuellasPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarHuellasPersona">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/ActualizarHuellasPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RollBackPersona">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/RollBackPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompararHuellaPersona">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/CompararHuellaPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBAInsertarHuellaImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/PRUEBAInsertarHuellaImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBAInsertarHuellasImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/PRUEBAInsertarHuellasImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBAActualizarHuellasImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/PRUEBAActualizarHuellasImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBARollBackImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/PRUEBARollBackImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBAExistenHuellasImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/PRUEBAExistenHuellasImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PRUEBACompararHuellaImputado">
+      <soap:operation soapAction="http://tempuri.org/IBiometricoService/PRUEBACompararHuellaImputado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BiometricoService">
+    <wsdl:port name="http" binding="tns:http">
+      <soap:address location="http://10.3.205.140/WCF_BiometricoService/BiometricoService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

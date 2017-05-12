@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="ControlPenales.RecrearTVInterconsultaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Height="auto" Width="auto">
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="866" MaxWidth="866" MinHeight="500" MaxHeight="700">
+                <StackPanel>
+                    <Label Content="Traslado virtual de atención de canalizaciones" Style="{DynamicResource DescriptionHeaderStyle}"/>
+                    <GroupBox Header="Datos de la atención de canalización">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                    <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                    <ColumnDefinition Width=".5*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Content="Tipo de atención"></Label>
+                                <Label Grid.Column="1" Content="Nivel de prioridad"></Label>
+                                <ComboBox Grid.Row="1" ItemsSource="{Binding Lst_TV_Inter_Tipo}" SelectedValue="{Binding SelectedTV_Inter_TipoValue,NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INTER">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SourceUpdated">
+                                            <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_tv_interconsulta_tipo">
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Lst_TV_Inter_Prioridad}" SelectedValue="{Binding SelectedTV_Inter_PrioridadValue, ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INIVEL"></ComboBox>
+                            </Grid>
+                            <Label Content="{Binding SelectedPendienteTV.ESPECIALIDAD_LABEL}" Visibility="{Binding SelectedPendienteTV.IS_ESPECIALIDAD_VISIBLE}"></Label>
+                            <DataGrid  IsEnabled="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                                                              AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding SelectedPendienteTV.TV_INTERCONSULTA_SOLICITUD.TV_SERVICIO_AUX_INTERCONSULTA}" Visibility="{Binding SelectedPendienteTV.IS_SERV_AUX_INT_VISIBILITY}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Servicios auxiliares" Binding="{Binding SERVICIO_AUX_DIAG_TRAT.DESCR}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <GroupBox Header="Datos Interconsulta Interna" Visibility="{Binding TV_Inter_Interna_Visible}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                        <ColumnDefinition Width=".75*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Unidad médica"></Label>
+                                    <Label Content="Motivo" Grid.Column="1"></Label>
+                                    <ComboBox Grid.Row="1" ItemsSource="{Binding LstTV_Inter_Centro}" SelectedValue="{Binding SelectedTV_Inter_CentroValue,ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CENTRO" VerticalAlignment="Top"></ComboBox>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TV_Inter_Motivo, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextWrapping="Wrap" AcceptsReturn="True" Height="50"></TextBox>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Datos de Hoja de Referencia Médica" Visibility="{Binding TV_Inter_Externa_Visible}">
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Content="Institución médica"></Label>
+                                        <Label Grid.Column="1" Content="Otra institución" Visibility="{Binding IsOtroHospitalSelected}"></Label>
+                                        <Label Grid.Column="2" Content="Exp. HGT"></Label>
+                                        <Label Grid.Column="3" Content="Atención al paciente"></Label>
+                                        <ComboBox Grid.Row="1" ItemsSource="{Binding LstTV_Inter_Hospitales}" SelectedValue="{Binding SelectedTV_Inter_HospitalValue, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_HOSPITAL">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SourceUpdated">
+                                                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_hospital">
+                                                    </i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </ComboBox>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Visibility="{Binding IsOtroHospitalSelected}" Text="{Binding TV_Inter_Otro_Hospital, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding TV_Inter_ExpHGT, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding LstTV_Inter_Cita_Tipo}" SelectedValue="{Binding SelectedTV_Inter_Cita_TipoValue, NotifyOnSourceUpdated=True, ValidatesOnDataErrors=True}" SelectedValuePath="ID_TIPO_CITA" DisplayMemberPath="DESCR">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SourceUpdated">
+                                                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_tipo_citas">
+                                                    </i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </ComboBox>
+                                        <Label Content="Fecha de la cita" Grid.Row="2"></Label>
+                                        <Border Grid.Row="3" BorderBrush="Red"  ToolTipService.IsEnabled="{Binding IsFechaCitaValid, Converter={Views:BoolToOppositeBoolConverter}}" 
+                                    Width="200" HorizontalAlignment="Left">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="BorderThickness" Value="0"/>
+                                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsFechaCitaValid,ValidatesOnDataErrors=True}" Value="False">
+                                                            <Setter Property="BorderThickness" Value="1"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <ToolTipService.ToolTip>
+                                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                                    <ToolTip.Content>
+                                                        <TextBlock Text="FECHA DE LA CITA ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                                                    </ToolTip.Content>
+                                                </ToolTip>
+                                            </ToolTipService.ToolTip>
+                                            <xctk:DateTimePicker Format="Custom" FormatString="dd/MM/yyyy hh:mm tt" Watermark="Seleccione una fecha" 
+                                        Text="{Binding TV_Inter_FechaCita,StringFormat=dd/MM/yyyy hh:mm tt,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, TargetNullValue=''}" 
+                                         MinHeight="26" Minimum="{Binding FechaMinima}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SourceUpdated">
+                                                        <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_cita">
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </xctk:DateTimePicker>
+                                        </Border>
+                                    </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Content="Motivo"></Label>
+                                        <Label Grid.Column="1" Content="Observaciones"></Label>
+                                        <TextBox Grid.Row="1" Text="{Binding TV_Inter_HR_Motivo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" TextWrapping="Wrap" AcceptsReturn="True" Height="50"></TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TV_Inter_HR_Observacion, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True" Height="50"></TextBox>
+                                    </Grid>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10" HorizontalAlignment="Center"
+                            CommandParameter="guardad_atencion_canalizacion" Command="{Binding OnClick}">Guardar</Button>
+                        <Button Grid.Column="1" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10" HorizontalAlignment="Center"
+                            CommandParameter="cancelar_atencion_canalizacion" Command="{Binding OnClick}">Cancelar</Button>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

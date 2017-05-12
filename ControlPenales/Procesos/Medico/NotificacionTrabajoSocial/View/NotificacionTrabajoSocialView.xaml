@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="ControlPenales.NotificacionTrabajoSocialView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+             Height="auto" Width="auto"  mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="900" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding NotificacionTrabajoSocialLoading}" CommandParameter="{Binding ElementName=NotificacionTSWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:NombreConverter x:Key="NombreConverter"></Views:NombreConverter>
+        <Views:UbicacionByImputadoConverter x:Key="UbicacionByImputadoConverter"></Views:UbicacionByImputadoConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuIconosView Grid.Row="0" Grid.ColumnSpan="2" />
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Notificación a Trabajo Social" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:DatosExpediente2View Grid.Row="2" Grid.ColumnSpan="2"></Views:DatosExpediente2View>
+        <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Header="Notificaciones">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Column="0" Grid.Row="0" Header="buscar notificaciones por fecha">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Fecha de Inicio"></Label>
+                        <DatePicker Grid.Column="1" Grid.Row="0" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaInicioBusquedaNotificaciones,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Fecha de Fin"></Label>
+                        <DatePicker Grid.Column="3" Grid.Row="0" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaFinBusquedaNotificaciones,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                        <Button Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" 
+                    CommandParameter="buscar_perfil" Command="{Binding OnClick}" Content="Buscar"></Button>
+                        <Label Grid.Column="5" Content="{ Binding NombrePerfilActual, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" FontWeight="Bold"></Label>
+                    </Grid>
+                </GroupBox>
+                <DataGrid Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False" Name="dgSolic" ItemsSource="{Binding LstNotificacionesNuevas, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedNotificacionNueva}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Fecha de Notificación" Binding="{ Binding REGISTRO_FEC,StringFormat=dd/MM/yyyy HH:mm:ss }"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Riesgo" Binding="{Binding RIESGO_NOTIFICACION_TS.DESCR }"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Carácter de Notificación" Binding="{Binding CARACTER_NOTIFICACION_TS.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Año" Binding="{Binding INGRESO.IMPUTADO.ID_ANIO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Folio" Binding="{Binding INGRESO.IMPUTADO.ID_IMPUTADO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO, Converter={ StaticResource NombreConverter}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estancia" Binding="{Binding INGRESO.IMPUTADO, Converter={ StaticResource UbicacionByImputadoConverter}}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Atender Notificación" Command="{Binding OnClick}" CommandParameter="atender_notificacion"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+                <Label Grid.Column="0" Grid.Row="2" FontStyle="Italic" Content="No hay información." HorizontalAlignment="Center" Visibility="{Binding EmptyResultados,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

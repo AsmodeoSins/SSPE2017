@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo.Entidades" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Helpers" />
+  <xs:complexType name="ArrayOfComparationRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ComparationRequest" nillable="true" type="tns:ComparationRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfComparationRequest" nillable="true" type="tns:ArrayOfComparationRequest" />
+  <xs:complexType name="ComparationRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BIOMETRICO" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="ID_CENTRO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_EDIFICIO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_SECTOR" nillable="true" type="xs:short" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Helpers" minOccurs="0" name="ID_TIPO_BIOMETRICO" type="q1:enumTipoBiometrico" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Helpers" minOccurs="0" name="ID_TIPO_FORMATO" type="q2:enumTipoFormato" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Helpers" minOccurs="0" name="ID_TIPO_PERSONA" nillable="true" type="q3:enumTipoPersona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ComparationRequest" nillable="true" type="tns:ComparationRequest" />
+  <xs:complexType name="CompareResponseImputado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Identify" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MensajeError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:ArrayOfcHuellasImputado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CompareResponseImputado" nillable="true" type="tns:CompareResponseImputado" />
+  <xs:complexType name="ArrayOfcHuellasImputado">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="cHuellasImputado" nillable="true" type="tns:cHuellasImputado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfcHuellasImputado" nillable="true" type="tns:ArrayOfcHuellasImputado" />
+  <xs:complexType name="cHuellasImputado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_ANIO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_CENTRO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_IMPUTADO" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="cHuellasImputado" nillable="true" type="tns:cHuellasImputado" />
+  <xs:complexType name="CompareResponsePersona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Identify" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:ArrayOfcHuellasPersona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CompareResponsePersona" nillable="true" type="tns:CompareResponsePersona" />
+  <xs:complexType name="ArrayOfcHuellasPersona">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="cHuellasPersona" nillable="true" type="tns:cHuellasPersona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfcHuellasPersona" nillable="true" type="tns:ArrayOfcHuellasPersona" />
+  <xs:complexType name="cHuellasPersona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_PERSONA" type="xs:int" />
+      <xs:element minOccurs="0" name="NORIGINAL" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="cHuellasPersona" nillable="true" type="tns:cHuellasPersona" />
+</xs:schema>

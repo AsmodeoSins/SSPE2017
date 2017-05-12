@@ -1,0 +1,97 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.ArchivosMedicosView"
+        x:Name="ArchivosMedicosWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Views="clr-namespace:ControlPenales"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Dedo="clr-namespace:ControlPenales.BiometricoServiceReference"
+        xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        NonActiveGlowBrush="Red"
+        BorderThickness="1"
+        BorderBrush="#3FAFDF"
+        Title="BUSQUEDA DE ARCHIVOS MEDICOS" Height="455" Width="890" WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ArchivosLoading}" CommandParameter="{Binding ElementName=ArchivosMedicosWindow}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick}" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cerrar_archivos_medicos"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid  FocusManager.FocusedElement="{Binding ElementName=BT_Aceptar}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Header="Busqueda de resultados">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="Tipo de Servicio Auxiliar de Diagnostico" Grid.Row="0" Grid.Column="0"></Label>
+                <ComboBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding LstTipoServAux}" SelectedValue="{Binding SelectedTipoServAux, NotifyOnSourceUpdated=True}" SelectedValuePath="ID_TIPO_SADT" DisplayMemberPath="DESCR">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding OnClick}" CommandParameter="cambio_tipo_serv_aux">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Label Grid.Column="1" Grid.Row="0" Content="Subtipo de Servicio Auxiliar de Diagnostico"></Label>
+                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding LstSubTipoServAux}" SelectedValue="{Binding SelectedSubtipoServAux, NotifyOnSourceUpdated=True}" SelectedValuePath="ID_SUBTIPO_SADT" DisplayMemberPath="DESCR">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding OnClick}" CommandParameter="cambio_subtipo_serv_aux">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Label Grid.Column="2" Grid.Row="0" Content="Diagnostico"></Label>
+                <ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding LstDiagnosticosPrincipal}" SelectedValue="{Binding SelectedDiagnPrincipal, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                          SelectedValuePath="ID_SERV_AUX" DisplayMemberPath="DESCR"></ComboBox>
+                <Label Grid.Column="0" Grid.Row="2" Content="Fecha de Inicio"></Label>
+                <DatePicker Grid.Column="0" Grid.Row="3" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaInicioBusquedaResultServ,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                <Label Grid.Column="1" Grid.Row="2" Content="Fecha de Fin"></Label>
+                <DatePicker Grid.Column="1" Grid.Row="3" DisplayDateStart="{ Binding FechaInicioBusquedaResultServ}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" 
+                            SelectedDate="{Binding FechaFinBusquedaResultServ,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                <Button Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" 
+                        CommandParameter="buscar_result_existentes" Command="{Binding OnClick}" Content="Buscar"></Button>
+            </Grid>
+        </GroupBox>
+        <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" Name="dgSolic" ItemsSource="{Binding LstCustomizadaSinArchivos, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedResultadoSinArchivo}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha de registro" Binding="{Binding FechaRegistro}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Servicio Auxiliar" Binding="{Binding ServicioAuxiliar}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre del usuario" Binding="{Binding NombreUsuario}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Extensión del archivo" Binding="{Binding ExtensionArchivo}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Archivo">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="100" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Visualizar" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_documento_resultado_servicios" Visibility="{ Binding VisibleDocumentoResult, UpdateSourceTrigger=PropertyChanged, Converter={ StaticResource booleanToVisibilityConverter}}" ></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="agregar_resultado_trat"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Content="No hay información." Margin="0 30 0 0" HorizontalAlignment="Center" Visibility="{Binding EmptyResultados,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+    </Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="ControlPenales.AgregarRelacionInternoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_relacion_interno"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" 
+					CornerRadius="10,0,10,0"  HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="320" MinHeight="320" Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4"  Content="{Binding TituloRelacionInterno}" Style="{DynamicResource DescriptionHeaderStyle}" />
+                    
+                    <Label Grid.Column="0" Grid.Row="1" Content="Apellido Paterno" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding PaternoBuscarRelacionInterno}"  CharacterCasing="Upper" MaxLength="30" Name="tbPaternoBuscarRelacionInterno" >
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=tbPaternoBuscarRelacionInterno}" Command="{Binding BuscarRelacionInternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+
+                    <Label Grid.Column="1" Grid.Row="1" Content="Apellido Materno" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding MaternoBuscarRelacionInterno}"  CharacterCasing="Upper" MaxLength="30" Name="tbMaternoBuscarRelacionInterno" >
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=tbMaternoBuscarRelacionInterno}" Command="{Binding BuscarRelacionInternoClick}" Key="Enter"  />
+                        </TextBox.InputBindings>
+                    </TextBox>
+
+                    <Label Grid.Column="2" Grid.Row="1" Content="Nombre" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding NombreBuscarRelacionInterno}"  CharacterCasing="Upper" MaxLength="40" Name="tbNombreBuscarRelacionInterno" >
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=tbNombreBuscarRelacionInterno}" Command="{Binding BuscarRelacionInternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+
+                    <Button Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Bottom"  Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                    CommandParameter="buscar_relacion_interno" Command="{Binding OnClick}">buscar</Button>
+                    <!--<Label Grid.Column="0" Grid.Row="7" Content="Nota" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Margin="2" Text="{Binding NotaRelacionInterno}"  CharacterCasing="Upper" MinLines="2" MaxLength="500" Name="tbNotaRelacionInterno" >
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=tbNotaRelacionInterno}" Command="{Binding OnClickRelacionInterno}"></KeyBinding>
+                        </TextBox.InputBindings>
+                    </TextBox>-->
+
+                    <DataGrid AutoGenerateColumns="False" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" MaxHeight="150" CanUserAddRows="false" IsReadOnly="True" 
+                              ItemsSource="{Binding ListBuscarRelacionInterno, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding SelectBuscarRelacionInterno}" SelectedIndex="{Binding IndexBuscarRelacionInterno}" Style="{StaticResource MetroDataGrid}"
+                              Margin="0 15 0 0" >
+                        <i:Interaction.Triggers>
+                            <Views:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                <cmd:EventToCommand Command="{Binding CargarMasRelacionImputado}" PassEventArgsToCommand="True" />
+                            </Views:RoutedEventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ElementName=BT_Aceptar, Path=Command}" CommandParameter="{Binding ElementName=BT_Aceptar,Path=CommandParameter}"></MouseBinding>
+                        </DataGrid.InputBindings>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding IMPUTADO.PATERNO}" Width="300"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Apellido Materno" Binding="{Binding IMPUTADO.MATERNO}" Width="300"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding IMPUTADO.NOMBRE}" Width="300"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                    <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding EmptyBuscarRelacionInternoVisible, Converter={StaticResource booleanToVisibilityConverter}}" Content="No se encontró información."></Label>
+                    <Button Grid.Column="2" Grid.Row="9" VerticalAlignment="Top" HorizontalAlignment="Right" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                            Name="BT_Aceptar"
+                CommandParameter="seleccionar_relacion_interno" Command="{Binding OnClick}">Seleccionar</Button>
+                    <Button Grid.Column="3" Grid.Row="9" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_relacion_interno" Command="{Binding OnClick}">Cancelar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+
+</UserControl>

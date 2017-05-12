@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="ControlPenales.ConsultaCIBView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+             xmlns:dic="clr-namespace:Resources.ControlPenales.Buscar;assembly=Resources"
+             Height="auto" Width="auto">
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="250" MinWidth="250"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition MaxWidth="250" MinWidth="250"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuInternoBusquedaView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"></Views:MenuInternoBusquedaView>
+            
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"  Content="{x:Static dic:ConsultaCIBView.consulta_cib}" Style="{DynamicResource DescriptionHeaderStyle}" />
+       
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="{x:Static dic:ConsultaCIBView.numero_expediente}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="{x:Static dicGeneral:General.folio}" />
+                <TextBox Grid.Column="0" Grid.Row="1" Name="tnExpedienteAnio"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                <TextBox Grid.Column="2" Grid.Row="1" Name="tnExpedienteFolio"></TextBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="1" Grid.Row="2" Header="{x:Static dic:ConsultaCIBView.nombre_alias_apodo}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="{x:Static dic:ConsultaCIBView.nombre_alias_apodo}" />
+                <TextBlock Grid.Column="1" Grid.Row="0" Text="{x:Static dicGeneral:General.paterno}" />
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="{x:Static dicGeneral:General.materno}" />
+                <TextBox Grid.Column="0" Grid.Row="1" Name="tbNombre"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Name="tbApellidoPatrno"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Name="tbApellidoMaterno"></TextBox>
+            </Grid>
+        </GroupBox>
+
+        <DataGrid Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" AutoGenerateColumns="False" Grid.ColumnSpan="2" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Expediente"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido Paterno"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido Materno"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.numero_ingreso}" />
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.cereso}" />
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.cib}" />
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.causa_penal}" />
+                <DataGridTextColumn Header="{x:Static dic:ConsultaCIBView.consecutivo_causa}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Column="2" Grid.Row="2"  Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+
+            <Button Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="0 10 0 0" 
+                    Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="seleccionar" Command="{Binding OnClick}" Content="{x:Static dicGeneral:General.seleccionar}"
+                    ToolTip="{x:Static dicGeneral:General.seleccionar}"/>
+            <Button Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="0 10 0 0" 
+                    Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="salir" Command="{Binding OnClick}" Content="{x:Static dicGeneral:General.salir}"
+                    ToolTip="{x:Static dicGeneral:General.salir}"/>
+        </Grid>    
+            
+    </Grid>
+</UserControl>

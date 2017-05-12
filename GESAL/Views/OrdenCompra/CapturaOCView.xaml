@@ -1,0 +1,267 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Behaviours="clr-namespace:GESAL.Clases.Behaviours"
+             xmlns:Converters="clr-namespace:MVVMShared.Converters;assembly=MVVMShared"
+             xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib"
+             xmlns:Currency="clr-namespace:CurrencyTextBoxControl;assembly=CurrencyTextBoxControl"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="GESAL.Views.CapturaOCView"
+             xmlns:Views="clr-namespace:GESAL.Views"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             Dialog:DialogParticipation.Register="{Binding}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdLoad}" CommandParameter="" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel>
+        <!-- Aqui va la region de comandos-->
+        <Views:menuComandosView></Views:menuComandosView>
+        <Label Style="{StaticResource estiloTituloControl}" Content="Captura de Orden de Compra"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text ="No. Orden:" HorizontalAlignment="Right" Margin="5"/>
+            <TextBox Width="100" HorizontalAlignment="Right" Text="{Binding NoOrden, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsReadOnly="{Binding NoOrdenIsReadOnly}">
+                <i:Interaction.Behaviors>
+                    <Behaviours:TextBoxInputRegExBehaviour RegularExpression="^\d+$" MaxLength="7" EmptyValue="" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBlock Text="Fecha de Elaboración:" Margin="20 5 5 5"></TextBlock>
+            <Border BorderBrush="Red" HorizontalAlignment="Left" ToolTipService.IsEnabled="{Binding IsFechaOCValid, Converter={Converters:BoolToOppositeBoolConverter}}">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                        <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFechaOCValid}" Value="False">
+                                <Setter Property="BorderThickness" Value="1"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <ToolTipService.ToolTip>
+                    <ToolTip Template="{StaticResource ToolTipTemplate}">
+                        <ToolTip.Content>
+                            <TextBlock Text="LA FECHA DE LA OC TIENE QUE SER VALIDA!" Style="{StaticResource errorLabel}"/>
+                        </ToolTip.Content>
+                    </ToolTip>
+                </ToolTipService.ToolTip>
+                <!--Cuidado:El datepicker no puede ser validado directamente bajo las reglas del viewmodel -->
+                <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaOC,UpdateSourceTrigger=PropertyChanged}" Width="150" IsEnabled="{Binding IsFechaOCEnabled}">
+                </DatePicker>
+            </Border>
+            <TextBlock Text="Fecha de Registro" Margin="20 5 5 5"></TextBlock>
+            <TextBlock Text="{Binding FechaRegistro, StringFormat=d}" Margin="5"></TextBlock>
+        </StackPanel>
+        <GroupBox Header="Datos del Proveedor" Margin="5 10 0 0" IsEnabled="{Binding IsBloqueProveedorEnabled}">
+            <StackPanel>
+                <Border BorderBrush="Red" HorizontalAlignment="Left" ToolTipService.IsEnabled="{Binding IsProveedorValid, Converter={Converters:BoolToOppositeBoolConverter}}">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsProveedorValid}" Value="False">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                            <ToolTip.Content>
+                                <TextBlock Text="SELECCIONE UN PROVEEDOR!" Style="{StaticResource errorLabel}"/>
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Proveedor:" Margin="5"/>
+                        <TextBox Text="{Binding BuscarProveedor}" Margin="5" Width="300" CharacterCasing="Upper" MaxLength="150">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" CommandParameter="buscar_proveedor" Command="{Binding CmdOnClick}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <Button Content="Buscar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdOnClick}" CommandParameter="buscar_proveedor" />
+                    </StackPanel>
+                </Border>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Clave:" Margin="5" Grid.Column="0" Grid.Row="0"/>
+                    <Label Content="Nombre:" Margin="5" Grid.Column="1" Grid.Row="0"/>
+                    <Label Content="Razón Social:" Margin="5" Grid.Column="2" Grid.Row="0"/>
+                    <Label Content="RFC:" Margin="5" Grid.Column="3" Grid.Row="0"/>
+                    <TextBox Margin="5" Grid.Column="0" Grid.Row="1" Text="{Binding ID_Proveedor}" IsReadOnly="True"/>
+                    <TextBox Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Nombre_Proveedor}" IsReadOnly="True"/>
+                    <TextBox Margin="5" Grid.Column="2" Grid.Row="1" Text="{Binding Razon_Social}" IsReadOnly="True"/>
+                    <TextBox Margin="5" Grid.Column="3" Grid.Row="1" Text="{Binding RFC}" IsReadOnly="True"/>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Datos de la Requisición"  Margin="5 10 0 0" x:Name="grpdetalleproducto" IsEnabled="{Binding IsBloqueRequisicionEnabled}">
+            <StackPanel>
+                <Border BorderBrush="Red" HorizontalAlignment="Left" ToolTipService.IsEnabled="{Binding IsRequisicionValid, Converter={Converters:BoolToOppositeBoolConverter}}">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRequisicionValid}" Value="False">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                            <ToolTip.Content>
+                                <TextBlock Text="SELECCIONE UNA REQUISICION Y LOS PRODUCTOS PARA LA OC!" Style="{StaticResource errorLabel}"/>
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" MaxWidth="120" MinWidth="120"/>
+                            <ColumnDefinition Width="250" MaxWidth="250" MinWidth="250"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Tipo de Almacen:" Margin="5"/>
+                        <ComboBox Grid.Column="1" Margin="5" ItemsSource="{Binding Almacen_Tipos_Cat}" SelectedItem="{Binding SelectedAlmacen_Tipo_Cat}" DisplayMemberPath="DESCR" Width="200" HorizontalAlignment="Left"/>
+                        <Label Content="# Requisión:" Grid.Row="1" Margin="5"/>
+                        <TextBox Width="100" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding BuscarRequisicion}" >
+                            <i:Interaction.Behaviors>
+                                <Behaviours:TextBoxInputRegExBehaviour RegularExpression="^\d+$" MaxLength="7" EmptyValue="" />
+                            </i:Interaction.Behaviors>
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" CommandParameter="buscar_requisicion" Command="{Binding CmdOnClick}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <Button Content="Buscar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Grid.Row="1" Grid.Column="2" Command="{Binding CmdOnClick}" CommandParameter="buscar_requisicion" HorizontalAlignment="Left"/>
+                    </Grid>
+                </Border>
+                <Grid Margin="0 20" Visibility="{Binding IsVisibleProductosSeleccionados, Converter={StaticResource booleanToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="# Requisición" Margin="5"/>
+                    <TextBlock Text="Para" Margin="5" Grid.Column="1"/>
+                    <TextBlock Text="Mes" Margin="5" Grid.Column="2"/>
+                    <TextBlock Text="Año" Margin="5" Grid.Column="3"/>
+                    <TextBox Text="{Binding SelectedRequisicion.ID_REQUISICION}" Margin="5" Grid.Row="1" IsReadOnly="True"/>
+                    <TextBox Text="{Binding SelectedRequisicion.ALMACEN_TIPO_CAT.DESCR}" Margin="5" Grid.Row="1" Grid.Column="1" IsReadOnly="True" />
+                    <TextBox Text="{Binding SelectedRequisicion.MES, Converter={Converters:InttoMesMarkUp}, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}" Margin="5" Grid.Row="1" Grid.Column="2" IsReadOnly="True" />
+                    <TextBox Text="{Binding SelectedRequisicion.ANIO}" Margin="5" Grid.Row="1" Grid.Column="3" IsReadOnly="True" />
+                    <Button Content="Editar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Grid.Row="1" Grid.Column="5" Command="{Binding CmdOnClick}" CommandParameter="editar_seleccion" HorizontalAlignment="Left"/>
+                </Grid>
+                <Border BorderBrush="Red" HorizontalAlignment="Left" ToolTipService.IsEnabled="{Binding IsPreciosValid, Converter={Converters:BoolToOppositeBoolConverter}}">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="ToolTipService.Placement" Value="Top"></Setter>
+                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsPreciosValid}" Value="False">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                            <ToolTip.Content>
+                                <TextBlock Text="ES NECESARIO CAPTURAR LOS PRECIOS UNITARIOS!" Style="{StaticResource errorLabel}"/>
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    <ListView ItemsSource="{Binding Requisicion_Productos_Seleccionados}" HorizontalAlignment="Left"
+					Width="{Binding ActualWidth, ConverterParameter=x-40, Converter={Converters:MathConverter}, ElementName=grpdetalleproducto}"
+					BorderThickness="0" Margin="0" Visibility="{Binding IsVisibleProductosSeleccionados, Converter={StaticResource booleanToVisibilityConverter}}"
+                              x:Name="lista_seleccionado" ItemContainerStyle="{StaticResource LvItemStyleNoMouseOverWithFocus}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <GroupBox Width="{Binding ActualWidth, ConverterParameter=x-80, Converter={Converters:MathConverter}, ElementName=grpdetalleproducto}" Margin="0 -4 0 0">
+                                    <GroupBox.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="500"/>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding DataContext.NOMBRE_PRODUCTO, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="5"/>
+                                                <TextBlock Text="{Binding DataContext.CANTIDAD, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" HorizontalAlignment="Left" Grid.Column="1" TextWrapping="Wrap" Margin="5"/>
+                                                <TextBlock Text="Precio Unitario:" Grid.Column="2" Margin="5"></TextBlock>
+                                                <!--El control proviene de https://wpfcurrencytextbox.codeplex.com-->
+                                                <Currency:CurrencyTextBox Grid.Column="3" Width="55" Margin="5" MaxLength="15"
+                                                                          Number="{Binding DataContext.PRECIO_UNITARIO, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, UpdateSourceTrigger=PropertyChanged,NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
+                                                                          Style="{DynamicResource CurrencyTextBoxNormal}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="LostFocus">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.CmdValidacionPrecios, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type UserControl}}}" CommandParameter=""></i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Currency:CurrencyTextBox>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GroupBox.HeaderTemplate>
+                                    <StackPanel>
+                                        <DataGrid ItemsSource="{Binding DETALLE_CENTRO_PRODUCTO}" AutoGenerateColumns="False" Margin="20 0 0 0" IsReadOnly="True" Focusable="False" CellStyle="{StaticResource CellStyleNoMouseOver}" RowStyle="{StaticResource RowStyleNoMouseOver}" Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                                            <DataGrid.Columns>
+                                                <DataGridTemplateColumn Header="CENTRO" MinWidth="250" MaxWidth="250" CellStyle="{StaticResource NoFocusColumStyle}">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel>
+                                                                <TextBlock Text="{Binding CENTRO}" TextWrapping="Wrap"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTemplateColumn Header="CANTIDAD" Width="100" CellStyle="{StaticResource NoFocusColumStyle}">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel>
+                                                                <TextBlock Text="{Binding CANTIDAD}"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                </GroupBox>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

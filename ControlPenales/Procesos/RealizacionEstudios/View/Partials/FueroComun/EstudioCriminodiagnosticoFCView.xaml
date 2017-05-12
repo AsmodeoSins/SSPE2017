@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="ControlPenales.EstudioCriminodiagnosticoFCView" x:Name="EstudioCriminodiagnosticoFCWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1200" d:DesignHeight="1000">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Versión del delito, según el interno (si acepta la comisión del delito, forma y fondo del delito, quienes participaron, como lo planeó, etc.)" Grid.ColumnSpan="4" Name="lblZ"></Label>
+            <TextBox Grid.Column="0" MinHeight="60" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.ColumnSpan="4" MaxLength="4000" MaxWidth="{ Binding ElementName=lblZ, Path=ActualWidth}" TextWrapping="Wrap" Text="{ Binding VersionDelitoSegunInterno, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="WrapWithOverflow" Text="Al momento de cometer el delito se encontraba bajo la influencia de alguna droga"></TextBlock>
+            <ComboBox Grid.Column="1" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="2" SelectedValuePath="Tag"
+                SelectedValue="{ Binding IdEncontrabaBajoInfluenciaDroga, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Grid.Column="2" Grid.Row="2" Content="¿Cual?"></Label>
+            <StackPanel Grid.Column="3" Grid.Row="2" Orientation="Horizontal">
+                <CheckBox Content="Alcohol" Margin="0 0 15 0" IsChecked="{ Binding IsAlcoholChecked, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{ Binding IsEnabledInfluenciaDrogas, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                <CheckBox Content="Drogas ilegales" Margin="0 0 15 0" IsChecked="{ Binding IsDrogasIlegalesChecked, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{ Binding IsEnabledInfluenciaDrogas, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                <CheckBox Content="Otra" Margin="0 0 15 0"  IsChecked="{ Binding IsOtraChecked, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{ Binding IsEnabledInfluenciaDrogas, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+            </StackPanel>
+
+            <Label Grid.Column="0" Grid.Row="3" Content="Criminogénesis (factores biológicos, psicológicos y sociales que favorecieron la comisión de o los delitos)" Grid.ColumnSpan="2"></Label>
+            <TextBox Grid.Column="0" Grid.ColumnSpan="4" MaxWidth="{ Binding ElementName=lblZ, Path=ActualWidth}" TextWrapping="Wrap" Grid.Row="5" MinHeight="50" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}" MaxLength="1000" Text="{ Binding CriminoGenesisEstudioCriminoFC, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="6" Content="Antecedentes y evolución de las conductas para y/o antisociales (consumo de drogas, pandillerismo, vagancia, tatuajes, perforaciones corporales (piercings), homosexualidad, prostitución, conductas delictivas, etc.)" Grid.ColumnSpan="4"></Label>
+            <TextBox Grid.Column="0" MaxWidth="{ Binding ElementName=lblZ, Path=ActualWidth}" TextWrapping="Wrap" MinHeight="60" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="4" Grid.Row="7" MaxLength="1000" Text="{ Binding AntecedentesEvolucionConductasParaSociales, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="8" Content="Clasificación criminológica" Grid.ColumnSpan="2"></Label>
+            <ComboBox Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="9" SelectedValuePath="ID_CLASIFICACION" ItemsSource="{ Binding ListClasifCriminologica }" DisplayMemberPath="DESCR"
+                SelectedValue="{ Binding IdClasificacionCriminologica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+
+            <Label Grid.Column="2" Grid.Row="8" Content="Intimidación ante la pena impuesta, ¿Considera que la pena de prisión logró su objeto?"></Label>
+            <ComboBox Grid.Column="2" Grid.ColumnSpan="2" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}" Grid.Row="9" SelectedValuePath="Tag"
+                SelectedValue="{ Binding IntimidacionAntePenaImpuesta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Grid.Column="0" Grid.Row="10" Content="¿Por qué?" Grid.ColumnSpan="2"></Label>
+            <TextBox Grid.Column="0" Grid.Row="11" MaxLength="500" MaxWidth="{ Binding ElementName=lblZ, Path=ActualWidth}" TextWrapping="Wrap" MinHeight="50" Grid.ColumnSpan="4" Text="{ Binding PorqueIntimidacionAntePenaImpuesta, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"
+                IsEnabled="{ Binding IsEnabledPorqueIntimidacion, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <GroupBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4" Header="Capacidad criminal actual">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Capacidad criminal actual"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="1"  IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding LstCapacidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CAPACIDAD"
+                SelectedValue="{ Binding IdCapacidadCriminologicaActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    </ComboBox>
+
+                    <Label Grid.Column="1" Grid.Row="0" Content="Egocentrismo"></Label>
+                    <ComboBox Grid.Column="1" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" ItemsSource="{Binding LstCapacidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CAPACIDAD"
+                        SelectedValue="{ Binding IdEgocentrismo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+
+                    <Label Grid.Column="2" Grid.Row="0" Content="Labilidad afectiva"></Label>
+                    <ComboBox Grid.Column="2" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" ItemsSource="{Binding LstCapacidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CAPACIDAD"
+                        SelectedValue="{ Binding IdLabilidadAfectiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    </ComboBox>
+
+                    <Label Grid.Column="3" Grid.Row="0" Content="Agresividad"></Label>
+                    <ComboBox Grid.Column="3" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" ItemsSource="{Binding LstCapacidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CAPACIDAD"
+                          SelectedValue="{ Binding IdAgresividad, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    </ComboBox>
+
+                    <Label Grid.Column="4" Grid.Row="0" Content="Indiferencia afectiva"></Label>
+                    <ComboBox Grid.Column="4" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" ItemsSource="{Binding LstCapacidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CAPACIDAD"
+                        SelectedValue="{ Binding IdIndiferenciaAfectiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+
+            <Label Grid.Column="0" Grid.Row="13" Content="Adaptabilidad social"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="14"  IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding LstCapacidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CAPACIDAD"
+                  SelectedValue="{ Binding IdAdaptabilidadSocial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            </ComboBox>
+
+            <Label Grid.Column="1" Grid.Row="13" Content="Índice de peligrosidad criminológica actual"></Label>
+            <ComboBox Grid.Column="1" Grid.Row="14" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding LstPeligrosidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_PELIGROSIDAD"
+                SelectedValue="{ Binding IdIndicePeligrosidadCriminologicaActual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            </ComboBox>
+
+            <Label Grid.Column="2" Grid.Row="13" Content="Pronóstico de reincidencia"></Label>
+            <ComboBox Grid.Column="2" Grid.Row="14" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding LstCapacidad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CAPACIDAD"
+                SelectedValue="{ Binding IdPronosticoReincidencia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+            </ComboBox>
+
+            <Label Grid.Column="3" Grid.Row="13" Content="Dictamen de reinserción social del interno"></Label>
+            <ComboBox Grid.Column="3" Grid.Row="14" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  SelectedValuePath="Tag" SelectedValue="{ Binding DictamenCriminod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <ComboBoxItem Content="SELECCIONE" Tag="0"></ComboBoxItem>
+                <ComboBoxItem Content="FAVORABLE" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="DESFAVORABLE" Tag="2"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="4" Content="Motivación del dictamen"></Label>
+            <TextBox Grid.Column="0" MaxWidth="{ Binding ElementName=lblZ, Path=ActualWidth}" TextWrapping="Wrap" Grid.ColumnSpan="4" Grid.Row="16" MinHeight="75"  IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}" MaxLength="1000" Text="{ Binding MotivacionDictamenCriminodiagnosticoComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" CharacterCasing="Upper"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="4" Content="En caso negativo, es necesario se señale a que programas o actividades debe de remitirse al interno, de conformidad con el modelo estratégico del sistema de reinserción social"></Label>
+            <TextBox Grid.Column="0" MinHeight="50" MaxWidth="{ Binding ElementName=lblZ, Path=ActualWidth}" TextWrapping="Wrap" Grid.Row="18" IsReadOnly="{ Binding EnabledMotivComun1, UpdateSourceTrigger=PropertyChanged}"  MaxLength="500" Grid.ColumnSpan="4" Text="{ Binding SenialeProgramasDebeRemitirseInterno, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="19" Content="¿Requiere de tratamiento extramuros?"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="20" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}"  SelectedValuePath="Tag"
+                SelectedValue="{ Binding ReqTratamExtramurosCriminod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Grid.Column="0" Grid.Row="21" Content="¿Cuál?"></Label>
+            <TextBox Grid.Column="0" MaxWidth="{ Binding ElementName=lblZ, Path=ActualWidth}" TextWrapping="Wrap" Grid.Row="22" Grid.ColumnSpan="4" MinHeight="50" MaxLength="500" Text="{ Binding CualTratamRemitirCriminodiagnosticoComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"
+                IsEnabled="{ Binding IsEnabledCualTratam, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="23" Content="Fecha de realización del estudio"></Label>
+            <DatePicker Grid.Column="0" IsEnabled="{ Binding IsEnabledDatosCriminod, UpdateSourceTrigger=PropertyChanged}" Grid.Row="24" Controls:TextBoxHelper.Watermark="Seleccione una fecha"
+                SelectedDate="{Binding FechaDictamenCrimino,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}"></DatePicker>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

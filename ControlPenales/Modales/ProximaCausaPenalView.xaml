@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ControlPenales.ProximaCausaPenalView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                     MaxHeight="300" MinHeight="300" Width="666">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0"  Content="Seleccionar Causa Penal Activa" Style="{DynamicResource DescriptionHeaderStyle}" />
+                    <DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" AutoGenerateColumns="False" IsReadOnly="True" MinHeight="180" MaxHeight="180" CanUserAddRows="False" ItemsSource="{Binding LstProximaCausaPenal}" SelectedItem="{Binding SelectedProximaCausaPenal}" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Año" Binding="{Binding CP_ANIO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Folio" Binding="{Binding CP_FOLIO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Fecha Ejecutoria"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Estatus" Binding="{Binding CAUSA_PENAL_ESTATUS.DESCR}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Juzgado" Binding="{Binding JUZGADO.DESCR}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                    <Button Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="proxima_causa_penal" Command="{Binding OnClick}">Guardar</Button>
+
+                    <Button Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_proxima_causa_penal" Command="{Binding OnClick}">Cancelar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+
+</UserControl>

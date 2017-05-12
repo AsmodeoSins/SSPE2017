@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="ControlPenales.SolicitudCitasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+
+        <Label Grid.Column="0" Grid.Row="1"  Content="Solicitud de Citas" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <DataGrid Grid.Column="0" Grid.Row="2" MaxHeight="200" Background="WhiteSmoke" Margin="5" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha Solicitud"></DataGridTextColumn>
+                <DataGridTextColumn Header="Hora"></DataGridTextColumn>
+                <DataGridTextColumn Header="Expediente"></DataGridTextColumn>
+                <DataGridTextColumn Header="Interno"></DataGridTextColumn>
+                <DataGridTextColumn Header="Asunto"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <GroupBox Grid.Column="0" Grid.Row="3" Header="Datos de la Solicitud Seleccionada">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">Expediente</Label>
+                <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">Paterno</Label>
+                <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">Materno</Label>
+                <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3">Nombre</Label>
+                <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="3"></TextBox>
+
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1">Fecha</Label>
+                <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1">Hora</Label>
+                <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="6">Asunto</Label>
+                <DatePicker Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+                <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="6"></TextBox>
+
+                <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">Departamento</Label>
+                <Label Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="5">Responsable</Label>
+                <ComboBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"></ComboBox>
+                <TextBox Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="5"></TextBox>
+
+                <Label Grid.Row="6" Grid.Column="0">Status</Label>
+                <RadioButton Grid.Row="7" Grid.Column="0" Margin="0,5,0,10">Solicitada</RadioButton>
+                <RadioButton Grid.Row="7" Grid.Column="1" Margin="0,5,0,10">Cancelada</RadioButton>
+
+                <Image Grid.Column="8" Grid.Row="0" Grid.RowSpan="6" MinWidth="160" Source="/ControlPenales;component/Imagen/placeholder_person.gif" ></Image>
+                
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

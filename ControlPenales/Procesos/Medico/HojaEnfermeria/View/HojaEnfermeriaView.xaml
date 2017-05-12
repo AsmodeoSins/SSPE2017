@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="ControlPenales.HojaEnfermeriaView"
+             x:Name="HojaEnfermeriaWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             d:DesignHeight="550" d:DesignWidth="1200">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding HojaEnfermeriaLoading}" CommandParameter="{Binding ElementName=HojaEnfermeriaWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:MyDataTemplateSelector x:Key="TemplateSelector"/>
+        <Views:AutocompleteViewModel x:Key="vm" />
+        <Views:TrimStringConverter x:Key="Trimming" />
+        <CollectionViewSource x:Key="receta">
+            <CollectionViewSource.Source>
+                <PriorityBinding>
+                    <Binding Source="{StaticResource vm}" Path="QueryReceta" IsAsync="True"/>
+                    <Binding Source="{StaticResource vm}" Path="WaitMessage"/>
+                </PriorityBinding>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <DataTemplate x:Key="WaitTemplate">
+            <TextBlock Text="{Binding}" Background="SlateBlue"/>
+        </DataTemplate>
+        <DataTemplate x:Key="TheItemTemplateReceta">
+            <Border CornerRadius="5" BorderBrush="#427399" BorderThickness="3" Background="Transparent" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <Grid HorizontalAlignment="Left" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="CATEGORIA:  "/>
+                        <TextBlock Text="{Binding PRODUCTO.PRODUCTO_CATEGORIA.NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="PRODUCTO:  "/>
+                        <TextBlock Text="{Binding PRODUCTO.NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuHojaEnfermeriaView Grid.Row="0" Grid.Column="0" />
+        <Label Grid.Column="0" Grid.Row="1" Content="Hoja de Enfermería" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:DetallesImputadoHojaEnfermeriaView Grid.Row="2" Grid.Column="0"></Views:DetallesImputadoHojaEnfermeriaView>
+        <Views:SeccionDatosTurnoHEView Grid.Row="3" Grid.Column="0" Visibility="{ Binding VisiblePasoDos, UpdateSourceTrigger=PropertyChanged}"></Views:SeccionDatosTurnoHEView>
+        <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" Grid.Column="0" SelectedIndex="{ Binding PosicionActual, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" TabStripPlacement="Top" Height="auto" Visibility="{ Binding VisiblePrincipal, UpdateSourceTrigger=PropertyChanged}" >
+            <TabItem Header="SIGNOS VITALES Y OTRAS LECTURAS GENERALES" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionCapturaSignosVitalesHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionCapturaSignosVitalesHEView>
+            </TabItem>
+            <TabItem Header="SOLUCIONES" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionSolucionesHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionSolucionesHEView>
+            </TabItem>
+            <TabItem Header="INGRESOS" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionIngresosHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionIngresosHEView>
+            </TabItem>
+            <TabItem Header="EGRESOS" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionEgresosHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionEgresosHEView>
+            </TabItem>
+            <TabItem Header="MEDICAMENTOS" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionMedicamentosHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionMedicamentosHEView>
+            </TabItem>
+            <TabItem Header="NOTAS DE ENFERMERÍA" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionNotasEnfermeriaHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionNotasEnfermeriaHEView>
+            </TabItem>
+            <TabItem Header="LOCALIZACIÓN DE ÚLCERAS POR PRESIÓN" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionUlserasPresionHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionUlserasPresionHEView>
+            </TabItem>
+            <TabItem Header="CATÉTER" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionCateterHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionCateterHEView>
+            </TabItem>
+            <TabItem Header="SONDA NASOGÁSTRICA" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionSondaGasoGastricaHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionSondaGasoGastricaHEView>
+            </TabItem>
+            <TabItem Header="LABORATORIO" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionLaboratorioHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionLaboratorioHEView>
+            </TabItem>
+            <TabItem Header="RAYOS X" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:SeccionRayosXHEView Style="{StaticResource ViewTabStyle}"></Views:SeccionRayosXHEView>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

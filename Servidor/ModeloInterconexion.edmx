@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModeloInterconexion.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SSP.AUDIENCIA_NOTIFICACIONES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AUDIENCIA_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="AUDIENCIA_NOTIFICACION" />
+            <PropertyRef Name="NUC" />
+            <PropertyRef Name="BORRADO" />
+            <PropertyRef Name="ULTIMA_MODIFICACION" />
+            <PropertyRef Name="FECHA_REGISTRO" />
+          </Key>
+          <Property Name="AUDIENCIA_NOTIFICACION" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="NUC" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CAUSA_PENAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="NUMERO_OFICIO" Type="varchar2" MaxLength="100" />
+          <Property Name="AUTO_DICTADO" Type="varchar2" MaxLength="200" />
+          <Property Name="DOCUMENTO" Type="blob" />
+          <Property Name="FECHA_INICIO_AUDIENCIA" Type="date" />
+          <Property Name="FECHA_FIN_AUDIENCIA" Type="date" />
+          <Property Name="IDENTIFICADOR_AUD" Type="number" Precision="38" Scale="0" />
+          <Property Name="IDENTIFICADOR_JUZGADO" Type="number" Precision="38" Scale="0" />
+          <Property Name="SALA" Type="varchar2" MaxLength="200" />
+          <Property Name="FECHA" Type="date" />
+          <Property Name="BORRADO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ULTIMA_MODIFICACION" Type="date" Nullable="false" />
+          <Property Name="FORMATO" Type="varchar2" MaxLength="20" />
+          <Property Name="FECHA_REGISTRO" Type="date" Nullable="false" />
+          <Property Name="FECHA_SMS" Type="date" />
+          <Property Name="IDUNICO_AUDIENCIA" Type="number" Precision="38" Scale="0" />
+          <Property Name="LIBERTAD" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'SSP.VM_IMPUTADOSDATOS' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="VM_IMPUTADOSDATOS">
+          <Property Name="EXPEDIENTEID" Type="number" Precision="16" Scale="0" />
+          <Property Name="PERSONAFISICAID" Type="number" Precision="10" Scale="0" />
+          <Property Name="TIPOIDENTIFICACIONID" Type="number" Precision="5" Scale="0" />
+          <Property Name="NUMEROIDENTIFICACION" Type="varchar2" MaxLength="20" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="100" />
+          <Property Name="PRIMERAPELLIDO" Type="varchar2" MaxLength="50" />
+          <Property Name="SEGUNDOAPELLIDO" Type="varchar2" MaxLength="50" />
+          <Property Name="FOTO" Type="blob" />
+          <Property Name="NACIONALIDADID" Type="number" Precision="5" Scale="0" />
+          <Property Name="ESTADOORIGENID" Type="number" Precision="5" Scale="0" />
+          <Property Name="MUNICIPIOORIGENID" Type="number" Precision="5" Scale="0" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="100" />
+          <Property Name="FECHANACIMIENTO" Type="date" />
+          <Property Name="EDADCANTIDAD" Type="number" Precision="5" Scale="0" />
+          <Property Name="EDADTIEMPO" Type="char" MaxLength="1" />
+          <Property Name="ESTADOCIVILID" Type="number" Precision="5" Scale="0" />
+          <Property Name="SEXO" Type="char" MaxLength="1" />
+        </EntityType>-->
+        <EntityContainer Name="ModeloInterconexionStoreContainer">
+          <EntitySet Name="AUDIENCIA_NOTIFICACIONES" EntityType="Self.AUDIENCIA_NOTIFICACIONES" store:Type="Tables" store:Schema="SSP">
+            <DefiningQuery>SELECT 
+"AUDIENCIA_NOTIFICACIONES"."AUDIENCIA_NOTIFICACION" AS "AUDIENCIA_NOTIFICACION", 
+"AUDIENCIA_NOTIFICACIONES"."NUC" AS "NUC", 
+"AUDIENCIA_NOTIFICACIONES"."CAUSA_PENAL" AS "CAUSA_PENAL", 
+"AUDIENCIA_NOTIFICACIONES"."NUMERO_OFICIO" AS "NUMERO_OFICIO", 
+"AUDIENCIA_NOTIFICACIONES"."AUTO_DICTADO" AS "AUTO_DICTADO", 
+"AUDIENCIA_NOTIFICACIONES"."DOCUMENTO" AS "DOCUMENTO", 
+"AUDIENCIA_NOTIFICACIONES"."FECHA_INICIO_AUDIENCIA" AS "FECHA_INICIO_AUDIENCIA", 
+"AUDIENCIA_NOTIFICACIONES"."FECHA_FIN_AUDIENCIA" AS "FECHA_FIN_AUDIENCIA", 
+"AUDIENCIA_NOTIFICACIONES"."IDENTIFICADOR_AUD" AS "IDENTIFICADOR_AUD", 
+"AUDIENCIA_NOTIFICACIONES"."IDENTIFICADOR_JUZGADO" AS "IDENTIFICADOR_JUZGADO", 
+"AUDIENCIA_NOTIFICACIONES"."SALA" AS "SALA", 
+"AUDIENCIA_NOTIFICACIONES"."FECHA" AS "FECHA", 
+"AUDIENCIA_NOTIFICACIONES"."BORRADO" AS "BORRADO", 
+"AUDIENCIA_NOTIFICACIONES"."ULTIMA_MODIFICACION" AS "ULTIMA_MODIFICACION", 
+"AUDIENCIA_NOTIFICACIONES"."FORMATO" AS "FORMATO", 
+"AUDIENCIA_NOTIFICACIONES"."FECHA_REGISTRO" AS "FECHA_REGISTRO", 
+"AUDIENCIA_NOTIFICACIONES"."FECHA_SMS" AS "FECHA_SMS", 
+"AUDIENCIA_NOTIFICACIONES"."IDUNICO_AUDIENCIA" AS "IDUNICO_AUDIENCIA", 
+"AUDIENCIA_NOTIFICACIONES"."LIBERTAD" AS "LIBERTAD"
+FROM "SSP"."AUDIENCIA_NOTIFICACIONES" "AUDIENCIA_NOTIFICACIONES"</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModeloInterconexion" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="VM_IMPUTADOSDATOS">
+          <Key>
+            <PropertyRef Name="EXPEDIENTEID" />
+            <PropertyRef Name="PERSONAFISICAID" />
+          </Key>
+          <Property Name="EXPEDIENTEID" Type="Int64" Nullable="false" />
+          <Property Name="PERSONAFISICAID" Type="Int32" Nullable="false" />
+          <Property Name="TIPOIDENTIFICACIONID" Type="Int16" />
+          <Property Name="NUMEROIDENTIFICACION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRIMERAPELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SEGUNDOAPELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FOTO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="NACIONALIDADID" Type="Int16" />
+          <Property Name="ESTADOORIGENID" Type="Int16" />
+          <Property Name="MUNICIPIOORIGENID" Type="Int16" />
+          <Property Name="TELEFONO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FECHANACIMIENTO" Type="DateTime" />
+          <Property Name="EDADCANTIDAD" Type="Int16" />
+          <Property Name="EDADTIEMPO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ESTADOCIVILID" Type="Int16" />
+          <Property Name="SEXO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="EntidadInterconexion" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="VM_IMPUTADOSDATOS" EntityType="Self.VM_IMPUTADOSDATOS" />
+          <EntitySet Name="AUDIENCIA_NOTIFICACIONES" EntityType="ModeloInterconexion.AUDIENCIA_NOTIFICACIONES" />
+        </EntityContainer>
+
+        <Function Name="ParseDouble" ReturnType="Edm.Double">
+          <Parameter Name="stringvalue" Type="Edm.String" />
+          <DefiningExpression>
+            cast(stringvalue as Edm.Double)
+          </DefiningExpression>
+        </Function>
+        <EntityType Name="AUDIENCIA_NOTIFICACIONES">
+          <Key>
+            <PropertyRef Name="AUDIENCIA_NOTIFICACION" />
+            <PropertyRef Name="NUC" />
+            <PropertyRef Name="BORRADO" />
+            <PropertyRef Name="ULTIMA_MODIFICACION" />
+            <PropertyRef Name="FECHA_REGISTRO" />
+          </Key>
+          <Property Name="AUDIENCIA_NOTIFICACION" Type="Int32" Nullable="false" />
+          <Property Name="NUC" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="CAUSA_PENAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="NUMERO_OFICIO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AUTO_DICTADO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DOCUMENTO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FECHA_INICIO_AUDIENCIA" Type="DateTime" />
+          <Property Name="FECHA_FIN_AUDIENCIA" Type="DateTime" />
+          <Property Name="IDENTIFICADOR_AUD" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="IDENTIFICADOR_JUZGADO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SALA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA" Type="DateTime" />
+          <Property Name="BORRADO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ULTIMA_MODIFICACION" Type="DateTime" Nullable="false" />
+          <Property Name="FORMATO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" Nullable="false" />
+          <Property Name="FECHA_SMS" Type="DateTime" />
+          <Property Name="IDUNICO_AUDIENCIA" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LIBERTAD" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModeloInterconexionStoreContainer" CdmEntityContainer="EntidadInterconexion">
+        <EntitySetMapping Name="AUDIENCIA_NOTIFICACIONES">
+            <EntityTypeMapping TypeName="ModeloInterconexion.AUDIENCIA_NOTIFICACIONES">
+              <MappingFragment StoreEntitySet="AUDIENCIA_NOTIFICACIONES">
+                <ScalarProperty Name="LIBERTAD" ColumnName="LIBERTAD" />
+                <ScalarProperty Name="IDUNICO_AUDIENCIA" ColumnName="IDUNICO_AUDIENCIA" />
+                <ScalarProperty Name="FECHA_SMS" ColumnName="FECHA_SMS" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+                <ScalarProperty Name="FORMATO" ColumnName="FORMATO" />
+                <ScalarProperty Name="ULTIMA_MODIFICACION" ColumnName="ULTIMA_MODIFICACION" />
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="SALA" ColumnName="SALA" />
+                <ScalarProperty Name="IDENTIFICADOR_JUZGADO" ColumnName="IDENTIFICADOR_JUZGADO" />
+                <ScalarProperty Name="IDENTIFICADOR_AUD" ColumnName="IDENTIFICADOR_AUD" />
+                <ScalarProperty Name="FECHA_FIN_AUDIENCIA" ColumnName="FECHA_FIN_AUDIENCIA" />
+                <ScalarProperty Name="FECHA_INICIO_AUDIENCIA" ColumnName="FECHA_INICIO_AUDIENCIA" />
+                <ScalarProperty Name="DOCUMENTO" ColumnName="DOCUMENTO" />
+                <ScalarProperty Name="AUTO_DICTADO" ColumnName="AUTO_DICTADO" />
+                <ScalarProperty Name="NUMERO_OFICIO" ColumnName="NUMERO_OFICIO" />
+                <ScalarProperty Name="CAUSA_PENAL" ColumnName="CAUSA_PENAL" />
+                <ScalarProperty Name="NUC" ColumnName="NUC" />
+                <ScalarProperty Name="AUDIENCIA_NOTIFICACION" ColumnName="AUDIENCIA_NOTIFICACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

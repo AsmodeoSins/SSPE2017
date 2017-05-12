@@ -1,0 +1,269 @@
+﻿<UserControl x:Class="ControlPenales.HomosexualidadPandillaSexualidad"
+             x:Name="HPSWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="1250">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding HPSLoading}" CommandParameter="{Binding ElementName=HPSWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding HPSUnloading}" CommandParameter="{Binding ElementName=HPSWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Conducta Parasocial (Requerido)" HorizontalAlignment="Stretch" Height="auto" Margin="5,20,5,-10">
+                <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="230"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="130"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0">¿Vivió en la Calle de Niño o en Orfanato?</Label>
+                <Label Grid.Column="2" Grid.Row="0">¿Pertenece a Pandilla Actualmente?</Label>
+                <Label Grid.Column="4" Grid.Row="0">¿Nombre de Pandilla?</Label>
+
+                <ComboBox Grid.Column="1" Grid.Row="0" Name="cbVivioCalleOrfanato" SelectedValuePath="Tag" SelectedValue="{Binding VivioCalleOrfanato,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                    <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                    <ComboBoxItem Content="SI" Tag="S"/>
+                    <ComboBoxItem Content="NO" Tag="N"/>
+                </ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="0" Name="cbPertenecePandilla" SelectedValuePath="Tag" SelectedValue="{Binding PertenecePandilla,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                    <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                    <ComboBoxItem Content="SI" Tag="S"/>
+                    <ComboBoxItem Content="NO" Tag="N"/>
+                </ComboBox>
+                <!--<ComboBox Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="3" DisplayMemberPath="NOMBRE" SelectedValuePath="ID_PANDILLA" Name="cbNombrePantilla" 
+                          SelectedValue="{Binding PandillaNombre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ItemsSource="{Binding LstPandillas}" IsEnabled="{Binding PandillaEnabled}"/>-->
+                <TextBox Grid.Column="5"
+                         Grid.Row="0"
+                         Grid.ColumnSpan="3"
+                         Text="{Binding NombrePandilla, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }"
+                         IsEnabled="{Binding PandillaEnabled}"
+                         CharacterCasing="Upper"></TextBox>
+                <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Header="Conducta" HorizontalAlignment="Stretch" Height="auto">
+                            <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1">Comportamiento<LineBreak/>Homosexual</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Height="20" VerticalAlignment="Center" Name="cbComportamientoHomosexual" SelectedValuePath="Tag" 
+                                  SelectedValue="{Binding Homosexual,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+
+                        <Label Grid.Column="2" Grid.Row="0" >Edad Inicial</Label>
+                        <TextBox Grid.Column="2" Grid.Row="1" Height="26" VerticalAlignment="Center" Margin="0,3" IsEnabled="{Binding ComportamientoHomosexualEnabled}"
+                                 Text="{Binding HomosexualEdadIncial,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <Label Grid.Column="3" Grid.Row="0">Indique Rol</Label>
+                        <Label Grid.Column="4" Grid.Row="0">Comportamiento</Label>
+                        <ComboBox Grid.Column="3" Grid.Row="1" Height="20" VerticalAlignment="Center" Name="cbRol" SelectedValuePath="Tag" 
+                                  SelectedValue="{Binding HomosexualRol,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                  IsEnabled="{Binding ComportamientoHomosexualEnabled}" >
+                        <ComboBox.Items>
+                                <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                                <ComboBoxItem Tag="A" Content="ACTIVO"/>
+                                <ComboBoxItem Tag="P" Content="PASIVO"/>
+                            </ComboBox.Items>
+                        </ComboBox>
+                        <ComboBox Grid.Column="4" Grid.Row="1" Height="20" VerticalAlignment="Center"
+                                  ItemsSource="{Binding LstComportamientoHomo }"
+                                  SelectedValue="{Binding Id_Homo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                  DisplayMemberPath="DESCR" SelectedValuePath="ID_HOMO"
+                                  IsEnabled="{Binding ComportamientoHomosexualEnabled}" />
+                        <TextBlock Grid.Column="0" Grid.Row="3">¿Perteneció a Pandillas<LineBreak/>en el Exterior?</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Height="29" VerticalAlignment="Center" Name="cbPandillasExterior" SelectedValuePath="Tag" 
+                                  SelectedValue="{Binding PertenecioPandillaExterior,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Margin="0,3,0,0" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+
+                        <TextBox Grid.Column="2" Grid.Row="3" Height="29" VerticalAlignment="Center" Text="{Binding PandillaExteriorEdadInicial,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Margin="0,3,0,0"  IsEnabled="{Binding PertenecioPandillaEnabled}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <TextBox Grid.Column="3" Grid.Row="3" Height="29" VerticalAlignment="Center" Grid.ColumnSpan="2" Name="tbMotivoPandillaExterior" 
+                                 Text="{Binding PandillaExteriorMotivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Margin="0,3,0,0" 
+                                 CharacterCasing="Upper" IsEnabled="{Binding PertenecioPandillaEnabled}">
+                        </TextBox>
+                        
+
+                        <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Center">Vagancia</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="4" Name="cbVagancia" SelectedValuePath="Tag" SelectedValue="{Binding Vagancia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+
+                        <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding VaganciaEdadIncial,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding VaganciaEnabled}" >
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <TextBox Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Name="tbMotivoVagancia" CharacterCasing="Upper" IsEnabled="{Binding VaganciaEnabled}"
+                                 Text="{Binding VaganciaMotivos,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                        </TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Center">Cicatrices</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="5" Name="cbCicatrices" SelectedValuePath="Tag" SelectedValue="{Binding Cicatrices,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        
+                        <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding CicatricesEdadIncial,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding CicatricesEnabled}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <TextBox Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Name="tbMotivoCicatrices" CharacterCasing="Upper" IsEnabled="{Binding CicatricesEnabled}"
+                                 Text="{Binding CicatricesMotivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                        </TextBox>
+                        
+                        <CheckBox Grid.Column="5" Grid.Row="5" IsChecked="{Binding CicatricesRina,Mode=TwoWay}" 
+                                  IsEnabled="{Binding CicatricesEnabled}">Por Riña</CheckBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="6" VerticalAlignment="Center">Deserción Escolar</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="6" Name="cbDesercionEscolar" SelectedValuePath="Tag" 
+                                  SelectedValue="{Binding DesercionEscolar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <Label Grid.Column="2" Grid.Row="6">Grado Escolar</Label>
+                        <TextBox Grid.Column="3" Grid.Row="6" Grid.ColumnSpan="2" Name="tbMotivoDesercionEscolar" CharacterCasing="Upper" IsEnabled="{Binding DesercionEscolarEnabled}"
+                                 Text="{Binding DesercionMotivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                        </TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="7" VerticalAlignment="Center">Reprobación Escolar</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="7" Name="cbReprobacionEscolar" SelectedValuePath="Tag" 
+                                  SelectedValue="{Binding ReprobacionEscolar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <!--<ComboBox Grid.Column="2" Grid.Row="7" ItemsSource="{Binding LstGradoEducativo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_GRADO" 
+                                  SelectedValue="{Binding ReprobacionGrado,ValidatesOnDataErrors=True}" IsEnabled="{Binding ReprobacionEscolarEnabled}"></ComboBox>-->
+
+                        <TextBox Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="3" Name="tbMotivoReprobacionEscolar" CharacterCasing="Upper" IsEnabled="{Binding ReprobacionEscolarEnabled}"
+                                 Text="{Binding ReprobacionEscolarMotivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                 ></TextBox>
+
+                        <TextBlock Grid.Column="0" Grid.Row="8" VerticalAlignment="Center">Expulsión Escolar</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="8" Name="cbExpulsionEscolar" SelectedValuePath="Tag" SelectedValue="{Binding ExplusionEscolar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <!--<ComboBox Grid.Column="2" Grid.Row="8" ItemsSource="{Binding LstGradoEducativo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_GRADO" 
+                                  SelectedValue="{Binding ExpulsionGrado,ValidatesOnDataErrors=True}" IsEnabled="{Binding ExpulsionEscolarEnabled}"></ComboBox>-->
+
+                        <TextBox Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="3" Name="tbMotivoExpulsionEscolar" CharacterCasing="Upper" IsEnabled="{Binding ExpulsionEscolarEnabled}"
+                                 Text="{Binding ExplusionEscolarMotivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                 ></TextBox>
+
+
+
+                        <Label Grid.Column="3" Grid.Row="2">Motivo(s)</Label>
+
+                    </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+
+
+                <GroupBox Grid.Row="1" Grid.Column="7" Header="Pagaba X Servicio Sexual" HorizontalAlignment="Stretch" Height="auto" Margin="5,5,5,206">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <CheckBox Grid.Column="0" Grid.Row="0" Name="chkPagabaSexoHombres" IsChecked="{Binding ConHombres,Mode=TwoWay}">Con Hombres</CheckBox>
+                        <CheckBox Grid.Column="0" Grid.Row="1" Name="chkPagabaSexoMujeres" IsChecked="{Binding ConMujeres,Mode=TwoWay}">Con Mujeres</CheckBox>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Row="1" Grid.Column="7" Header="¿ Se prostituía ?" HorizontalAlignment="Stretch" Height="auto" Margin="5,94,5,10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <CheckBox Grid.Column="0" Grid.Row="0" Name="asd" IsChecked="{Binding SeProstituiaHombres,Mode=TwoWay}">Con Hombres</CheckBox>
+                        <CheckBox Grid.Column="0" Grid.Row="1" Name="asdw" IsChecked="{Binding SeProstituiaMujeres,Mode=TwoWay}">Con Mujeres</CheckBox>
+                        <TextBlock Grid.Column="0"  Grid.Row="2" >Motivo</TextBlock>
+                        <ComboBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding LstMotivosProstituye}" 
+                                  SelectedValue="{Binding MotivoProstituye}" DisplayMemberPath="DESCR" SelectedValuePath="ID_MOTIVO" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

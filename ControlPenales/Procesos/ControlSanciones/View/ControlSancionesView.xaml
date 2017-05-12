@@ -1,0 +1,220 @@
+﻿<UserControl x:Class="ControlPenales.ControlSancionesView"
+             x:Name="ControlSancionesWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ControlSancionesLoading}" CommandParameter="{Binding ElementName=ControlSancionesWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Name="Contenedor">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition MinWidth="200" MaxWidth="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
+
+        <Label Grid.Column="0" Grid.Row="1"  Content="Control de Sanciones" Style="{DynamicResource DescriptionHeaderStyle}" Name="Titulo" />
+
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="2" TabStripPlacement="Top" Controls:TabControlHelper.IsUnderlined="True" SelectedIndex="{Binding TabIndex}"  MaxWidth="{Binding ElementName=Titulo,Path=ActualWidth}">
+            <TabItem Header="SANCIONES POR AUTORIZAR" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid Margin="0 10 0 0" FontSize="11.5" ItemsSource="{Binding ListIncidentes, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectedItem="{Binding SelectIncidentes}" Style="{StaticResource MetroDataGrid}" MaxHeight="500">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año" Binding="{Binding Id_Anio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Folio" Binding="{Binding Id_Imputado}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Paterno" Binding="{Binding Paterno}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Materno" Binding="{Binding Materno}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha Registro" Binding="{Binding Registro_Fecha}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estatus" Binding="{Binding Estatus}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Motivo" Binding="{Binding Motivo}" MaxWidth="400"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha Autorización" Binding="{Binding Autorizacion_Fecha}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha Término" Binding="{Binding Anio}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="SANCIONES POR CUMPLIMENTAR" Style="{StaticResource HeaderTabStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="200" MinWidth="200"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Mostrar sanciones cumplidas al dia" FontSize="11.5"></Label>
+
+                    <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" FontSize="11.5" SelectedDate="{Binding FechaSancionesCumplidas}"/>
+
+                    <Button Grid.Column="1" Grid.Row="1" Margin="10 0 0 0"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}"
+                    CommandParameter="VerTodosCumplimentar" Command="{Binding OnClick}" FontSize="11.5">Ver Todos</Button>
+
+                    <DataGrid  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0 10 0 0" FontSize="11.5" ItemsSource="{Binding ListIncidentesCumplimentar, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectedItem="{Binding SelectIncidentesCumplimentar}" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Año" Binding="{Binding Id_Anio}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Folio" Binding="{Binding Id_Imputado}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Paterno" Binding="{Binding Paterno}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Materno" Binding="{Binding Materno}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Fecha Registro" Binding="{Binding Registro_Fecha}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Estatus" Binding="{Binding Estatus}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Motivo" Binding="{Binding Motivo}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Fecha Autorización" Binding="{Binding Autorizacion_Fecha}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Fecha Término" Binding="{Binding Anio}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <!--<ColumnDefinition/>-->
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding ImagenImputado}"></Image>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1">
+                <Label HorizontalAlignment="Center" Content="Autorizar" Padding="0"/>
+                <Button  Width="50" Height="50"  ToolTip="Autorizar"
+                            IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="sancion_autorizar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_check}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Cancelar" Padding="0"/>
+                <Button  Width="50" Height="50"  ToolTip="Cancelar"
+                            IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="sancion_cancelar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_close}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Pendiente" Padding="0"/>
+                <Button  Width="50" Height="50"  ToolTip="Pendiente"
+                            IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="sancion_pendiente" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_pin}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                <Label HorizontalAlignment="Center" Content="Agenda" Padding="0"/>
+                <Button  Width="50" Height="50"  ToolTip="Agenda"
+                            IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="sancion_calendarizar" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_calendar_day}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+
+            </StackPanel>
+            
+        </Grid>
+
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" TabStripPlacement="Top" Margin="0 5 0 0" 
+                                                   Controls:TabControlHelper.IsUnderlined="True" 
+                                                   MaxWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=ActualWidth}" >
+            <TabItem Header="Datos del Incidente Seleccionado" Style="{StaticResource HeaderTabStyle}">
+                <StackPanel>
+                    <GroupBox Header="Datos del Incidente" FontSize="11.5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MaxWidth="200" MinWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Column="0" Grid.Row="0">Fecha de Registro</Label>
+                            <Label Grid.Column="1" Grid.Row="0" Margin="10 0 0 0">Motivo</Label>
+                            <Label Grid.Column="0" Grid.Row="2">Tipo de Incidente</Label>
+
+                            <TextBox Grid.Row="1" Grid.Column="0" IsReadOnly="True" Text="{Binding FechaRegistro}" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="5,0,0,0" Text="{Binding TextMotivo}" Height="Auto" 
+                                     MaxLength="2000" TextWrapping="Wrap" IsReadOnly="True">
+                            </TextBox>
+                            <ComboBox Grid.Row="3" Grid.Column="0" ItemsSource="{Binding ListIncidente}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INCIDENTE_TIPO" SelectedItem="SelectIncidente" SelectedValue="{Binding SelectedIncidente}" IsReadOnly="True" IsEnabled="False" />
+
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Sanciones" Grid.Row="1" FontSize="11.5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <DataGrid MaxHeight="200" ItemsSource="{Binding ListSanciones, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectedItem="{Binding SelectSanciones}" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Sanción" Binding="{Binding STR_Sancion}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Inicio" Binding="{Binding IniciaFecha, StringFormat=dd/MM/yyyy hh:mm tt}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Final" Binding="{Binding TerminaFecha, StringFormat=dd/MM/yyyy hh:mm tt}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Insertar" Name="InsertarSancion1" Command="{Binding OnClick}" CommandParameter="insertar_sancion" Visibility="{Binding VAgregarSancion}" />
+                                        <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_sancion" Visibility="{Binding VEditarSancion}" />
+                                        <!--<MenuItem Header="Borrar"  Command="{Binding OnClick}" CommandParameter="borrar_sancion"/>-->
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+    </Grid>
+</UserControl>

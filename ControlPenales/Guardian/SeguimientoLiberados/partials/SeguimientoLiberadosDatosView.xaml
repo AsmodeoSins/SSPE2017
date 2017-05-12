@@ -1,0 +1,234 @@
+﻿<UserControl x:Class="ControlPenales.SeguimientoLiberadosDatosView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="100" MinWidth="75"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Seguimiento a Liberados > Datos" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Personales" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Personales"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_personales" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_user_tie}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+        
+        <Label Grid.Column="0" Grid.Row="2" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Referencias" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Referencias"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_referencias" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_group}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+        
+        <Label Grid.Column="0" Grid.Row="4" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Señas Particulares" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Señas Particulares"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_senias_particulares" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_reply_people}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+        
+        <Label Grid.Column="0" Grid.Row="6" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Jurídico" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Jurídico"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_juridico" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_scale}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <Label Grid.Column="0" Grid.Row="8" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Beneficios" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Beneficios"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_beneficio" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_thumb_up_add}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <Label Grid.Column="0" Grid.Row="10" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Internaciones" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Internaciones"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_internacion" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_table}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <Label Grid.Column="0" Grid.Row="12" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Obligaciones" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Obligaciones"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_obligacion" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_calculator}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <Label Grid.Column="0" Grid.Row="14" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="15" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Foto" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Foto"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_foto" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera_switch}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <Label Grid.Column="0" Grid.Row="16" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="17" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Huella" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Huella"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_huella" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <Label Grid.Column="0" Grid.Row="18" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="19" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Alias" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Alias"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_alias" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_people_arrow_left}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+        <Label Grid.Column="0" Grid.Row="20" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <StackPanel Grid.Column="0" Grid.Row="21" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" Content="Documentos" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Documentos"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_documento" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_folder_people}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <Label Grid.Column="0" Grid.Row="22" Foreground="Red" HorizontalAlignment="Center">0/0</Label>
+
+        <GroupBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="22" Header="{Binding TituloHeader}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Views:SeguimientoLiberadosPersonalesView  Grid.Column="0" Grid.Row="0" Visibility="{Binding PersonalesVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosPersonalesView>
+                <Views:SeguimientoLiberadosReferenciasView  Grid.Column="0" Grid.Row="0" Visibility="{Binding ReferenciasVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosReferenciasView>
+                <Views:SeguimientoLiberadosJuridicoView  Grid.Column="0" Grid.Row="0" Visibility="{Binding JuridicoVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosJuridicoView>
+                <Views:SeguimientoLiberadosBeneficiosView  Grid.Column="0" Grid.Row="0" Visibility="{Binding BeneficioVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosBeneficiosView>
+                <Views:SeguimientoLiberadosInternacionesView Grid.Column="0" Grid.Row="0" Visibility="{Binding InternacionVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosInternacionesView>
+                <Views:SeguimientoLiberadosObligacionesView Grid.Column="0" Grid.Row="0" Visibility="{Binding ObligacionVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosObligacionesView>
+                <Views:SeguimientoLiberadosFotoView Grid.Column="0" Grid.Row="0" Visibility="{Binding FotoVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosFotoView>
+                <Views:SeguimientoLiberadosHuellasView Grid.Column="0" Grid.Row="0" Visibility="{Binding HuellasVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosHuellasView>
+                <Views:SeguimientoLiberadosAliasView Grid.Column="0" Grid.Row="0" Visibility="{Binding AliasVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosAliasView>
+                <Views:SeguimientoLiberadosDocumentosView Grid.Column="0" Grid.Row="0" Visibility="{Binding DocumentoVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosDocumentosView>
+                <Views:SeguimientoLiberadosSeniasParticularesView Grid.Column="0" Grid.Row="0" Visibility="{Binding SeniasParticularesVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:SeguimientoLiberadosSeniasParticularesView>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+    </UserControl>
+
+    

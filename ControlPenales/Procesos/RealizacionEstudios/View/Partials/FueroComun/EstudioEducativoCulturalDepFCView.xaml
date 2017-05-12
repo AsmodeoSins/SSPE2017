@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="ControlPenales.EstudioEducativoCulturalDepFCView" x:Name="EstudioEducativoCulturalDepFCWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Views="clr-namespace:ControlPenales" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1200" d:DesignHeight="900">
+    <UserControl.Resources>
+        <Views:SiNoConverter x:Key="ConvertirSiNo"/>
+        <Views:EscolaridadConverter x:Key="ConvertirEscolaridd" />
+    </UserControl.Resources>
+    <AdornerDecorator>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Column="0" Grid.Row="0" Header="Escolaridad anterior a su ingreso al centro" Grid.ColumnSpan="3">
+                <DataGrid ItemsSource="{ Binding LstEscolaridadesEducativo}" IsEnabled="{ Binding IsEnabledEducativoD, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Height="auto" CanUserAddRows="False"
+                        Style="{StaticResource MetroDataGrid}" Name="dgFamiliares" SelectedItem="{ Binding SelectedComunicacion}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nivel"  Binding="{ Binding ID_GRADO , Converter={ StaticResource ConvertirEscolaridd}}" />
+                        <DataGridTextColumn Header="Concluida" Binding="{ Binding CONCLUIDA ,Converter={StaticResource ConvertirSiNo}}" />
+                        <DataGridTextColumn Header="Observaciones" Binding="{ Binding OBSERVACION }" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_escolaridad" Visibility="{Binding MostrarOpcion}" />
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_escolaridad" Visibility="{Binding MostrarOpcion}" />
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_escolaridad" Visibility="{Binding MostrarOpcion}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </GroupBox>
+            <GroupBox Header="Tratamiento recibido durante su internamiento de conformidad con el modelo estratégico de reinserción social" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Actividades Educativas">
+                        <DataGrid IsEnabled="{ Binding IsEnabledEducativoD, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{ Binding LstActividadesEducativas}" IsReadOnly="True" AutoGenerateColumns="False" Height="auto" CanUserAddRows="False"
+                        Style="{StaticResource MetroDataGrid}" SelectedItem="{ Binding SelectedActividadEducativa}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nivel"  Binding="{ Binding ID_GRADO , Converter={ StaticResource ConvertirEscolaridd}}" />
+                                <DataGridTextColumn Header="Concluida" Binding="{ Binding CONCLUIDA ,Converter={StaticResource ConvertirSiNo}}" />
+                                <DataGridTextColumn Header="Observaciones" Binding="{ Binding OBSERVACION }" />
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_activ_educ" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_activ_educ" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_activ_educ" Visibility="{Binding MostrarOpcion}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="2" Header="Actividades Culturales">
+                        <DataGrid  IsEnabled="{ Binding IsEnabledEducativoD, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{ Binding LstAcitividadesCulturales}" IsReadOnly="True" AutoGenerateColumns="False" Height="auto" CanUserAddRows="False"
+                        Style="{StaticResource MetroDataGrid}" SelectedItem="{ Binding SelectedActivCultural}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Programa"  Binding="{ Binding TIPO_PROGRAMA.NOMBRE}" />
+                                <DataGridTextColumn Header="Actividad" Binding="{ Binding ACTIVIDAD1.DESCR }" />
+                                <DataGridTextColumn Header="Duración" Binding="{ Binding DURACION }" />
+                                <DataGridTextColumn Header="Observación" Binding="{ Binding OBSERVACION }" />
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_activ_cult" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_activ_cult" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_activ_cult" Visibility="{Binding MostrarOpcion}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="3" Header="Actividades Deportivas">
+                        <DataGrid  IsEnabled="{ Binding IsEnabledEducativoD, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{ Binding LstActividadesDeportivas}" IsReadOnly="True" AutoGenerateColumns="False" Height="auto" CanUserAddRows="False"
+                        Style="{StaticResource MetroDataGrid}" SelectedItem="{ Binding SelectedActividadDeportiva}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Programa"  Binding="{ Binding TIPO_PROGRAMA.NOMBRE}" />
+                                <DataGridTextColumn Header="Actividad" Binding="{ Binding ACTIVIDAD1.DESCR }" />
+                                <DataGridTextColumn Header="Duración" Binding="{ Binding DURACION }" />
+                                <DataGridTextColumn Header="Observación" Binding="{ Binding OBSERVACION }" />
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_activ_dep" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_activ_dep" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_activ_dep" Visibility="{Binding MostrarOpcion}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+            <Label Grid.Column="0" Grid.Row="2" Content="Dictamen de reinserción social"></Label>
+            <ComboBox Grid.Column="0" IsEnabled="{ Binding IsEnabledEducativoD, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" SelectedValuePath="Tag" SelectedValue="{ Binding IdDictamenEducativoComun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <ComboBoxItem Content="SELECCIONE" Tag="0"></ComboBoxItem>
+                <ComboBoxItem Content="FAVORABLE" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="DESFAVORABLE" Tag="2"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Content="Motivación del dictamen (basada en el desempeño y actitud del interno en los programas educativos, y culturales en los que participó durante su internamiento)" Name="lblReferenciaD"></Label>
+            <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" TextWrapping="Wrap" MinHeight="75" IsEnabled="{ Binding IsEnabledEducativoD, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblReferenciaD, Path=ActualWidth}" MaxLength="500" Text="{ Binding MotivacionDictamenEducativoComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+            <Label Grid.Column="2" Grid.Row="2" Content="Fecha de realización del estudio"></Label>
+            <DatePicker Grid.Column="2" IsEnabled="{ Binding IsEnabledEducativoD, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Controls:TextBoxHelper.Watermark="Seleccione una fecha"
+                SelectedDate="{Binding FechaEstudioEducativoComun,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}"></DatePicker>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

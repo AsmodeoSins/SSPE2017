@@ -1,0 +1,305 @@
+﻿<UserControl x:Class="ControlPenales.FichaIdentificacion"
+             x:Name="FichaIdentificacionWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1250">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FichaIdentificacionLoading}" CommandParameter="{Binding ElementName=FichaIdentificacionWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding FichaIdentificacionUnloading}" CommandParameter="{Binding ElementName=FichaIdentificacionWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" Grid.Column="0" Header="Datos de la Ficha" HorizontalAlignment="Stretch" Height="auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0">Fecha Captura</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="0">Tiempo en la Colonia</TextBlock>
+                        <TextBlock Grid.Column="2" Grid.Row="0">Último Grado Educativo Concluido(al ingresar)</TextBlock>
+                        <!--<DatePicker Grid.Column="0" Grid.Row="1" Name="tbFechaCaptura" SelectedDate="{Binding FechaCaptura,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></DatePicker>-->
+                        <DatePicker Grid.Column="0" Grid.Row="1"  Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaCaptura,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                        <!--<Border Grid.Column="0" Grid.Row="1" BorderBrush="Red" ToolTipService.IsEnabled="{Binding FechaCapturaValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FechaCapturaValid,ValidatesOnDataErrors=True}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="FECHA DE CAPTURA ES REQUERIDA!" Style="{StaticResource errorLabel}" />
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaCaptura,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                        </Border>-->
+                        <TextBox MaxLength="40" Grid.Column="1" Grid.Row="1" CharacterCasing="Upper" Name="tbTiempoColonia"
+                                Text="{Binding TiempoColonia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                        <ComboBox Grid.Column="2" ItemsSource="{Binding LstGradoEducativo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_GRADO" Grid.Row="1" Name="cbUltimoGradoEducativo"
+                                SelectedValue="{Binding UltimoGradoEducativoConcluido,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0">Con quién vivia antes de su detención?</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="0">Parentesco</TextBlock>
+                        <TextBox MaxLength="100" Grid.Column="0" Grid.Row="1" Name="tbVivia"
+                                Text="{Binding ViviaAntesDetencion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Name="cbParentesco" ItemsSource="{Binding LstTipoReferencia}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_REFERENCIA"
+                                SelectedValue="{Binding Parentesco,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                        <TextBlock Grid.Column="0" Grid.Row="2">Es Ex-funcionario de Seguridad Pública?</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="2">Cereso de Procedencia</TextBlock>
+                        <ComboBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding LstExfuncionario}" DisplayMemberPath="DESCR" SelectedValuePath="ID_EXFUNCIONARIO" Name="cbExFuncionarioSeguridad"
+                                SelectedValue="{Binding ExFuncionarioSeguridadPublica,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                            <!--<ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="MinWidth" Value="100"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>-->
+                        </ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Name="tbCeresoProcedencia" ItemsSource="{Binding LstEmisor}" DisplayMemberPath="DESCR" SelectedValuePath="ID_EMISOR"
+                                SelectedValue="{Binding CeresoProcedencia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                            <!--<ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="MinWidth" Value="100"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>-->
+                        </ComboBox>
+                    </Grid>
+                    <GroupBox Grid.Row="2" Grid.Column="0" Header="Documentación Oficial(con la que cuenta el interno)" HorizontalAlignment="Stretch" Height="100">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{Binding ActaNacimiento,Mode=TwoWay}">Acta de Nacimiento</CheckBox>
+                                <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Pasaporte,Mode=TwoWay}">Pasaporte</CheckBox>
+                                <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{Binding LicenciaManejo,Mode=TwoWay}">Licencia de Manejo</CheckBox>
+                                <CheckBox Grid.Row="0" Grid.Column="3" IsChecked="{Binding CredencialElector,Mode=TwoWay}">Credencial de Elector</CheckBox>
+                                <CheckBox Grid.Row="0" Grid.Column="4" IsChecked="{Binding CartillaMilitar,Mode=TwoWay}">Cartilla Militar</CheckBox>
+                            </Grid>
+                            <Grid Grid.Column="0" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Column="0" Grid.Row="0">Certificado de Educación</TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="0">Oficios Habilidades</TextBlock>
+                                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding LstCertificadoEduacion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CERTIFICADO"
+                                        Name="cbCertificadoEstudio" SelectedValue="{Binding CertificadoEducacion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                                <TextBox MaxLength="100" Grid.Column="1" Grid.Row="1" Name="tbOficio"
+                                        Text="{Binding OficiosHabilidades,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="3" Grid.Column="0" Header="Cambios de Domicilio" HorizontalAlignment="Stretch" Height="100">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0">En el Último Año</TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Name="lblMotivo">Motivo</TextBlock>
+                            <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{Binding UltimoAnio}">
+                                <ComboBoxItem Tag="0">0</ComboBoxItem>
+                                <ComboBoxItem Tag="1">1</ComboBoxItem>
+                                <ComboBoxItem Tag="2">2</ComboBoxItem>
+                                <ComboBoxItem Tag="3">3</ComboBoxItem>
+                                <ComboBoxItem Tag="4">4</ComboBoxItem>
+                                <ComboBoxItem Tag="5">5</ComboBoxItem>
+                                <ComboBoxItem Tag="6">6</ComboBoxItem>
+                                <ComboBoxItem Tag="7">7</ComboBoxItem>
+                                <ComboBoxItem Tag="8">8</ComboBoxItem>
+                                <ComboBoxItem Tag="9">9</ComboBoxItem>
+                                <ComboBoxItem Tag="10">10</ComboBoxItem>
+                                <ComboBoxItem Tag="11">11</ComboBoxItem>
+                                <ComboBoxItem Tag="12">12</ComboBoxItem>
+                                <ComboBoxItem Tag="13">13</ComboBoxItem>
+                                <ComboBoxItem Tag="14">14</ComboBoxItem>
+                                <ComboBoxItem Tag="15">15</ComboBoxItem>
+                                <ComboBoxItem Tag="16">16</ComboBoxItem>
+                                <ComboBoxItem Tag="17">17</ComboBoxItem>
+                                <ComboBoxItem Tag="18">18</ComboBoxItem>
+                                <ComboBoxItem Tag="19">19</ComboBoxItem>
+                                <ComboBoxItem Tag="20">20 O MAS..</ComboBoxItem>
+                            </ComboBox>
+                            <!--<TextBox MaxLength="2" Grid.Column="0" Name="tbCambioDomicilioUltimoAnio" Text="{Binding UltimoAnio,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" Margin="0,16,0,2" Grid.RowSpan="2"/>-->
+                            <TextBox MaxLength="250" Grid.Column="1" Grid.Row="1" MaxWidth="{ Binding ElementName=lblMotivo, Path=ActualWidth}" Name="tbCambioDomicilioMotivo"
+                                    Text="{Binding Motivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="1" Grid.Column="0" Header="Especifique Ultimo Empleo y 3 Anteriores(Requerido)" HorizontalAlignment="Stretch" Height="auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding LstUltimosEmpleos}"
+                            SelectedItem="{Binding SelectedEmpleo}" MaxHeight="200" VerticalAlignment="Top" IsEnabled="{Binding EmpleosAnterioresEnabled}" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Ocupación" Binding="{Binding OCUPACION.DESCR}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Duración" Binding="{Binding DURACION}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Empresa" Binding="{Binding EMPRESA}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Motivo Desempleo" Binding="{Binding MOTIVO_DESEMPLEO}"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Empleo Formal">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsEnabled="False">
+                                            <CheckBox.Style>
+                                                <Style TargetType="{x:Type CheckBox}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding EMPLEO_FORMAL}" Value="S">
+                                                            <Setter Property="IsChecked" Value="True"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </CheckBox.Style>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Último Antes Detención">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center"  IsEnabled="False">
+                                            <CheckBox.Style>
+                                                <Style TargetType="{x:Type CheckBox}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ULTIMO_EMPLEO_ANTES_DETENCION}" Value="S">
+                                                            <Setter Property="IsChecked" Value="True"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </CheckBox.Style>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Inestabilidad Laboral">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center"  IsEnabled="False">
+                                            <CheckBox.Style>
+                                                <Style TargetType="{x:Type CheckBox}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding INESTABILIDAD_LABORAL}" Value="S">
+                                                            <Setter Property="IsChecked" Value="True"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </CheckBox.Style>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="addEmp" />
+                                <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editEmp" />
+                                <MenuItem Header="Eliminar" Visibility="{Binding EliminarItemMenu,Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding OnClick}"
+                                        CommandParameter="delEmp" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                    <Label Content="No Hay Información" Grid.Column="0" Grid.Row="1" FontStyle="Italic" Visibility="{Binding IsEmpleosEmpty, Converter={StaticResource booleanToVisibilityConverter}}"
+                            HorizontalAlignment="Center" />
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

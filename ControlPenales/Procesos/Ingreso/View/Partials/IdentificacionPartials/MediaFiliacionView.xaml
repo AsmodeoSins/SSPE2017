@@ -1,0 +1,447 @@
+﻿<UserControl x:Class="ControlPenales.MediaFiliacionView"
+             x:Name="MediaFiliacionWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MediaFiliacionLoading}" CommandParameter="{Binding ElementName=MediaFiliacionWindow}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding MediaFiliacionUnloading}" CommandParameter="{Binding ElementName=MediaFiliacionWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid IsEnabled="{Binding IdentificacionMediaFiliacionEnabled}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Header="Señas Generales" HorizontalAlignment="Stretch" >
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Complexión</Label>
+                <Label Grid.Column="1" Grid.Row="0">Color Piel</Label>
+                <Label Grid.Column="2" Grid.Row="0">Cara</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1"  ItemsSource="{Binding Complexion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectComplexion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1"  ItemsSource="{Binding ColorPiel}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectColorPiel,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1"  ItemsSource="{Binding Cara}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectCara,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Header="Sangre" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Tipo</Label>
+                <Label Grid.Column="1" Grid.Row="0">Factor</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding TipoSangre}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectTipoSangre,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding FactorSangre}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectFactorSangre,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Header="Cabello" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Cantidad</Label>
+                <Label Grid.Column="1" Grid.Row="0">Color</Label>
+                <Label Grid.Column="2" Grid.Row="0">Forma</Label>
+                <Label Grid.Column="3" Grid.Row="0">Calvicie</Label>
+                <Label Grid.Column="4" Grid.Row="0">Implantación</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding CantidadCabello}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectCantidadCabello,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ColorCabello}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectColorCabello,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding FormaCabello}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectFormaCabello,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding CalvicieCabello}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectCalvicieCabello,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="4" Grid.Row="1" ItemsSource="{Binding ImplantacionCabello}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectImplantacionCabello,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Header="Frente" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Altura</Label>
+                <Label Grid.Column="1" Grid.Row="0">Inclinación</Label>
+                <Label Grid.Column="2" Grid.Row="0">Ancho</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding AlturaFrente}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectAlturaFrente,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding InclinacionFrente}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectInclinacionFrente,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding AnchoFrente}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectAnchoFrente,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Header="Cejas" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Dirección</Label>
+                <Label Grid.Column="1" Grid.Row="0">Implantación</Label>
+                <Label Grid.Column="2" Grid.Row="0">Forma</Label>
+                <Label Grid.Column="3" Grid.Row="0">Tamaño</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1"  ItemsSource="{Binding DireccionCeja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectDireccionCeja,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1"  ItemsSource="{Binding ImplantacionCeja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectImplantacionCeja,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1"  ItemsSource="{Binding FormaCeja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectFormaCeja,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="1"  ItemsSource="{Binding TamanioCeja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectTamanioCeja,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Header="Ojos" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Color</Label>
+                <Label Grid.Column="1" Grid.Row="0">Forma</Label>
+                <Label Grid.Column="2" Grid.Row="0">Tamaño</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ColorOjos}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectColorOjos,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding FormaOjos}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectFormaOjos,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding TamanioOjos}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectTamanioOjos,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Header="Nariz" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Raíz</Label>
+                <Label Grid.Column="1" Grid.Row="0">Dorso</Label>
+                <Label Grid.Column="2" Grid.Row="0">Ancho</Label>
+                <Label Grid.Column="3" Grid.Row="0">Base</Label>
+                <Label Grid.Column="4" Grid.Row="0">Altura</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding RaizNariz}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectRaizNariz,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding DorsoNariz}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectDorsoNariz,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding AnchoNariz}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectAnchoNariz,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding BaseNariz}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectBaseNariz,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="4" Grid.Row="1" ItemsSource="{Binding AlturaNariz}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectAlturaNariz,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="1" Header="Labios" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Espesor</Label>
+                <Label Grid.Column="1" Grid.Row="0">Altura Naso-Labial</Label>
+                <Label Grid.Column="2" Grid.Row="0">Prominencia</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding EspesorLabio}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectEspesorLabio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding AlturaLabio}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectAlturaLabio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ProminenciaLabio}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectProminenciaLabio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="1" Header="Boca" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Tamaño</Label>
+                <Label Grid.Column="1" Grid.Row="0">Comisuras</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding TamanioBoca}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectTamanioBoca,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ComisuraBoca}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectComisuraBoca,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Header="Menton" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Forma</Label>
+                <Label Grid.Column="1" Grid.Row="0">Tipo</Label>
+                <Label Grid.Column="2" Grid.Row="0">Inclinación</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding FormaMenton}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectFormaMenton,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding TipoMenton}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectTipoMenton,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding InclinacionMenton}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectInclinacionMenton,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Header="Oreja Derecha" HorizontalAlignment="Stretch">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,30,0,0">Forma</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" Margin="0,0,0,30" ItemsSource="{Binding FormaOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectFormaOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Header="Hélix" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0">Original</Label>
+                        <Label Grid.Column="1" Grid.Row="0">Superior</Label>
+                        <Label Grid.Column="2" Grid.Row="0">Posterior</Label>
+                        <Label Grid.Column="3" Grid.Row="0">Adherencia</Label>
+                        <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding HelixOriginalOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectHelixOriginalOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding HelixSuperiorOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectHelixSuperiorOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                        <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding HelixPosteriorOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectHelixPosteriorOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                        <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding HelixAdherenciaOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectHelixAdherenciaOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Header="Lóbulo" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0">Contorno</Label>
+                        <Label Grid.Column="1" Grid.Row="0">Adherencia</Label>
+                        <Label Grid.Column="2" Grid.Row="0">Particularidad</Label>
+                        <Label Grid.Column="3" Grid.Row="0">Dimensión</Label>
+                        <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding LobuloContornoOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectLobuloContornoOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LobuloAdherenciaOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectLobuloAdherenciaOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                        <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding LobuloParticularidadOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectLobuloParticularidadOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                        <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding LobuloDimensionOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectLobuloDimensionOrejaDerecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                    </Grid>
+                </GroupBox>
+                
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <!--<GroupBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Header="Oreja Izquierda" HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,30,0,0">Forma</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" Margin="0,0,0,30" ItemsSource="{Binding FormaOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectFormaOrejaIzquierda,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                <GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Header="Helix" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0">Original</Label>
+                        <Label Grid.Column="1" Grid.Row="0">Superior</Label>
+                        <Label Grid.Column="2" Grid.Row="0">Posterior</Label>
+                        <Label Grid.Column="3" Grid.Row="0">Adherencia</Label>
+                        <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding HelixOriginalOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectHelizOriginalOrejaIzquierda,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding HelixSuperiorOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectHelixSuperiorOrejaIzquierda,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                        <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding HelixPosteriorOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectDireccionCeja,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                        <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding HelixAdherenciaOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectHelixAdherenciaOrejaIzquierda,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Header="Lobulo" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0">Contorno</Label>
+                        <Label Grid.Column="1" Grid.Row="0">Adherencia</Label>
+                        <Label Grid.Column="2" Grid.Row="0">Particularidad</Label>
+                        <Label Grid.Column="3" Grid.Row="0">Dimension</Label>
+                        <ComboBox Grid.Column="0" Grid.Row="1"  ItemsSource="{Binding LobuloContornoOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectLobuloContornoOrejaIzquierda,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1"  ItemsSource="{Binding LobuloAdherenciaOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectLobuloAdherenciaOrejaIzquierda,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                        <ComboBox Grid.Column="2" Grid.Row="1"  ItemsSource="{Binding LobuloParticularidadOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectLobuloParticularidadOrejaIzquierda,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                        <ComboBox Grid.Column="3" Grid.Row="1"  ItemsSource="{Binding LobuloDimensionOreja}"  DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_FILIACION"
+                           SelectedValue="{Binding SelectLobuloDimensionOrejaIzquierda,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                    </Grid>
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>-->
+    </Grid>
+</UserControl>

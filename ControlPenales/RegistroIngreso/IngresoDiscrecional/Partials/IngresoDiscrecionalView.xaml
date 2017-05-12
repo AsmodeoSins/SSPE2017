@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="ControlPenales.IngresoDiscrecionalView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+             Height="auto" Width="auto"  mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800" >
+    
+    
+    <Grid VerticalAlignment="Top" Name="contenedor">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="310" MinWidth="310"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Datos de ingreso" Height="auto" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top"  MaxWidth="{Binding ElementName=contenedor,Path=ActualWidth}" >
+            <Views:DatosExpedienteView />
+        </GroupBox>
+    
+        <TreeView ItemsSource="{Binding TreeList}" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" BorderBrush="#3FAFDF" BorderThickness="1" Padding="10 5 5 5" MinWidth="310"  MaxWidth="310" Name="ArbolIngreso">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick" >
+                    <i:InvokeCommandAction CommandParameter="{Binding ElementName=ArbolIngreso}" Command="{Binding MouseDoubleClickArbolIngresoCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsNodeExpanded,Mode=TwoWay}"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Node}" DataType="{x:Type TreeViewType:TreeViewList}">
+                        <StackPanel Orientation="Horizontal">
+                            <Canvas Width="13" Height="13" Margin="0,0,4,0" >
+                                <Path Width="13" Height="13" Stretch="Fill" Fill="{DynamicResource BlackBrush}" Data="{Binding Icon}"/>
+                            </Canvas>
+                            <TextBlock Text="{Binding Text}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            </TextBlock>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <!--FIN ARBOL-->
+        <Label Grid.Row="1" Grid.Column="1" Margin="5" Name="medida"></Label>
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Visibility="{Binding Path=DatosIngresoVisible, Converter={StaticResource booleanToVisibilityConverter}}"
+                                                   TabStripPlacement="Top" SelectedIndex="{Binding IndexMenu}" Height="auto" MaxWidth="{Binding ElementName=medida,Path=ActualWidth}">
+            <TabItem Header="INGRESO" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding Ingreso2Tab}"
+                     Visibility="{Binding IngresoTab, Converter={StaticResource booleanToVisibilityConverter}}" Selector.IsSelected="{Binding TabIngresoSelected}">
+                <Views:CausasPenalesIngresoView Style="{StaticResource ViewTabStyle}"></Views:CausasPenalesIngresoView>
+            </TabItem>
+            <TabItem Header="CAUSA PENAL"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding CausaPenalTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabCausaPenalSelected}">
+                <Views:CausasPenalesIngresoCausaPenalView Style="{StaticResource ViewTabStyle}" Visibility="Visible" ></Views:CausasPenalesIngresoCausaPenalView>
+            </TabItem>
+            <TabItem Header="COPARTICIPES" Style="{StaticResource HeaderTabStyle}" IsEnabled="{Binding GuardarBandera}" Selector.IsSelected="{Binding TabCoparticipeSelected}"
+                     Visibility="{Binding CoparticipeTab, Converter={StaticResource booleanToVisibilityConverter}}">
+                <Views:CausasPenalesCoparticipeView  Style="{StaticResource ViewTabStyle}"></Views:CausasPenalesCoparticipeView>
+            </TabItem>
+            <TabItem Header="SENTENCIA" Style="{StaticResource HeaderTabStyle}" Visibility="{Binding SentenciaTab, Converter={StaticResource booleanToVisibilityConverter}}"
+                    Selector.IsSelected="{Binding TabSentenciaSelected}" IsEnabled="{Binding GuardarBandera}" >
+                <Views:CausasPenalesSentenciaView Style="{StaticResource ViewTabStyle}"></Views:CausasPenalesSentenciaView>
+            </TabItem>
+            <TabItem Header="RECURSOS" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding RdiTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     IsSelected="{Binding Rdi2Tab}">
+                <Views:CausasPenalesRDIView Style="{StaticResource ViewTabStyle}" ></Views:CausasPenalesRDIView>
+            </TabItem>
+            <TabItem Header="DELITOS"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding DelitosTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     IsSelected="{Binding Delitos2Tab}" Selector.IsSelected="{Binding TabDelitosSelected}">
+                <Views:CausasPenalesDelitosView Style="{StaticResource ViewTabStyle}"></Views:CausasPenalesDelitosView>
+            </TabItem>
+            <TabItem Header="DELITO"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding DelitoTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabDelitoSelected}">
+                <Views:CausasPenalesDelitoView Style="{StaticResource ViewTabStyle}"></Views:CausasPenalesDelitoView>
+            </TabItem>
+            <TabItem Header="RECURSO"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding RecursosTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabRecursosSelected}">
+                <Views:CausasPenalesRDIView Style="{StaticResource ViewTabStyle}"></Views:CausasPenalesRDIView>
+            </TabItem>
+            <TabItem Header="RECURSO"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding RecursoTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabRecursoSelected}">
+                <Views:CausasPenalesRecursoView Style="{StaticResource ViewTabStyle}"></Views:CausasPenalesRecursoView>
+            </TabItem>
+        
+            <TabItem Header="AMPAROS"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding AmparoDirectoListaTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabAmparoDirectoListaSelected}">
+                <Views:AmparoDirectoListadoView Style="{StaticResource ViewTabStyle}"></Views:AmparoDirectoListadoView>
+            </TabItem>
+
+            <TabItem Header="AMPAROS DIRECTOS"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding AmparoDirectoTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabAmparoDirectoSelected}">
+                <Views:AmparoDirectoView Style="{StaticResource ViewTabStyle}"></Views:AmparoDirectoView>
+            </TabItem>
+
+
+            <TabItem Header="AMPAROS INDIRECTOS"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding AmparoIndirectoListaTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabAmparoIndirectoListaSelected}">
+                <Views:AmparoIndirectoListadoView Style="{StaticResource ViewTabStyle}" Visibility="{Binding AmparoIndirectoListaTab, Converter={StaticResource booleanToVisibilityConverter}}"></Views:AmparoIndirectoListadoView>
+            </TabItem>
+
+            <TabItem Header="AMPAROS INDIRECTOS"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding AmparoIndirectoTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabAmparoIndirectoSelected}">
+                <Views:AmparoIndirectoView Style="{StaticResource ViewTabStyle}"></Views:AmparoIndirectoView>
+            </TabItem>
+
+            <TabItem Header="INCIDENTES"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding AmparoIncidenteListaTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabAmparoIncidenteListaSelected}">
+                <Views:AmparoIncidenteListadoView Style="{StaticResource ViewTabStyle}"></Views:AmparoIncidenteListadoView>
+            </TabItem>
+
+            <TabItem Header="INCIDENTES"  Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20"  Visibility="{Binding AmparoIncidenteTab, Converter={StaticResource booleanToVisibilityConverter}}" 
+                     Selector.IsSelected="{Binding TabAmparoIncidenteSelected}">
+                <Views:AmparoIncidenteView Style="{StaticResource ViewTabStyle}"></Views:AmparoIncidenteView>
+            </TabItem>
+
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+        <Views:InsertarDelitoView Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                                      Visibility="{Binding Path=IngresosVisible, Converter={StaticResource booleanToVisibilityConverter}}" MaxWidth="{Binding ElementName=medida,Path=ActualWidth}" />
+        <Views:DatosCausaPenalView Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                                      Visibility="{Binding Path=DatosCausaPenalVisible, Converter={StaticResource booleanToVisibilityConverter}}" MaxWidth="{Binding ElementName=medida,Path=ActualWidth}" />
+    </Grid>
+</UserControl>
+

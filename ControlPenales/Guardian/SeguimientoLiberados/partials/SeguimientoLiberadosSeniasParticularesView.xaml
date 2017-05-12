@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="ControlPenales.SeguimientoLiberadosSeniasParticularesView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition MinWidth="500" MaxWidth="500"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0">Tipo</Label>
+            <Label Grid.Column="1" Grid.Row="0">Lado</Label>
+            <Label Grid.Column="2" Grid.Row="0">Región</Label>
+            <Label Grid.Column="3" Grid.Row="0">Cantidad</Label>
+            <Label Grid.Column="4" Grid.Row="0">Vista</Label>
+
+            <ComboBox Grid.Column="0" Grid.Row="1"></ComboBox>
+            <ComboBox Grid.Column="1" Grid.Row="1"></ComboBox>
+            <ComboBox Grid.Column="2" Grid.Row="1"></ComboBox>
+            <Controls:NumericUpDown Grid.Column="3" Grid.Row="1" TextAlignment="Left" Minimum="0" />
+            <ComboBox Grid.Column="4" Grid.Row="1"></ComboBox>
+
+            <Label Grid.Column="0" Grid.Row="2">Descripción</Label>
+            <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5"></TextBox>
+
+            <!--AGREGAR Y BORRAR-->
+            <StackPanel Grid.Column="2" Grid.Row="4" Grid.RowSpan="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Agregar" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Agregar"
+                    Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_agregar_senia" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_add}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Borrar" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Borrar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_borrar_senia" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                
+            </StackPanel>
+
+            <DataGrid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" AutoGenerateColumns="False" CanUserAddRows="False" Margin="10" IsReadOnly="True" ItemsSource="{Binding Imputado.senias_particulares}" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tipo" Binding="{Binding sp_tipo}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Lado" Binding="{Binding sp_lado}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Vista" Binding="{Binding sp_vista}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Región" Binding="{Binding sp_region}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Descripción" Binding="{Binding sp_descripcion}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="1" Grid.Row="0" Controls:TabControlHelper.IsUnderlined="True" Margin="10">
+            <TabItem Header="Frontal" Style="{StaticResource HeaderTabStyle}">
+                <Image Source="/ControlPenales;component/Imagen/front_human2.png"></Image>
+            </TabItem>
+            <TabItem Header="Dorsal" Style="{StaticResource HeaderTabStyle}">
+                <Image Source="/ControlPenales;component/Imagen/back_human2.png"></Image>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+
+
+    </Grid>
+</UserControl>
+
+    

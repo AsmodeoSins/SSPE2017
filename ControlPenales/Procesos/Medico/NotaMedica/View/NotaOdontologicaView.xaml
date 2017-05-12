@@ -1,0 +1,172 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.NotaOdontologicaView"
+                    Name="NotaOdontologicaWindow"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+                    Width="970" Height="700">
+    <StackPanel>
+        <GroupBox Header="ANTECEDENTES HEREDOFAMILIARES (INVESTIGAR MORBI-MORTALIDAD EN ABUELOS, PADRES, HIJOS, HERMANOS Y CONYUGE)">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Cancer"></Label>
+                <Label Grid.Row="0" Grid.Column="1" Content="Tuberculosis"></Label>
+                <Label Grid.Row="0" Grid.Column="2" Content="Cardiopatia"></Label>
+                <Label Grid.Row="0" Grid.Column="3" Content="Enf. Vasocerberal"></Label>
+                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding CheckHeredoCancer}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding CheckHeredoTuberculosis}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding CheckHeredoCardiopatia}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="{Binding CheckHeredoVasocerebral}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Hipertension"></Label>
+                <Label Grid.Row="2" Grid.Column="1" Content="Tiroides"></Label>
+                <Label Grid.Row="2" Grid.Column="2" Content="Infarto"></Label>
+                <Label Grid.Row="2" Grid.Column="3" Content="VIH/SIDA"></Label>
+                <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{Binding CheckHeredoHipertension}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding CheckHeredoTiroides}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{Binding CheckHeredoInfarto}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="3" Grid.Column="3" IsChecked="{Binding CheckHeredoSida}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Diabetes"></Label>
+                <Label Grid.Row="4" Grid.Column="1" Content="Epilepsia"></Label>
+                <Label Grid.Row="4" Grid.Column="2" Content="Obesidad"></Label>
+                <Label Grid.Row="4" Grid.Column="3" Content="Otros"></Label>
+                <CheckBox Grid.Row="5" Grid.Column="0" IsChecked="{Binding CheckHeredoDiabetes}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding CheckHeredoEpilepsia}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="5" Grid.Column="2" IsChecked="{Binding CheckHeredoObesidad}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="5" Grid.Column="3" IsChecked="{Binding CheckHeredoOtros}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <TextBox Grid.Row="5" Grid.Column="3" Margin="30 0 0 0" Text="{Binding TextHeredoOtros}" IsEnabled="{Binding OtrosHeredoEnabled}"></TextBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="ANTECEDENTES PERSONALES PATOLOGICOS">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Hipertension"></Label>
+                <Label Grid.Row="0" Grid.Column="1" Content="Tiroides"></Label>
+                <Label Grid.Row="0" Grid.Column="2" Content="Transfusiones"></Label>
+                <Label Grid.Row="0" Grid.Column="3" Content="Enfermedades de Transimision Sexual"></Label>
+                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{Binding CheckPatoHipertension}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding CheckPatoTiroides}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding CheckPatoTransfusiones}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="3" IsChecked="{Binding CheckPatoETS}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                
+                <Label Grid.Row="2" Grid.Column="0" Content="Cardiopatias"></Label>
+                <Label Grid.Row="2" Grid.Column="1" Content="Epilepsia"></Label>
+                <Label Grid.Row="2" Grid.Column="2" Content="Hepaticos"></Label>
+                <Label Grid.Row="2" Grid.Column="3" Content="Enfermedades Propias de la Niñez"></Label>
+                <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{Binding CheckPatoCardiopatias}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding CheckPatoEpilepsia}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{Binding CheckPatoHepaticos}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="3" Grid.Column="3" IsChecked="{Binding CheckPatoPropias}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                
+                <Label Grid.Row="4" Grid.Column="0" Content="Diabetes"></Label>
+                <Label Grid.Row="4" Grid.Column="1" Content="Quirurgicos"></Label>
+                <Label Grid.Row="4" Grid.Column="2" Content="VIH/SIDA"></Label>
+                <Label Grid.Row="4" Grid.Column="3" Content="Otros"></Label>
+                <CheckBox Grid.Row="5" Grid.Column="0" IsChecked="{Binding CheckPatoDiabetes}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding CheckPatoEpilepsia}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="5" Grid.Column="2" IsChecked="{Binding CheckPatoObesidad}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="5" Grid.Column="3" IsChecked="{Binding CheckPatoOtros}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <TextBox Grid.Row="5" Grid.Column="3" Margin="30 0 0 0" Text="{Binding TextPatoOtros}" IsEnabled="{Binding OtrosPatoEnabled}"></TextBox>
+
+                <Label Grid.Row="6" Grid.Column="0" Content="Tuberculosis"></Label>
+                <Label Grid.Row="6" Grid.Column="1" Content="Traumaticos"></Label>
+                <Label Grid.Row="6" Grid.Column="2" Content="Sifilis"></Label>
+                <CheckBox Grid.Row="7" Grid.Column="0" IsChecked="{Binding CheckPatoTuberculosis}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding CheckPatoTraumaticos}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="7" Grid.Column="2" IsChecked="{Binding CheckPatoSifilis}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+
+                <Label Grid.Row="8" Grid.Column="0" Content="Cancer"></Label>
+                <Label Grid.Row="8" Grid.Column="1" Content="Alergicos"></Label>
+                <Label Grid.Row="8" Grid.Column="2" Content="Renales"></Label>
+                <CheckBox Grid.Row="9" Grid.Column="0" IsChecked="{Binding CheckPatoCancer}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding CheckPatoAlergicos}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="9" Grid.Column="2" IsChecked="{Binding CheckPatoRenales}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Dental">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Ha tenido complicaciones despues de un tratamiento dental?"></Label>
+                <Label Grid.Row="1" Grid.Column="0" Content="Ha presentado hemorragia despues de una extraccion dental?"></Label>
+                <Label Grid.Row="2" Grid.Column="0" Content="Ha tenido alguna reaccion negativa al anestesico?"></Label>
+                <Label Grid.Row="3" Grid.Column="0" Content="Esta usted tomando algun medicamente? Cual?"></Label>
+                <Label Grid.Row="4" Grid.Column="0" Content="Es alergico a algun medicamente? Cual?"></Label>
+                <Label Grid.Row="5" Grid.Column="0" Content="Esta usted embarazada?"></Label>
+                <Label Grid.Row="6" Grid.Column="0" Content="Tiene amenaza de aborto?"></Label>
+                <Label Grid.Row="7" Grid.Column="0" Content="Esta usted lactando?"></Label>
+                <Label Grid.Row="8" Grid.Column="0" Content="Toxicomanias"></Label>
+
+                <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding CheckComplicacionesDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding CheckHemorragiaDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding CheckReaccionAnestesicoDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding CheckMedicamentoDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="30 0 0 0" Text="{Binding TextMedicamentoDental}" IsEnabled="{Binding TextMedicamenteEnabled}"></TextBox>
+                <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding CheckAlergicoDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="30 0 0 0" Text="{Binding TextAlergicoDental}" IsEnabled="{Binding TextAlergicoEnabled}"></TextBox>
+                <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding CheckEmbarazadaDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding CheckAbortoDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding CheckLactandoDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+                    <Label Content="Alcoholismo"></Label>
+                    <CheckBox IsChecked="{Binding CheckAlcoholismoDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                    <Label Content="Tabaquismo"></Label>
+                    <CheckBox IsChecked="{Binding CheckTabaquismoDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                </StackPanel>
+                <Label Grid.Row="9" Grid.Column="1" Content="Otros"></Label>
+                <CheckBox Grid.Row="9" Grid.Column="1" Margin="40 0 0 0" IsChecked="{Binding CheckOtrosDental}" Style="{StaticResource MetroDataGridCheckBox}" HorizontalAlignment="Left"></CheckBox>
+                <TextBox Grid.Row="9" Grid.Column="1" Margin="70 0 0 0" Text="{Binding TextOtrosDental}" IsEnabled="{Binding TextAlergicoEnabled}"></TextBox>
+            </Grid>
+        </GroupBox>
+    </StackPanel>
+</Controls:MetroWindow>

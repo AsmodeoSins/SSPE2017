@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="ControlPenales.PoliticaConsumoTopeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" >
+    <StackPanel>
+
+        <Views:MenuCatalogosView />
+
+        <Grid Visibility="{Binding Path=GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Margin="10" Content="Politicas de Consumo Tope" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label>Búsqueda</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="2" MinWidth="200" MaxWidth="500"></TextBox>
+                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar_articulo_medicamento" 
+                Command="{Binding OnClick}">Buscar</Button>
+            </StackPanel>
+            
+            <DataGrid Grid.Row="2" Grid.ColumnSpan="4" Margin="10" MinHeight="200" HorizontalAlignment="Stretch" ItemsSource="{Binding ListItems}"
+                  SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" IsReadOnly="True" SelectedIndex="{Binding SeleccionIndice}" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Cereso" Binding="{Binding Password}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Saldo Máximo" Binding="{Binding Login}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <StackPanel Visibility="{Binding Path=AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Agregar Nueva Política de Consumo" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+                <Label Grid.Row="1" Grid.Column="0">CERESO</Label>
+                <Label Grid.Row="3" Grid.Column="0">Saldo Máximo</Label>
+
+                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Ceresos}" SelectedItem="{Binding Cereso}" SelectedIndex="{Binding CeresoIndice}" 
+                          HorizontalAlignment="Left" MinWidth="300" MaxWidth="450"></ComboBox>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Saldo}" Views:FocusExtension.IsFocused="{Binding FocusText}"
+                          HorizontalAlignment="Left" MinWidth="300" MaxWidth="450" ></TextBox>
+            </Grid>
+        </StackPanel>
+
+    </StackPanel>
+</UserControl>

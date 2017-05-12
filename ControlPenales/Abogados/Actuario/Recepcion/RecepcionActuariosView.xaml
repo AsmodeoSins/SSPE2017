@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="ControlPenales.RecepcionActuariosView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+             xmlns:dic="clr-namespace:Resources.ControlPenales.Abogados.Actuario.Recepcion;assembly=Resources"
+             Height="auto" Width="auto">
+
+    <Grid Margin="0 50 0 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="60"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="1" Grid.Row="0"  Content="{x:Static dic:RecepcionActuariosView.titulo}" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:MostrarAbogadoView Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="10"></Views:MostrarAbogadoView>
+        
+        <GroupBox Header="{x:Static dic:RecepcionActuariosView.registro}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="10" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static dic:RecepcionActuariosView.interno}"/>
+                        <DataGridTextColumn Header="{x:Static dic:RecepcionActuariosView.folio}"/>
+                        <DataGridTextColumn Header="{x:Static dic:RecepcionActuariosView.año}"/>
+                        <DataGridTextColumn Header="{x:Static dic:RecepcionActuariosView.estatus_visita}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid Grid.Column="2" Grid.Row="0" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static dic:RecepcionActuariosView.causa_penal}"/>
+                        <DataGridTextColumn Header="{x:Static dic:RecepcionActuariosView.pase}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <GroupBox Header="{x:Static dic:RecepcionActuariosView.historial_acceso}" Grid.Column="3" Grid.Row="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{x:Static dic:RecepcionActuariosView.fecha_entrada}"/>
+                                <DataGridTextColumn Header="{x:Static dic:RecepcionActuariosView.hora_entrada}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="10" Margin="0 0 0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="340"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="{x:Static dic:RecepcionActuariosView.fecha_entrada}"/>
+            <Label Grid.Column="1" Grid.Row="0" Content="{x:Static dic:RecepcionActuariosView.hora_entrada}" />
+            <Label Grid.Column="2" Grid.Row="0" Content="{x:Static dic:RecepcionActuariosView.pase}"/>
+
+            <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+            <TextBox Grid.Column="1" Grid.Row="1" Name="tbHoraEntrada"></TextBox>
+            <CheckBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" Name="chkPase"></CheckBox>
+
+            <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Content="{x:Static dicGeneral:General.area}" />
+
+            <ComboBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3"></ComboBox>
+
+            <Label Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" Content="{x:Static dic:RecepcionActuariosView.entrada}" />
+            <Label Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" Content="{x:Static dic:RecepcionActuariosView.salida}"/>
+
+            <Button Grid.Column="3" Grid.Row="1" Grid.RowSpan="3" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0" ToolTip="{x:Static dic:RecepcionActuariosView.entrada}" Style="{DynamicResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_door_enter}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button Grid.Column="4" Grid.Row="1" Grid.RowSpan="3" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0" ToolTip="{x:Static dic:RecepcionActuariosView.salida}" Style="{DynamicResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_door_leave}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <GroupBox Header="{x:Static dic:RecepcionActuariosView.seleccione_lector}" Grid.Column="5" Grid.Row="0" Grid.RowSpan="4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RadioButton Grid.Column="0" Grid.Row="0" GroupName="lector">Digital Personal</RadioButton>
+                    <RadioButton Grid.Column="0" Grid.Row="1" GroupName="lector" Margin="0 5 0 0">DFR2100</RadioButton>
+                </Grid>
+            </GroupBox>
+
+        </Grid>
+    </Grid>
+</UserControl>

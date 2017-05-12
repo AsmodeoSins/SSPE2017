@@ -1,0 +1,340 @@
+﻿<UserControl x:Class="ControlPenales.CapturarPersonalView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto"
+             Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Datos Generales">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition MinWidth="75" MaxWidth="75"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <!--<ColumnDefinition MaxWidth="60" MinWidth="60"></ColumnDefinition>
+                    <ColumnDefinition MaxWidth="60" MinWidth="60"></ColumnDefinition>
+                    <ColumnDefinition MaxWidth="60" MinWidth="60"></ColumnDefinition>-->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="35"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="1.25*"></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="75"></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="75"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0">Código</Label>
+                    <Label Grid.Column="1" Grid.Row="0" Name="Paterno">Apellido Paterno</Label>
+                    <Label Grid.Column="2" Grid.Row="0" Name="Materno">Apellido Materno</Label>
+                    <Label Grid.Column="3" Grid.Row="0" Name="Nombre">Nombre</Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" CharacterCasing="Upper" Text="{Binding ECodigo,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"
+                            MaxWidth="{Binding ElementName=Paterno,Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" CharacterCasing="Upper" Text="{Binding EPaterno,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="30"
+                            IsEnabled="{Binding EnabledCampo}"></TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="1" CharacterCasing="Upper" Text="{Binding EMaterno,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="30"
+                            IsEnabled="{Binding EnabledCampo}"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" CharacterCasing="Upper" Text="{Binding ENombre,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="40"
+                            IsEnabled="{Binding EnabledCampo}"></TextBox>
+                    <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3">
+                        <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+                        <Button Width="50" Height="50" VerticalAlignment="Top" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_buscar"
+                                Command="{Binding OnClick}" IsEnabled="{Binding BuscarMenuEnabled}" >
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="3">
+                        <Label HorizontalAlignment="Center" Content="Huella" Padding="0" />
+                        <Button Width="50" Height="50" ToolTip="Buscar por Huella" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding BuscarHuella}" IsEnabled="{Binding BuscarMenuEnabled}" >
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <!--<ComboBox Grid.Column="5" Grid.Row="3" ItemsSource="{Binding LstTipoVisitante}" SelectedValuePath="ID_TIPO_VISITANTE" DisplayMemberPath="DESCR"
+                        SelectedValue="{Binding ETipoVisitante,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}"></ComboBox>-->
+                <Label Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Bottom">Sexo</Label>
+                <Label Grid.Column="1" Grid.Row="2" VerticalContentAlignment="Bottom">Fecha Nacimiento</Label>
+                <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Bottom">CURP</Label>
+                <Label Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" VerticalContentAlignment="Bottom">RFC</Label>
+                <!--<Label Grid.Column="5" Grid.Row="2" VerticalContentAlignment="Bottom">Tipo Visitante</Label>-->
+                <ComboBox Grid.Column="0" Grid.Row="3" SelectedValue="{Binding ESexo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag"
+                        IsEnabled="{Binding EnabledCampo}" >
+                    <ComboBoxItem Content="SELECCIONE" Tag="" />
+                    <ComboBoxItem Content="MASCULINO" Tag="M" />
+                    <ComboBoxItem Content="FEMENINO" Tag="F" />
+                </ComboBox>
+                <Border Grid.Column="1" Grid.Row="3" BorderBrush="Red" ToolTipService.IsEnabled="{Binding EFechaNacimientoValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding EFechaNacimientoValid,ValidatesOnDataErrors=True}" Value="False">
+                                    <Setter Property="BorderThickness" Value="1" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                            <ToolTip.Content>
+                                <TextBlock Text="{Binding EFechaNacimientoMensaje}" Style="{StaticResource errorLabel}" />
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    <!--Cuidado:El datepicker no puede ser validado directamente bajo las reglas del viewmodel -->
+                    <DatePicker Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding EFechaNacimiento,UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{Binding EnabledCampo}"></DatePicker>
+                </Border>
+                <TextBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" CharacterCasing="Upper" Text="{Binding ECURP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="18" IsEnabled="{Binding EnabledCampo}"></TextBox>
+                <TextBox Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="2" CharacterCasing="Upper" Text="{Binding ERFC,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="13"
+                         IsEnabled="{Binding EnabledCampo}"></TextBox>
+                
+                <Label Grid.Column="0" Grid.Row="4">Teléfono Fijo</Label>
+                <Label Grid.Column="1" Grid.Row="4">Teléfono Móvil</Label>
+                <Label Grid.Column="2" Grid.Row="4" Name="Correo">Correo Electrónico</Label>
+                <TextBox Grid.Column="0" Grid.Row="5" Text="{Binding ETelefonoFijo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="20"
+                        IsEnabled="{Binding EnabledCampo}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="14" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding ETelefonoMovil,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="20"
+                        IsEnabled="{Binding EnabledCampo}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="14" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="2" Grid.Row="5" CharacterCasing="Upper" Text="{Binding ECorreo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=true}" MaxLength="50"
+                        MaxWidth="{Binding ElementName=Correo,Path=ActualWidth}" IsEnabled="{Binding EnabledCampo}"></TextBox>
+                <Grid Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="150" MaxWidth="150"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="250" MaxWidth="250"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--<Label Content="Nip" Grid.Column="0" Grid.Row="0"></Label>-->
+                    <Label Content="Fecha Registro" Grid.Column="0" Grid.Row="0"></Label>
+                    <!--<TextBox Grid.Column="0" Grid.Row="1" Text="{Binding ENip,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" ></TextBox>-->
+                    <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding EFechaAlta,UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="False"/>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Domicilio">
+            <Grid Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0">País</Label>
+                <Label Grid.Column="1" Grid.Row="0">Estado</Label>
+                <Label Grid.Column="2" Grid.Row="0">Municipio</Label>
+                <Label Grid.Column="3" Grid.Row="0">Colonia</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding LstPais}" SelectedValuePath="ID_PAIS_NAC" DisplayMemberPath="PAIS" SelectedItem="{Binding SelectedPais}"
+                        SelectedValue="{Binding EPais,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LstEstado}" SelectedValuePath="ID_ENTIDAD" DisplayMemberPath="DESCR" SelectedItem="{Binding SelectedEstado}"
+                        SelectedValue="{Binding EEstado,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}"></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding LstMunicipio}" SelectedValuePath="ID_MUNICIPIO" DisplayMemberPath="MUNICIPIO1" SelectedItem="{Binding SelectedMunicipio}"
+                        SelectedValue="{Binding EMunicipio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}"></ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding LstColonia}" SelectedValuePath="ID_COLONIA" DisplayMemberPath="DESCR"
+                        SelectedValue="{Binding EColonia,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}"></ComboBox>
+                <Label Grid.Column="0" Grid.Row="2" Name="Calle">Calle</Label>
+                <Label Grid.Column="1" Grid.Row="2">Número Exterior</Label>
+                <Label Grid.Column="2" Grid.Row="2">Número Interior</Label>
+                <Label Grid.Column="3" Grid.Row="2">Código Postal</Label>
+                <TextBox Grid.Column="0" Grid.Row="3" CharacterCasing="Upper" Text="{Binding ECalle,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="500"
+                        MaxWidth="{Binding ElementName=Calle,Path=ActualWidth}" IsEnabled="{Binding EnabledCampo}"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="3" TextAlignment="Left" Text="{Binding ENoExterior,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="4">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="2" Grid.Row="3" TextAlignment="Left" CharacterCasing="Upper" Text="{Binding ENoInterior,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                        MaxLength="4" IsEnabled="{Binding EnabledCampo}" />
+                <TextBox Grid.Column="3" Grid.Row="3" TextAlignment="Left" Text="{Binding ECP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="5" 
+                        IsEnabled="{Binding EnabledCampo}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="5" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Discapacidad">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0">Discapacidad</Label>
+                <Label Grid.Column="1" Grid.Row="0">Tipo Discapacidad</Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag"
+                        SelectedValue="{Binding EDiscapacidad,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}">
+                    <ComboBoxItem Content="SELECCIONE" Tag="" />
+                    <ComboBoxItem Content="SI" Tag="S" />
+                    <ComboBoxItem Content="NO" Tag="N" />
+                </ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding LstTipoDiscapacidad}" SelectedValuePath="ID_TIPO_DISCAPACIDAD" DisplayMemberPath="DESCR"
+                        SelectedValue="{Binding ETipoDiscapacidad,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding ETipoDiscapacidadEnabled}" ></ComboBox>
+            </Grid>    
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Grid.Row="3" Header="Observación">
+            <StackPanel Name="obs">
+                <TextBox MinLines="3" CharacterCasing="Upper" Text="{Binding EObservacion,UpdateSourceTrigger=PropertyChanged}" MaxLength="1000" MaxWidth="{Binding ElementName=obs,Path=ActualWidth}"
+                         IsEnabled="{Binding EnabledCampo}"></TextBox>
+            </StackPanel>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Grid.Row="4" Header="Empleado">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label>Centro Asignado</Label>
+                <ComboBox Grid.Row="1" ItemsSource="{Binding LstCentro}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CENTRO"
+                        SelectedValue="{Binding SelectedCentroValue,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}"></ComboBox>
+                
+                <Label Grid.Column="1" Grid.Row="0">Tipo de Empleado</Label>
+                <Label Grid.Column="0" Grid.Row="2">Área de Trabajo</Label>
+                
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LstTipoEmpleado}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_EMPLEADO"
+                        SelectedValue="{Binding ETipoEmpleado,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}"></ComboBox>
+                <ComboBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding LstAreaTrabajo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_DEPARTAMENTO"
+                        SelectedValue="{Binding EAreaTrabajo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}"></ComboBox>
+                
+                <Label Grid.Column="1" Grid.Row="2">Cedula Profesional</Label>
+                <TextBox Grid.Column="1" Grid.Row="3" MaxLength="20" Text="{Binding ECedulaProfesional}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="20" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </Grid>
+        </GroupBox>
+        
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="150" VerticalAlignment="Top" Margin="0 10 0 0" Source="{Binding ImagenEmpleado}"></Image>
+            
+            <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Cámara" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Cámara" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="camara_visitante" Command="{Binding OnClick}"
+                        IsEnabled="{Binding EnabledCampo}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+          
+            <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Huella" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Huellas" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="huellas_visitante" Command="{Binding OnClick}" 
+                        IsEnabled="{Binding EnabledCampo}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        
+        <!--<StackPanel Grid.Column="8" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Label HorizontalAlignment="Center" Content="Justicia" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Justicia" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="filtrar" Command="{Binding OnClick}" >
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_filter}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>-->
+    </Grid>
+</UserControl>

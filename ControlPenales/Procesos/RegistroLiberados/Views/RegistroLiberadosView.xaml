@@ -1,0 +1,218 @@
+﻿<UserControl x:Class="ControlPenales.RegistroLiberadosView"
+             x:Name="RegistroLiberadosWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LiberadoLoading}" CommandParameter="{Binding ElementName=RegistroLiberadosWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuIconosView />
+
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0" Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition MaxWidth="175" MinWidth="175"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--TITULO-->
+                <Label Grid.Column="0" Grid.Row="0"  Content="Registro de Supervisión" Style="{DynamicResource DescriptionHeaderStyle}" Name="Label1"  />
+                <!--INTERCONEXION-->
+                <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="2"
+                        Command="{Binding BuscarNUCInterconexion}" Visibility="{Binding VisibleInterconexion, Converter={StaticResource booleanToVisibilityConverter}}"
+                        IsEnabled="{Binding InterconexionEnabled}">Interconexión</Button>
+            </Grid>
+            <GroupBox Grid.Column="0" Grid.Row="1" Header="Datos del imputado" Name="header">
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=AnioBuscar, Path=Text.Length}" Value="4">
+                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscar}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition Width="15"></ColumnDefinition>
+                            <ColumnDefinition Width="115"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto" MaxHeight="25"></RowDefinition>
+                        <RowDefinition Height="auto" MaxHeight="25"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="1">NUC</Label>
+                        <Label Grid.Column="1" Grid.Row="1">Año</Label>
+                        <Label Grid.Column="3" Grid.Row="1">Folio</Label>
+                        <Label Grid.Column="4" Grid.Row="1">Apellido Paterno</Label>
+                        <Label Grid.Column="5" Grid.Row="1">Apellido Materno</Label>
+                        <Label Grid.Column="6" Grid.Row="1">Nombre</Label>
+
+                        <TextBox Grid.Column="0" Grid.Row="2" TextAlignment="Left" Text="{Binding NUCBuscar}" Name="NUCBuscar" IsEnabled="{Binding CamposBusquedaEnabled}">
+                            <TextBox.InputBindings>
+                                <KeyBinding CommandParameter="{Binding ElementName=NUCBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                            </TextBox.InputBindings>
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="16"  />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding AnioBuscar,UpdateSourceTrigger=PropertyChanged}" MaxLength="4" Name="AnioBuscar">
+                            <TextBox.InputBindings>
+                                <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                            </TextBox.InputBindings>
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Content="Causa Penal" VerticalAlignment="Center"  Padding="45 0 0 0"></Label>
+                        <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                        <TextBox Grid.Column="3" Grid.Row="2" Name="FolioBuscar" Text="{Binding FolioBuscar,UpdateSourceTrigger=PropertyChanged}" MaxLength="6" ToolTip="Presionar ENTER para realizar la búsqueda">
+                            <TextBox.InputBindings>
+                                <KeyBinding CommandParameter="{Binding ElementName=FolioBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                            </TextBox.InputBindings>
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <TextBox Grid.Column="4" Grid.Row="2" MaxLength="30" Text="{Binding ApellidoPaternoBuscar}" CharacterCasing="Upper" Name="ApellidoPaternoBuscar" IsEnabled="{Binding CamposBusquedaEnabled}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=ApellidoPaternoBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                            </TextBox.InputBindings>
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="5" Grid.Row="2" MaxLength="30" Text="{Binding ApellidoMaternoBuscar}" CharacterCasing="Upper" Name="ApellidoMaternoBuscar" IsEnabled="{Binding CamposBusquedaEnabled}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=ApellidoMaternoBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                            </TextBox.InputBindings>
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="6" Grid.Row="2" MaxLength="40" Text="{Binding NombreBuscar}" CharacterCasing="Upper" Name="NombreBuscar" IsEnabled="{Binding CamposBusquedaEnabled}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                            </TextBox.InputBindings>
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <StackPanel Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                            <Button  Width="50" Height="50" ToolTip="Buscar"
+                            Style="{DynamicResource MetroCircleButtonStyle}"  CommandParameter="buscar_visible" Command="{Binding OnClick}" IsEnabled="{Binding CamposBusquedaEnabled}" >
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="8" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Content="Huellas" Padding="0"/>
+                            <Button  Width="50" Height="50"  ToolTip="Buscar por Huellas"
+                                 Style="{DynamicResource MetroCircleButtonStyle}"
+                                 Command="{Binding BuscarHuella}"
+                                 IsEnabled="{Binding BHuellasEnabled}" >
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        <Image Grid.Column="9" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Center" MinWidth="100" MaxWidth="100" MinHeight="110" MaxHeight="110" Source="{Binding ImagenInterno}"></Image>
+                    </Grid>
+            </GroupBox>
+                <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="2" TabStripPlacement="Top" Controls:TabControlHelper.IsUnderlined="True" Visibility="{Binding VisibleIngreso, Converter={StaticResource booleanToVisibilityConverter}}" TabIndex="{Binding TabIndex,UpdateSourceTrigger=PropertyChanged}" MaxWidth="{Binding ElementName=header,Path=ActualWidth}" >
+                    
+                <TabItem Header="PROCESO" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" >
+                        <Views:ProcesoView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+
+                    <TabItem Header="IDENTIFICACIÓN" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding TabIdentificacion}" IsEnabled="{Binding TabIdentificacionEnabled}">
+                    <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0">
+                        <TabItem Header="DATOS GENERALES" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding DatosGeneralesEnabled}" IsSelected="{Binding TabDatosGenerales}">
+                            <Views:DatosGeneralesIdentificacionEstatusAdminView Style="{StaticResource ViewTabStyle}" />
+                        </TabItem>
+                        <TabItem Header="APODOS ALIAS Y REFERENCIAS" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding ApodosAliasEnabled}" IsSelected="{Binding TabApodosAlias}">
+                            <Views:ApodosAliasReferenciasEstatusAdminView Style="{StaticResource ViewTabStyle}" />
+                        </TabItem>
+                        <TabItem Header="FOTOS Y HUELLAS DIGITALES" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding FotosHuellasEnabled}" IsSelected="{Binding TabFotosHuellas}">
+                            <Views:FotosHuellasDigitalesEstatusAdminView Style="{StaticResource ViewTabStyle}" />
+                        </TabItem>
+                        <TabItem Header="ACTITUD GENERAL" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding ActitudGeneralEnabled}" IsSelected="{Binding TabActitudGeneral}">
+                            <Views:ActitudGeneralEntrevistado Style="{StaticResource ViewTabStyle}" />
+                        </TabItem>
+                            <TabItem Header="OBSERVACIONES" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding FotosHuellasEnabled}" IsSelected="{Binding TabObservacion}">
+                            <Views:ObservacionesView />
+                        </TabItem>
+                    </Controls:MetroAnimatedSingleRowTabControl>
+                </TabItem>
+
+                    <TabItem Header="MEDIDA" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsEnabled="{Binding TabMedidaEnabled}" >
+                    <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0">
+                            <TabItem Header="DOCUMENTOS" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" >
+                                <Views:ListadoMedidasDocumentoView/>
+                            </TabItem>
+                            <TabItem Header="MEDIDAS" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsEnabled="{Binding TabMedidaSEnabled}" >
+                                <Views:ListadoMedidasView />
+                            </TabItem>
+                            <TabItem Header="SEGUIMIENTO" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsEnabled="{Binding TabMedidaSEnabled}" >
+                                <Views:SeguimientoProcesoLibertadView />
+                            </TabItem>
+                        </Controls:MetroAnimatedSingleRowTabControl>
+                </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+        </Grid>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

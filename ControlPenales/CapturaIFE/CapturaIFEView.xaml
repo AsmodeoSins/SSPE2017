@@ -1,0 +1,54 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.CapturaIFEView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      Title="Captura Frontal de IFE" 
+                      WindowStartupLocation="Manual"
+                      xmlns:local="clr-namespace:ControlPenales"
+                      xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+                      Width="600" Height="365">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="440"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="165"></RowDefinition>
+            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Margin="15,0,0,0" Content="{x:Static dicGeneral:General.ife}" />
+        <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="3" Grid.RowSpan="2" HorizontalAlignment="Left" 
+                Grid.Row="1" Grid.Column="0" Width="489" Height="220" Margin="5,0,0,0" />
+
+        <StackPanel Grid.Row="2" Grid.Column="3" Margin="0,0,0,0">
+            <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.frente}" Padding="0" />
+            <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" ToolTip="{x:Static dicGeneral:General.frente}" >
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_creditcard}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="3" Margin="0,0,0,0">
+            <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.salir}" Padding="0" />
+            <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" ToolTip="{x:Static dicGeneral:General.salir}" >
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_close}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+    </Grid>
+</Controls:MetroWindow>

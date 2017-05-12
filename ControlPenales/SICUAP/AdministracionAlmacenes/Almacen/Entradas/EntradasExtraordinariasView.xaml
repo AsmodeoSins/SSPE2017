@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="ControlPenales.EntradasExtraordinariasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d">
+    <StackPanel>
+        <Label Grid.Row="0" Margin="10" Content="Entradas Extraordinarias" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">CERESO</Label>
+                <Label Grid.Row="1" Grid.Column="0">Almacén</Label>
+                <Label Grid.Row="2" Grid.Column="0">Proveedor</Label>
+                <Label Grid.Row="3" Grid.Column="0">Producto</Label>
+                <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,10,0"></ComboBox>
+                <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,10,0"></ComboBox>
+                <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,10,0"></ComboBox>
+                <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" MinWidth="200"></TextBox>
+
+                <Button Grid.Column="3" Grid.Row="3" Width="140"
+                                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_buscar_calendario_entregas" Command="{Binding OnClick}">Buscar</Button>
+
+                <DataGrid Grid.Row="5" Grid.ColumnSpan="4" Margin="10" MinWidth="200" MinHeight="150" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}"
+                          Visibility="{Binding Path=GridBuscarVisible, Converter={StaticResource booleanToVisibilityConverter}}" ItemsSource="{Binding Lista2}" IsReadOnly="true">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Producto" Binding="{Binding Producto}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Unidad de Medida" Binding="{Binding UnidadMedida}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OnClick}" CommandParameter="click_doble"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DataGrid>
+                <Label Margin="5" Grid.Row="6" Grid.ColumnSpan="4" Content="Productos Para Dar Entrada" Style="{DynamicResource DescriptionHeaderStyle}" />
+                <StackPanel Grid.Row="7" Grid.ColumnSpan="4" 
+                          Visibility="{Binding Path=ProductosEntradaVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+                    <StackPanel>
+                        <DataGrid Grid.Row="5" Grid.ColumnSpan="4" Margin="10" MinWidth="200" MinHeight="150" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Producto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Unidad de Medida">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Cantidad"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Width="140"
+                                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_quitar_producto_entrada_extraordinaria" Command="{Binding OnClick}" Margin="10">Quitar</Button>
+                            <Button Width="140"
+                                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_guardar_producto_entrada_extraordinaria" Command="{Binding OnClick}" Margin="10">Guardar</Button>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,316 @@
+﻿<UserControl x:Class="ControlPenales.EstructuraDinamicaFamiliarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Name="EstructuraDinamicaFamiliarWindow"
+             Width="auto" Height="auto"
+             d:DesignHeight="2000" d:DesignWidth="300">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding EstructuraDinamicaFamiliarLoad}" CommandParameter="{Binding ElementName=EstructuraDinamicaFamiliarWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <Label FontWeight="Bold">Núcleo Familiar</Label>
+                <Label Grid.Column="1" FontWeight="Bold">Primario</Label>
+                <DataGrid AutoGenerateColumns="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  MinHeight="100" Height="auto" CanUserAddRows="false" IsReadOnly="True" 
+                      ItemsSource="{Binding ListNuceloPrimarioFam}" SelectedItem="{Binding SelectNuceloPrimarioFam}" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding NOMBRE,Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Parentesco"  Binding="{Binding TIPO_REFERENCIA.DESCR,Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Edad" Binding="{Binding EDAD,Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Escolaridad" Binding="{Binding ESCOLARIDAD.DESCR, Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Esatdo Civil" Binding="{Binding ESTADO_CIVIL.DESCR, Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ocupación" Binding="{Binding OCUPACION.DESCR,Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_nucelo_familiar_primario" />
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_nucelo_familiar_primario" />
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_nucelo_familiar_primario" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+
+                <GroupBox Header="¿SUS PADRES VIVEN JUNTOS?" Name="PadresVivenJuntos" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView SelectedValue="{Binding PadresVivenJuntos,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton Grid.Column="0" Grid.Row="0"  GroupName="PadresVivenJuntos" IsChecked="{Binding ViveConPadres}" Tag="Si" Content="Si"  Grid.ColumnSpan="4"></RadioButton>
+                            <RadioButton Grid.Column="0" Grid.Row="1"  GroupName="PadresVivenJuntos" IsChecked="{Binding  ViveConPadresNo}" Tag="No" Margin="0 5 0 0" Grid.ColumnSpan="4" Content="No"></RadioButton>
+                        </ListView>
+                        <!--IsChecked="{Binding ViveConPadres}"-->
+                    </Grid>
+                </GroupBox>
+
+                <Label Name="lblDesdeCuando" Grid.Row="4" Grid.ColumnSpan="2">¿Desde Cuándo?</Label>
+                <TextBox MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}" HorizontalAlignment="Left"  MaxLength="{Binding DesdeCuandoVivenJuntosMax}" AcceptsReturn="True" Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding DesdeCuandoVivePadres,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper" IsEnabled="{Binding EnabledPadresJuntos}"/>
+                <Label Name="DscrDinamicaFam" Grid.Row="6" Grid.ColumnSpan="2">Descripción de la dinámica familiar</Label>
+                <TextBox  Grid.Row="7" Grid.ColumnSpan="2" MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}" MaxLength="{Binding DescrDinamicaFamiliarMax}" HorizontalAlignment="Left"    Height="50"  AcceptsReturn="True" Text="{Binding DescrDinamicaFamiliar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper"/>
+                <GroupBox Header="¿Existe o existió algún problema en la familia?" Grid.Row="8" Grid.ColumnSpan="2" Name="ProblemaFamiliar" Margin="5,6,5,4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView SelectedValue="{Binding ProblemaFamiliar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton Grid.Column="0" Grid.Row="0"  GroupName="ProblemaFamiliar" IsChecked="{Binding ProblemaFamiliarSi}" Margin="1,0,-1,0">Si</RadioButton>
+                            <RadioButton Grid.Column="0" Grid.Row="1" GroupName="ProblemaFamiliar"  IsChecked="{Binding ProblemaFamiliarNo}"  Margin="0 5 0 0">No</RadioButton>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="¿Algún Miembro de la familia ha abandonado el hogar?" Grid.Row="9" Grid.ColumnSpan="2" Name="MiembroFamiliaAbandono">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView SelectedValue="{Binding MiembroFamiliaAbandono,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton Grid.Column="0" Grid.Row="0" GroupName="MiembroFamiliaAbandono" IsChecked="{Binding MiembroFamiliaAbandonoHogarSi}">Si</RadioButton>
+                            <RadioButton Grid.Column="0" Grid.Row="1" GroupName="MiembroFamiliaAbandono"  IsChecked="{Binding MiembroFamiliaAbandonoHogarNo}" Margin="0 5 0 0">No</RadioButton>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="¿Está recibiendo el apoyo de su familia  en el proceso judicial  al que esta sujeto?" Grid.Row="10" Grid.ColumnSpan="2" Margin="5,6,5,4" Name="RecibioApoyoprocesoJuducal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView  SelectedValue="{Binding RecibioApoyoprocesoJuducal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton Grid.Column="0" Grid.Row="0" GroupName="RecibioApoyoprocesoJuducal" IsChecked="{Binding RecibioApoyoEconomicoEnProcesojudicialSi}">Si</RadioButton>
+                            <RadioButton Grid.Column="0" Grid.Row="1" GroupName="RecibioApoyoprocesoJuducal" IsChecked="{Binding RecibioApoyoEconomicoEnProcesojudicialNo}" Margin="0 5 0 0">No</RadioButton>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+                <Label Grid.Row="11" Grid.ColumnSpan="2">¿De qué forma y porqué?</Label>
+
+
+
+                <!--<TextBox MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}" HorizontalAlignment="Left"  MaxLength="{Binding DesdeCuandoVivenJuntosMax}" AcceptsReturn="True" Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding DesdeCuandoVivePadres,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper"/>-->
+                <!--<TextBox  Grid.Row="7" Grid.ColumnSpan="2" MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}" MaxLength="{Binding DescrDinamicaFamiliarMax}" HorizontalAlignment="Left"    Height="50"  AcceptsReturn="True" Text="{Binding DescrDinamicaFamiliar,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper"/>-->
+                <TextBox Grid.Row="12" Grid.ColumnSpan="2" MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}" MaxLength="{Binding FomraPorqueApoyoProcesoJudMax}"  HorizontalAlignment="Left"  Height="50"  AcceptsReturn="True" Text="{Binding TextFormaPorqueApoyo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper" IsEnabled="{Binding EnabledApoyoFamiliar}"/>
+                <GroupBox Header="¿Existen antecedentes penales en algún miembro de su familia?" Grid.Row="13" Grid.ColumnSpan="2" Name="AntecedentesPenales">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView   SelectedValue="{Binding AntecedentesPenales,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton  Grid.Column="0" Grid.Row="0" GroupName="AntecedentesPenales"  IsChecked="{Binding ExitenAntecedentespenalesFamiiarSi}" Grid.ColumnSpan="2">Si</RadioButton>
+                            <RadioButton Grid.Column="0" Grid.Row="1" GroupName="AntecedentesPenales"  IsChecked="{Binding ExitenAntecedentespenalesFamiiarNo}" Margin="0 5 0 0" Grid.ColumnSpan="2">No</RadioButton>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="¿Cuentas con familiares que consuman sustancias tóxicas?" Grid.Row="14" Grid.ColumnSpan="2" Name="SustanciasToxicas">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView  SelectedValue="{Binding SustanciasToxicas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton  Grid.Column="0" Grid.Row="0"  GroupName="SustanciasToxicas" IsChecked="{ Binding FamiliarConsumeSustanciaSi}">Si</RadioButton>
+                            <RadioButton Grid.Column="0" Grid.Row="1" GroupName="SustanciasToxicas" IsChecked="{ Binding FamiliarConsumeSustanciaNo}" Margin="0 5 0 0">No</RadioButton>
+                            </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="¿Usted consume o ha consumido algún tipo de droga?" Grid.Row="15" Grid.ColumnSpan="2" Name="ConsumidoDrogas" Margin="5,4,5,6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView  SelectedValue="{Binding ConsumidoDrogas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton Grid.Column="0" Grid.Row="0" GroupName="ConsumidoDrogas"  IsChecked="{Binding ConsumidoAlgunTipoDrogaSi}">Si</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="1" GroupName="ConsumidoDrogas" IsChecked="{Binding ConsumidoAlgunTipoDrogaNo}"  Margin="0 5 0 0">No</RadioButton>
+                          </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <DataGrid AutoGenerateColumns="False" Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2"  MinHeight="100" Height="auto" CanUserAddRows="false" IsReadOnly="True" 
+                      ItemsSource="{Binding ListDrogaConsumo}" SelectedItem="{Binding SelectDrogaConsumo}" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tipo de Droga" Binding="{Binding DROGA.DESCR}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Inicio de Consumo" Binding="{Binding INICIO_CONSUMO}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecuencia de uso" Binding="{Binding  DROGA_FRECUENCIA.DESCR}" Width="auto"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_consumodroga" />
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_consumodroga" />
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_consumodroga" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+                <GroupBox Header="¿Cuentas con antecedentes penales  anteriores al actual?" Grid.Row="17" Grid.ColumnSpan="2" Name="AntecedentesAnteriores">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView  SelectedValue="{Binding AntecedentesAnteriores,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton Grid.Column="0" Grid.Row="0" GroupName="AntecedentesAnteriores"   IsChecked="{Binding AntecedentesPernalesSi}">Si</RadioButton>
+                            <RadioButton Grid.Column="0" Grid.Row="1" IsChecked="{Binding AntecedentesPernalesNo}" GroupName="AntecedentesAnteriores" Margin="0 5 0 0">No</RadioButton>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="¿Recibió apoyo durante su internamiento?" Grid.Row="18" Grid.ColumnSpan="2" Name="ApoyoDuranteInternamiento">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView  SelectedValue="{Binding ApoyoDuranteInternamiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton Grid.Column="0" Grid.Row="0" GroupName="ApoyoDuranteInternamiento" IsChecked="{Binding RecibioApoyoInternamientoSi}">Si</RadioButton>
+                            <RadioButton Grid.Column="0" Grid.Row="1" GroupName="ApoyoDuranteInternamiento" IsChecked="{Binding RecibioApoyoInternamientoNo}" Margin="0 5 0 0">No</RadioButton>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+                <Label Name="lblDeQuien" Grid.Row="19" Grid.ColumnSpan="2">¿De quién?</Label>
+                <TextBox MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}" MaxLength="{Binding DeQuienDuranteInternamientoMax}" HorizontalAlignment="Left" AcceptsReturn="True" Grid.Row="20" Grid.ColumnSpan="2" Text="{Binding TextDeQuienRecibioApoyoInternamiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper" IsEnabled="{Binding EnabledApoyoInternamiento}"/>
+                <Label Name="lblFrecuencia" Grid.Row="21" Grid.ColumnSpan="2">Frecuencia</Label>
+                <TextBox MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}"  HorizontalAlignment="Left" Grid.Row="22" Grid.ColumnSpan="2" MaxLength="{Binding FrecuenciaRecibApoyoInternmMax}" Text="{Binding TextFrecuencia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper"  IsEnabled="{Binding EnabledApoyoInternamiento}"/>
+                <Label Grid.Row="23" Grid.Column="0" Height="26" VerticalAlignment="Top" FontWeight="Bold">Núcelo Familiar</Label>
+                <Label Grid.Row="23" Grid.Column="1" FontWeight="Bold">Secundario</Label>
+                <DataGrid AutoGenerateColumns="False" Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="2"  MinHeight="100" Height="auto" CanUserAddRows="false" IsReadOnly="True" 
+                      ItemsSource="{Binding ListSecundarioFam}" SelectedItem="{Binding SelectSecundarioFam}" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding NOMBRE,Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Parentesco"  Binding="{Binding TIPO_REFERENCIA.DESCR,Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Edad" Binding="{Binding EDAD,Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Escolaridad" Binding="{Binding ESCOLARIDAD.DESCR, Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Esatdo Civil" Binding="{Binding ESTADO_CIVIL.DESCR, Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ocupacion" Binding="{Binding OCUPACION.DESCR,Mode=TwoWay}" Width="auto"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_nucleo_familiarSec" />
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_nucleo_familiarSec" />
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_nucleo_familiarSec" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+                <Label Name="lblUnionesAnt" Grid.Row="25" Grid.ColumnSpan="2" >Uniones Anteriores</Label>
+                <TextBox MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}" HorizontalAlignment="Left" Grid.Row="26" Grid.ColumnSpan="2" Text="{Binding TextunionesAnteriores,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="1" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <Label Name="lblNumHijos" Grid.Row="27" Grid.ColumnSpan="2" >Cuántos Hijos Tiene?</Label>
+                <TextBox MaxWidth="{Binding WidhtEstructuraDinamicaFamiliar}" Width="{Binding WidhtEstructuraDinamicaFamiliar}" HorizontalAlignment="Left" Grid.Row="28" Grid.ColumnSpan="2" Text="{Binding NoHijos,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue='' }" CharacterCasing="Upper">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="1" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <GroupBox Header="¿Ha tenido o tiene algún problema con su pareja?" Grid.Row="29" Grid.ColumnSpan="2" Name="ProblemaPareja">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <ListView  SelectedValue="{Binding ProblemaPareja,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="Tag" BorderThickness="0" SelectionMode="Single" Grid.ColumnSpan="2" Margin="0,0,0,14">
+                            <RadioButton Grid.Column="0" Grid.Row="0" GroupName="ProblemaPareja" IsChecked="{Binding ProblemaParejaSi}">Si</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="1" GroupName="ProblemaPareja" IsChecked="{Binding ProblemaParejaNo}" Margin="0 5 0 0">No</RadioButton>
+                           </ListView>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+
+
+
+
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

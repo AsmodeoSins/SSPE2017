@@ -1,0 +1,149 @@
+﻿<UserControl x:Class="ControlPenales.TrasladoExternoView"
+             x:Name="TrasladoExternoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding TrasladoExternoOnLoading}" CommandParameter="{Binding ElementName=TrasladoExternoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:NombreConverter x:Key="CoverterNombre"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuTrasladosView Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1"  Content="Traslado Externo" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:DatosExpediente2View Grid.Row="2" ></Views:DatosExpediente2View>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="Datos de Traslado">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*"></ColumnDefinition>
+                            <ColumnDefinition Width=".5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Fecha"></Label>
+                        <Label Grid.Column="1" Content="Motivo"></Label>
+                        <Border Grid.Row="1"  BorderBrush="Red"  ToolTipService.IsEnabled="{Binding DTFechaValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding DTFechaValid,ValidatesOnDataErrors=True}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="FECHA DE TRASLADO ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <xctk:DateTimePicker Grid.Column="1" Grid.Row="1" Format="Custom" FormatString="dd/MM/yyyy hh:mm tt" Watermark="Seleccione una fecha"
+                            Text="{Binding DTFecha,StringFormat=dd/MM/yyyy hh:mm tt,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                            Height="{Binding ElementName=cmbTipoExcarcelacion, Path=ActualHeight}" Minimum="{Binding FechaServer}"  ></xctk:DateTimePicker>
+                        </Border>
+                        <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LstMotivo}" SelectedValuePath="ID_MOTIVO" DisplayMemberPath="DESCR" SelectedValue="{Binding DTMotivo,ValidatesOnDataErrors=True}"></ComboBox>
+                        <Label Grid.Row="2" Content="Centro Destino"></Label>
+                        <ComboBox Grid.Row="3" ItemsSource="{Binding LstCentroDestinoForaneo}" SelectedValuePath="ID_EMISOR" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectedEmisor, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SourceUpdated">
+                                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_centro_destino">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                        <Label Grid.Row="2" Grid.Column="1" Content="Otro Centro Destino" Visibility="{Binding OtroDestinoVisible}"></Label>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding OtroDestino}" Visibility="{Binding OtroDestinoVisible}" CharacterCasing="Upper" MaxLength="100"></TextBox>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Justificación" x:Name="lblJustificacion"></Label>
+                        <TextBox Grid.Row="1" MinLines="2" Text="{Binding DTJustificacion,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="1000" CharacterCasing="Upper" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lblJustificacion}"></TextBox>
+                        <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,5,0,0" >
+                            <Label HorizontalAlignment="Center" Content="Justificación" Padding="0"/>
+                            <Button  Width="45" Height="45"  ToolTip="Buscar"  
+                            Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="ampliar_justificacion" Command="{Binding OnClick}" >
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_text}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <Label Grid.Row="2" Content="Oficio de Autorización" x:Name="lbloficioautorizacion"></Label>
+                    <TextBox Grid.Row="3" Text="{Binding DTNoOficio,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="50" CharacterCasing="Upper" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbloficioautorizacion}"></TextBox>
+                    <Label Grid.Row="4" Content="Autorizado por:"></Label>
+                    <TextBlock Grid.Row="5" Text="{Binding Autoridad_Traslado}"></TextBlock>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="1" Header="Datos de Egreso de Cereso" >
+                <StackPanel>
+                    <Label Content="No.Oficio de Salida"></Label>
+                    <TextBox Text="{Binding DENoOficio,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" MaxLength="50" CharacterCasing="Upper"></TextBox>
+                    <Label Content="Autoridad que da Salida"></Label>
+                    <ComboBox ItemsSource="{Binding AutoridadesSalida}" SelectedItem="{Binding AutorizaSalida, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"></ComboBox>
+                    <Label Content="Motivo de la Salida"></Label>
+                    <TextBlock Text="{Binding MotivoSalida}"></TextBlock>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

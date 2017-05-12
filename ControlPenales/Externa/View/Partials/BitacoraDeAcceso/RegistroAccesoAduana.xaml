@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="ControlPenales.RegistroAccesoAduana"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" Height="auto" d:DesignWidth="1000">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="75"></ColumnDefinition>
+            <ColumnDefinition Width="75"></ColumnDefinition>
+            <ColumnDefinition Width="75"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Column="0" Grid.Row="0">NIP</Label>
+        <Label Grid.Column="1" Grid.Row="0">Apellido Paterno</Label>
+        <Label Grid.Column="2" Grid.Row="0">Apellido Materno</Label>
+        <Label Grid.Column="3" Grid.Row="0">Nombre</Label>
+
+        <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextNIP,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" 
+                 Name="NIPBuscar" IsEnabled="{Binding NIPEnabled}" >
+            <TextBox.InputBindings>
+                <KeyBinding CommandParameter="{Binding ElementName=NIPBuscar}" Command="{Binding EnterClick}" Key="Enter" />
+            </TextBox.InputBindings>
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="10"  />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextPaterno,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="PaternoBuscar" CharacterCasing="Upper">
+            <TextBox.InputBindings>
+                <KeyBinding CommandParameter="{Binding ElementName=PaternoBuscar}" Command="{Binding EnterClick}" Key="Enter" />
+            </TextBox.InputBindings>
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextMaterno,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="MaternoBuscar" CharacterCasing="Upper">
+            <TextBox.InputBindings>
+                <KeyBinding CommandParameter="{Binding ElementName=MaternoBuscar}" Command="{Binding EnterClick}" Key="Enter" />
+            </TextBox.InputBindings>
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextNombre,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="NombreBuscar" CharacterCasing="Upper">
+            <TextBox.InputBindings>
+                <KeyBinding CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding EnterClick}" Key="Enter" />
+            </TextBox.InputBindings>
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+            </i:Interaction.Behaviors>
+        </TextBox>
+
+        <Label Grid.Column="0" Grid.Row="2" FontWeight="Bold">Discapacidad</Label>
+        <Label Grid.Column="2" Grid.Row="2" FontWeight="Bold">Horario</Label>
+        <Label Grid.Column="0" Grid.Row="3">Discapacidad</Label>
+        <Label Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3">Tipo Discapcidad</Label>
+
+        <ComboBox Grid.Column="0" Grid.Row="4" SelectedValuePath="Tag" IsEnabled="{Binding DiscapacitadoEnabled}"
+                          SelectedValue="{Binding SelectDiscapacitado,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+        </ComboBox>
+        <ComboBox Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1" ItemsSource="{Binding ListDiscapacidades}" SelectedValuePath="ID_TIPO_DISCAPACIDAD" DisplayMemberPath="DESCR" 
+                      SelectedValue="{Binding SelectDiscapacidad,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding DiscapacidadEnabled}"></ComboBox>
+       
+        <Label Grid.Column="3" Grid.Row="5">Fecha</Label>
+        <Label Grid.Column="2" Grid.Row="3">Hora Entrada</Label>
+        <Label Grid.Column="3" Grid.Row="3">Hora Salida</Label>
+
+        <!--
+        <Label Grid.Column="0" Grid.Row="5">Tipo Visitante</Label>
+        <ComboBox Grid.Column="0" Grid.Row="6" ItemsSource="{Binding ListTipoVisitante}" SelectedValuePath="ID_TIPO_VISITANTE" DisplayMemberPath="DESCR" 
+                      SelectedValue="{Binding SelectTipoVisitante,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+        -->
+        <DatePicker Grid.Column="3" Grid.Row="6" Controls:TextBoxHelper.Watermark="Selecciona una fecha" IsEnabled="False"
+                    SelectedDate="{Binding FechaRegistro,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+        <TextBox Grid.Column="2" Grid.Row="4" Text="{Binding TextHoraEntrada,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+        <TextBox Grid.Column="3" Grid.Row="4" Text="{Binding TextHoraSalida,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsReadOnly="True">
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="5"  />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        
+        <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2">Institución que nos Visita</Label>
+        <Label Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="1">Área a la que se Dirige</Label>
+
+        <TextBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Text="{Binding TextInstitucion,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+        <ComboBox Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="1" ItemsSource="{Binding ListArea}" SelectedValuePath="ID_AREA" DisplayMemberPath="DESCR" 
+                      SelectedValue="{Binding SelectArea,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+        
+        <Label Grid.Column="0" Grid.Row="7" FontWeight="Bold">Asunto</Label>
+        <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="4" Text="{Binding TextAsunto,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="9" FontWeight="Bold">Observaciones</Label>
+        <TextBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="7" Text="{Binding TextObservaciones,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Foreground="red">*</Label>
+        <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Margin="7 0 0 0">Departamento</Label>
+        <Label Grid.Column="3" Grid.Row="11" Grid.ColumnSpan="2">Puesto</Label>
+
+        <ComboBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" ItemsSource="{Binding ListDepartamentos}" DisplayMemberPath="DESCR" SelectedValuePath="ID_DEPARTAMENTO"
+                      SelectedItem="{Binding SelectDepartamentoItem}" SelectedValue="{Binding SelectDepartamento}"></ComboBox>
+        <ComboBox Grid.Column="3" Grid.Row="12" Grid.ColumnSpan="4" ItemsSource="{Binding ListPuestos}" SelectedValuePath="ID_PUESTO" DisplayMemberPath="DESCR" 
+                      SelectedValue="{Binding SelectPuesto,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+
+        <Label Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Foreground="red">*Exclusivo para Empleados y Proveedores</Label>
+
+        <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="3">
+            <Label HorizontalAlignment="Center" Content="Huella" Padding="0"/>
+            <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Huellas" Width="50" Height="50" 
+                VerticalAlignment="Top" Command="{Binding BuscarHuella}" >
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+
+        <Image Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="8" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center"
+               Margin="5" Source="{Binding ImagenVisitanteExterno}"></Image>
+
+    </Grid>
+</UserControl>

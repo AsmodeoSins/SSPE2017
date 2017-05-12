@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="ControlPenales.CreacionListasExamenPView" x:Name="CreacionListasExamenPWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto"  mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="900" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CreacionListasPLoad}" CommandParameter="{Binding ElementName=CreacionListasExamenPWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80*"></ColumnDefinition>
+                <ColumnDefinition Width="20*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Views:MenuIconosView Grid.Row="0" Grid.ColumnSpan="2" />
+            <Label Grid.Column="0" Grid.Row="1" Content="{ Binding NombreM, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource DescriptionHeaderStyle}" />
+            <Controls:ToggleSwitch VerticalAlignment="Center" Width="220"
+                                       IsChecked="{Binding VisibleModalidadComun}"
+                                       Grid.Column="1" Grid.Row="1" 
+                                       OnLabel="Creación de listas"
+                                       OffLabel="Dictamen Final" />
+            <Views:DatosExpediente2View Grid.Column="0"  Grid.Row="2" Grid.ColumnSpan="2"></Views:DatosExpediente2View>
+            <GroupBox Grid.Column="0" Grid.Row="3" Header="Detalles del beneficio" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Motivo del Estudio:"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding LstBeneficios}" DisplayMemberPath="DESCR" SelectedValuePath="ID_MOTIVO"
+                            SelectedValue="{Binding IdMotivoE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Número de Oficio" Name="lblRef"></Label>
+                    <TextBox Grid.Column="3" Grid.Row="0" MaxWidth="{ Binding ElementName=lblRef, Path=ActualWidth}" MaxLength="50" Text="{ Binding NoOficio, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="4" Grid.Row="0" Content="Nombre del Programa"></Label>
+                    <TextBox Grid.Column="5" Grid.Row="0" MaxWidth="{ Binding ElementName=lblRef, Path=ActualWidth}" MaxLength="100" Text="{ Binding NombrePrograma, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="6" Grid.Row="0" Content="No. de días "></Label>
+                    <TextBox Grid.Column="7" Grid.Row="0" IsEnabled="{ Binding EnabledIngresaDiasPlazoFederal, UpdateSourceTrigger=PropertyChanged}" Text="{ Binding DiasEsu, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="2" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Header="Lista de candidatos">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Controls:ToggleSwitch VerticalAlignment="Center"
+                                       IsChecked="{Binding SelectedFueroCreacionLista, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       Grid.Column="4" Grid.Row="0"
+                                       OnLabel="Fuero federal"
+                                       OffLabel="Fuero común" />
+                    <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" AutoGenerateColumns="False" ItemsSource="{Binding LstEstudiosPersonalidad, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSolicitud}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Año" Binding="{Binding INGRESO.ID_ANIO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Folio" Binding="{Binding INGRESO.ID_IMPUTADO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Apellido Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Ficha Jurídica" Command="{Binding OnClick}" CommandParameter="agregar_ficha"/>
+                                <MenuItem Header="Consultar Documentación Disponible " Command="{Binding OnClick}" CommandParameter="consultar_documentos_cero"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

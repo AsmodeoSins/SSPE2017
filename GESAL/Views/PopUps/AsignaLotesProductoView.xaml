@@ -1,0 +1,143 @@
+﻿<UserControl x:Class="GESAL.Views.AsignaLotesProductoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:Behaviors="clr-namespace:MVVMShared.Behavior;assembly=MVVMShared"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Converters="clr-namespace:MVVMShared.Converters;assembly=MVVMShared">
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" Width="888"
+					CornerRadius="10,0,10,0"  HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="420" MinHeight="320">
+                <StackPanel>
+                    <Label Style="{StaticResource estiloTituloControl}" Content="Captura las cantidades y lotes correspondientes a la entrada del producto"></Label>
+                    <TextBlock Text="{Binding SelectedProducto.NOMBRE}"></TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Restante" Margin="5"></TextBlock>                        
+                        <TextBlock Grid.Row="1" Text="{Binding Restante}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="Recibido" Margin="5">
+                        </TextBlock>
+                        <Border BorderBrush="Red" Margin="5" ToolTipService.IsEnabled="{Binding IsRecibidoValid, Converter={Converters:BoolToOppositeBoolConverter}}"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsRecibidoValid}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="LA CANTIDAD RECIBIDA ES OBLIGATORIA Y NO PUEDE SER MAYOR A LA CANTIDAD RESTANTE ORDENADA!" Style="{StaticResource errorLabel}"/>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <TextBox Text="{Binding Recibido,UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:String.Empty}}" MaxLength="10">
+                                <i:Interaction.Behaviors>
+                                    <Behaviors:TextBoxInputNumericBehavior InputMode="DecimalInput" JustPositivDecimalInput="True" DecimalPlaces="2" ></Behaviors:TextBoxInputNumericBehavior>
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                        </Border>
+                        <TextBlock Grid.Column="2" Text="Lote" Margin="5">
+                        </TextBlock>
+                        <TextBox Grid.Column="2" Grid.Row="1" Margin="5" Text="{Binding Lote,UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:String.Empty}, ValidatesOnDataErrors=True}" MaxLength="10">
+                            <i:Interaction.Behaviors>
+                                <Behaviors:TextBoxInputNumericBehavior InputMode="DigitInput" ></Behaviors:TextBoxInputNumericBehavior>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBlock Grid.Column="3" Text="Fecha de Caducidad" Margin="5"></TextBlock>
+                        <Border BorderBrush="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" ToolTipService.IsEnabled="{Binding IsFechaCaducidadValid, Converter={Converters:BoolToOppositeBoolConverter}}"  Grid.Row="2" Grid.Column="3">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsFechaCaducidadValid}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="{Binding MensajeFechaCaducidad}" Style="{StaticResource errorLabel}"/>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <!--Cuidado:El datepicker no puede ser validado directamente bajo las reglas del viewmodel -->
+                            <DatePicker Controls:TextBoxHelper.Watermark="Selecciosssne una fecha" SelectedDate="{Binding Fecha_Caducidad,UpdateSourceTrigger=LostFocus}" DisplayDateStart="{Binding FechaActual}" VerticalContentAlignment="Center" VerticalAlignment="Center"></DatePicker>
+                        </Border>
+
+                        <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Label HorizontalAlignment="Center" Content="Agregar" Padding="0" />
+                            <Button Width="50" Height="50" ToolTip="Agregar" CommandParameter="agregar_lote" Command="{Binding CmdCapturaLote}"
+                        Style="{StaticResource MetroCircleButtonStyle}">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.MergedDictionaries>
+                                            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                                        </ResourceDictionary.MergedDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        
+                    </Grid>
+                    <DataGrid Margin="5 10 0 0" MaxHeight="200" ItemsSource="{Binding Recepcion_Producto_Detalle}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedRecepcion_Producto}"  Style="{StaticResource MetroDataGrid}"
+			        ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False" CanUserResizeColumns="False"
+                    CanUserReorderColumns="False" x:Name="dgLotes" SelectionMode="Single">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Borrar"  CommandParameter="eliminar" Command="{Binding CmdGridLote}" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="RECIBIDO" Binding="{Binding RECIBIDO}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="LOTE" Binding="{Binding LOTE}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="FECHA DE CADUCIDAD" Binding="{Binding FECHA_CADUCIDAD, StringFormat=d}" IsReadOnly="True"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <!--<DataGrid.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Style.Triggers>
+                                    <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                        <Setter Property="Foreground" Value="Black" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>-->
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Aceptar" Background="{StaticResource AccentColorBrush}" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdAsignarLote}" CommandParameter="ok" HorizontalAlignment="Center" IsEnabled="{Binding HabilitarAsignarLotesOk}"></Button>
+                        <Button Content="Cancelar" Background="{StaticResource AccentColorBrush}" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdCancelarLote}" CommandParameter="cancelado" HorizontalAlignment="Center" ></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

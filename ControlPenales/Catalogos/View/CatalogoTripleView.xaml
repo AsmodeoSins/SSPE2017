@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="ControlPenales.CatalogoTripleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <StackPanel>
+        <Views:MenuCatalogosView />
+
+        <Grid Visibility="{Binding GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="{Binding CatalogoHeader}" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label>Búsqueda</Label>
+                <TextBox Margin="2" MinWidth="200" MaxWidth="500" Text="{Binding Busqueda}" CharacterCasing="Upper" MaxLength="{Binding MaxLength}" Name="txtBuscar">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding FiltroVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                    <Label Content="{Binding ComboBoxLigado}"></Label>
+                    <ComboBox ItemsSource="{Binding ListTipos}" MinWidth="300" DisplayMemberPath="{Binding FiltroDisplay}" SelectedItem="{Binding SelectedTipo}"></ComboBox>
+                </StackPanel>
+                    <Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar" Content="Buscar"
+                Command="{Binding OnClick}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </Button.InputBindings>
+                </Button>
+            </StackPanel>
+
+            <DataGrid Grid.Row="2" Height="300" Margin="10" ItemsSource="{Binding ListItems}" IsReadOnly="True"
+                  SelectedItem="{Binding SelectedItem}" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Style.Triggers>
+                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
+
+        </Grid>
+
+        <Grid Visibility="{Binding AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.ColumnSpan="2" Content="{Binding AgregarHeader}" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Descripción"></Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Descripcion}" MinWidth="300" MaxWidth="400" CharacterCasing="Upper" Focusable="True"  Margin="5"
+                         Views:FocusExtension.IsFocused="{Binding FocusText}" HorizontalAlignment="Left" ></TextBox>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="{Binding ComboBoxLigado}"></Label>
+            <ComboBox Grid.Row="2" Grid.Column="1" MinWidth="300" MaxWidth="500" Margin="5" ItemsSource="{Binding ListTipos}"  SelectedIndex="{Binding TipoIndice}" 
+                       SelectedItem="{Binding SelectedTipo}" DisplayMemberPath="DESCR"  HorizontalAlignment="Left"></ComboBox>
+
+        </Grid>
+    </StackPanel>
+</UserControl>

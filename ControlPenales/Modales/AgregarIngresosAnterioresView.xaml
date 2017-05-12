@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ControlPenales.AgregarIngresosAnterioresView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_ias"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff"
+					CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="350" MinHeight="350" Width="1200" Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="{Binding TituloModal}" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+                    <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" MaxHeight="230" ItemsSource="{Binding LstIAS}" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="TODOS" Foreground="White" IsChecked="{Binding Path=DataContext.IsIngresoAntAll,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Style="{DynamicResource DescriptionHeaderStyleCheckBox}"></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Seleccione,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            
+                            <DataGridTextColumn Header="Centro" Binding="{Binding Emisor.DESCR}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Delito" Binding="{Binding Delito.DESCR}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Periodo Reclusión" Binding="{Binding PerioroReclusion}"  IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Sanciones" Binding="{Binding Sanciones}">
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="CharacterCasing" Value="Upper"/>
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Content="No hay Información." HorizontalAlignment="Center" FontStyle="Italic"  Visibility="{Binding EmptyIAS, Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <Button Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="agregar_ias" Command="{Binding OnClick}">Agregar</Button>
+                    <Button Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="225,10,224,0"
+                CommandParameter="cancelar_ias" Command="{Binding OnClick}">Cancelar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+
+</UserControl>

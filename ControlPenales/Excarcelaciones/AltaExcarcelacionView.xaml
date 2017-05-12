@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ControlPenales.AltaExcarcelacionView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <!--MENU-->
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+
+        <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Visibility="{Binding Path=InsertarVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Column="0" Grid.Row="0" Content="Excarcelación" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <GroupBox Grid.Column="0" Grid.Row="1" Header="Datos del Expediente">
+                <Views:DatosExpedienteView />
+            </GroupBox>
+
+            <DataGrid Grid.Column="0" Grid.Row="2" Margin="0 10 0 10" MaxHeight="200" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Motivo"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tipo Salida"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Destino"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--DATOS SALIDA-->
+            <Views:DatosSalidaExcarcelacionView Grid.Column="0" Grid.Row="4"  Visibility="{Binding Path=ExcarcelacionVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+        </Grid>
+        <!--BUSCAR-->
+        <!--<Views:BuscarView Visibility="{Binding Path=BusquedaVisible, Converter={StaticResource booleanToVisibilityConverter}}" Grid.Column="0" Grid.Row="1" />-->
+      </Grid>
+</UserControl>

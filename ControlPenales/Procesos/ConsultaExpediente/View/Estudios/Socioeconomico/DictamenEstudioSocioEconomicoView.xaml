@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ControlPenales.DictamenEstudioSocioEconomicoView"
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto" mc:Ignorable="d" d:DesignHeight="1100" d:DesignWidth="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Dictamen Socio Económico">
+            <AdornerDecorator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Name="GridColumnDatos"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Especifique" Name="lblEspecifique"></Label>
+                    <TextBox MinHeight="200" MaxWidth="{ Binding ElementName=lblEspecifique, Path=ActualWidth}" Grid.Row="1" IsEnabled="False" 
+                         Text="{ Binding DictamenDescripcion, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+    </Grid>
+    </UserControl>

@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="ControlPenales.AgendaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ControlPenales"
+             mc:Ignorable="d" 
+             xmlns:dic="clr-namespace:Resources.ControlPenales.Agenda;assembly=Resources"
+             xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0" Visibility="{Binding Path=AgendaVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <local:MenuExpedientesView Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"></local:MenuExpedientesView>
+
+            <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Style="{DynamicResource DescriptionHeaderStyle}" Content="{x:Static dic:AgendaView.titulo}"/>
+
+            <local:ControlAgendaView  Grid.Column="1" Grid.Row="3" Grid.RowSpan="3"></local:ControlAgendaView>
+
+            <GroupBox Grid.Column="2" Grid.Row="3" Header="{x:Static dic:AgendaView.solicitud_citas}">
+                <DataGrid Grid.Column="1" Grid.Row="3" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" MaxHeight="500">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.asunto}"/>
+                        <DataGridTextColumn Header="{x:Static dic:AgendaView.fecha_solicitud}"/>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.hora}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+
+            <GroupBox Grid.Column="2" Grid.Row="4" Header="{x:Static dic:AgendaView.estudios_pendientes}">
+                <DataGrid Grid.Column="1" Grid.Row="3" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" MaxHeight="500">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static dic:AgendaView.fecha_solicitud}"/>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.expediente}"/>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.interno}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+            <GroupBox Grid.Column="2" Grid.Row="5" Header="{x:Static dic:AgendaView.datos_estudio_seleccionado}">
+            </GroupBox>
+        </Grid>
+        <!--EXPEDIENTE DEPARTAMENTO-->
+        <local:ExpedienteDepartamentoView Grid.Column="0" Grid.Row="0" Visibility="{Binding Path=ExpedienteDepartamentoVisible, Converter={StaticResource booleanToVisibilityConverter}}"></local:ExpedienteDepartamentoView>
+        <!--FORMATO DEPARTAMENTO-->
+        <Border Background="White" Width="500" Height="500" Panel.ZIndex="100" BorderThickness="1" BorderBrush="#3FAFDF" Visibility="{Binding Path=FormatoDepartamentoVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <local:FormatoDepartamentoView></local:FormatoDepartamentoView>
+        </Border>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,47 @@
+﻿<Controls:MetroWindow         
+        xmlns:WPF="clr-namespace:TXTextControl.WPF;assembly=TXTextControl.WPF"
+        x:Class="ControlPenales.AgendasView"
+        x:Name="AgendasWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Calendario="clr-namespace:ControlPenales.Controls.Calendario"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="Agenda" Height="666" Width="999">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ManejoGruposLoading}" CommandParameter="{Binding ElementName=AgendasWindow}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="Asistencia" Theme="Light" Position="Left" Width="350" IsOpen="{Binding AgregarHora,Mode=TwoWay}"  >
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{Binding FechaTitulo}" FontWeight="Bold"  HorizontalAlignment="Center"></Label>
+                    <CheckBox Grid.Row="1" Content="Asistencia" IsChecked="{Binding ChkAsistencia}"></CheckBox>
+                    <Label Grid.Row="2" Content="Observación" Name="observacion"></Label>
+                    <TextBox Grid.Row="3" Text="{Binding Observacion}" MaxLength="500" CharacterCasing="Upper" MaxWidth="{Binding ElementName=observacion,Path=ActualWidth}" Height="50"></TextBox>
+
+                    <Button Grid.Row="4" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="asistencia" Command="{Binding OnClick}">Guardar</Button>
+
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
+    <Grid>
+        <Calendario:CalendarioView x:Name="Calendario" Grid.Row="0"></Calendario:CalendarioView>
+    </Grid>
+    
+</Controls:MetroWindow>

@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ControlPenales.HojaControlLiquidosView"
+             Name="HojaControlLiquidosWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             d:DesignHeight="550" d:DesignWidth="1200">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding HojaLiquidosLoading}" CommandParameter="{Binding ElementName=HojaControlLiquidosWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuHojaLiquidosView Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1" Content="Hoja de Control de Líquidos" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:DetallesImputadoView Grid.Row="2"></Views:DetallesImputadoView>
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="3" HorizontalAlignment="Stretch" TabStripPlacement="Top"
+                SelectedIndex="{Binding Opcion,UpdateSourceTrigger=PropertyChanged}">
+            <TabItem Header="CAPTURA DE HOJA DE LÍQUIDOS" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:CapturaHojaLiquidosView></Views:CapturaHojaLiquidosView>
+            </TabItem>
+            <TabItem Header="CONSULTA DE HOJA DE LÍQUIDOS" Style="{StaticResource SubHeaderTabStyle}">
+                <Views:ConsultaHojaLiquidosView></Views:ConsultaHojaLiquidosView>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

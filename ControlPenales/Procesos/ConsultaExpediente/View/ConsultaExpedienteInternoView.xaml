@@ -1,0 +1,1303 @@
+﻿<UserControl x:Class="ControlPenales.ConsultaExpedienteInternoView" x:Name="ConsultaExpedienteWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:WPF="clr-namespace:TXTextControl.WPF;assembly=TXTextControl.WPF"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:WPFPdfViewer="clr-namespace:WPFPdfViewer;assembly=WPFPdfViewer" xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=ConsultaExpedienteWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:TipoEstatusEmiConverter x:Key="TipoEstatusEmiConverter" />
+        <Views:IsIngresoActivo x:Key="IsIngresoActivo" />
+        <Views:TrimStringConverter x:Key="Trimming" />
+        <Views:GetFuero x:Key="GetFuero" />
+        <Views:SiNoConverter x:Key="ConvertirSiNo"/>
+        <Views:IngresoUbicacion x:Key="IngresoUbicacion" />
+        <Views:VisitanteNombreCompleto x:Key="VisitanteNombreCompleto" />
+        <Views:MultiValueConverter x:Key="MultiParamConverter"></Views:MultiValueConverter>
+        <Views:RowNumberConverter x:Key="converter" />
+        <Views:NombreConverter x:Key="NombreConverter"></Views:NombreConverter>
+        <Views:GetPersonaNombreReporteNotasMedicas x:Key="NombrePersona"/>
+        <Views:GetPersonaNombre x:Key="AtendioAtencionRecibida"></Views:GetPersonaNombre>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="70*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="buscar_ingreso">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Limpiar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Limpiar" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="limpiar_campos">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clean}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="3" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Ayuda" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Ayuda" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="ayuda">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_question}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="4" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Salir" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Salir" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="salida_ingreso">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_door_lock_closed}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource DescriptionHeaderStyle}">Consulta a Expediente</Label>
+        <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="100" Style="{StaticResource MetroDataGrid}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single"
+                ItemsSource="{Binding ListIngresos}" SelectedItem="{Binding SelectedIngreso}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Núm. Ingreso" Binding="{Binding ID_INGRESO}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Activo" Binding="{Binding Converter={StaticResource IsIngresoActivo}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha Ingreso" Binding="{Binding FEC_INGRESO_CERESO}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Clasificación Jurídica" Binding="{Binding CLASIFICACION_JURIDICA.DESCR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tipo de Seguridad" Binding="{Binding TIPO_SEGURIDAD.DESCR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Edificio" Binding="{Binding CAMA.CELDA.SECTOR.EDIFICIO.DESCR,Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Sector" Binding="{Binding CAMA.CELDA.SECTOR.DESCR,Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Celda" Binding="{Binding CAMA.CELDA.ID_CELDA}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <GroupBox Header="Procesos" Grid.Row="3" Grid.Column="0" IsEnabled="{Binding MenuIzquierdaEnabled}" Height="800" VerticalAlignment="Top">
+            <StackPanel Orientation="Vertical">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Identificación" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Identificación" IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="identificacion"
+                            Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_user_tie}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Información Jurídica" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Información Jurídica" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="informacion_juridica" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_text}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Información Administrativa" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Información Administrativa" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="informacion_administrativa"
+                            Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cabinet_files_variant}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Estudios" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Estudios" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="estudios" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_book_perspective}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Visitas" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Visitas" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="visitas" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_group}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Agenda" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Agenda" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="agenda" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_calendar_31}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Expediente Físico" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Expediente Físico" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="expediente_fisico" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_folder_open}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Información Médica" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Información Médica" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="expediente_medico" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_section_expand}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Kardex" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Kardex" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="kardex_interno" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_brick}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                    <Label HorizontalAlignment="Center" Content="Histórico" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Histórico" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="historico_interno" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_book_perspective}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Grid.Row="3" Grid.Column="1">
+            <GroupBox Header="Identificación" Visibility="{Binding IdentificacionVisible}">
+                <ScrollViewer Height="550">
+                    <Views:DatosIdentificacionExpView />
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Header="Información Jurídica" Visibility="{Binding JuridicoVisible}">
+                <ScrollViewer Height="550">
+                    <StackPanel Orientation="Vertical">
+                        <DataGrid Height="100" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding ListCausasPenalesIngreso}"
+                                SelectedItem="{Binding SelectedCausaPenalIngreso}" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Causa Penal" Binding="{Binding Cp}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Fecha Inicio Compurgación" Binding="{Binding FecSentencia, StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Juzgado / Fuero" Binding="{Binding JuzgadoFuero}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Fecha Sentencia" Binding="{Binding FecInicioCompurgacion, StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Fecha Ejecutoria" Binding="{Binding FecEjecutoria, StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0" Controls:TabControlHelper.IsUnderlined="True">
+                            <TabItem Header="DATOS DE INGRESO" Style="{StaticResource HeaderTabStyle}">
+                                <Views:CausasPenalesIngresoExpView />
+                            </TabItem>
+                            <TabItem Header="DATOS DE CAUSA PENAL" Style="{StaticResource HeaderTabStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Averiguación Previa" IsEnabled="{Binding CausasPenalesIngresoEnabled}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="180"></ColumnDefinition>
+                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                <ColumnDefinition Width="75"></ColumnDefinition>
+                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                <ColumnDefinition Width="75"></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Grid.Column="0" Grid.Row="0" Content="Agencia"></Label>
+                                            <Label Grid.Column="2" Grid.Row="0" Content="Año"></Label>
+                                            <Label Grid.Column="4" Grid.Row="0" Content="Folio"></Label>
+                                            <Label Grid.Column="5" Grid.Row="0" Content="Averiguación Previa Foránea"></Label>
+
+                                            <TextBox Grid.Column="0" Grid.Row="1" IsEnabled="False" Text="{Binding SelectedCausaPenal.AGENCIA.DESCR, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                            <Label Grid.Column="1" Grid.Row="1" Content="/" HorizontalAlignment="Center"></Label>
+                                            <TextBox Grid.Column="2" IsEnabled="False" Grid.Row="1" Name="AnioAP" Text="{Binding AnioAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                                            </TextBox>
+                                            <Label Grid.Column="3" Grid.Row="1" Content="/" HorizontalAlignment="Center"></Label>
+                                            <TextBox Grid.Column="4" Grid.Row="1" Name="FolioAP" Text="{Binding FolioAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="False">
+                                            </TextBox>
+                                            <TextBox IsEnabled="False" Grid.Column="5" Grid.Row="1" Text="{Binding AveriguacionPreviaAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  MaxLength="100" CharacterCasing="Upper"></TextBox>
+
+                                            <Label Grid.Column="0" Grid.Row="2" Content="Inicio Averiguación"></Label>
+                                            <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" Content="Fecha Consignación"></Label>
+
+                                            <DatePicker Grid.Column="0" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" 
+                            SelectedDate="{Binding FecAveriguacionAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="False" />
+                                            <DatePicker Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="4" Controls:TextBoxHelper.Watermark="Selecciona una fecha" 
+                            SelectedDate="{Binding FecConsignacionAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="False" />
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Grid.Column="0" Grid.Row="1" Header="CAUSA PENAL" IsEnabled="{Binding CausasPenalesIngresoEnabled}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Column="0" Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                                    <ColumnDefinition Width="15"></ColumnDefinition>
+                                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+                                                <Label Grid.Column="0" Grid.Row="0" Content="Año"></Label>
+                                                <Label Grid.Column="2" Grid.Row="0" Content="Folio"></Label>
+                                                <Label Grid.Column="3" Grid.Row="0" Content="Bis"></Label>
+                                                <Label Grid.Column="4" Grid.Row="0" Content="Causa Penal Foráneo"></Label>
+                                                <Label Grid.Column="5" Grid.Row="0" Content="Tipo Orden"></Label>
+
+                                                <TextBox Grid.Column="0" Grid.Row="1" Name="AnioCP" Text="{Binding AnioCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></TextBox>
+                                                <Label Grid.Column="1" Grid.Row="1" Content="/"></Label>
+                                                <TextBox Grid.Column="1" Grid.Row="1" Name="FolioCP" Text="{Binding FolioCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Grid.ColumnSpan="2" Margin="14,0,1,0"></TextBox>
+                                                <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding BisCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                                                <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding ForaneoCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  MaxLength="100" CharacterCasing="Upper"></TextBox>
+                                                <TextBox Grid.Column="5" Grid.Row="1" IsEnabled="False" Text="{Binding SelectedCausaPenal.TIPO_ORDEN.DESCR, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                            </Grid>
+                                            <Grid  Grid.Column="0" Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+                                                <Label Grid.Column="0" Grid.Row="0" Content="País del Juzgado"></Label>
+                                                <Label Grid.Column="1" Grid.Row="0" Content="Estado del Juzgado"></Label>
+                                                <Label Grid.Column="2" Grid.Row="0" Content="Municipio del Juzgado"></Label>
+
+                                                <TextBox Grid.Column="0" Grid.Row="1" IsEnabled="False" Text="{Binding SelectedCausaPenal.PAIS_NACIONALIDAD.PAIS, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <TextBox Grid.Column="1" Grid.Row="1" IsEnabled="False" Text="{Binding SelectedCausaPenal.ENTIDAD.DESCR, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <TextBox Grid.Column="2" Grid.Row="1" IsEnabled="False" Text="{Binding SelectedCausaPenal.MUNICIPIO.MUNICIPIO1, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                                                <Label Grid.Column="0" Grid.Row="2" Content="Fuero"></Label>
+                                                <Label Grid.Column="1" Grid.Row="2" Content="Juzgado"></Label>
+                                                <Label Grid.Column="2" Grid.Row="2" Content="Fecha de Radicación"></Label>
+
+                                                <TextBox Grid.Column="0" Grid.Row="3" IsEnabled="False"></TextBox>
+                                                <TextBox Grid.Column="1" Grid.Row="3" IsEnabled="False" Text="{Binding SelectedCausaPenal.JUZGADO.DESCR, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                                <DatePicker Grid.Column="2" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FecRadicacionCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />
+                                            </Grid>
+                                            <Grid Grid.Column="0" Grid.Row="3">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                    <RowDefinition Height="auto"></RowDefinition>
+                                                </Grid.RowDefinitions>
+
+                                                <Label Grid.Column="0" Grid.Row="0" Content="Ampliación"></Label>
+                                                <Label Grid.Column="1" Grid.Row="0" Content="Vencimiento de Termino"></Label>
+                                                <Label Grid.Column="2" Grid.Row="0" Content="Termino"></Label>
+                                                <Label Grid.Column="3" Grid.Row="0" Content="Estatus de la Causa Penal"></Label>
+
+                                                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding SelectedCausaPenal.CP_AMPLIACION, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ConvertirSiNo}}" IsEnabled="False"></TextBox>
+
+                                                <DatePicker Grid.Column="1" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" 
+                                SelectedDate="{Binding FecVencimientoTerinoCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />
+                                                <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding SelectedCausaPenal.TERMINO.DESCR, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"></TextBox>
+                                                <TextBox Grid.Column="3" Grid.Row="1" IsEnabled="False" Text="{Binding SelectedCausaPenal.CAUSA_PENAL_ESTATUS.DESCR, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                            </Grid>
+                                            <Label Grid.Column="0" Grid.Row="4" Content="Observaciones" Name="observaciones"></Label>
+                                            <TextBox Grid.Column="0" Grid.Row="5" Name="tbObservaciones" Text="{Binding ObservacionesCP}" CharacterCasing="Upper"
+                        MaxWidth="{Binding ElementName=observaciones,Path=ActualWidth}"></TextBox>
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Header="Baja" Grid.Row="2" Grid.Column="0" IsEnabled="False">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Grid.Column="0" Grid.Row="0" Content="Fecha"></Label>
+                                            <Label Grid.Column="1" Grid.Row="0" Content="Motivo"></Label>
+                                            <Label Grid.Column="2" Grid.Row="0" Content="Autoridad"></Label>
+
+                                            <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding BFecha}"></DatePicker>
+                                            <TextBox Grid.Column="1" Grid.Row="1" IsEnabled="False"></TextBox>
+                                            <TextBox Grid.Column="2" Grid.Row="1" IsEnabled="False"></TextBox>
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Header="Delitos" Grid.Column="0" Grid.Row="3">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <DataGrid Grid.Column="0" Grid.Row="0" Padding="0 10 0 10" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding LstCausaPenalDelitos}" AutoGenerateColumns="False"
+                        SelectedItem="{Binding SelectedCausaPenalDelito}" Style="{StaticResource MetroDataGrid}" MaxWidth="{Binding ElementName=observaciones,Path=ActualWidth}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Delito" Binding="{Binding MODALIDAD_DELITO.DELITO.DESCR}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Modalidad" Binding="{Binding DESCR_DELITO}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Grave" Binding="{Binding MODALIDAD_DELITO.DELITO.GRAVE,Converter={StaticResource ConvertirSiNo}}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Tipo" Binding="{Binding TIPO_DELITO.DESCR}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Cantidad" Binding="{Binding CANTIDAD}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Objeto" Binding="{Binding OBJETO}"></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding CausaPenalDelitoEmpty, Converter={StaticResource booleanToVisibilityConverter}}">No hay información.</Label>
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                                <!--<Views:CausasPenalesIngresoCausaPenalView />-->
+                            </TabItem>
+                            <TabItem Header="DATOS DE SENTENCIA" Style="{StaticResource HeaderTabStyle}">
+                                <Views:CausasPenalesSentenciaView />
+                            </TabItem>
+                        </Controls:MetroAnimatedSingleRowTabControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Header="Información Administrativa" Visibility="{Binding AdministrativoVisible}">
+                <ScrollViewer Height="550">
+                    <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0" Controls:TabControlHelper.IsUnderlined="True">
+                        <TabItem Header="BITACORA DE CAMBIOS" Style="{StaticResource HeaderTabStyle}">
+                            <StackPanel>
+                                <GroupBox Header="Ubicación Real">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Content="Ubicación" Grid.Column="0" Grid.Row="1"></Label>
+                                        <TextBox Grid.Column="1" Grid.Row="1" IsReadOnly="True" Text="{ Binding UbicacionD}"></TextBox>
+                                    </Grid>
+                                </GroupBox>
+                                <DataGrid Grid.Row="2" Style="{StaticResource MetroDataGrid}" AutoGenerateColumns="False" ItemsSource="{Binding ListUbicaciones}" IsReadOnly="True"
+                                        SelectionMode="Single">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Fecha" Binding="{Binding REGISTRO_FEC, Mode=OneWay, StringFormat={}{0: dd/MM/yyy} }"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Ubicación" Binding="{Binding CAMA,Converter={StaticResource IngresoUbicacion}}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Motivo de Cambio" Binding="{Binding MOTIVO_CAMBIO, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="MEDIDAS DISCIPLINARIAS" Style="{StaticResource HeaderTabStyle}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid Grid.Row="0" Height="150" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                                        ItemsSource="{Binding ListIncidentesIngreso,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedIncidente}"
+                                        Style="{StaticResource MetroDataGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Fecha Registro" Binding="{Binding REGISTRO_FEC,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Tipo" Binding="{Binding INCIDENTE_TIPO.DESCR}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Motivo" Binding="{Binding MOTIVO}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <GroupBox Header="Datos del Incidente" FontSize="11.5" Grid.Row="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition MaxWidth="200" MinWidth="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0">Fecha de Registro</Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Margin="10 0 0 0">Motivo</Label>
+                                        <Label Grid.Column="0" Grid.Row="2">Tipo de Incidente</Label>
+                                        <TextBox Grid.Row="1" Grid.Column="0" IsReadOnly="True" Text="{Binding FechaRegistroIncidente}"></TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="5,0,0,0" Text="{Binding TextMotivoIncidente}" Height="Auto" MaxLength="2000" TextWrapping="Wrap"
+                                                IsReadOnly="True"></TextBox>
+                                        <ComboBox Grid.Row="3" Grid.Column="0" ItemsSource="{Binding ListTipoIncidente}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INCIDENTE_TIPO"
+                                                SelectedItem="SelectIncidente" SelectedValue="{Binding SelectTipoIncidente}" IsReadOnly="True" IsEnabled="False" Style="{StaticResource MetroComboBox}"></ComboBox>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Sanciones" Grid.Column="0" Grid.Row="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <DataGrid Height="150" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                                                ItemsSource="{Binding ListSancionesIncidente,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SancionSelected}"
+                                                Style="{StaticResource MetroDataGrid}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Sanción" Binding="{Binding SANCION_TIPO.DESCR}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Fecha Inicio" Binding="{Binding INICIA_FEC,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Fecha Final" Binding="{Binding TERMINA_FEC,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="EXCARCELACIONES" Style="{StaticResource HeaderTabStyle}">
+                            <StackPanel>
+                                <DataGrid Height="150" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Grid.ColumnSpan="4" SelectionMode="Single"
+                                        ItemsSource="{Binding ListExcarcelaciones,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectExcarcelacion}"
+                                        Style="{StaticResource MetroDataGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Fecha" Binding="{Binding REGISTRO_FEC,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Tipo Salida" Binding="{Binding EXCARCELACION_TIPO.DESCR}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Destino" Binding="{Binding ID_TIPO_EX}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Views:DatosSalidaExcarcelacionView />
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="TRASLADOS" Style="{StaticResource HeaderTabStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid Height="150" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Grid.Row="0"
+                                        ItemsSource="{Binding ListTraslados,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectTraslados}"
+                                        Style="{StaticResource MetroDataGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Fecha" Binding="{Binding TRASLADO_FEC,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Motivo" Binding="{Binding TRASLADO_MOTIVO.DESCR}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Justificación" Binding="{Binding JUSTIFICACION}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Centro Destino" Binding="{Binding CENTRO.DESCR}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Autorizado" Binding="{Binding TIPO_AUTORIDAD_INTERNA.DESCR}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <GroupBox Grid.Row="1" Header="Datos de Traslado" IsEnabled="{Binding TrasladosAdministrativaEnabled}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Fecha"></Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Motivo"></Label>
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Autorizado por"></Label>
+                                        <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextFechaTraslado}"></TextBox>
+                                        <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListMotivoTraslado}" SelectedValue="{Binding SelectMotivoTraslado}" SelectedValuePath="ID_MOTIVO"
+                                                DisplayMemberPath="DESCR"></ComboBox>
+                                        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextAutorizadoTraslado}"></TextBox>
+                                        <Label Grid.Column="0" Grid.Row="2" Content="Justificación"></Label>
+                                        <Label Grid.Column="1" Grid.Row="2" Content="Centro Destino"></Label>
+                                        <Label Grid.Column="2" Grid.Row="2" Content="Oficio de Autorización"></Label>
+                                        <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding TextJustificacionTraslado}"></TextBox>
+                                        <ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding ListCentroDestino}" SelectedValue="{Binding SelectCentroDestinoTraslado}"
+                                                SelectedValuePath="ID_CENTRO" DisplayMemberPath="DESCR"></ComboBox>
+                                        <TextBox Grid.Column="2" Grid.Row="3" Text="{Binding TextOficioTraslado}"></TextBox>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </TabItem>
+                    </Controls:MetroAnimatedSingleRowTabControl>
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Header="Estudios" Visibility="{Binding EstudiosVisible}">
+                <ScrollViewer Height="550">
+                    <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0" Controls:TabControlHelper.IsUnderlined="True">
+                        <TabItem Header="Estudios de Personalidad" Style="{StaticResource HeaderTabStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="Estudios de Personalidad" Grid.Column="0" Grid.Row="0">
+                                    <DataGrid Height="200" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding ListEstudiosPersonalidad}"
+            				SelectedItem="{Binding SelectEstudioPersonalidad}" Style="{StaticResource MetroDataGrid}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="No. Estudio" Binding="{ Binding ID_AREA}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Situación" Binding="{ Binding PERSONALIDAD_SITUACION.DESCR}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Motivo" Binding="{Binding PERSONALIDAD_MOTIVO.DESCR}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Solicitado Por" Binding="{ Binding SOLICITADO}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Número de Oficio" Binding="{ Binding NUM_OFICIO}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Fecha Solicitud" Binding="{ Binding SOLICITUD_FEC ,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Fecha de Inicio" Binding="{ Binding INICIO_FEC ,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Fecha de Fin" Binding="{ Binding TERMINO_FEC ,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Consultar Documentación Disponible " Command="{Binding OnClick}" CommandParameter="consultar_documentos_cero"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                </GroupBox>
+                                <GroupBox Header="Desarrollos del Estudio" Grid.Column="0" Grid.Row="1">
+                                    <DataGrid Height="200" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding ListDesarrollosEstudio}"
+            				Style="{StaticResource MetroDataGrid}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="No." Binding="{Binding Converter={ StaticResource converter }, RelativeSource={RelativeSource AncestorType=DataGridRow}}" ></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Tipo Estudio" Binding="{Binding PERSONALIDAD_TIPO_ESTUDIO.DESCR}"/>
+                                            <DataGridTextColumn Header="Fecha Solicitud" Binding="{Binding SOLICITUD_FEC}"/>
+                                            <DataGridTextColumn Header="Fecha Inicio" Binding="{Binding INICIO_FEC}"/>
+                                            <DataGridTextColumn Header="Fecha Final" Binding="{Binding TERMINO_FEC}"/>
+                                            <DataGridTextColumn Header="Estatus" Binding="{Binding PERSONALIDAD_ESTATUS.DESCR}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </GroupBox>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Historial EMI" Style="{StaticResource HeaderTabStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="historial EMI" Grid.Column="0" Grid.Row="0">
+                                    <DataGrid IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding ListEmi}"
+                    		Style="{StaticResource MetroDataGrid}" SelectedItem="{Binding SelectEmi}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseDoubleClick">
+                                                <i:InvokeCommandAction Command="{Binding DoubleClickCommand}" CommandParameter="informacionEmi" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="clave emi" Binding="{Binding ID_EMI}"/>
+                                            <DataGridTextColumn Header="Núm. Ingreso" Binding="{Binding ID_INGRESO}"/>
+                                            <DataGridTextColumn Header="Estatus" Binding="{Binding EMI.ESTATUS,Converter={StaticResource TipoEstatusEmiConverter}}"/>
+                                            <DataGridTextColumn Header="Fecha Solicitud" Binding="{Binding FEC_CAPTURA}"/>
+
+                                            <!--<DataGridTextColumn Header="Fecha Final"/>-->
+                                            <!--<DataGridTextColumn Header="Estatus Estudio"/>
+                                <DataGridTextColumn Header="Resultado"/>
+                                <DataGridTextColumn Header="Dias Bonificados"/>-->
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </GroupBox>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Estudio Socioeconómico" Style="{StaticResource HeaderTabStyle}">
+
+                            <Views:PrincipalEstudioSocioEconomico />
+
+                        </TabItem>
+                    </Controls:MetroAnimatedSingleRowTabControl>
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Header="Visitas" Visibility="{Binding VisitasVisible}">
+                <ScrollViewer Height="550">
+                    <StackPanel>
+                        <GroupBox Header="Visitantes del Interno">
+                            <DataGrid Style="{StaticResource MetroDataGrid}" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" ItemsSource="{Binding ListVisitantes}"
+                                    SelectedItem="{Binding SelectVisitante}" Height="175">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Num. Visita" Binding="{Binding ID_PERSONA}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Nombre" Binding="{Binding Converter={StaticResource VisitanteNombreCompleto}}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Relación" Binding="{Binding TIPO_REFERENCIA.DESCR}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Estatus" Binding="{Binding ESTATUS_VISITA.DESCR}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                        <GroupBox Grid.Column="1" Grid.Row="1" Header="Datos del Visitante" IsEnabled="{Binding CapturarVisitanteEnabled}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0">Código</Label>
+                                <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">Nombre</Label>
+                                <Label Grid.Column="3" Grid.Row="0">Apellido Paterno</Label>
+                                <Label Grid.Column="4" Grid.Row="0">Apellido Materno</Label>
+                                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding SelectVisitante.VISITANTE.PERSONA.ID_PERSONA,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" CharacterCasing="Upper" IsReadOnly="True"
+                                        Text="{Binding SelectVisitante.VISITANTE.PERSONA.NOMBRE,UpdateSourceTrigger=PropertyChanged}">
+                                </TextBox>
+                                <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding SelectVisitante.VISITANTE.PERSONA.PATERNO,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                                        IsReadOnly="True">
+                                </TextBox>
+                                <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding SelectVisitante.VISITANTE.PERSONA.MATERNO,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                                        IsReadOnly="True">
+                                </TextBox>
+                                <Label Grid.Column="0" Grid.Row="2">Sexo</Label>
+                                <Label Grid.Column="1" Grid.Row="2">Edad</Label>
+                                <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2">Parentesco</Label>
+                                <Label Grid.Column="4" Grid.Row="2">Fecha Última Modificación</Label>
+                                <ComboBox Grid.Column="0" Grid.Row="3" SelectedValuePath="Tag" IsEnabled="False" VerticalAlignment="Center"
+                                        SelectedValue="{Binding SelectSexoVisitante,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                                    <ComboBoxItem Content="SELECCIONE" Tag="S"></ComboBoxItem>
+                                    <ComboBoxItem Content="MASCULINO" Tag="M"></ComboBoxItem>
+                                    <ComboBoxItem Content="FEMENINO" Tag="F"></ComboBoxItem>
+                                </ComboBox>
+                                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TextEdadVisitante,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"
+                                        IsReadOnly="True"></TextBox>
+                                <TextBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" IsEnabled="False" Text="{Binding SelectVisitante.TIPO_REFERENCIA.DESCR, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Grid.Column="4" Grid.Row="3" Text="{Binding TextFechaUltimaModificacionVisitante,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                                        IsReadOnly="True"></TextBox>
+                                <Label Grid.Column="0" Grid.Row="4">Estatus</Label>
+                                <Label Grid.Column="2" Grid.Row="4">Teléfono</Label>
+                                <Label Grid.Column="4" Grid.Row="4">Fecha de Alta</Label>
+                                <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Height="26" Text="{Binding SelectVisitante.VISITANTE.ESTATUS_VISITA.DESCR, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"></TextBox>
+                                <TextBox Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding SelectVisitante.VISITANTE.PERSONA.TELEFONO,UpdateSourceTrigger=PropertyChanged}">
+                                </TextBox>
+                                <TextBox Grid.Column="4" Grid.Row="5" Text="{Binding SelectVisitante.FEC_ALTA,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                                <Grid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0">País</Label>
+                                    <Label Grid.Column="1" Grid.Row="0">Estado</Label>
+                                    <Label Grid.Column="2" Grid.Row="0">Municipio</Label>
+                                    <Label Grid.Column="3" Grid.Row="0">Colonia</Label>
+                                    <TextBox Grid.Column="0" Grid.Row="1" IsEnabled="False" Text="{Binding SelectVisitante.VISITANTE.PERSONA.PAIS_NACIONALIDAD1.PAIS , UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <TextBox Grid.Column="1" Grid.Row="1" IsEnabled="False" Text="{Binding SelectVisitante.VISITANTE.PERSONA.ENTIDAD.DESCR , UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <TextBox Grid.Column="2" Grid.Row="1" IsEnabled="False" Text="{Binding SelectVisitante.VISITANTE.PERSONA.MUNICIPIO.MUNICIPIO1 , UpdateSourceTrigger=PropertyChanged }"></TextBox>
+                                    <TextBox Grid.Column="3" Grid.Row="1" IsEnabled="False" Text="{Binding SelectVisitante.VISITANTE.PERSONA.COLONIA.DESCR , UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="2">Calle</Label>
+                                    <Label Grid.Column="1" Grid.Row="2">Número Exterior</Label>
+                                    <Label Grid.Column="2" Grid.Row="2">Número Interior</Label>
+                                    <Label Grid.Column="3" Grid.Row="2">Código Postal</Label>
+                                    <TextBox Grid.Column="0" Grid.Row="3" IsReadOnly="True" Text="{Binding SelectVisitante.VISITANTE.PERSONA.DOMICILIO_CALLE,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                                    <TextBox Grid.Column="1" Grid.Row="3" IsReadOnly="True" TextAlignment="Left" Text="{Binding SelectVisitante.VISITANTE.PERSONA.DOMICILIO_NUM_EXT,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <TextBox Grid.Column="2" Grid.Row="3" IsReadOnly="True" TextAlignment="Left" Text="{Binding SelectVisitante.VISITANTE.PERSONA.DOMICILIO_NUM_INT,UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox Grid.Column="3" Grid.Row="3" IsReadOnly="True" TextAlignment="Left" Text="{Binding SelectVisitante.VISITANTE.PERSONA.DOMICILIO_CODIGO_POSTAL,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                </Grid>
+                                <Image Grid.Column="5" Grid.Row="0" Grid.RowSpan="6" Width="150" Margin="0 0 10 0" Source="{Binding ImagenVisitante}" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Horario de Visita">
+                            <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" x:Name="dgProgramacionVisita" Style="{StaticResource MetroDataGrid}"
+                                    ItemsSource="{Binding ListProgramacionVisita}" Height="175" SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Día" Binding="{Binding DIA}" />
+                                    <DataGridTextColumn Header="Hora Entrada" Binding="{Binding HORA_ENTRADA }"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Hora Salida" Binding="{Binding HORA_SALIDA}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Tipo de Visita" Binding="{Binding TIPO_VISITA}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Área" Binding="{Binding AREA}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Header="Expediente Físico" Visibility="{Binding ExpedienteFisicoVisible}">
+                <ScrollViewer Height="550">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="500" Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <WPFPdfViewer:PdfViewer x:Name="pdfViewer" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5" Visibility="Collapsed" Height="580" />
+                        <Border HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="2" Background="#585858" Height="590" />
+                        <Label Grid.Column="1" Name="lbWidthGrid"></Label>
+                        <StackPanel Grid.Column="1">
+                            <TextBox Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbWidthGrid}" CharacterCasing="Upper"
+                                    Text="{Binding TextFiltroExpediente,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"></TextBox>
+                            <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding ListExpedienteFisico}"
+                                    Height="560" SelectionMode="Single" Name="dgDoctos" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                    Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbWidthGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Fecha" Binding="{Binding FECHA}" />
+                                    <DataGridTextColumn Header="Tipo de Documento" Binding="{Binding TIPO_DOCTO}" />
+                                </DataGrid.Columns>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding dgImputadoCommand}">
+                                            <i:InvokeCommandAction.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                    <Binding ElementName="dgDoctos" />
+                                                    <Binding ElementName="pdfViewer" />
+                                                </MultiBinding>
+                                            </i:InvokeCommandAction.CommandParameter>
+                                        </i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </GroupBox>
+            <GroupBox Header="Información Médica" Visibility="{ Binding VisibleDatosMedicos}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ScrollViewer Height="550" Grid.Column="0" Grid.Row="0">
+                        <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0" Controls:TabControlHelper.IsUnderlined="True">
+                            <TabItem Header="Certificado Medico" Style="{StaticResource HeaderTabStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Hoja de defunción">
+                                        <Views:MenuHojaDefuncionView></Views:MenuHojaDefuncionView>
+                                    </GroupBox>
+                                    <GroupBox Grid.Row="1" Grid.Column="0" Header="Listado de notas medicas">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Content="Tipo de Atencion" Grid.Row="0"></Label>
+                                            <Label Content="Tipo de Servicio" Grid.Row="0" Grid.Column="1"></Label>
+                                            <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListTipoAtencion}" SelectedItem="{Binding SelectTipoAtencion}" VerticalAlignment="Center" SelectedValuePath="ID_TIPO_ATENCION" DisplayMemberPath="DESCR"></ComboBox>
+                                            <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListTipoServicio}" SelectedItem="{Binding SelectTipoServicio}" VerticalAlignment="Center" SelectedValuePath="ID_TIPO_SERVICIO" DisplayMemberPath="DESCR"></ComboBox>
+                                            <Button Grid.Row="1" Grid.Column="2" Style="{DynamicResource AccentedSquareButtonStyle}" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" CommandParameter="cargar_listado" 
+                        Command="{Binding OnClick}" Margin="5" Content="Buscar Notas"></Button>
+                                            <Label FontStyle="Italic"  VerticalAlignment="Top" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="3" Margin="0 28 0 0" Panel.ZIndex="100" Visibility="{Binding EmptyVisible}">No hay información</Label>
+                                            <DataGrid Grid.ColumnSpan="3" ItemsSource="{Binding ListNotasMedicas}" Grid.Row="3" SelectedItem="{Binding SelectNotaMedica}" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" 
+                              Style="{StaticResource MetroDataGrid}" MinHeight="150" MaxHeight="250" >
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Servicio" Binding="{Binding ATENCION_SERVICIO.DESCR}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Responsable" Binding="{Binding Converter={StaticResource NombrePersona}}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Fecha" Binding="{Binding ATENCION_FEC}"></DataGridTextColumn>
+                                                    <DataGridTemplateColumn Header="Seleccione" IsReadOnly="False">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_reporte_certificado_medico"></Button>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </TabItem>
+
+                            <TabItem Header="Historia Clínica" Style="{StaticResource HeaderTabStyle}">
+                                <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0" Controls:TabControlHelper.IsUnderlined="True" SelectedIndex="{Binding IndiceHistoriasClinicas, UpdateSourceTrigger=PropertyChanged}">
+                                    <TabItem Header="Historia Clínica Médica" Style="{StaticResource HeaderTabStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80*"></ColumnDefinition>
+                                                <ColumnDefinition Width="20*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label FontStyle="Italic" VerticalAlignment="Top" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="3" Margin="0 28 0 0" Panel.ZIndex="100" Visibility="{Binding VisibleReporteHistoriaClinicaMedica, Converter={ StaticResource BooleanToVisibilityConverter}}">No hay información</Label>
+                                            <WindowsFormsHost Grid.Row="0" Grid.Column="0" Width="850" Name="WFH" HorizontalAlignment="Center" Visibility="{Binding VisibleReporteHistoriaClinicaMedica, UpdateSourceTrigger=PropertyChanged}">
+                                                <rv:ReportViewer x:Name="ReportHCM"></rv:ReportViewer>
+                                            </WindowsFormsHost>
+                                            <GroupBox Grid.Column="1" Grid.Row="0" Header="Archivos de la historia clínica medica">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <DataGrid ItemsSource="{Binding ListArchivosHCM }" Grid.Row="0" SelectedItem="{Binding SelectArchivosHCM }" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" 
+                              Style="{StaticResource MetroDataGrid}">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn Header="Tipo" Binding="{Binding TipoDocumento}"></DataGridTextColumn>
+                                                            <DataGridTextColumn Header="Formato" Binding="{Binding Formato}"></DataGridTextColumn>
+                                                            <DataGridTemplateColumn Header="Seleccione" IsReadOnly="False">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_archivo_hcm"></Button>
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                            </GroupBox>
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Header="Historia Clínica Dental" Style="{StaticResource HeaderTabStyle}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80*"></ColumnDefinition>
+                                                <ColumnDefinition Width="20*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <WindowsFormsHost Grid.Row="2" MinWidth="850" Name="WFH2" HorizontalAlignment="Center" Visibility="{Binding VisibleReporteHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}">
+                                                <rv:ReportViewer x:Name="ReportHCD"></rv:ReportViewer>
+                                            </WindowsFormsHost>
+                                            <Label FontStyle="Italic" VerticalAlignment="Top" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="3" Margin="0 28 0 0" Panel.ZIndex="100" Visibility="{Binding VisibleReporteHistoriaClinicaDental, Converter={ StaticResource BooleanToVisibilityConverter}}">No hay información</Label>
+                                            <GroupBox Grid.Column="1" Grid.Row="0" Header="Archivos de la historia clinica dental">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <DataGrid ItemsSource="{Binding ListArchivosHCD }" Grid.Row="0" SelectedItem="{Binding SelectArchivosHCD }" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" 
+                              Style="{StaticResource MetroDataGrid}">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn Header="Tipo" Binding="{Binding TipoDocumento}"></DataGridTextColumn>
+                                                            <DataGridTemplateColumn Header="Seleccione" IsReadOnly="False">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_archivo_hcmd"></Button>
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                            </GroupBox>
+                                        </Grid>
+                                    </TabItem>
+                                </Controls:MetroAnimatedSingleRowTabControl>
+                            </TabItem>
+                            <TabItem Header="Bitácora de Hospitalización" Style="{StaticResource HeaderTabStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Reporte">
+                                        <WindowsFormsHost Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="900" Name="WFH3" HorizontalAlignment="Center" Visibility="{Binding VisibleReporteBitacoraHospitalizaciones, UpdateSourceTrigger=PropertyChanged}">
+                                            <rv:ReportViewer x:Name="ReportBH"></rv:ReportViewer>
+                                        </WindowsFormsHost>
+                                    </GroupBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Resultados de Servicios Auxiliares" Style="{StaticResource HeaderTabStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Búsqueda de resultados">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" Content="Ingreso"></Label>
+                                            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding LstCustomizadaIngresos, Mode=TwoWay}" SelectedValue="{Binding SelectedIngresoBusquedas, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="IdIngreso" DisplayMemberPath="DescripcionIngreso" ></ComboBox>
+                                            <Label Content="Tipo de Servicio Auxiliar de Diagnostico" Grid.Row="1" Grid.Column="0"></Label>
+                                            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding LstTipoServAux}" SelectedValue="{Binding SelectedTipoServAux, NotifyOnSourceUpdated=True}" SelectedValuePath="ID_TIPO_SADT" DisplayMemberPath="DESCR">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SourceUpdated">
+                                                        <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_tipo_serv_aux">
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ComboBox>
+                                            <Label Grid.Column="2" Grid.Row="1" Content="Subtipo de Servicio Auxiliar de Diagnostico"></Label>
+                                            <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding LstSubtipoServAux}" SelectedValue="{Binding SelectedSubtipoServAux, NotifyOnSourceUpdated=True}" SelectedValuePath="ID_SUBTIPO_SADT" DisplayMemberPath="DESCR">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SourceUpdated">
+                                                        <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_subtipo_serv_aux">
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ComboBox>
+                                            <Label Grid.Column="4" Content="Diagnostico" Grid.Row="1"></Label>
+                                            <ComboBox Grid.Row="1" Grid.Column="5" ItemsSource="{Binding LstDiagnosticosPrincipal}" SelectedValue="{Binding SelectedDiagnPrincipal, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectedValuePath="ID_SERV_AUX" DisplayMemberPath="DESCR"></ComboBox>
+
+                                            <Label Grid.Column="0" Grid.Row="2" Content="Fecha de Inicio"></Label>
+                                            <DatePicker Grid.Column="1" Grid.Row="2" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaInicioBusquedaResultServ,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                            <Label Grid.Column="2" Grid.Row="2" Content="Fecha de Fin"></Label>
+                                            <DatePicker Grid.Column="3" DisplayDateStart="{ Binding FechaInicioBusquedaResultServ}" Grid.Row="2" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaFinBusquedaResultServ,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                            <Button Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar_result_existentes" Command="{Binding OnClick}" Content="Buscar"></Button>
+                                        </Grid>
+                                    </GroupBox>
+                                    <DataGrid Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False" Name="dgSolic" ItemsSource="{Binding LstCustomizadaSinArchivos, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SeletedResultadoSinArchivo}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Fecha de registro" Binding="{Binding FechaRegistro}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Servicio Auxiliar" Binding="{Binding ServicioAuxiliar}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Nombre del usuario" Binding="{Binding NombreUsuario}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Extensión del archivo" Binding="{Binding ExtensionArchivo}"></DataGridTextColumn>
+                                            <DataGridTemplateColumn Header="Archivo">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Width="100" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Visualizar" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_documento_resultado_servicios" Visibility="{ Binding VisibleDocumentoResult, UpdateSourceTrigger=PropertyChanged, Converter={ StaticResource booleanToVisibilityConverter}}" ></Button>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Label Grid.Column="0" Grid.Row="2" FontStyle="Italic" Content="No hay información." HorizontalAlignment="Center" Visibility="{Binding EmptyResultados,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Hoja de Enfermería" Style="{StaticResource HeaderTabStyle}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Búsqueda de resultados">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" Content="Fecha de Inicio"></Label>
+                                            <DatePicker Grid.Column="1" Grid.Row="0" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaInicioBusquedaHojasEnfermeria,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                            <Label Grid.Column="2" Grid.Row="0" Content="Fecha de Fin"></Label>
+                                            <DatePicker Grid.Column="3" Grid.Row="0" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaFinBusquedaHojasEnfermeria,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                            <Button Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="genera_hoja_enfermeria" Command="{Binding OnClick}" Content="Buscar"></Button>
+                                        </Grid>
+                                    </GroupBox>
+                                    <DataGrid Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" ItemsSource="{Binding LstHojasenfermeria, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SeletedHojaEnfermeria}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Fecha" Binding="{Binding FECHA_REGISTRO}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Cama" Binding="{Binding HOSPITALIZACION.CAMA_HOSPITAL.DESCR}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Nombre del usuario" Binding="{Binding USUARIO.EMPLEADO.PERSONA, Converter={StaticResource AtendioAtencionRecibida}}"></DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Ver hoja de enfermería" Command="{Binding OnClick}" CommandParameter="ver_hoja_enfermería"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+
+                                    <!--<WindowsFormsHost Grid.Row="1" Grid.Column="0" Width="850" Name="WFH5" HorizontalAlignment="Center" >
+                                        <rv:ReportViewer x:Name="ReportHE"></rv:ReportViewer>
+                                    </WindowsFormsHost>-->
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Hoja de Control de Líquidos" Style="{StaticResource HeaderTabStyle}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <GroupBox Header="Seleccione fecha" Grid.Column="0" Grid.Row="0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" Content="Fecha de Inicio"></Label>
+                                            <DatePicker Grid.Column="1" Grid.Row="0" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaInicioBusquedaHojasLiquidos,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                            <Label Grid.Column="2" Grid.Row="0" Content="Fecha de Fin"></Label>
+                                            <DatePicker Grid.Column="3" Grid.Row="0" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaFinBusquedaHojasLiquidos,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                            <Label Grid.Column="4" Grid.Row="0" Content="Turno"></Label>
+                                            <ComboBox Grid.Column="5" Grid.Row="0" ItemsSource="{Binding ListTurnosHCL}" SelectedValue="{Binding SelectTurnosHCL }" VerticalAlignment="Center" SelectedValuePath="ID_LIQTURNO" DisplayMemberPath="DESCR"></ComboBox>
+                                            <Button Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="genera_hoja_liquidos" Command="{Binding OnClick}" Content="buscar"></Button>
+                                        </Grid>
+                                    </GroupBox>
+                                    <DataGrid Grid.Row="1" Grid.Column="0" AutoGenerateColumns="False" ItemsSource="{Binding LstHojasLiquidos, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SeletedHojasLiquidos}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Fecha" Binding="{Binding FECHA_REGISTRO}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Turno" Binding="{Binding LIQUIDO_HORA.LIQUIDO_TURNO.DESCR }"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Cama" Binding="{Binding HOSPITALIZACION.CAMA_HOSPITAL.DESCR}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Nombre del usuario" Binding="{Binding USUARIO.EMPLEADO.PERSONA, Converter={StaticResource AtendioAtencionRecibida}}"></DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Ver hoja de control de líquidos" Command="{Binding OnClick}" CommandParameter="ver_hoja_liquidos"/>
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                    </DataGrid>
+                                    <!--<WindowsFormsHost Grid.Row="1" Grid.Column="0" Width="850" Name="WFH6" HorizontalAlignment="Center" >
+                                        <rv:ReportViewer x:Name="ReportHCL"></rv:ReportViewer>
+                                    </WindowsFormsHost>-->
+                                </Grid>
+                            </TabItem>
+                            <!--<TabItem Header="Hoja de Defunción" Style="{StaticResource HeaderTabStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Row="0" Grid.Column="0" Header="Reporte">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <WPFPdfViewer:PdfViewer Width="850" x:Name="pdfViewer2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Visibility="Collapsed" />
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </TabItem>-->
+                        </Controls:MetroAnimatedSingleRowTabControl>
+                    </ScrollViewer>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Kardex del Interno" Visibility="{Binding VisibleDatosKardex}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Reporte" Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Grid.Column="0"
+                                Grid.Row="0"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="KARDEX"
+                                    Height="28">KARDEX</Button>
+                            <Button Grid.Column="1" Grid.Row="0"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="ACTIVIDADES"
+                                    Height="28">ACTIVIDADES</Button>
+                            <Button Grid.Column="2" Grid.Row="0"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="HORARIO"
+                                    Height="28">HORARIO</Button>
+                            <Button Grid.Column="3" Grid.Row="0"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="EMPALMES"
+                                    Height="28">EMPALMES</Button>
+                            <Button Grid.Column="4" Grid.Row="0"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="SANCIONES"
+                                    Height="28">SANCIONES</Button>
+                        </Grid>
+                    </GroupBox>
+                    <WindowsFormsHost Grid.Row="1" Width="850" Name="WFH4" Height="400" HorizontalAlignment="Center" Visibility="{Binding VisibleDatosKardexReporte, UpdateSourceTrigger=PropertyChanged}" >
+                        <rv:ReportViewer x:Name="ReportK"></rv:ReportViewer>
+                    </WindowsFormsHost>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Histórico del Interno" Visibility="{Binding VisibleDocumentosHistorico}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--<DockPanel HorizontalAlignment="Stretch" Margin="20" Visibility="Hidden" Height="580" Grid.Column="0" Grid.Row="0" >
+                        <WPF:ButtonBar Name="ButtonBar1"/>
+                        <WPF:StatusBar Name="StatusBar1"/>
+                        <WPF:RulerBar Name="RulerBar1"/>
+                        <WPF:TextControl Name="editor" ButtonBar="ButtonBar1" StatusBar="StatusBar1" RulerBar="RulerBar1"  />
+                    </DockPanel>-->
+
+                    <!--<WPFPdfViewer:PdfViewer x:Name="pdfViewer3" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5" Height="580" Grid.Column="0" Grid.Row="0"/>-->
+                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Listado de documentos">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="1" Grid.Row="0" Content="Departamento" HorizontalAlignment="Right"></Label>
+                            <ComboBox Grid.Column="2" Grid.Row="0" ItemsSource="{Binding LstDepartamentos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR" SelectedValuePath="ID_DEPARTAMENTO" SelectedValue="{Binding SelectedDepartamento,UpdateSourceTrigger=PropertyChanged }"></ComboBox>
+                            <Button Width="150" Grid.Column="3" Grid.Row="0" VerticalAlignment="Top" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar_historico_interno" Command="{Binding OnClick}" Content="buscar"></Button>
+                        </Grid>
+                    </GroupBox>
+                    <DataGrid Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding LstHistoricoDocumentos, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedHistoricoDocumentos, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion }"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha ,StringFormat={}{0:dd/MM/yyyy}}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Ver Documento" Command="{Binding OnClick}" CommandParameter="ver_documento_histori"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

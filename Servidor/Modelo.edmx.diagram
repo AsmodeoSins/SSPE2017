@@ -1,0 +1,1532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8b678965389842cf926f63d789e71b52" Name="Diagram1" ZoomLevel="24" ShowGrid="false">
+        <EntityTypeShape EntityType="Modelo.ALIAS" Width="1.5" PointX="15" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.APODO" Width="1.5" PointX="15" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.AREA_TRABAJO" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.ART_FORMA" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.ESTADO_CIVIL" Width="1.5" PointX="10.5" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.ESTATUS_ADMINISTRATIVO" Width="1.5" PointX="16.5" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.LOCALIDAD" Width="1.5" PointX="7.5" PointY="42.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.TIPO_AUTORIDAD_INTERNA" Width="1.5" PointX="16.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.TIPO_SEGURIDAD" Width="1.5" PointX="12" PointY="47.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Modelo.TIPO_DISPOSICION" Width="1.5" PointX="0.75" PointY="10.875" />
+        <EntityTypeShape EntityType="Modelo.FAMILIAR_RESPONSABLE" Width="1.5" PointX="18" PointY="22.625" />
+        <EntityTypeShape EntityType="Modelo.RELACION_PERSONAL_INTERNO" Width="1.5" PointX="21" PointY="24.375" />
+        <EntityTypeShape EntityType="Modelo.IMPUTADO_PANDILLA" Width="1.5" PointX="19" PointY="18.125" />
+        <EntityTypeShape EntityType="Modelo.DROGA" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Modelo.ANATOMIA_TOPOGRAFICA" Width="1.5" PointX="18.75" PointY="35.375" />
+        <EntityTypeShape EntityType="Modelo.COPARTICIPE_ALIAS" Width="1.5" PointX="28.5" PointY="24" />
+        <EntityTypeShape EntityType="Modelo.COPARTICIPE_APODO" Width="1.5" PointX="28.5" PointY="20.5" />
+        <EntityTypeShape EntityType="Modelo.TIPO_ORDEN" Width="1.5" PointX="23.625" PointY="39.125" />
+        <EntityTypeShape EntityType="Modelo.CAUSA_PENAL_ESTATUS" Width="1.5" PointX="27.625" PointY="15.375" />
+        <EntityTypeShape EntityType="Modelo.GRADO_AUTORIA" Width="1.5" PointX="24" PointY="43.125" />
+        <EntityTypeShape EntityType="Modelo.GRADO_PARTICIPACION" Width="1.5" PointX="12.375" PointY="3.875" />
+        <EntityTypeShape EntityType="Modelo.COPARTICIPE" Width="1.5" PointX="33.625" PointY="32.375" />
+        <AssociationConnector Association="Modelo.FK_COPARTIC01" />
+        <AssociationConnector Association="Modelo.FK_COPARTIC02" />
+        <EntityTypeShape EntityType="Modelo.SENAS_PARTICULARES" Width="1.5" PointX="24" PointY="23.875" />
+        <AssociationConnector Association="Modelo.FK_SENAS_PA_ANATOMIA__ANATOMIA" />
+        <EntityTypeShape EntityType="Modelo.CAUSA_PENAL_DELITO" Width="1.5" PointX="33.125" PointY="26.5" />
+        <EntityTypeShape EntityType="Modelo.SENTENCIA_DELITO" Width="1.5" PointX="38.375" PointY="26.125" />
+        <EntityTypeShape EntityType="Modelo.RECURSO_DELITO" Width="1.5" PointX="41.375" PointY="27" />
+        <EntityTypeShape EntityType="Modelo.RECURSO_RESULTADO" Width="1.5" PointX="33.875" PointY="36.875" />
+        <EntityTypeShape EntityType="Modelo.INGRESO_DELITO" Width="1.5" PointX="19.5" PointY="15.25" />
+        <EntityTypeShape EntityType="Modelo.IMPUTADO_PADRES" Width="1.5" PointX="18" PointY="26.25" />
+        <EntityTypeShape EntityType="Modelo.FORMATO" Width="1.5" PointX="12" PointY="50.625" />
+        <EntityTypeShape EntityType="Modelo.FORMATO_DOCUMENTO" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="Modelo.IMPUTADO_FORMATO" Width="1.5" PointX="15" PointY="46.875" />
+        <EntityTypeShape EntityType="Modelo.IMPUTADO_FORMATO_DETALLE" Width="1.5" PointX="17.25" PointY="48.5" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_FORMATO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_IMPUTADO" />
+        <EntityTypeShape EntityType="Modelo.IMPUTADO_TIPO_DOCUMENTO" Width="1.5" PointX="7.625" PointY="12.5" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_DOCUMENTO_FORMATO_" />
+        <EntityTypeShape EntityType="Modelo.DROGA_FRECUENCIA" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="Modelo.EDUCACION_CERTIFICADO" Width="1.5" PointX="24.375" PointY="48.625" />
+        <EntityTypeShape EntityType="Modelo.EDUCACION_GRADO" Width="1.5" PointX="24.375" PointY="46.375" />
+        <EntityTypeShape EntityType="Modelo.EMI_ANTECEDENTE_FAMILIAR_DROGA" Width="1.5" PointX="29.625" PointY="33.375" />
+        <EntityTypeShape EntityType="Modelo.EMI_CLAS_CRIMINOLOGICA" Width="1.5" PointX="33.375" PointY="69.75" />
+        <EntityTypeShape EntityType="Modelo.EMI_FICHA_IDENTIFICACION" Width="1.5" PointX="26.625" PointY="39.625" />
+        <EntityTypeShape EntityType="Modelo.EMI_SANCION_DISCIPLINARIA" Width="1.5" PointX="31.375" PointY="69.375" />
+        <EntityTypeShape EntityType="Modelo.EMI_SENAS_PARTICULARES" Width="1.5" PointX="35.625" PointY="62.25" />
+        <EntityTypeShape EntityType="Modelo.EMI_SITUACION_JURIDICA" Width="1.5" PointX="35.625" PointY="66.875" />
+        <EntityTypeShape EntityType="Modelo.EMI_TATUAJE" Width="1.5" PointX="31.5" PointY="64.625" />
+        <EntityTypeShape EntityType="Modelo.EMI_TIPO_ACTIVIDAD" Width="1.5" PointX="24.375" PointY="56.5" />
+        <EntityTypeShape EntityType="Modelo.EMI_ULTIMOS_EMPLEOS" Width="1.5" PointX="26.625" PointY="52.25" />
+        <EntityTypeShape EntityType="Modelo.EMI_USO_DROGA" Width="1.5" PointX="26.625" PointY="31.375" />
+        <EntityTypeShape EntityType="Modelo.EXFUNCIONARIO_SEGPUB" Width="1.5" PointX="24.375" PointY="51" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTE_REFERENCE_DROGA" />
+        <AssociationConnector Association="Modelo.FK_EMI_USO__REFERENCE_DROGA" />
+        <AssociationConnector Association="Modelo.FK_EMI_FICH_CERTIFICADO" />
+        <AssociationConnector Association="Modelo.FK_EMI_FICH_EDUCACION_EDUCACIO" />
+        <AssociationConnector Association="Modelo.FK_EMI_FICH_EXFUNCION_EXFUNCIO" />
+        <EntityTypeShape EntityType="Modelo.MOTIVO_PROSTITUCION" Width="1.5" PointX="35.625" PointY="60.125" />
+        <EntityTypeShape EntityType="Modelo.EMISOR" Width="1.5" PointX="5.25" PointY="33.125" />
+        <AssociationConnector Association="Modelo.FK_EMI_FICH_EMISOR_EM_EMISOR" />
+        <EntityTypeShape EntityType="Modelo.FRECUENCIA" Width="1.5" PointX="14.375" PointY="3.875" />
+        <EntityTypeShape EntityType="Modelo.CLASIFICACION_CRIMINOLOGICA" Width="1.5" PointX="31.125" PointY="73" />
+        <EntityTypeShape EntityType="Modelo.EMI_FACTOR_CRIMINODIAGNOSTICO" Width="1.5" PointX="36.625" PointY="31.875" />
+        <EntityTypeShape EntityType="Modelo.EMI_FACTOR_NIVEL" Width="1.5" PointX="26.375" PointY="2.625" />
+        <EntityTypeShape EntityType="Modelo.EMI_FACTOR_RESULTADO" Width="1.5" PointX="34.375" PointY="16.125" />
+        <EntityTypeShape EntityType="Modelo.EMI_FACTOR_UBICACION" Width="1.5" PointX="34.375" PointY="50.5" />
+        <EntityTypeShape EntityType="Modelo.PERTENECE_CRIMEN_ORG" Width="1.5" PointX="31.125" PointY="75.375" />
+        <AssociationConnector Association="Modelo.FK_EMI_CLAS_CLAS_EMIC_CLASIFIC" />
+        <AssociationConnector Association="Modelo.FK_EMI_CLAS_CRIMENMOR_PERTENEC" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACT_EMI_RESULTADO" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACT_UBICACION" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_INDIFERENCIA" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_LIABILIDAD" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_NIVEL_ADAPTA" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_NIVEL_AGRE" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_NIVEL_CAPACIDAD" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_NIVEL_EGO" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_NIVEL_IMPULSOS" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_NIVEL_LIDERAZGO" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_NIVEL_PELIGROSO" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTOR_NIVEL_TOLERANCIA" />
+        <EntityTypeShape EntityType="Modelo.ACOMPANANTE" Width="1.5" PointX="41.5" PointY="13.875" />
+        <EntityTypeShape EntityType="Modelo.EMI_FACTORES_ABANDONO" Width="1.5" PointX="24" PointY="29.625" />
+        <EntityTypeShape EntityType="Modelo.EMI_FACTORES_HUIDA" Width="1.5" PointX="24" PointY="17.875" />
+        <EntityTypeShape EntityType="Modelo.EMI_FACTORES_SOCIO_FAMILIARES" Width="1.5" PointX="26.25" PointY="20.75" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTORES_ABANDONO" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACTORES_HUIDAS" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACT_FERC_EMI__APOYO" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACT_FRECUENCI_VISITA" />
+        <EntityTypeShape EntityType="Modelo.EMI_ACTIVIDAD" Width="1.5" PointX="26.625" PointY="59.375" />
+        <AssociationConnector Association="Modelo.FK_EMI_ACTI" />
+        <AssociationConnector Association="Modelo.FK_EMI_USO__DROGRAFRE_DROGA_FR" />
+        <EntityTypeShape EntityType="Modelo.EMI_ESTATUS_PROGRAMA" Width="1.5" PointX="11.375" PointY="9.875" />
+        <AssociationConnector Association="Modelo.FK_EMI_ACTI_EMI_ESTAT_EMI_ESTA" />
+        <EntityTypeShape EntityType="Modelo.IDIOMA" Width="1.5" PointX="19.5" PointY="12.125" />
+        <EntityTypeShape EntityType="Modelo.EMI_GRUPO_FAMILIAR" Width="1.5" PointX="42.25" PointY="32.5" />
+        <AssociationConnector Association="Modelo.FK_EMI_GRUP_EDOCIVIL__ESTADO_C" />
+        <EntityTypeShape EntityType="Modelo.EMI_ENFERMEDAD" Width="1.5" PointX="32.25" PointY="40.375" />
+        <EntityTypeShape EntityType="Modelo.VISITA_AUTORIZADA" Width="1.5" PointX="46.25" PointY="22" />
+        <EntityTypeShape EntityType="Modelo.PERSONA_NIP" Width="1.5" PointX="49.25" PointY="27.875" />
+        <EntityTypeShape EntityType="Modelo.PUESTO" Width="1.5" PointX="44" PointY="11.875" />
+        <EntityTypeShape EntityType="Modelo.PRODUCTO_IMAGEN" Width="1.5" PointX="18.875" PointY="0.75" />
+        <EntityTypeShape EntityType="Modelo.TIPO_DOCUMENTO" Width="1.5" PointX="46.25" PointY="14" />
+        <EntityTypeShape EntityType="Modelo.CELDA" Width="1.5" PointX="19.5" PointY="38.375" />
+        <EntityTypeShape EntityType="Modelo.SECTOR_OBSERVACION" Width="1.5" PointX="26.5" PointY="35.875" />
+        <AssociationConnector Association="Modelo.FK_CELDA_REFERENCE_TIPO_SEG" />
+        <EntityTypeShape EntityType="Modelo.SECTOR" Width="1.5" PointX="12.25" PointY="36.5" />
+        <AssociationConnector Association="Modelo.FK_CELDA_REFERENCE_SECTOR" />
+        <AssociationConnector Association="Modelo.FK_SECTOR_O_REFERENCE_SECTOR" />
+        <EntityTypeShape EntityType="Modelo.INCIDENTE_TIPO" Width="1.5" PointX="49" PointY="32" />
+        <EntityTypeShape EntityType="Modelo.SANCION" Width="1.5" PointX="53.5" PointY="23.25" />
+        <EntityTypeShape EntityType="Modelo.SANCION_TIPO" Width="1.5" PointX="51.25" PointY="32" />
+        <AssociationConnector Association="Modelo.FK_SANCION_REFERENCE_SANCION_" />
+        <EntityTypeShape EntityType="Modelo.CORRESPONDENCIA" Width="1.5" PointX="49.25" PointY="18.25" />
+        <EntityTypeShape EntityType="Modelo.PRODUCTO_UNIDAD_MEDIDA" Width="1.5" PointX="5.375" PointY="15.875" />
+        <EntityTypeShape EntityType="Modelo.PRODUCTO_SUBCATEGORIA" Width="1.5" PointX="10.375" PointY="27.75" />
+        <EntityTypeShape EntityType="Modelo.PASE_CATALOGO" Width="1.5" PointX="46.25" PointY="39.5" />
+        <EntityTypeShape EntityType="Modelo.VISITA_DOCUMENTO" Width="1.5" PointX="51.5" PointY="16.125" />
+        <AssociationConnector Association="Modelo.FK_VISITA_D_REFERENCE_TIPO_DOC" />
+        <EntityTypeShape EntityType="Modelo.PRODUCTO_CATEGORIA" Width="1.5" PointX="8.125" PointY="24" />
+        <EntityTypeShape EntityType="Modelo.PROVEEDOR" Width="1.5" PointX="5.125" PointY="36.625" />
+        <AssociationConnector Association="Modelo.FK_SUBCATEG_REFERENCE_CATEG" />
+        <EntityTypeShape EntityType="Modelo.REQUISICION" Width="1.5" PointX="19.125" PointY="52.375" />
+        <EntityTypeShape EntityType="Modelo.VISITANTE_INGRESO_PASE" Width="1.5" PointX="51.5" PointY="27.5" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_PASE_CAT" />
+        <EntityTypeShape EntityType="Modelo.REQUISICION_PRODUCTO" Width="1.5" PointX="35.875" PointY="28.875" />
+        <EntityTypeShape EntityType="Modelo.USUARIO_MENSAJE" Width="1.5" PointX="43.875" PointY="3.5" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REF_REQ_P_REQU" />
+        <EntityTypeShape EntityType="Modelo.REQUISICION_CENTRO_PRODUCTO" Width="1.5" PointX="37.625" PointY="22.375" />
+        <EntityTypeShape EntityType="Modelo.V_REQ_PRODUCTOS" Width="1.5" PointX="16.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Modelo.INTER_DOCTO" Width="1.5" PointX="7.625" PointY="19.5" />
+        <AssociationConnector Association="Modelo.FK_INTER_DO_REFERENCE_FORMATO_" />
+        <EntityTypeShape EntityType="Modelo.DECOMISO_INGRESO" Width="1.5" PointX="46.25" PointY="18.625" />
+        <EntityTypeShape EntityType="Modelo.TURNO" Width="1.5" PointX="36.75" PointY="50.25" />
+        <EntityTypeShape EntityType="Modelo.TIPO_EMPLEADO" Width="1.5" PointX="13.375" PointY="18.875" />
+        <EntityTypeShape EntityType="Modelo.VISITA_DIA" Width="1.5" PointX="21.75" PointY="35.875" />
+        <EntityTypeShape EntityType="Modelo.INGRESO_PERTENENCIA" Width="1.5" PointX="46.25" PointY="42.125" />
+        <EntityTypeShape EntityType="Modelo.INGRESO_PERTENENCIA_DET" Width="1.5" PointX="54.25" PointY="27.625" />
+        <EntityTypeShape EntityType="Modelo.PROGRAMA" Width="1.5" PointX="37.625" PointY="44.625" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_DIRECTO_SENTENCIA" Width="1.5" PointX="52.375" PointY="40" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_INDIRECTO_SENTENCIA" Width="1.5" PointX="0.75" PointY="29.75" />
+        <EntityTypeShape EntityType="Modelo.ALMACEN_TIPO_CAT" Width="1.5" PointX="35.875" PointY="25.375" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REFERENCE_PRODUCTO" />
+        <EntityTypeShape EntityType="Modelo.VISITANTE" Width="1.5" PointX="27" PointY="10.25" />
+        <EntityTypeShape EntityType="Modelo.ALMACEN_GRUPO" Width="1.5" PointX="2.875" PointY="33" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_REFERENCE_PRODGPO" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_REFERENCE_PROTIPO" />
+        <AssociationConnector Association="Modelo.FK_PROVEEDO_REFERENCE_PRODUCTO" />
+        <EntityTypeShape EntityType="Modelo.AREA" Width="1.5" PointX="21.75" PointY="57.5" />
+        <EntityTypeShape EntityType="Modelo.TIPO_AREA" Width="1.5" PointX="19.5" PointY="58" />
+        <AssociationConnector Association="Modelo.FK_AREA_VIS_TIPO_AREA_TIPO_ARE" />
+        <EntityTypeShape EntityType="Modelo.CENTRO_DEPARTAMENTO" Width="1.5" PointX="32" PointY="49.625" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_ESTATUS" Width="1.5" PointX="32" PointY="54.75" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_PARTICIPANTE_EMPALMADO" Width="1.5" PointX="45.5" PointY="50.125" />
+        <EntityTypeShape EntityType="Modelo.NOTA_TECNICA" Width="1.5" PointX="45.5" PointY="53.625" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_PARTICIPANTE" Width="1.5" PointX="43.25" PointY="43.375" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_GRUPO_PA" />
+        <AssociationConnector Association="Modelo.FK_NOTA_TEC_REFERENCE_GRUPO_PA" />
+        <EntityTypeShape EntityType="Modelo.ALMACEN" Width="1.5" PointX="39.125" PointY="32" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_MOTIVO" Width="1.5" PointX="52" PointY="1" />
+        <AssociationConnector Association="Modelo.FK_ALMACEN_REFERENCE_ALMACEN" />
+        <AssociationConnector Association="Modelo.FK_ALMACEN_REFERENCE_PRODUCTO" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_PARTICIPANTE_ESTATUS" Width="1.5" PointX="41" PointY="57.125" />
+        <EntityTypeShape EntityType="Modelo.NOTA_TECNICA_ESTATUS" Width="1.5" PointX="10.375" PointY="12.875" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_GRUPO_P2" />
+        <AssociationConnector Association="Modelo.FK_NOTA_TEC_REFERENCE_NOTA_TEC" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_MOTIVO_SALIDA" Width="1.5" PointX="54" PointY="20.75" />
+        <EntityTypeShape EntityType="Modelo.TIPO_AUTORIDAD_SALIDA" Width="1.5" PointX="55" PointY="17.75" />
+        <EntityTypeShape EntityType="Modelo.ABOGADO_DOCUMENTO" Width="1.5" PointX="50.5" PointY="44.875" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_TIPO_DOC" />
+        <EntityTypeShape EntityType="Modelo.INCIDENCIA_TIPO" Width="1.5" PointX="5.125" PointY="43.25" />
+        <AssociationConnector Association="Modelo.FK_INCIDENC_REFERENCE_ALMACEN_" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_DIRECTO_DOCTO" Width="1.5" PointX="56.875" PointY="34.875" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_INCIDENTE_DOCTO" Width="1.5" PointX="41.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_INDIRECTO" Width="1.5" PointX="53.25" PointY="44.5" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_INDIRECTO_DOCTO" Width="1.5" PointX="55.5" PointY="49.625" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_INDIRECTO_TIPOS" Width="1.5" PointX="58.5" PointY="43.25" />
+        <EntityTypeShape EntityType="Modelo.CAUSA_PENAL_DOCTO" Width="1.5" PointX="33.125" PointY="23.375" />
+        <EntityTypeShape EntityType="Modelo.RECURSO_DOCTO" Width="1.5" PointX="47.375" PointY="62" />
+        <EntityTypeShape EntityType="Modelo.SENTENCIA" Width="1.5" PointX="46.125" PointY="1.125" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_AID" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_AMPARO_I" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_AMPARO0" />
+        <AssociationConnector Association="Modelo.FK_SENTENCI_GAUT_SENT_GRADO_AU" />
+        <AssociationConnector Association="Modelo.FK_SENTENCI_GPART_SEN_GRADO_PA" />
+        <AssociationConnector Association="Modelo.FK_SENTENCI_SENTENCIA_SENTENCI" />
+        <EntityTypeShape EntityType="Modelo.INCIDENCIA_PRODUCTO" Width="1.5" PointX="35.875" PointY="18.5" />
+        <EntityTypeShape EntityType="Modelo.ORDEN_COMPRA_DETALLE" Width="1.5" PointX="42.375" PointY="22.25" />
+        <AssociationConnector Association="Modelo.FK_ORDEN_CO_REFERENCE_ALMACE" />
+        <AssociationConnector Association="Modelo.FK_TIPOINC_INCIDENCIA" />
+        <EntityTypeShape EntityType="Modelo.MOVIMIENTO_TIPO" Width="1.5" PointX="5.125" PointY="46.25" />
+        <AssociationConnector Association="Modelo.FK_MOVIMIEN_REFERENCE_ALMACEN_" />
+        <EntityTypeShape EntityType="Modelo.DECOMISO_IMAGEN" Width="1.5" PointX="55.75" PointY="11" />
+        <EntityTypeShape EntityType="Modelo.CALENDARIZAR_ENTREGA_ESTATUS" Width="1.5" PointX="57.375" PointY="31.75" />
+        <EntityTypeShape EntityType="Modelo.ORDEN_COMPRA" Width="1.5" PointX="21.375" PointY="45.25" />
+        <EntityTypeShape EntityType="Modelo.ORDEN_COMPRA_ESTATUS" Width="1.5" PointX="19.125" PointY="45.5" />
+        <AssociationConnector Association="Modelo.FK_ORDEN_CO_REFERENCE_OCESTA" />
+        <AssociationConnector Association="Modelo.FK_ORDEN_CO_REFERENCE_ORDEN_CO" />
+        <AssociationConnector Association="Modelo.FK_ORDEN_CO_REFERENCE_REQUISIC" />
+        <AssociationConnector Association="Modelo.FK_PROVEE_ORDENCOMPRA" />
+        <EntityTypeShape EntityType="Modelo.ENTRADA_FACTURA" Width="1.5" PointX="50.625" PointY="52.625" />
+        <EntityTypeShape EntityType="Modelo.PARAMETRO" Width="1.5" PointX="3" PointY="49.875" />
+        <EntityTypeShape EntityType="Modelo.PARAMETRO_CLAVE" Width="1.5" PointX="0.75" PointY="50.125" />
+        <AssociationConnector Association="Modelo.FK_PARAMETR_REFERENCE_PARAMETR" />
+        <EntityTypeShape EntityType="Modelo.DECOMISO_MODELO" Width="1.5" PointX="51.25" PointY="59" />
+        <EntityTypeShape EntityType="Modelo.DECOMISO_OBJETO" Width="1.5" PointX="53.5" PointY="9.125" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_OBJETO" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_MODFAB" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_DROGA" />
+        <EntityTypeShape EntityType="Modelo.DECOMISO_FABRICANTE" Width="1.5" PointX="49" PointY="59" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_FABRICA" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_HORARIO_ESTATUS" Width="1.5" PointX="15.375" PointY="11.875" />
+        <EntityTypeShape EntityType="Modelo.DECOMISO_PERSONA" Width="1.5" PointX="60.25" PointY="48.5" />
+        <EntityTypeShape EntityType="Modelo.CALENDARIZAR_EP_ESTATUS" Width="1.5" PointX="59.625" PointY="15.625" />
+        <EntityTypeShape EntityType="Modelo.CALENDARIZAR_ENTREGA" Width="1.5" PointX="61.625" PointY="41.875" />
+        <EntityTypeShape EntityType="Modelo.CALENDARIZAR_ENTREGA_PRODUCTO" Width="1.5" PointX="61.875" PointY="10" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_ALMACEN" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_CALENDAR" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_ESTATUS" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_ORDEN_CO" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_CALEND2" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_CALEND3" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_INCIDENC" />
+        <EntityTypeShape EntityType="Modelo.ALMACEN_INVENTARIO" Width="1.5" PointX="41.375" PointY="19" />
+        <AssociationConnector Association="Modelo.FK_ALMACEN__REFERENCE_ALMACEN" />
+        <EntityTypeShape EntityType="Modelo.EVENTO_IMPACTO" Width="1.5" PointX="10.5" PointY="33.875" />
+        <EntityTypeShape EntityType="Modelo.EVENTO_INF_TECNICA" Width="1.5" PointX="15" PointY="50.625" />
+        <EntityTypeShape EntityType="Modelo.EVENTO_PRESIDIUM" Width="1.5" PointX="15" PointY="56" />
+        <EntityTypeShape EntityType="Modelo.EVENTO_PROGRAMA" Width="1.5" PointX="15" PointY="53.25" />
+        <EntityTypeShape EntityType="Modelo.EVENTO_TIPO" Width="1.5" PointX="10.5" PointY="31.5" />
+        <EntityTypeShape EntityType="Modelo.EVENTO_VESTIMENTA" Width="1.5" PointX="10.5" PointY="25.125" />
+        <EntityTypeShape EntityType="Modelo.ADUANA_ACOMPANANTE" Width="1.5" PointX="38.25" PointY="57.5" />
+        <EntityTypeShape EntityType="Modelo.EVENTO_ESTATUS" Width="1.5" PointX="10.5" PointY="53.625" />
+        <EntityTypeShape EntityType="Modelo.PERSONA_PERTENENCIA" Width="1.5" PointX="38.25" PointY="39.875" />
+        <EntityTypeShape EntityType="Modelo.MOVIMIENTO" Width="1.5" PointX="48.375" PointY="50.5" />
+        <EntityTypeShape EntityType="Modelo.MOVIMIENTO_PRODUCTO" Width="1.5" PointX="56.625" PointY="28.25" />
+        <EntityTypeShape EntityType="Modelo.TRASPASO_ESTATUS" Width="1.5" PointX="53.375" PointY="62.875" />
+        <EntityTypeShape EntityType="Modelo.TRASPASO_PRODUCTO" Width="1.5" PointX="59.875" PointY="33.25" />
+        <EntityTypeShape EntityType="Modelo.TRASPASO_TIPO" Width="1.5" PointX="53.375" PointY="65.25" />
+        <AssociationConnector Association="Modelo.FK_ENTRADA_REFERENCE_ALMACEN" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_ENTRADA" />
+        <AssociationConnector Association="Modelo.FK_ENTRADA__REFERENCE_FACTURA" />
+        <AssociationConnector Association="Modelo.FK_ENTRADA__REFERENCE_ENTRADA" />
+        <AssociationConnector Association="Modelo.FK_ENTRADA_REFERENCE_MOVIMIEN" />
+        <AssociationConnector Association="Modelo.FK_ENTRADA_REFERENCE_ORDEN_CO" />
+        <EntityTypeShape EntityType="Modelo.PROCESO_ROL" Width="1.5" PointX="39" PointY="0.75" />
+        <EntityTypeShape EntityType="Modelo.SISTEMA_ROL" Width="1.5" PointX="36.75" PointY="2.125" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_SISTEMA_" />
+        <EntityTypeShape EntityType="Modelo.REQUISICION_TIPO" Width="1.5" PointX="56.125" PointY="63.125" />
+        <EntityTypeShape EntityType="Modelo.ACTUARIO_LISTA" Width="1.5" PointX="55.25" PointY="53.875" />
+        <EntityTypeShape EntityType="Modelo.REQ_CENTRO_ESTATUS" Width="1.5" PointX="3.375" PointY="18.75" />
+        <EntityTypeShape EntityType="Modelo.REQ_PROD_ESTATUS" Width="1.5" PointX="21.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Modelo.TRASPASO" Width="1.5" PointX="64.625" PointY="49.75" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_ALMAC01" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_MOVIMI01" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_MOVIMI02" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_TRASPA01" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_TRASPA04" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_TRASPAS2" />
+        <EntityTypeShape EntityType="Modelo.ACTUARIO_INGRESO" Width="1.5" PointX="62.5" PointY="46.125" />
+        <AssociationConnector Association="Modelo.FK_ACTUARIO_REFERENCE_ACTUARIO" />
+        <EntityTypeShape EntityType="Modelo.REQUISICION_ESTATUS" Width="1.5" PointX="22.375" PointY="12.875" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REFERENCE_REQUISI2" />
+        <EntityTypeShape EntityType="Modelo.BIOMETRICO_FORMATO" Width="1.5" PointX="20.375" PointY="21.75" />
+        <EntityTypeShape EntityType="Modelo.INGRESO_BIOMETRICO" Width="1.5" PointX="43.25" PointY="49.625" />
+        <EntityTypeShape EntityType="Modelo.PERSONA_BIOMETRICO" Width="1.5" PointX="35" PointY="53.25" />
+        <EntityTypeShape EntityType="Modelo.ABOGADO_TITULO" Width="1.5" PointX="50.75" PointY="55.875" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_INCIDENTE_TIPO" Width="1.5" PointX="36.875" PointY="76.875" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_INDIRECTO_TIPO" Width="1.5" PointX="56.25" PointY="65.75" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_AMPARO1" />
+        <EntityTypeShape EntityType="Modelo.REQUISICION_CENTRO" Width="1.5" PointX="59.375" PointY="37.625" />
+        <AssociationConnector Association="Modelo.FK_ALMACEN_REQ" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REFERENCE_REQ_CENT" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REFERENCE_REQP" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REF_REQ_P_REQUISIC" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REFERENCE_REQUISIC" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_REQCEN01" />
+        <EntityTypeShape EntityType="Modelo.DECOMISO" Width="1.5" PointX="58" PointY="46.875" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_AREA_VIS" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_CELDA" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_DECOMIS1" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_DECOMIS2" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_DECOMISO" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_TURNO" />
+        <EntityTypeShape EntityType="Modelo.ADUANA_INGRESO_CP" Width="1.5" PointX="55.5" PointY="44.75" />
+        <EntityTypeShape EntityType="Modelo.EJE" Width="1.5" PointX="20.375" PointY="28.875" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_EJE" />
+        <EntityTypeShape EntityType="Modelo.AREA_TECNICA" Width="1.5" PointX="35.75" PointY="58.125" />
+        <EntityTypeShape EntityType="Modelo.ESCOLARIDAD" Width="1.5" PointX="28.5" PointY="74.375" />
+        <EntityTypeShape EntityType="Modelo.ETNIA" Width="1.5" PointX="28.5" PointY="0.75" />
+        <EntityTypeShape EntityType="Modelo.OCUPACION" Width="1.5" PointX="28.5" PointY="7.875" />
+        <EntityTypeShape EntityType="Modelo.PANDILLA" Width="1.5" PointX="16.75" PointY="60.375" />
+        <EntityTypeShape EntityType="Modelo.RELIGION" Width="1.5" PointX="28.5" PointY="29.625" />
+        <EntityTypeShape EntityType="Modelo.TATUAJE" Width="1.5" PointX="21.75" PointY="16.5" />
+        <EntityTypeShape EntityType="Modelo.TATUAJE_CLASIFICACION" Width="1.5" PointX="21.75" PointY="20" />
+        <EntityTypeShape EntityType="Modelo.TIPO_CICATRIZ" Width="1.5" PointX="3.375" PointY="7.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_DEFECTO" Width="1.5" PointX="5.375" PointY="7.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_LUNAR" Width="1.5" PointX="7.375" PointY="7.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_SANGRE" Width="1.5" PointX="8.375" PointY="1.875" />
+        <AssociationConnector Association="Modelo.FK_EMI_GRUP_OCUPA_EMI_OCUPACIO" />
+        <AssociationConnector Association="Modelo.FK_EMI_ULTI_OUPACION__OCUPACIO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_PANDILLA" />
+        <AssociationConnector Association="Modelo.FK_SENAS_PA_TATUAJE_C_TATUAJE_" />
+        <AssociationConnector Association="Modelo.FK_SENAS_PA_TATUAJE_S_TATUAJE" />
+        <EntityTypeShape EntityType="Modelo.VISITA_AGENDA" Width="1.5" PointX="51.25" PointY="35.25" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_AREA_VISI_AREA_VIS" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_VISITA_DI_VISITA_D" />
+        <EntityTypeShape EntityType="Modelo.MEDIA_FILIACION" Width="1.5" PointX="10.75" PointY="41.125" />
+        <EntityTypeShape EntityType="Modelo.PROCESO" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_FILIACION" Width="1.5" PointX="13" PointY="41" />
+        <AssociationConnector Association="Modelo.FK_TIPO_FIL_REFERENCE_MEDIA_FI" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_PROCES2" />
+        <EntityTypeShape EntityType="Modelo.EMI_INGRESO_ANTERIOR" Width="1.5" PointX="29.25" PointY="37.875" />
+        <AssociationConnector Association="Modelo.FK_EMI_INGR_EMISOR_EM_EMISOR" />
+        <EntityTypeShape EntityType="Modelo.EMI_HPS" Width="1.5" PointX="43.875" PointY="60.25" />
+        <AssociationConnector Association="Modelo.FK_EMI_HPS_EMIHDP_PR_MOTIVO_P" />
+        <AssociationConnector Association="Modelo.FK_EMI_HPS_PANDILLA__PANDILLA" />
+        <EntityTypeShape EntityType="Modelo.CAMA" Width="1.5" PointX="21.75" PointY="50" />
+        <EntityTypeShape EntityType="Modelo.CENTRO" Width="1.5" PointX="7.5" PointY="45.875" />
+        <EntityTypeShape EntityType="Modelo.ENTIDAD" Width="1.5" PointX="3" PointY="21.75" />
+        <EntityTypeShape EntityType="Modelo.EVENTO_INGRESO" Width="1.5" PointX="58.25" PointY="54.625" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_ALMACEN_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_CAMA_REFERENCE_CELDA" />
+        <AssociationConnector Association="Modelo.FK_CENTRO_D_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_CENTRO_REFERENCE_EMISOR" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_PERSONANIP__RE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_PROGRAMA_CENTRO_PR_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_ENTIDAD_D_ENTIDAD" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_ENTIDAD_V_ENTIDAD" />
+        <EntityTypeShape EntityType="Modelo.COLONIA" Width="1.5" PointX="18.75" PointY="28.25" />
+        <EntityTypeShape EntityType="Modelo.DELITO" Width="1.5" PointX="30" PointY="64.375" />
+        <EntityTypeShape EntityType="Modelo.EDIFICIO" Width="1.5" PointX="12.75" PointY="48.5" />
+        <EntityTypeShape EntityType="Modelo.MUNICIPIO" Width="1.5" PointX="8.25" PointY="27.5" />
+        <EntityTypeShape EntityType="Modelo.PAIS_NACIONALIDAD" Width="1.5" PointX="0.75" PointY="28.875" />
+        <EntityTypeShape EntityType="Modelo.TERMINO" Width="1.5" PointX="31.625" PointY="68.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_RECURSO" Width="1.5" PointX="34.625" PointY="37.625" />
+        <AssociationConnector Association="Modelo.FK_CENTRO_REFERENCE_MUNICIPI" />
+        <AssociationConnector Association="Modelo.FK_EDIFICIO_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_COLONIA_REFERENCE_MUNICIPI" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_COLONIA_D_COLONIA" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_COLONIA_V_COLONIA" />
+        <AssociationConnector Association="Modelo.FK_EMI_INGR_DELITO_EM_DELITO" />
+        <AssociationConnector Association="Modelo.FK_SECTOR_REFERENCE_EDIFICIO" />
+        <AssociationConnector Association="Modelo.FK_ENTIDAD_REFERENCE_PAIS_NAC" />
+        <AssociationConnector Association="Modelo.FK_MUNICIPI_REFERENCE_ENTIDAD" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_MUNICIPIO_MUNICIPI" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_PAIS_DIRP_PAIS_NAC" />
+        <AssociationConnector Association="Modelo.FK_LOCALIDA_REF_MUN_L_MUNICIPI" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_MUN_VISAU_MUNICIPI" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_PAIS_VISA_PAIS_NAC" />
+        <AssociationConnector Association="Modelo.FK_RECURSO__TIPO_RECU_TIPO_REC" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_DETALLE_ESTATUS" Width="1.5" PointX="52" PointY="72.25" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_ESTATUS" Width="1.5" PointX="55" PointY="6.375" />
+        <EntityTypeShape EntityType="Modelo.SECTOR_OBSERVACION_CELDA" Width="1.5" PointX="29.75" PointY="43" />
+        <AssociationConnector Association="Modelo.FK_SECTOR_O_REFERENCE_CAMA" />
+        <AssociationConnector Association="Modelo.FK_SECTOR_O_REFERENCE_SECTOR_O" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_ASISTENCIA" Width="1.5" PointX="61.75" PointY="36.5" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_AS_REFERENCE_GRUPO_PA" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_ASISTENCIA_ESTATUS" Width="1.5" PointX="12.375" PointY="12.875" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_AS_REFERENCE_GRUPO_AS" />
+        <EntityTypeShape EntityType="Modelo.AGENCIA" Width="1.5" PointX="5.25" PointY="22.25" />
+        <EntityTypeShape EntityType="Modelo.JUZGADO" Width="1.5" PointX="15.5" PointY="34.375" />
+        <AssociationConnector Association="Modelo.FK_AGENCIA_ENTIDAD_A_ENTIDAD" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_JUZ1" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_JUZGADO" />
+        <AssociationConnector Association="Modelo.FK_JUZGADO_MUN_JUZGA_MUNICIPI" />
+        <AssociationConnector Association="Modelo.FK_JUZGADO_PAIS_JUZG_PAIS_NAC" />
+        <EntityTypeShape EntityType="Modelo.ACTIVIDAD" Width="1.5" PointX="41" PointY="65" />
+        <EntityTypeShape EntityType="Modelo.TIPO_PROGRAMA" Width="1.5" PointX="38.75" PointY="65.625" />
+        <AssociationConnector Association="Modelo.FK_ACTIVIDA_REFERENCE_TIPO_PRO" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_ACTIVIDA" />
+        <EntityTypeShape EntityType="Modelo.EMI" Width="1.5" PointX="12.375" PointY="56.75" />
+        <EntityTypeShape EntityType="Modelo.EMI_INGRESO" Width="1.5" PointX="49.625" PointY="41.25" />
+        <EntityTypeShape EntityType="Modelo.TIPO_PERSONA" Width="1.5" PointX="0.75" PointY="53.875" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_TIPO_PER" />
+        <AssociationConnector Association="Modelo.FK_EMI_ACTI2" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTE_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_CLAS_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_ENFE_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACT_EMI_FACTO_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACT_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_FICH_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_GRUP_EMI_GPOFA_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_HPS_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_INGR_EMI_INGRE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_INGR_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_SANC_EMI_SANCI_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_SENA_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_SITU_EMI_SITUA_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_TATU_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_ULTI_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_USO__REFERENCE_EMI" />
+        <EntityTypeShape EntityType="Modelo.LIBERACION_AUTORIDAD" Width="1.5" PointX="46" PointY="46.5" />
+        <EntityTypeShape EntityType="Modelo.LIBERACION_MOTIVO" Width="1.5" PointX="46" PointY="70" />
+        <EntityTypeShape EntityType="Modelo.TIPO_INGRESO" Width="1.5" PointX="38.75" PointY="69.375" />
+        <EntityTypeShape EntityType="Modelo.COMPORTAMIENTO_HOMO" Width="1.5" PointX="0.75" PointY="7.875" />
+        <EntityTypeShape EntityType="Modelo.DELITO_GRUPO" Width="1.5" PointX="28.125" PointY="67" />
+        <EntityTypeShape EntityType="Modelo.DELITO_TITULO" Width="1.5" PointX="25.875" PointY="67" />
+        <EntityTypeShape EntityType="Modelo.DROGA_UNIDAD_MEDIDA" Width="1.5" PointX="51.625" PointY="75.375" />
+        <EntityTypeShape EntityType="Modelo.ESTATUS_VISITA" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="Modelo.FUERO" Width="1.5" PointX="23.625" PointY="67.25" />
+        <EntityTypeShape EntityType="Modelo.INCIDENCIA" Width="1.5" PointX="43.75" PointY="39.25" />
+        <EntityTypeShape EntityType="Modelo.MODALIDAD_DELITO" Width="1.5" PointX="32.625" PointY="81.625" />
+        <EntityTypeShape EntityType="Modelo.TIPO_RELACION" Width="1.5" PointX="2.75" PointY="3.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_VISITA" Width="1.5" PointX="44.375" PointY="18.25" />
+        <EntityTypeShape EntityType="Modelo.TIPO_VISITANTE" Width="1.5" PointX="49.375" PointY="11.375" />
+        <AssociationConnector Association="Modelo.FK_INCIDENC_REFERENCE_ALMACEN" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_REFERENCE_MODALIDA" />
+        <AssociationConnector Association="Modelo.FK_EMI_HPS_REFERENCE_COMPORTA" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_UM" />
+        <AssociationConnector Association="Modelo.FK_DELITO_DELITO_GR_DELITO_G" />
+        <AssociationConnector Association="Modelo.FK_MODALIDA_REFERENCE_DELITO" />
+        <AssociationConnector Association="Modelo.FK_DELITO_G_DELITO_TI_DELITO_T" />
+        <AssociationConnector Association="Modelo.FK_DELITO_T_FUERO_DEL_FUERO" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTEDROGA" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_ESTATUS_" />
+        <AssociationConnector Association="Modelo.FK_INCIDENC_REFERENCE_INCIDENC" />
+        <AssociationConnector Association="Modelo.FK_INCIDENC_REFERENCE_ORDEN_CO" />
+        <AssociationConnector Association="Modelo.FK_RECURSO__MODALIDAD_MODALIDA" />
+        <AssociationConnector Association="Modelo.FK_SENTENCI_MODALIDAD_MODALIDA" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__REFERENCE_TIPO_VIS" />
+        <AssociationConnector Association="Modelo.FK_TIPO_DOC_REFERENCE_TIPO_VIS" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_REFERENCE_TIPO_VIS" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_TIPO_VISITA" />
+        <EntityTypeShape EntityType="Modelo.HOSPITAL" Width="1.5" PointX="53" PointY="81.25" />
+        <EntityTypeShape EntityType="Modelo.LIBERADO_SUSTANCIA" Width="1.5" PointX="42.5" PointY="7.5" />
+        <EntityTypeShape EntityType="Modelo.LIBERADO_VIVE" Width="1.5" PointX="48.5" PointY="7.125" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_DROGA" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_DROGA_FR" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_OCUPACI2" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_PARTICIPANTE_CANCELADO" Width="1.5" PointX="48.5" PointY="66.25" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_GRUPO_P1" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_GRUPO_P3" />
+        <EntityTypeShape EntityType="Modelo.SOCIOE_GPOFAMPRI" Width="1.5" PointX="45.5" PointY="83.875" />
+        <EntityTypeShape EntityType="Modelo.SOCIOE_GPOFAMPRI_CARAC" Width="1.5" PointX="47.75" PointY="84.625" />
+        <EntityTypeShape EntityType="Modelo.SOCIOE_GPOFAMSEC_CARAC" Width="1.5" PointX="47.75" PointY="90" />
+        <EntityTypeShape EntityType="Modelo.SOCIOECONOMICO" Width="1.5" PointX="43.25" PointY="87.375" />
+        <EntityTypeShape EntityType="Modelo.SOCIOECONOMICO_CAT" Width="1.5" PointX="45.5" PointY="81" />
+        <AssociationConnector Association="Modelo.FK_SOCIOE_G_REFERENCE_SOCIO627" />
+        <AssociationConnector Association="Modelo.FK_SOCIOE_G_REFERENCE_SOCIO632" />
+        <AssociationConnector Association="Modelo.FK_SOCIOE_G_REFERENCE_SOCIOECO" />
+        <AssociationConnector Association="Modelo.FK_SOCIOE_G_REFERENCE_SOCIO631" />
+        <EntityTypeShape EntityType="Modelo.INGRESO_UBICACION_ANT" Width="1.5" PointX="54.25" PointY="57.25" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_CAMA" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD_ESTATUS" Width="1.5" PointX="65.25" PointY="56.625" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD_MOTIVO" Width="1.5" PointX="59" PointY="79.125" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD_SITUACION" Width="1.5" PointX="59" PointY="76.625" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD_TIPO_ESTUDIO" Width="1.5" PointX="65.25" PointY="59.125" />
+        <EntityTypeShape EntityType="Modelo.SOCIOE_GPOFAMSEC" Width="1.5" PointX="45.5" PointY="89.375" />
+        <AssociationConnector Association="Modelo.FK_SOCIOE_G_REFERENCE_SOCIOE_G" />
+        <AssociationConnector Association="Modelo.FK_SOCIOE_G_REFERENCE_SOCIOEC2" />
+        <EntityTypeShape EntityType="Modelo.CATALOGO_EQUIPOS" Width="1.5" PointX="9.75" PointY="48.125" />
+        <AssociationConnector Association="Modelo.FK_CATALOGO_REFERENCE_CEN640" />
+        <EntityTypeShape EntityType="Modelo.VISITA_APELLIDO" Width="1.5" PointX="59.625" PointY="27.625" />
+        <EntityTypeShape EntityType="Modelo.VISITA_EDIFICIO" Width="1.5" PointX="56.625" PointY="22.25" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_REFERENCE_AREA" />
+        <AssociationConnector Association="Modelo.FK_VISITA_EDIFICIO_AREA" />
+        <AssociationConnector Association="Modelo.FK_VISITA_EDIFICIO_CELDA_FIN" />
+        <AssociationConnector Association="Modelo.FK_VISITA_EDIFICIO_CELDA_INI" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_VISITA_EDIFICIO_EDIFICIO" />
+        <AssociationConnector Association="Modelo.FK_VISITA_EDIFICIO_SECTOR" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_REFERENCE_TIP_VIS" />
+        <AssociationConnector Association="Modelo.FK_VISITA_EDIFICIO_TIPO_VIS" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_REFERENCE_VISITA_D" />
+        <AssociationConnector Association="Modelo.FK_VISITA_EDIFICIO_DIA" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_TACTICO" Width="1.5" PointX="14.375" PointY="0.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_JUZGADO" Width="1.5" PointX="12.375" PointY="6.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_REFERENCIA" Width="1.5" PointX="12.75" PointY="24.375" />
+        <EntityTypeShape EntityType="Modelo.V_BUSCA_NOMBRE" Width="1.5" PointX="14.375" PointY="7.75" />
+        <AssociationConnector Association="Modelo.FK_ACOMPANA_REFERENCI_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_GRUPO_TA" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTE_REF_EMIFA_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_EMI_FACT_REFE_EMI_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_EMI_FICH_REFERENCI_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_EMI_GRUP_REF_EMIGP_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_FAMILIAR_REF_FAMRE_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_JUZGADO_JUZG_TIPO_TIPO_JUZ" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_REFERENCI_TIPO_REF" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_DESTINO_ESTATUS" Width="1.5" PointX="62.25" PointY="62.5" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_ESTATUS" Width="1.5" PointX="53" PointY="53.875" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_TIPO" Width="1.5" PointX="53" PointY="78.375" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_TIPO_DOCTO" Width="1.5" PointX="62.25" PointY="65.125" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_TRANSITO" Width="1.5" PointX="59.5" PointY="58.125" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_TRANSITO_DOCTO" Width="1.5" PointX="61.75" PointY="58.25" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_TRANSITO_TDOCTO" Width="1.5" PointX="59.5" PointY="81.75" />
+        <EntityTypeShape EntityType="Modelo.MENSAJE_ROL" Width="1.5" PointX="50.625" PointY="49" />
+        <EntityTypeShape EntityType="Modelo.MENSAJE_TIPO" Width="1.5" PointX="39.375" PointY="91.25" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_CEN653" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXC642" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXCA654" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXCAR655" />
+        <AssociationConnector Association="Modelo.FK_MENSAJE__REFERENCE_MENSAJE_" />
+        <AssociationConnector Association="Modelo.FK_MENSAJE__REFERENCE_SISTEMA_" />
+        <EntityTypeShape EntityType="Modelo.EVENTO" Width="1.5" PointX="37" PointY="5.5" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_A661" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_CENTR2" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_ENTIDA2" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_ENTIDAD" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_I_REFERENCE_EVENT2" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_I_REFERENCE_EVENTO" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_P_REFERENCE_EVEN2" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_P_REFERENCE_EVENTO" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_EVENTO_E" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_EVENTO_I" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_EVENTO_T" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_EVENTO_V" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_MUNICIP2" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_MUNICIPI" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_CANCELA_MOTIVO" Width="1.5" PointX="68.25" PointY="47.125" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD_FUERO_COMUN" Width="1.5" PointX="63.5" PointY="81" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_TIPO" Width="1.5" PointX="41" PointY="96.75" />
+        <EntityTypeShape EntityType="Modelo.EQUIPO_AREA" Width="1.5" PointX="24" PointY="59.75" />
+        <AssociationConnector Association="Modelo.FK_EQUIPO_A_REFERENCE_A729" />
+        <AssociationConnector Association="Modelo.FK_EQUIPO_A_REFERENCE_CATAL728" />
+        <EntityTypeShape EntityType="Modelo.ADUANA" Width="1.5" PointX="64.25" PointY="43.875" />
+        <EntityTypeShape EntityType="Modelo.MENSAJE" Width="1.5" PointX="61.625" PointY="79.75" />
+        <EntityTypeShape EntityType="Modelo.PRS_FICHA_IDEN" Width="1.5" PointX="33" PointY="63.875" />
+        <EntityTypeShape EntityType="Modelo.PRS_VISITA_FOTOGRAFIA" Width="1.5" PointX="35.25" PointY="79.625" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_A_REFERENCE_ADUANA" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_REFERENCE_AREA" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_REFERENCE_PUE693" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_REFERENCE_TIPO_PER" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__REFERENCE_ADUANA" />
+        <AssociationConnector Association="Modelo.FK_MENSAJE_REFERENCE_CEN725" />
+        <AssociationConnector Association="Modelo.FK_MENSAJE_REFERENCE_INTER_DO" />
+        <AssociationConnector Association="Modelo.FK_MENSAJE_REFERENCE_MENSAJE_" />
+        <AssociationConnector Association="Modelo.FK_MENSAJE_REFERENCE_MUNIC745" />
+        <AssociationConnector Association="Modelo.FK_USUARIO__REFERENCE_MENSAJE" />
+        <EntityTypeShape EntityType="Modelo.CLASIFICACION_DOCUMENTO" Width="1.5" PointX="54.375" PointY="1.25" />
+        <EntityTypeShape EntityType="Modelo.NOTA_MEDICA_TIPO" Width="1.5" PointX="8.375" PointY="5" />
+        <EntityTypeShape EntityType="Modelo.PRS_APOYO_ECONOMICO" Width="1.5" PointX="40.75" PointY="60" />
+        <EntityTypeShape EntityType="Modelo.PRS_DROGA" Width="1.5" PointX="37.75" PointY="53.5" />
+        <EntityTypeShape EntityType="Modelo.PRS_NUCLEO_FAMILIAR" Width="1.5" PointX="30.75" PointY="28.5" />
+        <AssociationConnector Association="Modelo.FK_PRS_DROG_REFERENCE_DR736" />
+        <AssociationConnector Association="Modelo.FK_PRS_DROG_REFERENCE_DROGA737" />
+        <AssociationConnector Association="Modelo.FK_PRS_NUCL_REFERENCE_ESCOL733" />
+        <AssociationConnector Association="Modelo.FK_PRS_NUCL_REFERENCE_ESTAD731" />
+        <AssociationConnector Association="Modelo.FK_PRS_APOY_REFERENCE_OCUPA744" />
+        <AssociationConnector Association="Modelo.FK_PRS_NUCL_REFERENCE_OCUPA732" />
+        <AssociationConnector Association="Modelo.FK_PRS_NUCL_REFERENCE_TIPO_734" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_SERVICIO" Width="1.5" PointX="70.5" PointY="56.875" />
+        <EntityTypeShape EntityType="Modelo.DIETA" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="Modelo.ESPECIALIDAD" Width="1.5" PointX="10.375" PointY="18.75" />
+        <EntityTypeShape EntityType="Modelo.ESTUDIO_CATALOGO" Width="1.5" PointX="18.625" PointY="8.875" />
+        <EntityTypeShape EntityType="Modelo.ESTUDIO_TIPO" Width="1.5" PointX="16.375" PointY="9" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC752" />
+        <AssociationConnector Association="Modelo.FK_ESTUDIO__REFERENCE_ESTUD753" />
+        <EntityTypeShape EntityType="Modelo.INGRESO_UBICACION" Width="1.5" PointX="62.25" PointY="68.625" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_A637" />
+        <EntityTypeShape EntityType="Modelo.CONSULTA_UNIFICADA" Width="1.5" PointX="56.625" PointY="0.875" />
+        <AssociationConnector Association="Modelo.FK_CLASIFIC_REFERENCE_CONSU748" />
+        <EntityTypeShape EntityType="Modelo.PFF_ACTA_CONSEJO_TECNICO" Width="1.5" PointX="51.5" PointY="83.75" />
+        <EntityTypeShape EntityType="Modelo.PFF_ACTA_DETERMINO" Width="1.5" PointX="56.75" PointY="68.75" />
+        <EntityTypeShape EntityType="Modelo.PFF_FICHA_IDENTIFICACION" Width="1.5" PointX="45.5" PointY="101.125" />
+        <EntityTypeShape EntityType="Modelo.PFF_FILIACION" Width="1.5" PointX="56.75" PointY="72.875" />
+        <AssociationConnector Association="Modelo.FK_ACTA_DET_REFERENCE_AREA_760" />
+        <AssociationConnector Association="Modelo.FK_ACTA_CON_REFERENCE_CEN758" />
+        <AssociationConnector Association="Modelo.FK_ACTA_DET_REFERENCE_ACTA_759" />
+        <AssociationConnector Association="Modelo.FK_PFF_FILI_REFERENCE_PFF_F762" />
+        <AssociationConnector Association="Modelo.FK_PFF_FILI_REFERENCE_TIPO_763" />
+        <EntityTypeShape EntityType="Modelo.YARDA" Width="1.5" PointX="33" PointY="57.25" />
+        <AssociationConnector Association="Modelo.FK_YARDA_REFERENCE_A764" />
+        <AssociationConnector Association="Modelo.FK_YARDA_REFERENCE_SEC755" />
+        <EntityTypeShape EntityType="Modelo.PFC_II_MEDICO" Width="1.5" PointX="65.75" PointY="63.875" />
+        <EntityTypeShape EntityType="Modelo.PFC_III_PSIQUIATRICO" Width="1.5" PointX="65.75" PointY="96" />
+        <EntityTypeShape EntityType="Modelo.PFC_IV_DISFUNCION" Width="1.5" PointX="66.5" PointY="92.25" />
+        <EntityTypeShape EntityType="Modelo.PFC_IV_NIVEL_INTELECTUAL" Width="1.5" PointX="66.5" PointY="89.75" />
+        <EntityTypeShape EntityType="Modelo.PFC_IV_PSICOLOGICO" Width="1.5" PointX="68.75" PointY="79.5" />
+        <EntityTypeShape EntityType="Modelo.PFC_IX_CORRECTIVO" Width="1.5" PointX="68" PointY="115.25" />
+        <EntityTypeShape EntityType="Modelo.PFC_IX_SEGURIDAD" Width="1.5" PointX="65.75" PointY="114.5" />
+        <EntityTypeShape EntityType="Modelo.PFC_V_CAPACIDAD" Width="1.5" PointX="63.5" PointY="88.875" />
+        <EntityTypeShape EntityType="Modelo.PFC_V_CRIMINOLOGICA" Width="1.5" PointX="63.5" PointY="86.375" />
+        <EntityTypeShape EntityType="Modelo.PFC_V_PELIGROSIDAD" Width="1.5" PointX="63.5" PointY="76.875" />
+        <EntityTypeShape EntityType="Modelo.PFC_VI_COMUNICACION" Width="1.5" PointX="70" PointY="52.5" />
+        <EntityTypeShape EntityType="Modelo.PFC_VI_GRUPO" Width="1.5" PointX="71" PointY="69.75" />
+        <EntityTypeShape EntityType="Modelo.PFC_VI_SOCIO_FAMILIAR" Width="1.5" PointX="65.75" PointY="70.25" />
+        <EntityTypeShape EntityType="Modelo.PFC_VII_EDUCATIVO" Width="1.5" PointX="65.75" PointY="104.5" />
+        <EntityTypeShape EntityType="Modelo.PFC_VII_PROGRAMA" Width="1.5" PointX="65.75" PointY="120.25" />
+        <EntityTypeShape EntityType="Modelo.PFC_VIII_CAPACITACION" Width="1.5" PointX="65.75" PointY="123.25" />
+        <EntityTypeShape EntityType="Modelo.PFC_VIII_TRABAJO" Width="1.5" PointX="65.75" PointY="108.75" />
+        <AssociationConnector Association="Modelo.FK_PFC_VI_A_REFERENCE_ACTIV707" />
+        <AssociationConnector Association="Modelo.FK_PFC_II_M_REFERENCE_PERSO682" />
+        <AssociationConnector Association="Modelo.FK_PFC_III__REFERENCE_PERSO683" />
+        <AssociationConnector Association="Modelo.FK_PFC_IV_P_REFERENCE_PERSO684" />
+        <AssociationConnector Association="Modelo.FK_PFC_IX_S_REFERENCE_PERSO689" />
+        <AssociationConnector Association="Modelo.FK_PFC_VI_S_REFERENCE_PERSO686" />
+        <AssociationConnector Association="Modelo.FK_PFC_VII__REFERENCE_PERSO687" />
+        <AssociationConnector Association="Modelo.FK_PFC_VIII_REFERENCE_PERSO688" />
+        <AssociationConnector Association="Modelo.FK_PFC_IV_P_REFERENCE_PFC_I691" />
+        <AssociationConnector Association="Modelo.FK_PFC_IV_P_REFERENCE_PFC_I690" />
+        <AssociationConnector Association="Modelo.FK_PFC_IX_C_REFERENCE_PFC_I743" />
+        <AssociationConnector Association="Modelo.FK_PFC_VI_C_REFERENCE_PFC_V715" />
+        <AssociationConnector Association="Modelo.FK_PFC_VI_C_REFERENCE_TIPO_716" />
+        <AssociationConnector Association="Modelo.FK_PFC_VI_A_REFERENCE_PFC_V706" />
+        <AssociationConnector Association="Modelo.FK_PFC_VI_A_REFERENCE_TIPO_708" />
+        <EntityTypeShape EntityType="Modelo.PFF_ESTUDIO_PSICOLOGICO" Width="1.5" PointX="45.5" PointY="109" />
+        <EntityTypeShape EntityType="Modelo.PFF_SUSTANCIA_TOXICA" Width="1.5" PointX="58.75" PointY="62" />
+        <AssociationConnector Association="Modelo.FK_PFF_ESTU_REFERENCE_DR767" />
+        <EntityTypeShape EntityType="Modelo.NUC" Width="1.5" PointX="70.5" PointY="65.625" />
+        <EntityTypeShape EntityType="Modelo.PFF_CAPACITACION_CURSO" Width="1.5" PointX="47.75" PointY="141.625" />
+        <EntityTypeShape EntityType="Modelo.PFF_DIAS_LABORADO" Width="1.5" PointX="47.75" PointY="138.125" />
+        <EntityTypeShape EntityType="Modelo.PFF_ACTIVIDAD_PARTICIPACION" Width="1.5" PointX="47.75" PointY="115.5" />
+        <EntityTypeShape EntityType="Modelo.PFF_CORRECTIVO" Width="1.5" PointX="47.75" PointY="156.375" />
+        <EntityTypeShape EntityType="Modelo.PFF_CRIMINOLOGICO" Width="1.5" PointX="45.5" PointY="146.625" />
+        <EntityTypeShape EntityType="Modelo.PFF_VIGILANCIA" Width="1.5" PointX="45.5" PointY="154.75" />
+        <AssociationConnector Association="Modelo.FK_PFF_ACTI_REFERENCE_TIPO_777" />
+        <AssociationConnector Association="Modelo.FK_PFF_SECC_REFERENCE_PFF_V779" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD_FUERO_FEDERAL" Width="1.5" PointX="63.5" PointY="108.875" />
+        <AssociationConnector Association="Modelo.FK_ACTA_CON_REFERENCE_PE757" />
+        <AssociationConnector Association="Modelo.FK_FICHA_ID_REFERENCE_PERSO761" />
+        <AssociationConnector Association="Modelo.FK_PFF_ESTU_REFERENCE_PERSO768" />
+        <AssociationConnector Association="Modelo.FK_PFF_ESTU_REFERENCE_PERSO780" />
+        <AssociationConnector Association="Modelo.FK_PFF_VIGI_REFERENCE_PERSO778" />
+        <EntityTypeShape EntityType="Modelo.PRESENTACION" Width="1.5" PointX="26.625" PointY="71.25" />
+        <EntityTypeShape EntityType="Modelo.PRODUCTO_PRESENTACION" Width="1.5" PointX="28.875" PointY="5.25" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_REFERENCE_PRESE792" />
+        <EntityTypeShape EntityType="Modelo.CONTROL_PRENATAL" Width="1.5" PointX="65" PointY="36" />
+        <EntityTypeShape EntityType="Modelo.HC_DOCUMENTO_TIPO" Width="1.5" PointX="70.25" PointY="28" />
+        <EntityTypeShape EntityType="Modelo.HISTORIA_CLINICA_FAMILIAR" Width="1.5" PointX="72.5" PointY="32.875" />
+        <EntityTypeShape EntityType="Modelo.PATOLOGICO_CAT" Width="1.5" PointX="67.25" PointY="24" />
+        <EntityTypeShape EntityType="Modelo.SECTOR_CLASIFICACION" Width="1.5" PointX="24.25" PointY="63.25" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_TIPO_795" />
+        <AssociationConnector Association="Modelo.FK_SECTOR_O_REFERENCE_SECTOR_C" />
+        <EntityTypeShape EntityType="Modelo.USUARIO" Width="1.5" PointX="62" PointY="93.125" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_REFERENCE_USUA477" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_USUARIO" />
+        <AssociationConnector Association="Modelo.FK_USUARIO__REFERENCE_USU" />
+        <EntityTypeShape EntityType="Modelo.EMPLEADO" Width="1.5" PointX="35" PointY="44.625" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_INCIDENCIA_TIPO" Width="1.5" PointX="72.75" PointY="45" />
+        <AssociationConnector Association="Modelo.FK_EMPLEADO_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_EMPLEADO_REFERENCE_TIPO_EMP" />
+        <AssociationConnector Association="Modelo.FK_USUARIO_REFERENCE_EMPLE414" />
+        <EntityTypeShape EntityType="Modelo.TIPO_DISCAPACIDAD" Width="1.5" PointX="22.375" PointY="4" />
+        <AssociationConnector Association="Modelo.FK_EMI_ENFE_REFERENCE_TIPO_DIS" />
+        <EntityTypeShape EntityType="Modelo.DIALECTO" Width="1.5" PointX="28.5" PointY="78.125" />
+        <EntityTypeShape EntityType="Modelo.PFF_CAPACITACION" Width="1.5" PointX="77.75" PointY="49.5" />
+        <EntityTypeShape EntityType="Modelo.PFF_ESTUDIO_MEDICO" Width="1.5" PointX="80.75" PointY="55.5" />
+        <EntityTypeShape EntityType="Modelo.PFF_TRABAJO_SOCIAL" Width="1.5" PointX="73.75" PointY="62.375" />
+        <AssociationConnector Association="Modelo.FK_PFF_TRAB_REFERENCE_COLO791" />
+        <AssociationConnector Association="Modelo.FK_PFF_TRAB_REFERENCE_DIALE819" />
+        <AssociationConnector Association="Modelo.FK_PFF_TRAB_REFERENCE_ESCOL816" />
+        <AssociationConnector Association="Modelo.FK_PFF_TRAB_REFERENCE_ESCOL817" />
+        <AssociationConnector Association="Modelo.FK_PFF_TRAB_REFERENCE_MUNIC789" />
+        <AssociationConnector Association="Modelo.FK_PFF_TRAB_REFERENCE_MUNIC790" />
+        <AssociationConnector Association="Modelo.FK_PFF_CAPA_REFERENCE_OCUPA820" />
+        <AssociationConnector Association="Modelo.FK_PFF_ESTU_REFERENCE_OCUPA814" />
+        <AssociationConnector Association="Modelo.FK_PFF_ESTU_REFERENCE_OCUPA815" />
+        <AssociationConnector Association="Modelo.FK_PFF_TRAB_REFERENCE_OCUPA818" />
+        <AssociationConnector Association="Modelo.FK_PFF_CAPA_REFERENCE_PERSO771" />
+        <AssociationConnector Association="Modelo.FK_PFF_ESTU_REFERENCE_PERSO766" />
+        <AssociationConnector Association="Modelo.FK_PFF_ESTU_REFERENCE_PERSO769" />
+        <AssociationConnector Association="Modelo.FK_PFF_CAPA_REFERENCE_PFF_C774" />
+        <AssociationConnector Association="Modelo.FK_PFF_DIAS_REFERENCE_PFF_C775" />
+        <AssociationConnector Association="Modelo.FK_PFF_SUST_REFERENCE_PFF_ESTU" />
+        <AssociationConnector Association="Modelo.FK_PFF_TRAB_REFERENCE_TIPO_788" />
+        <EntityTypeShape EntityType="Modelo.ABOGADO" Width="1.5" PointX="59" PointY="20.125" />
+        <EntityTypeShape EntityType="Modelo.ABOGADO_INGRESO" Width="1.5" PointX="62.25" PointY="31" />
+        <EntityTypeShape EntityType="Modelo.ABOGADO_TITULAR" Width="1.5" PointX="61.25" PointY="6.875" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ABOG807" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ABOG823" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ABOGAD3" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ABOGADO" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO_REFERENCE_ABOGADO_" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO_REFERENCE_EST_VIS" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO_REFERENCE_JUZGADO" />
+        <AssociationConnector Association="Modelo.FK_ACTUARIO_REFERENCE_ABOGAD2" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ABOGADO_" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ESTATUS_" />
+        <EntityTypeShape EntityType="Modelo.ABOGADO_CAUSA_PENAL" Width="1.5" PointX="76.125" PointY="36.5" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ABOGA1" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_STAT_VIS" />
+        <EntityTypeShape EntityType="Modelo.ABOGADO_ING_DOCTO" Width="1.5" PointX="64.5" PointY="22.75" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ABOG3" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_TIPO_D2" />
+        <EntityTypeShape EntityType="Modelo.ABOGADO_CP_DOCTO" Width="1.5" PointX="78.375" PointY="25.125" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_ABOG2" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_TIPO_D3" />
+        <EntityTypeShape EntityType="Modelo.DEPARTAMENTO_ACCESO" Width="1.5" PointX="68.25" PointY="58.25" />
+        <EntityTypeShape EntityType="Modelo.DEPARTAMENTO_AREA_TECNICA" Width="1.5" PointX="64.25" PointY="41" />
+        <AssociationConnector Association="Modelo.FK_DEPARTAM_REFERENCE_AREA_825" />
+        <AssociationConnector Association="Modelo.FK_DEPARTAM_REFERENCE_USUA811" />
+        <EntityTypeShape EntityType="Modelo.DEPARTAMENTO" Width="1.5" PointX="39" PointY="72.75" />
+        <AssociationConnector Association="Modelo.FK_CENTRO_D_REFERENCE_DEPARTAM" />
+        <AssociationConnector Association="Modelo.FK_DEPARTAM_REFERENCE_DEPAR810" />
+        <AssociationConnector Association="Modelo.FK_DEPARTAM_REFERENCE_DEPAR824" />
+        <AssociationConnector Association="Modelo.FK_DEPARTAM_REFERENCE_SISTE822" />
+        <AssociationConnector Association="Modelo.FK_EMPLEADO_REFERENCE_DEPAR808" />
+        <AssociationConnector Association="Modelo.FK_TIPO_PRO_REFERENCE_DEPARTAM" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_CITA_IN_MOTIVO" Width="1.5" PointX="76" PointY="76.875" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_CITA_ESTATUS" Width="1.5" PointX="13.375" PointY="15.875" />
+        <EntityTypeShape EntityType="Modelo.LIBERACION" Width="1.5" PointX="78.5" PointY="58.75" />
+        <AssociationConnector Association="Modelo.FK_LIBERACI_REFERENCE_LIBERAC2" />
+        <AssociationConnector Association="Modelo.FK_LIBERACI_REFERENCE_LIBERACI" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_VULNERABLE" Width="1.5" PointX="83.875" PointY="44.875" />
+        <EntityTypeShape EntityType="Modelo.TIPO_DELITO" Width="1.5" PointX="0.75" PointY="16.875" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_TIPODELIT_TIPO_DEL" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_VU_REFERENCE_SECTO802" />
+        <AssociationConnector Association="Modelo.FK_RECURSO__TIPO_DELI_TIPO_DEL" />
+        <AssociationConnector Association="Modelo.FK_SENTENCI_TIPO_DELI_TIPO_DEL" />
+        <EntityTypeShape EntityType="Modelo.DENTAL_NOMENCLATURA" Width="1.5" PointX="18.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Modelo.DENTAL_TIPO_TRATAMIENTO" Width="1.5" PointX="3.375" PointY="56" />
+        <EntityTypeShape EntityType="Modelo.DENTAL_TRATAMIENTO" Width="1.5" PointX="5.625" PointY="55.875" />
+        <EntityTypeShape EntityType="Modelo.ODONTOGRAMA_TIPO" Width="1.5" PointX="10.375" PointY="21.75" />
+        <AssociationConnector Association="Modelo.FK_DENTAL_T_REFERENCE_DENTA835" />
+        <EntityTypeShape EntityType="Modelo.EMI_ANTECEDENTE_FAM_CON_DEL" Width="1.5" PointX="48.75" PointY="23.125" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_CANCELA_MOTIVO" Width="1.5" PointX="72.75" PointY="48.125" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_INTERNACIONAL" Width="1.5" PointX="71.75" PointY="81.25" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_INTERNACIONAL_SANCION" Width="1.5" PointX="74" PointY="89.125" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_INTERNACIONAL_VISITA" Width="1.5" PointX="76" PointY="65.5" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_ISLAS" Width="1.5" PointX="76.75" PointY="80.75" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTE_REF38_ING_EMI" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTE_CENTRO_EM_EMISOR" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTE_DELITO_EM_INGRESO_" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTE_REFERENCI_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_EMI_ANTEDELITO" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PFC_V854" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PFC_V856" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PFC_V857" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PFC_V858" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PFC_V852" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PFC_V859" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TIPO_849" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TRASL848" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TRASL850" />
+        <EntityTypeShape EntityType="Modelo.PROGRAMA_HISTORICO" Width="1.5" PointX="64.5" PointY="28.125" />
+        <EntityTypeShape EntityType="Modelo.CAUSA_PENAL" Width="1.5" PointX="67.25" PointY="34.375" />
+        <EntityTypeShape EntityType="Modelo.CAUSA_PENAL_AUTORIDAD_BAJA" Width="1.5" PointX="23.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Modelo.CAUSA_PENAL_BAJA" Width="1.5" PointX="24.375" PointY="6.75" />
+        <EntityTypeShape EntityType="Modelo.FICHA_IDENTIFICACION_JURIDICA" Width="1.5" PointX="43.25" PointY="107" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_I_REFERENCE_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_AGENCIA_S_AGENCIA" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_CAUSA_P2" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_CP_ESTATU_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_ENTIDAD_C_ENTIDAD" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_JUZGADO_C_JUZGADO" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_MUN_CAUSA_MUNICIPI" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_PAIS_CAUS_PAIS_NAC" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_REFERENCE_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_REFERENCE_CPD" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_TERMINO_C_TERMINO" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_TIPOORDEN_TIPO_ORD" />
+        <AssociationConnector Association="Modelo.FK_COPARTIC_REFERENCE_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_LIBERACI_REFERENCE_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_NUC_INGRESO_N_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_SENTENCI_REFERENCE_CAUSA_PE" />
+        <EntityTypeShape EntityType="Modelo.CLASIFICACION_JURIDICA" Width="1.5" PointX="3.375" PointY="26.875" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_NACIONAL" Width="1.5" PointX="72.75" PointY="52.5" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PFC_V853" />
+        <EntityTypeShape EntityType="Modelo.PROCESO_USUARIO" Width="1.5" PointX="72.25" PointY="39.375" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_CEN862" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_PROCESO" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_SISTEMA2" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_USUARIO" />
+        <EntityTypeShape EntityType="Modelo.USUARIO_ROL" Width="1.5" PointX="68.25" PointY="61.625" />
+        <AssociationConnector Association="Modelo.FK_USUARIO__REFERENCE_CEN863" />
+        <AssociationConnector Association="Modelo.FK_USUARIO__REFERENCE_SISTEMA3" />
+        <AssociationConnector Association="Modelo.FK_USUARIO__REFERENCE_USUARIO" />
+        <EntityTypeShape EntityType="Modelo.COMPANIA" Width="1.5" PointX="51.25" PointY="6" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_COMPANIA" />
+        <EntityTypeShape EntityType="Modelo.PRONOSTICO" Width="1.5" PointX="81.25" PointY="66.875" />
+        <EntityTypeShape EntityType="Modelo.HISTORIA_CLINICA_DOCUMENTO" Width="1.5" PointX="83.5" PointY="28.625" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_FORMA833" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_HC_DO799" />
+        <EntityTypeShape EntityType="Modelo.HISTORIA_CLINICA_PATOLOGICOS" Width="1.5" PointX="83.5" PointY="33.625" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD" Width="1.5" PointX="70.25" PointY="31.375" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_A885" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_PATOL797" />
+        <AssociationConnector Association="Modelo.FK_ESTUDIO__REFERENCE_ESTU643" />
+        <AssociationConnector Association="Modelo.FK_ESTUDIO__REFERENCE_ESTUD644" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_INGR756" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_PERSO681" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_PERSO847" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PERSO851" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_PERSO855" />
+        <EntityTypeShape EntityType="Modelo.ACTIVIDAD_EJE" Width="1.5" PointX="48.25" PointY="46.875" />
+        <EntityTypeShape EntityType="Modelo.PFC_VII_ESCOLARIDAD_ANTERIOR" Width="1.5" PointX="68" PointY="74.5" />
+        <AssociationConnector Association="Modelo.FK_ACTIVIDA_REFERENCE_ACTIVIDA" />
+        <AssociationConnector Association="Modelo.FK_ACTIVIDA_REFERENCE_EJE" />
+        <AssociationConnector Association="Modelo.FK_PFC_VII__REFERENCE_EDUCA718" />
+        <AssociationConnector Association="Modelo.FK_PFC_VII__REFERENCE_PFC_V717" />
+        <EntityTypeShape EntityType="Modelo.ACTA_CONSEJO_TECNICO" Width="1.5" PointX="72.5" PointY="16.875" />
+        <AssociationConnector Association="Modelo.FK_ACTA_CON_REFERENCE_PERSO875" />
+        <EntityTypeShape EntityType="Modelo.CITA_TIPO" Width="1.5" PointX="88.75" PointY="68.75" />
+        <EntityTypeShape EntityType="Modelo.INTERCONSULTA_ATENCION_TIPO" Width="1.5" PointX="86.5" PointY="65.625" />
+        <EntityTypeShape EntityType="Modelo.INTERCONSULTA_NIVEL_PRIORIDAD" Width="1.5" PointX="86.5" PointY="60.625" />
+        <EntityTypeShape EntityType="Modelo.INTERCONSULTA_TIPO" Width="1.5" PointX="86.5" PointY="63.125" />
+        <EntityTypeShape EntityType="Modelo.PROC_MATERIAL" Width="1.5" PointX="86.5" PointY="44.75" />
+        <EntityTypeShape EntityType="Modelo.PROC_MED" Width="1.5" PointX="83.25" PointY="80.25" />
+        <EntityTypeShape EntityType="Modelo.PROC_MED_SUBTIPO" Width="1.5" PointX="81" PointY="80.25" />
+        <EntityTypeShape EntityType="Modelo.SUBTIPO_SERVICIO_AUX_DIAG_TRAT" Width="1.5" PointX="88.75" PointY="71.625" />
+        <EntityTypeShape EntityType="Modelo.TIPO_SERVICIO_AUX_DIAG_TRAT" Width="1.5" PointX="86.5" PointY="68.625" />
+        <AssociationConnector Association="Modelo.FK_PROCMED__REFERENCE_ATENC877" />
+        <AssociationConnector Association="Modelo.FK_PROC_MAT_REFERENCE_PROC_878" />
+        <AssociationConnector Association="Modelo.FK_PROCMED_REFERENCE_PROCM876" />
+        <AssociationConnector Association="Modelo.FK_SUBTIPO__REFERENCE_TIPO_899" />
+        <EntityTypeShape EntityType="Modelo.SERVICIO_AUX_DIAG_TRAT" Width="1.5" PointX="91" PointY="76.75" />
+        <AssociationConnector Association="Modelo.FK_SERVICIO_REFERENCE_SUBTI909" />
+        <EntityTypeShape EntityType="Modelo.GRUPO" Width="1.5" PointX="59.5" PointY="66.75" />
+        <EntityTypeShape EntityType="Modelo.GRUPO_HORARIO" Width="1.5" PointX="66.75" PointY="29.875" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_REFERENCE_ACTIVIDA" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_REFERENCE_ACTIV905" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_HO_REFERENCE_AREA" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_REFERENCE_CENTRO_D" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_HO_REFERENCE_GRUPO" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_GRUPO" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_REFERENCE_GRUPO_ES" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_AS_REFERENCE_GRUPO_HO" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_HO_REFERENCE_GRUPO_HO" />
+        <EntityTypeShape EntityType="Modelo.PFF_GRUPO_FAMILIAR" Width="1.5" PointX="76" PointY="70.375" />
+        <AssociationConnector Association="Modelo.FK_PFF_GRUP_REFERENCE_EDUCA911" />
+        <AssociationConnector Association="Modelo.FK_PFF_GRUP_REFERENCE_PFF_E770" />
+        <EntityTypeShape EntityType="Modelo.ENFERMEDAD" Width="1.5" PointX="48.5" PointY="94.375" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD_DETALLE" Width="1.5" PointX="78.5" PointY="38.375" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_A910" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_PERSO645" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_PERSO646" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_PERSO647" />
+        <EntityTypeShape EntityType="Modelo.HISTORIA_CLINICA" Width="1.5" PointX="75.25" PointY="17.125" />
+        <EntityTypeShape EntityType="Modelo.HISTORIA_CLINICA_DENTAL" Width="1.5" PointX="81.25" PointY="35.25" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_VU_REFERENCE_HISTO801" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_HISTO794" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_HISTO796" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_HISTO798" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_USUA887" />
+        <EntityTypeShape EntityType="Modelo.HISTORIA_CLINICA_DENTAL_DOCUME" Width="1.5" PointX="86.5" PointY="36.375" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_HC_DO924" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_HISTO923" />
+        <EntityTypeShape EntityType="Modelo.PFC_V_CRIMINODIAGNOSTICO" Width="1.5" PointX="65.75" PointY="79.25" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PERSO685" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V_CA" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V698" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V700" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V701" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V702" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V703" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V705" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V697" />
+        <AssociationConnector Association="Modelo.FK_PFC_V_CR_REFERENCE_PFC_V704" />
+        <EntityTypeShape EntityType="Modelo.PERSONA" Width="1.5" PointX="40.75" PointY="39.125" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_A_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_CENTRO_D_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_PERSONA_REFERENCE_COLONIA" />
+        <AssociationConnector Association="Modelo.FK_CORRESPO_REFERENCE_DEPOS" />
+        <AssociationConnector Association="Modelo.FK_CORRESPO_REFERENCE_EMPLEADO" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_EMPLEADO_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_PERSONA_REFERENCE_ENTIDAD" />
+        <AssociationConnector Association="Modelo.FK_ESTADO_CIVIL_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_PERSONA_REFERENCE_ETNIA" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_FAMILIAR_PER_FAMRE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_PERS660" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_PERS746" />
+        <AssociationConnector Association="Modelo.FK_PERSONA_REFERENCE_MUNICIPI" />
+        <AssociationConnector Association="Modelo.FK_PAIS_NACIONALIDAD_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_PERSONA_REFERENCE_PAIS_NAC" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__REFERENCE_NIP" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_PERSONA_REFERENCE_TIPO_DIS" />
+        <AssociationConnector Association="Modelo.FK_PERSONA_REFERENCE_TIPO_PER" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_PERSO01" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_PERSO02" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_PERSO03" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_PERSONA_V_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_PERSONA" />
+        <EntityTypeShape EntityType="Modelo.OBJETO_TIPO" Width="1.5" PointX="24" PointY="32.125" />
+        <AssociationConnector Association="Modelo.FK_COMPANIA_REFERENCE_OBJET864" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_OBJFAB" />
+        <AssociationConnector Association="Modelo.FK_DECOMISO_REFERENCE_OBJETO_T" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_OBJETO_T" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__REFERENCE_OBJETO_T" />
+        <EntityTypeShape EntityType="Modelo.LIBERADO" Width="1.5" PointX="40" PointY="7.375" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_LIBERAD2" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_LIBERAD3" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_OCUPACIO" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_TIPO_RE2" />
+        <EntityTypeShape EntityType="Modelo.SESION" Width="1.5" PointX="15.375" PointY="18.75" />
+        <EntityTypeShape EntityType="Modelo.CARACTER_NOTIFICACION_TS" Width="1.5" PointX="66" PointY="12.625" />
+        <EntityTypeShape EntityType="Modelo.DIAGNOSTICO_NOTIFICA_TS_TIPO" Width="1.5" PointX="66" PointY="16.125" />
+        <EntityTypeShape EntityType="Modelo.RIESGO_NOTIFICACION_TS" Width="1.5" PointX="66" PointY="19.5" />
+        <EntityTypeShape EntityType="Modelo.NOTIFICACION_TS_TIPO" Width="1.5" PointX="5.375" PointY="25.75" />
+        <EntityTypeShape EntityType="Modelo.PERSONA_EXTERNO" Width="1.5" PointX="74.75" PointY="93" />
+        <EntityTypeShape EntityType="Modelo.VISITA_EXTERNA" Width="1.5" PointX="85" PointY="49.75" />
+        <AssociationConnector Association="Modelo.FK_VISITA_E_REFERENCE_AREA_VIS" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_VISITA_E_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__REXTERNO_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__RE_TIPO_VIS" />
+        <AssociationConnector Association="Modelo.FK_VISITA_E_REFERENCE_PERSONA_" />
+        <AssociationConnector Association="Modelo.FK_VISITA_E_REFERENCE_PUESTO" />
+        <AssociationConnector Association="Modelo.FK_VISITA_E_RTIPOVISI_TIPO_VIS" />
+        <EntityTypeShape EntityType="Modelo.EMI_IMPUTADO" Width="1.5" PointX="48.25" PointY="52.5" />
+        <EntityTypeShape EntityType="Modelo.LIBERADO_MEDIDA_JUDICIAL" Width="1.5" PointX="49.25" PointY="15.875" />
+        <EntityTypeShape EntityType="Modelo.PRS_ENTREVISTA_INICIAL" Width="1.5" PointX="59.25" PointY="0.75" />
+        <EntityTypeShape EntityType="Modelo.PRS_REPORTE_PSICOLOGICO" Width="1.5" PointX="35.25" PointY="12.875" />
+        <EntityTypeShape EntityType="Modelo.PRS_VISITA_DOMICILIARIA" Width="1.5" PointX="54.25" PointY="10.75" />
+        <AssociationConnector Association="Modelo.FK_EMI_IMPU_REFERENCE_EMI" />
+        <AssociationConnector Association="Modelo.FK_PRS_VISI_REFERENCE_ENTI739" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_LIBERAD1" />
+        <AssociationConnector Association="Modelo.FK_PRS_VISI_REFERENCE_MUNIC741" />
+        <AssociationConnector Association="Modelo.FK_PRS_ENTR_REFERENCE_OCUPA781" />
+        <AssociationConnector Association="Modelo.FK_PRS_APOY_REFERENCE_PRS_E713" />
+        <AssociationConnector Association="Modelo.FK_PRS_DROG_REFERENCE_PRS_E735" />
+        <AssociationConnector Association="Modelo.FK_PRS_ENTR_REFERENCE_TIPO_782" />
+        <AssociationConnector Association="Modelo.FK_PRS_NUCL_REFERENCE_PRS_E724" />
+        <AssociationConnector Association="Modelo.FK_PRS_REPO_REFERENCE_TIPO_738" />
+        <AssociationConnector Association="Modelo.FK_PRS_VISI_REFERENCE_PRS_V742" />
+        <AssociationConnector Association="Modelo.FK_PRS_VISI_REFERENCE_TIPO_740" />
+        <EntityTypeShape EntityType="Modelo.CAMA_HOSPITAL" Width="1.5" PointX="68.25" PointY="70.5" />
+        <AssociationConnector Association="Modelo.FK_CAMA_HOSP_REFERENCE_CENT964" />
+        <AssociationConnector Association="Modelo.FK_CAMA_HOSP_REFERENCE_USUA965" />
+        <EntityTypeShape EntityType="Modelo.ADUANA_INGRESO" Width="1.5" PointX="91.5" PointY="38.625" />
+        <EntityTypeShape EntityType="Modelo.HOSPITALIZACION_ESTATUS" Width="1.5" PointX="89.25" PointY="64" />
+        <EntityTypeShape EntityType="Modelo.HOSPITALIZACION_INGRESO_TIPO" Width="1.5" PointX="89.25" PointY="66.5" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_I_REFERENCE_ADUANA" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_I_REFERENCE_ADUANA2" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_I_REFERENCE_VISIT975" />
+        <EntityTypeShape EntityType="Modelo.CANALIZACION_ESTATUS" Width="1.5" PointX="84.5" PointY="84" />
+        <EntityTypeShape EntityType="Modelo.SERVICIO_AUXILIAR_RESULTADO" Width="1.5" PointX="94.25" PointY="54.5" />
+        <AssociationConnector Association="Modelo.FK_SERVICIO_REFERENCE_FORMA943" />
+        <AssociationConnector Association="Modelo.FK_SERVICIO_REFERENCE_DIATR944" />
+        <AssociationConnector Association="Modelo.FK_SERVICIO_REFERENCE_USUA942" />
+        <EntityTypeShape EntityType="Modelo.GIRO" Width="1.5" PointX="49.25" PointY="104.5" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_ESTATUS" Width="1.5" PointX="52.25" PointY="95.75" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_MOTIVO" Width="1.5" PointX="52.25" PointY="98.5" />
+        <EntityTypeShape EntityType="Modelo.PARTICULARIDAD" Width="1.5" PointX="13.75" PointY="37" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_M_REFERENCE_MEDI_N13" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA" Width="1.5" PointX="28.625" PointY="46.875" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_TIPO" Width="1.5" PointX="26.375" PointY="47.125" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_REFERENCE_TIPO_979" />
+        <EntityTypeShape EntityType="Modelo.FUENTE" Width="1.5" PointX="44.75" PointY="129.375" />
+        <EntityTypeShape EntityType="Modelo.LUGAR_CUMPLIMIENTO" Width="1.5" PointX="60.5" PointY="52" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_DOCUMENTO" Width="1.5" PointX="47" PointY="126.625" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_D_REFERENCE_EMPLE987" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_D_REFERENCE_FUE985" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_PRESENTACION" Width="1.5" PointX="69.75" PointY="22" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_P_REFERENCE_EMPLE983" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_P_REFERENCE_LUGAR984" />
+        <EntityTypeShape EntityType="Modelo.VISITANTE_INGRESO" Width="1.5" PointX="94.5" PointY="46" />
+        <AssociationConnector Association="Modelo.FK_ACOMPANATE_ACOMPANANTEING" />
+        <AssociationConnector Association="Modelo.FK_ACOMPANATE_VISITANTEING" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_ESTVIS_VI_ESTATUS_" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_TIPO_REF" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_TIPO_VIS" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_USUA988" />
+        <AssociationConnector Association="Modelo.FK_VISITA_D_REFERENCE_VISITANT" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_VISITANT" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_PASE" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_DIRECTO" Width="1.5" PointX="98.5" PointY="39.25" />
+        <EntityTypeShape EntityType="Modelo.AMPARO_INCIDENTE" Width="1.5" PointX="78.5" PointY="64" />
+        <EntityTypeShape EntityType="Modelo.RECURSO" Width="1.5" PointX="69.5" PointY="38.75" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_D_REFERENCE_ADD" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_D_REFERENCE_AMPARO_D" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_D_REFERENCE_CAUSA_P" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_D_REFERENCE_JUZGAD2" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_D_REFERENCE_JUZGAD4" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_D_REFERENCE_JUZGAD5" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_D_REFERENCE_JUZGADO" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_AIND" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_AMPARO2" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_JUZGAD6" />
+        <AssociationConnector Association="Modelo.FK_RECURSO_REFERENCE_CAUSA_PE" />
+        <AssociationConnector Association="Modelo.FK_RECURSO_JUSGADO_R_JUZGADO" />
+        <AssociationConnector Association="Modelo.FK_RECURSO__RECURSO_R_RECURSO" />
+        <AssociationConnector Association="Modelo.FK_RECURSO__REFERENCE_RECURSO" />
+        <AssociationConnector Association="Modelo.FK_RECURSO_RECURSO_R_RECURSO_" />
+        <AssociationConnector Association="Modelo.FK_RECURSO_TIPO_RECU_TIPO_REC" />
+        <EntityTypeShape EntityType="Modelo.TIPO_DOCUMENTO_MEDIDA" Width="1.5" PointX="31.375" PointY="1.25" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_D_REFERENCE_TIPO_986" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_PERSONA" Width="1.5" PointX="62.5" PointY="15.125" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_P_REFERENCE_PART_N16" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_P_REFERENCE_TIPO_N17" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_LIBERTAD" Width="1.5" PointX="61.25" PointY="74" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_ME_N12" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_MEDID978" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_P_REFERENCE_MEDID982" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_P_REFERENCE_MEDID993" />
+        <EntityTypeShape EntityType="Modelo.INTERCONSULTA_SOL_ESTATUS" Width="1.5" PointX="86.75" PointY="57.75" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_CITA_INCIDENCIA" Width="1.5" PointX="96.75" PointY="77.875" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_RECIBIDA" Width="1.5" PointX="93.75" PointY="78.125" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_RESULTADO" Width="1.5" PointX="93.75" PointY="69.75" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_SOLICITUD" Width="1.5" PointX="89.25" PointY="59" />
+        <EntityTypeShape EntityType="Modelo.CANALIZACION" Width="1.5" PointX="101.25" PointY="76.75" />
+        <EntityTypeShape EntityType="Modelo.CANALIZACION_ESPECIALIDAD" Width="1.5" PointX="106.5" PointY="44.625" />
+        <EntityTypeShape EntityType="Modelo.CANALIZACION_SERV_AUX" Width="1.5" PointX="103.5" PointY="68.75" />
+        <EntityTypeShape EntityType="Modelo.CERTIFICADO_MEDICO" Width="1.5" PointX="99" PointY="88.5" />
+        <EntityTypeShape EntityType="Modelo.DIAGNOSTICO_MEDICO_NOTIFICA" Width="1.5" PointX="93.75" PointY="73.25" />
+        <EntityTypeShape EntityType="Modelo.HOJA_REFERENCIA_MEDICA" Width="1.5" PointX="105.75" PointY="68.25" />
+        <EntityTypeShape EntityType="Modelo.HOSPITALIZACION" Width="1.5" PointX="101.25" PointY="66.875" />
+        <EntityTypeShape EntityType="Modelo.LESION" Width="1.5" PointX="101.25" PointY="62.625" />
+        <EntityTypeShape EntityType="Modelo.NOTA_INTERCONSULTA" Width="1.5" PointX="102" PointY="50.375" />
+        <EntityTypeShape EntityType="Modelo.NOTA_MEDICA" Width="1.5" PointX="99" PointY="54.5" />
+        <EntityTypeShape EntityType="Modelo.NOTA_MEDICA_ENFERMEDAD" Width="1.5" PointX="104.25" PointY="74.75" />
+        <EntityTypeShape EntityType="Modelo.NOTA_POST_OPERATOR" Width="1.5" PointX="101" PointY="44.5" />
+        <EntityTypeShape EntityType="Modelo.NOTA_PRE_ANESTECIC" Width="1.5" PointX="104" PointY="45.5" />
+        <EntityTypeShape EntityType="Modelo.NOTA_PRE_OPERATORI" Width="1.5" PointX="105" PointY="49.25" />
+        <EntityTypeShape EntityType="Modelo.NOTA_REFERENCIA_TR" Width="1.5" PointX="104" PointY="41.5" />
+        <EntityTypeShape EntityType="Modelo.NOTA_SIGNOS_VITALES" Width="1.5" PointX="99" PointY="50.125" />
+        <EntityTypeShape EntityType="Modelo.NOTA_URGENCIA" Width="1.5" PointX="99" PointY="93.75" />
+        <EntityTypeShape EntityType="Modelo.PROC_ATENCION_MEDICA" Width="1.5" PointX="102" PointY="73" />
+        <EntityTypeShape EntityType="Modelo.PROC_ATENCION_MEDICA_PROG_INCI" Width="1.5" PointX="106.5" PointY="86.875" />
+        <EntityTypeShape EntityType="Modelo.PROC_MEDICO_PROG_DET" Width="1.5" PointX="109.5" PointY="44.375" />
+        <EntityTypeShape EntityType="Modelo.RECETA_MEDICA" Width="1.5" PointX="99" PointY="73.125" />
+        <EntityTypeShape EntityType="Modelo.SOL_INTERCONSULTA_INTERNA" Width="1.5" PointX="106.75" PointY="73.5" />
+        <AssociationConnector Association="Modelo.FK_LESION_REFERENCE_ANATO751" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_AREA" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_AREA_TEC" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC827" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_ATENC959" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_USUA828" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_USUA804" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC754" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_HOSPITAL_REFERENCE_CAMAH976" />
+        <AssociationConnector Association="Modelo.FK_CANALIZ_REFERENCE_ESTCAN978" />
+        <AssociationConnector Association="Modelo.FK_CANALIZ_REFERENCE_NOTAM977" />
+        <AssociationConnector Association="Modelo.FK_CANALIZ_REFERENCE_USUA979" />
+        <AssociationConnector Association="Modelo.FK_CANESP_REFERENCE_CANALIZ984" />
+        <AssociationConnector Association="Modelo.FK_CASEAU_REFERENCE_CANALIZ980" />
+        <AssociationConnector Association="Modelo.FK_CANESP_REFERENCE_ESPEC985" />
+        <AssociationConnector Association="Modelo.FK_CANESP_REFERENCE_INIVEL986" />
+        <AssociationConnector Association="Modelo.FK_CANESP_REFERENCE_INTERAT988" />
+        <AssociationConnector Association="Modelo.FK_CANESP_REFERENCE_INTIPO987" />
+        <AssociationConnector Association="Modelo.FK_CASEAU_REFERENCE_INIVEL982" />
+        <AssociationConnector Association="Modelo.FK_CASEAU_REFERENCE_INTIPO983" />
+        <AssociationConnector Association="Modelo.FK_CASEAU_REFERENCE_SERAUX981" />
+        <AssociationConnector Association="Modelo.FK_SOLICITU_REFERENCE_CEN889" />
+        <AssociationConnector Association="Modelo.FK_LESION_REFERENCE_CERTF750" />
+        <AssociationConnector Association="Modelo.FK_HOJA_CON_REFERENCE_CITA_895" />
+        <AssociationConnector Association="Modelo.FK_DIAGNOST_REFERENCE_ENFER938" />
+        <AssociationConnector Association="Modelo.FK_HOSPITAL_REFERENCE_EMPLE969" />
+        <AssociationConnector Association="Modelo.FK_HOSPITAL_REFERENCE_EMPLE972" />
+        <AssociationConnector Association="Modelo.FK_NOTA_MED_REFERENCE_ENFER710" />
+        <AssociationConnector Association="Modelo.FK_HOJA_CON_REFERENCE_HOSPI893" />
+        <AssociationConnector Association="Modelo.FK_HOSPITAL_REFERENCE_HOSPI970" />
+        <AssociationConnector Association="Modelo.FK_HOSPITAL_REFERENCE_HOSPI973" />
+        <AssociationConnector Association="Modelo.FK_HOSPITAL_REFERENCE_NOTA_971" />
+        <AssociationConnector Association="Modelo.FK_HOSPITAL_REFERENCE_USUA974" />
+        <AssociationConnector Association="Modelo.FK_NOTA_INT_REFERENCE_PERS680" />
+        <AssociationConnector Association="Modelo.FK_NOTA_ENF_REFERENCE_NOTA_709" />
+        <AssociationConnector Association="Modelo.FK_NOTA_MED_REFERENCE_PERS665" />
+        <AssociationConnector Association="Modelo.FK_NOTA_MED_REFERENCE_PRONO874" />
+        <AssociationConnector Association="Modelo.FK_NOTA_POS_REFERENCE_PERSONA" />
+        <AssociationConnector Association="Modelo.FK_NOTA_PRE_REFERENCE_PERS678" />
+        <AssociationConnector Association="Modelo.FK_NOTA_PRE_REFERENCE_PERS676" />
+        <AssociationConnector Association="Modelo.FK_NOTA_REF_REFERENCE_PERS672" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_PERS666" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_PROC_880" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_USUA881" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_USUA960" />
+        <AssociationConnector Association="Modelo.FK_RECETA_M_REFERENCE_USUA839" />
+        <AssociationConnector Association="Modelo.FK_SOLICITU_REFERENCE_USUA891" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_INGRESO" Width="1.5" PointX="96.5" PointY="56" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENCION" />
+        <EntityTypeShape EntityType="Modelo.SERVICIO_AUX_INTERCONSULTA" Width="1.5" PointX="105.75" PointY="65.125" />
+        <AssociationConnector Association="Modelo.FK_SERVICIO_REFERENCE_SERVI921" />
+        <EntityTypeShape EntityType="Modelo.NOTIFICACION_TS" Width="1.5" PointX="91.5" PointY="51.5" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_CARAC936" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_CEN995" />
+        <AssociationConnector Association="Modelo.FK_DIAGNOST_REFERENCE_NOTIF939" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_DIAGN937" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_NOTIF932" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_NOTIF944" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_RIESG935" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_USUA934" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_CITA" Width="1.5" PointX="108" PointY="57.625" />
+        <EntityTypeShape EntityType="Modelo.PROC_ATENCION_MEDICA_PROG" Width="1.5" PointX="111.25" PointY="77.125" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_A727" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC726" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC773" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC803" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC826" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC830" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENCIO3" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_PERS657" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_USUA805" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_ATENC896" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_PROC_879" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_PROC_958" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_USUA897" />
+        <AssociationConnector Association="Modelo.FK_PROC_MED_REFERENCE_PROC_884" />
+        <EntityTypeShape EntityType="Modelo.ESPECIALISTA" Width="1.5" PointX="67.25" PointY="51.625" />
+        <AssociationConnector Association="Modelo.FK_ESPECIAL_REFERENCE_CEN964" />
+        <AssociationConnector Association="Modelo.FK_ESPECIAL_REFERENCE_ESPEC961" />
+        <AssociationConnector Association="Modelo.FK_ESPECIAL_REFERENCE_PERS962" />
+        <AssociationConnector Association="Modelo.FK_ESPECIAL_REFERENCE_USUA963" />
+        <EntityTypeShape EntityType="Modelo.BIOMETRICO_TIPO" Width="1.5" PointX="30.75" PointY="57.125" />
+        <EntityTypeShape EntityType="Modelo.IMPUTADO_BIOMETRICO" Width="1.5" PointX="33" PointY="18.75" />
+        <EntityTypeShape EntityType="Modelo.PFC_IV_PROGRAMA" Width="1.5" PointX="71" PointY="74.75" />
+        <EntityTypeShape EntityType="Modelo.PFC_VIII_ACTIVIDAD_LABORAL" Width="1.5" PointX="68" PointY="96.125" />
+        <EntityTypeShape EntityType="Modelo.PFF_ACTIVIDAD" Width="1.5" PointX="70.75" PointY="96" />
+        <AssociationConnector Association="Modelo.FK_PFC_IV_P_REFERENCE_ACTIV694" />
+        <AssociationConnector Association="Modelo.FK_PFC_VIII_REFERENCE_ACTIV991" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_TIPO_BIO" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__TIPOBIO_I_BIOMETRI" />
+        <AssociationConnector Association="Modelo.FK_PERSONA__REFERENCE_BIOMETRI" />
+        <AssociationConnector Association="Modelo.FK_PFF_ACTI_REFERENCE_ESCOL821" />
+        <AssociationConnector Association="Modelo.FK_PFF_ACTI_REFERENCE_PERSO776" />
+        <AssociationConnector Association="Modelo.FK_PFC_IV_P_REFERENCE_PFC_I695" />
+        <AssociationConnector Association="Modelo.FK_PFC_IV_P_REFERENCE_TIPO_696" />
+        <AssociationConnector Association="Modelo.FK_PFC_VIII_REFERENCE_PFC_V722" />
+        <AssociationConnector Association="Modelo.FK_PFC_VIII_REFERENCE_PFC_V723" />
+        <AssociationConnector Association="Modelo.FK_PFC_VIII_REFERENCE_TIPO_992" />
+        <AssociationConnector Association="Modelo.FK_PFF_ACTI_REFERENCE_PFF_ACTI" />
+        <EntityTypeShape EntityType="Modelo.IMPUTADO_DOCUMENTO" Width="1.5" PointX="91.5" PointY="31.5" />
+        <AssociationConnector Association="Modelo.FK_DOCUMENTOIMPUTADO" />
+        <EntityTypeShape EntityType="Modelo.ESPECIALISTA_CITA" Width="1.5" PointX="110.25" PointY="72.375" />
+        <AssociationConnector Association="Modelo.FK_ESPECIAL_REFERENCE_ATENC965" />
+        <AssociationConnector Association="Modelo.FK_ESPECIAL_REFERENCE_ESPEC964" />
+        <AssociationConnector Association="Modelo.FK_ESPECIAL_REFERENCE_SOL_I994" />
+        <AssociationConnector Association="Modelo.FK_ESPECIAL_REFERENCE_USUA966" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO_HOJA_CTRL" Width="1.5" PointX="103.5" PointY="81.625" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO_HOJA_CTRL_CONCEN" Width="1.5" PointX="103.5" PointY="63.875" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO_HOJA_CTRL_CONCEN_TIPO" Width="1.5" PointX="101.25" PointY="59.75" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO_HOJA_CTRL_DETALLE" Width="1.5" PointX="105.75" PointY="82.5" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO_HORA" Width="1.5" PointX="101.25" PointY="82.625" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO_TIPO" Width="1.5" PointX="101.25" PointY="86.75" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO_TURNO" Width="1.5" PointX="99" PointY="82.75" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO__REFERENCE_HOSP1005" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO__REFERENCE_HOSPI999" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO__REFERENCE_LIQU1000" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO__REFERENCE_LIQU1002" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO__REFERENCE_USU1001" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO__REFERENCE_LIQU1006" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO__REFERENCE_LIQU1004" />
+        <EntityTypeShape EntityType="Modelo.PRODUCTO_PRESENTACION_MED" Width="1.5" PointX="108.25" PointY="66.25" />
+        <AssociationConnector Association="Modelo.FK_PROD_P_M_REFERENCE_USUARIO" />
+        <EntityTypeShape EntityType="Modelo.PRESENTACION_MEDICAMENTO" Width="1.5" PointX="23.375" PointY="9.875" />
+        <AssociationConnector Association="Modelo.FK_PROD_P_M_REFERENCE_PRES_M" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO" Width="1.5" PointX="104.5" PointY="53.75" />
+        <EntityTypeShape EntityType="Modelo.LIQUIDO_FORMATO" Width="1.5" PointX="44.375" PointY="35.375" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO__REFERENCE_LIQ1003" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO_REFERENCE_LIQ_FORM" />
+        <AssociationConnector Association="Modelo.FK_LIQUIDO_REFERENCE_LIQUI998" />
+        <EntityTypeShape EntityType="Modelo.ATENCION_MEDICA" Width="1.5" PointX="111.25" PointY="62.25" />
+        <EntityTypeShape EntityType="Modelo.HOJA_CONTROL_ENFERMERIA" Width="1.5" PointX="106.75" PointY="77.625" />
+        <EntityTypeShape EntityType="Modelo.HOJA_ENFERMERIA_LECTURA" Width="1.5" PointX="105.75" PointY="91.5" />
+        <EntityTypeShape EntityType="Modelo.HOJA_ENFERMERIA_SOLUCION" Width="1.5" PointX="110.75" PointY="48.75" />
+        <EntityTypeShape EntityType="Modelo.INGRESO" Width="1.5" PointX="84.25" PointY="55.375" />
+        <EntityTypeShape EntityType="Modelo.MOTIVO_EGRESO_MEDICO" Width="1.5" PointX="108.25" PointY="69.75" />
+        <EntityTypeShape EntityType="Modelo.NOTA_EVOLUCION" Width="1.5" PointX="101.25" PointY="56.25" />
+        <EntityTypeShape EntityType="Modelo.RECETA_MEDICA_DETALLE" Width="1.5" PointX="104.25" PointY="35.875" />
+        <AssociationConnector Association="Modelo.FK_ABOGADO__REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_ACTA_CON_REFERENCE_INGR834" />
+        <AssociationConnector Association="Modelo.FK_ACTUARIO_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_ADUANA_I_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_D_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_AMPARO_I_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC669" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC720" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENCIO2" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC656" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_ATENC670" />
+        <AssociationConnector Association="Modelo.FK_ATENCION_REFERENCE_HOS_1009" />
+        <AssociationConnector Association="Modelo.FK_CERTFICA_REFERENCE_INGR749" />
+        <AssociationConnector Association="Modelo.FK_NOTA_INT_REFERENCE_ATENC679" />
+        <AssociationConnector Association="Modelo.FK_NOTA_MED_REFERENCE_ATENC664" />
+        <AssociationConnector Association="Modelo.FK_NOTA_POS_REFERENCE_ATENC673" />
+        <AssociationConnector Association="Modelo.FK_NOTA_PRE_REFERENCE_ATEN675" />
+        <AssociationConnector Association="Modelo.FK_NOTA_PRE_REFERENCE_ATENC667" />
+        <AssociationConnector Association="Modelo.FK_NOTA_REF_REFERENCE_ATENC671" />
+        <AssociationConnector Association="Modelo.FK_NOTA_URG_REFERENCE_ATENC663" />
+        <AssociationConnector Association="Modelo.FK_NOTA_URG_REFERENCE_INGR659" />
+        <AssociationConnector Association="Modelo.FK_PROC_ATE_REFERENCE_ATENC879" />
+        <AssociationConnector Association="Modelo.FK_RECETA_M_REFERENCE_ATENC838" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_CAMA" />
+        <AssociationConnector Association="Modelo.FK_CAUSA_PE_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_CEN639" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_CLASIFIC" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_870" />
+        <AssociationConnector Association="Modelo.FK_CORRESPO_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_DECOMIS4" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_1008" />
+        <AssociationConnector Association="Modelo.FK_EMI_INGR_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_ESCO868" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_ESTAD866" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_ESTATUS_" />
+        <AssociationConnector Association="Modelo.FK_EVENTO_I_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_FICHA_ID_REFERENCE_INGR806" />
+        <AssociationConnector Association="Modelo.FK_GRUPO_PA_REFERENCE_INGR" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_INGR658" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_INGR886" />
+        <AssociationConnector Association="Modelo.FK_HOJA_CON_REFERENCE_LIQ10122" />
+        <AssociationConnector Association="Modelo.FK_HOJA_CON_REFERENCE_LIQU1021" />
+        <AssociationConnector Association="Modelo.FK_HOJA_CON_REFERENCE_USUARIO" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_USU1015" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_LIQ1019" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_PRES1018" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_INGR997" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_BIO" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_INGDET" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_INGR636" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_INGRES2" />
+        <AssociationConnector Association="Modelo.FK_INGRESO__REFERENCE_PERTEN" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_INGRESO_D_INGRESO_" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_INGRESO_T_TIPO_SEG" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_MUNIC871" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_OCUPA867" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_PAIS_872" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_RELIG869" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_TIPO_873" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_TIPO_AUT" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_TIPO_DIS" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_TIPO_ING" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_USUA927" />
+        <AssociationConnector Association="Modelo.FK_LIBERACI_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_INGRE933" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_RELACION_INGRESO_R_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_SERVICIO_REFERENCE_INGRE940" />
+        <AssociationConnector Association="Modelo.FK_SOCIOECO_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_INGRESO_V_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_VISITA_A_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_VISITANT_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_NOTA_EVO_REFERENCE_NOTA1010" />
+        <AssociationConnector Association="Modelo.FK_RECETA_M_REFERENCE_NOTA_996" />
+        <AssociationConnector Association="Modelo.FK_RECETA_M_REFERENCE_NOTA1029" />
+        <AssociationConnector Association="Modelo.FK_REC_M_D_REFERENCE_PRES_MED" />
+        <AssociationConnector Association="Modelo.FK_RECETA_M_REFERENCE_RECET840" />
+        <EntityTypeShape EntityType="Modelo.FORMA_FARMACEUTICA" Width="1.5" PointX="31.375" PointY="84.875" />
+        <EntityTypeShape EntityType="Modelo.PRODUCTO" Width="1.5" PointX="33.625" PointY="0.75" />
+        <AssociationConnector Association="Modelo.FK_ALMACEN__REFERENCE_PRODUCTO" />
+        <AssociationConnector Association="Modelo.FK_CALENDAR_REFERENCE_PRODUCTO" />
+        <AssociationConnector Association="Modelo.FK_PROD_REFERENCE_FORMA_FARM" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_PROD1017" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_INSIDENCIA" />
+        <AssociationConnector Association="Modelo.FK_ENTRADA__REF_PRODU_PRODUCTO" />
+        <AssociationConnector Association="Modelo.FK_ORDEN_CO_REFERENCE_PRODUCTO" />
+        <AssociationConnector Association="Modelo.FK_PROC_MAT_REFERENCE_PRODU883" />
+        <AssociationConnector Association="Modelo.FK_PROC_MED_REFERENCE_PRODU882" />
+        <AssociationConnector Association="Modelo.FK_PROD_P_M_REFERENCE_PRODUCTO" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_CATEGORIA" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_PRODUCO_I_PRODUCTO" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_REFERENCE_PRODU793" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_REFERENCE_PRODUCTO" />
+        <AssociationConnector Association="Modelo.FK_PRODUCTO_REFERENCE_SUBCATE" />
+        <AssociationConnector Association="Modelo.FK_RECETA_M_REFERENCE_PRODU841" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REFERENCE_PRODUC" />
+        <AssociationConnector Association="Modelo.FK_REQUISIC_REFERENCE_PRODUCT" />
+        <AssociationConnector Association="Modelo.FK_TRASPASO_REFERENCE_PRODUCTO" />
+        <EntityTypeShape EntityType="Modelo.HOJA_ENFERMERIA_ULCERA" Width="1.5" PointX="105.75" PointY="61.625" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_1036" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_1037" />
+        <EntityTypeShape EntityType="Modelo.HOJA_ENFERMERIA_MEDICAMENTO" Width="1.5" PointX="113.5" PointY="53.75" />
+        <EntityTypeShape EntityType="Modelo.PERSONALIDAD_DETALLE_DIAS" Width="1.5" PointX="80.75" PointY="48.75" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_1039" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_PRES1033" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_RMD1032" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_USU1034" />
+        <AssociationConnector Association="Modelo.FK_PERSONAL_REFERENCE_1038" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_LUGAR" Width="1.5" PointX="75.5" PointY="56.75" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_GIRO" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_MEDID_N7" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_MUNI1030" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_P_REFERENCE_MEDID981" />
+        <EntityTypeShape EntityType="Modelo.IMPUTADO" Width="1.5" PointX="30.75" PointY="16" />
+        <AssociationConnector Association="Modelo.FK_ALIAS_REFERENCE_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_APODO_REFERENCE_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_DIALECTO" />
+        <AssociationConnector Association="Modelo.FK_EMI_IMPU_REFERENCE_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_ETNIA" />
+        <AssociationConnector Association="Modelo.FK_FAMILIAR_REFERENCE_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_IDIOMA" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_IMPUTADO__IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_PAIS_IMPO_PAIS_NAC" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADO_REFERENCE_1041" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADOBIO_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADOFORMATO_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_IMPUTADOPANDILLA_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_INGRESO_REFERENCE_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_NOTIFICA_REFERENCE_IMPUT933" />
+        <AssociationConnector Association="Modelo.FK_PRS_ENTR_REFERENCE_PRS_F712" />
+        <AssociationConnector Association="Modelo.FK_PRS_FICH_REFERENCE_IMPUT711" />
+        <AssociationConnector Association="Modelo.FK_PRS_REPO_REFERENCE_IMPUT714" />
+        <AssociationConnector Association="Modelo.FK_PRS_VISI_REFERENCE_IMPUT730" />
+        <AssociationConnector Association="Modelo.FK_RELACION_REFERENCE_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_SENAS_PA_REFERENCE_IMPUTADO" />
+        <EntityTypeShape EntityType="Modelo.PROCESO_LIBERTAD_SEGUIMIENTO" Width="1.5" PointX="35.25" PointY="40.625" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_PRESENTACION_DETALLE" Width="1.5" PointX="72" PointY="12.5" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_P_REFERENCE_MEDID980" />
+        <EntityTypeShape EntityType="Modelo.HOJA_ENFERMERIA" Width="1.5" PointX="103.5" PointY="86.75" />
+        <EntityTypeShape EntityType="Modelo.MEDIDA_LIBERTAD_ESTATUS" Width="1.5" PointX="74.5" PointY="84.5" />
+        <AssociationConnector Association="Modelo.FK_HOJA_CON_REFERENCE_HOJA1020" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_1031" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_1035" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_HOJA1014" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_HOJA1016" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_HOSP1011" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_LIQU1012" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_USU1013" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_MEDI_N14" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_MEDID_N4" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_MEDIN_15" />
+        <EntityTypeShape EntityType="Modelo.NOTA_DEFUNCION" Width="1.5" PointX="86.5" PointY="71.125" />
+        <AssociationConnector Association="Modelo.FK_DEF_REFERENCE_EMPLEADO" />
+        <AssociationConnector Association="Modelo.FK_DEF_REFERENCE_ENFERM" />
+        <AssociationConnector Association="Modelo.FK_DEF_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_DEF_REFERENCE_USUARIO" />
+        <EntityTypeShape EntityType="Modelo.CATETER_TIPO" Width="1.5" PointX="106.5" PointY="102.875" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION_DESTINO" Width="1.5" PointX="106.75" PointY="36.5" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_CAUSA662" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REF_EXC_CAN_MOT" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXCAR619" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXCAR635" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_FORMA625" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_JUZG616" />
+        <EntityTypeShape EntityType="Modelo.INCIDENTE" Width="1.5" PointX="116.5" PointY="53.375" />
+        <EntityTypeShape EntityType="Modelo.NOTA_MEDICA_DIETA" Width="1.5" PointX="101.25" PointY="37.125" />
+        <AssociationConnector Association="Modelo.FK_INCIDENT_REFERENCE_1050" />
+        <AssociationConnector Association="Modelo.FK_NOTA_MED_REFERENCE_DI784" />
+        <AssociationConnector Association="Modelo.FK_INCIDENT_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_INCIDENT_REFERENCE_SANINC" />
+        <AssociationConnector Association="Modelo.FK_INCIDENT_REFERENCE_TIPO" />
+        <AssociationConnector Association="Modelo.FK_NOTA_MED_REFERENCE_NOTA_783" />
+        <EntityTypeShape EntityType="Modelo.ODONTOGRAMA" Width="1.5" PointX="84.25" PointY="24.875" />
+        <EntityTypeShape EntityType="Modelo.ODONTOGRAMA_INICIAL" Width="1.5" PointX="87.5" PointY="48.25" />
+        <EntityTypeShape EntityType="Modelo.ODONTOGRAMA_SIMBOLOGIA" Width="1.5" PointX="85.25" PointY="41.25" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_DENTA916" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_DENTA929" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_ENFER915" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_ENFER930" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_HISTO914" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_ODONT912" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_ODONT913" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_ODONT931" />
+        <EntityTypeShape EntityType="Modelo.NOTA_EGRESO" Width="1.5" PointX="116" PointY="63.625" />
+        <AssociationConnector Association="Modelo.FK_NOTA_EGR_REFERENCE_HOSP1024" />
+        <AssociationConnector Association="Modelo.FK_NOTA_EGR_REFERENCE_LIBE1028" />
+        <AssociationConnector Association="Modelo.FK_NOTA_EGR_REFERENCE_MOTI1025" />
+        <AssociationConnector Association="Modelo.FK_NOTA_EGR_REFERENCE_NOTA1026" />
+        <EntityTypeShape EntityType="Modelo.EXCARCELACION" Width="1.5" PointX="113.5" PointY="70.25" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO" Width="1.5" PointX="111.25" PointY="54" />
+        <EntityTypeShape EntityType="Modelo.TRASLADO_DETALLE" Width="1.5" PointX="113.5" PointY="46.125" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_AMPARO_I" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_ATENC785" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_ATENC786" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_ATENC787" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_CEN925" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_CEN926" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_EMI865" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_EMISOR" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_ESTATUS_" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXCAR628" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXCAR650" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXCAR652" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_EXCARCEL" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_TRASL813" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_TRASL829" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_USUARIO" />
+        <AssociationConnector Association="Modelo.FK_NOTA_EGR_REFERENCE_EXCA1027" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_PROGRAMA_REFERENCE_TRASL772" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_MOTIVO" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TRASLAD1" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TRASLAD3" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TRASLAD5" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TRASLADO" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TRASL812" />
+        <AssociationConnector Association="Modelo.FK_TRASLADO_REFERENCE_TRASLAD7" />
+        <EntityTypeShape EntityType="Modelo.HOJA_ENFERMERIA_CATETER" Width="1.5" PointX="111.75" PointY="93.25" />
+        <EntityTypeShape EntityType="Modelo.HOJA_ENFERMERIA_SONDA_GASOGAS" Width="1.5" PointX="108.75" PointY="92.625" />
+        <EntityTypeShape EntityType="Modelo.INCIDENCIAS_CATETER" Width="1.5" PointX="116" PointY="69.625" />
+        <EntityTypeShape EntityType="Modelo.INCIDENCIAS_SONDA_GAS" Width="1.5" PointX="116" PointY="73.625" />
+        <AssociationConnector Association="Modelo.FK_INC_CAT_REFERENCE_INC_MOT" />
+        <AssociationConnector Association="Modelo.FK_SON_GAS_REFERENCE_INC_MOT" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_CATE1043" />
+        <AssociationConnector Association="Modelo.FK_INC_CAT_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_SON_GAS_REFERENCE_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_HOJA1042" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_HOJA1047" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_1045" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_HOJA1044" />
+        <AssociationConnector Association="Modelo.FK_INC_CAT_REFERENCE_HE_CAT" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_1049" />
+        <AssociationConnector Association="Modelo.FK_HOJA_ENF_REFERENCE_HOJA1048" />
+        <AssociationConnector Association="Modelo.FK_SON_GAS_REFERENCE_HE_SG" />
+        <AssociationConnector Association="Modelo.FK_INC_CAT_REFERENCE_USUARIO" />
+        <AssociationConnector Association="Modelo.FK_SON_GAS_REFERENCE_USUARIO" />
+        <EntityTypeShape EntityType="Modelo.AGENDA_ACT_LIB_DETALLE" Width="1.5" PointX="69.5" PointY="5" />
+        <EntityTypeShape EntityType="Modelo.AGENDA_ACTIVIDAD_ESTATUS" Width="1.5" PointX="65" PointY="126.625" />
+        <EntityTypeShape EntityType="Modelo.AGENDA_ACTIVIDAD_LIBERTAD" Width="1.5" PointX="67.25" PointY="3.875" />
+        <EntityTypeShape EntityType="Modelo.PROGRAMA_LIBERTAD" Width="1.5" PointX="62.75" PointY="133.75" />
+        <EntityTypeShape EntityType="Modelo.UNIDAD_RECEPTORA" Width="1.5" PointX="65" PointY="129" />
+        <EntityTypeShape EntityType="Modelo.UNIDAD_RECEPTORA_RESPONSABLE" Width="1.5" PointX="24.375" PointY="13.75" />
+        <AssociationConnector Association="Modelo.FK_AGENDA_A_REFERENCE_1055" />
+        <AssociationConnector Association="Modelo.FK_AGENDA_A_REFERENCE_1052" />
+        <AssociationConnector Association="Modelo.FK_AGENDA_A_REFERENCE_1054" />
+        <AssociationConnector Association="Modelo.FK_UNIDAD_R_REFERENCE_1059" />
+        <AssociationConnector Association="Modelo.FK_UNIDAD_R_REFERENCE_1058" />
+        <EntityTypeShape EntityType="Modelo.ACTIVIDAD_PROGRAMA" Width="1.5" PointX="65" PointY="133.625" />
+        <AssociationConnector Association="Modelo.FK_ACTIVIDA_REFERENCE_1056" />
+        <AssociationConnector Association="Modelo.FK_AGENDA_A_REFERENCE_1057" />
+        <AssociationConnector Association="Modelo.ENFERMEDAD_SECTOR_CLASIF" />
+        <EntityTypeShape EntityType="Modelo.PFC_VII_ACTIVIDAD" Width="1.5" PointX="69" PointY="90.5" />
+        <AssociationConnector Association="Modelo.FK_PFC_VII__REFERENCE_ACTIV989" />
+        <AssociationConnector Association="Modelo.FK_PFC_VII__REFERENCE_PFC_V719" />
+        <AssociationConnector Association="Modelo.FK_PFC_VII__REFERENCE_PFC_V721" />
+        <AssociationConnector Association="Modelo.FK_PFC_VII__REFERENCE_TIPO_990" />
+        <EntityTypeShape EntityType="Modelo.HISTORIA_CLINICA_GINECO_OBSTRE" Width="1.5" PointX="81.5" PointY="20.375" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REF_CTRL_PREN" />
+        <AssociationConnector Association="Modelo.FK_HISTORIA_REFERENCE_HISTO898" />
+        <EntityTypeShape EntityType="Modelo.AGENDA_LIBERTAD_DOCUMENTO" Width="1.5" PointX="69.5" PointY="9.875" />
+        <EntityTypeShape EntityType="Modelo.PROCESO_LIBERTAD" Width="1.5" PointX="65" PointY="0.75" />
+        <AssociationConnector Association="Modelo.FK_AG_LIB_D_REFERENCE_AG_ACT_L" />
+        <AssociationConnector Association="Modelo.FK_AGENDA_A_REFERENCE_1051" />
+        <AssociationConnector Association="Modelo.FK_AG_LIB_D_REFERENCE_IM_T_DOC" />
+        <AssociationConnector Association="Modelo.FK_AA_PROCE_REFERENCE_COLO952" />
+        <AssociationConnector Association="Modelo.FK_EMI_IMPU_REFERENCE_PROCE956" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_ESCOL950" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_ESTAD948" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_INGR945" />
+        <AssociationConnector Association="Modelo.FK_LIBERADO_REFERENCE_PROCE967" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_D_REFERENCE_PROCE976" />
+        <AssociationConnector Association="Modelo.FK_MEDIDA_L_REFERENCE_PROCE977" />
+        <AssociationConnector Association="Modelo.FK_AA_PROCE_REFERENCE_MUNIC953" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_OCUPA949" />
+        <AssociationConnector Association="Modelo.FK_AA_PROCE_REFERENCE_PAIS_954" />
+        <AssociationConnector Association="Modelo.FK_AA_PROCE_REFERENCE_RELIG951" />
+        <AssociationConnector Association="Modelo.FK_AA_PROCE_REFERENCE_TIPO_955" />
+        <AssociationConnector Association="Modelo.FK_PROCESO__REFERENCE_1040" />
+        <AssociationConnector Association="Modelo.FK_PRS_ENTR_REFERENCE_PROCE946" />
+        <AssociationConnector Association="Modelo.FK_PRS_REPO_REFERENCE_PROCE957" />
+        <AssociationConnector Association="Modelo.FK_PRS_VISI_REFERENCE_PROCE947" />
+        <AssociationConnector Association="Modelo.PATOLOGICO_SECTOR_CLASIF" />
+        <EntityTypeShape EntityType="Modelo.ESCALA_RIESGO" Width="1.5" PointX="7.375" PointY="35.625" />
+        <AssociationConnector Association="Modelo.FK_AA_PROCE_REFERENCE_ESC_RIE" />
+        <EntityTypeShape EntityType="Modelo.TV_MEDICO_ESTATUS" Width="1.5" PointX="116" PointY="59.75" />
+        <EntityTypeShape EntityType="Modelo.PROCESO_LIBERTAD_BIOMETRICO" Width="1.5" PointX="68.25" PointY="18" />
+        <AssociationConnector Association="Modelo.FK_LIB_BIO_REF_TIP_BIO" />
+        <AssociationConnector Association="Modelo.FK_LIB_BIO_REF_PROC_LIB" />
+        <EntityTypeShape EntityType="Modelo.ODONTOGRAMA_SEGUIMIENTO2" Width="1.5" PointX="113.5" PointY="59.125" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGRAM2_REFERENCE_AT_ME" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_DENTA920" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGRAM2_REFERENCES_ENF" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_ODONT917" />
+        <AssociationConnector Association="Modelo.FK_ODONTOGR_REFERENCE_ODONT918" />
+        <EntityTypeShape EntityType="Modelo.TV_CANALIZACION" Width="1.5" PointX="121.25" PointY="72.625" />
+        <EntityTypeShape EntityType="Modelo.TV_CANALIZACION_ESPECIALIDAD" Width="1.5" PointX="123.5" PointY="46.125" />
+        <EntityTypeShape EntityType="Modelo.TV_CITA_MEDICA" Width="1.5" PointX="118.25" PointY="60.125" />
+        <EntityTypeShape EntityType="Modelo.TV_HOJA_REFERENCIA_MEDICA" Width="1.5" PointX="123.5" PointY="77.5" />
+        <EntityTypeShape EntityType="Modelo.TV_PROC_ATENCION_MEDICA_PROG" Width="1.5" PointX="120.5" PointY="69.5" />
+        <EntityTypeShape EntityType="Modelo.TV_SERVICIO_AUX_INTERCONSULTA" Width="1.5" PointX="120.5" PointY="78" />
+        <EntityTypeShape EntityType="Modelo.TV_SOL_INTERCONSULTA_INTERNA" Width="1.5" PointX="123.5" PointY="73.375" />
+        <AssociationConnector Association="Modelo.FK_TV_CITA_REF_ATN_CITA" />
+        <AssociationConnector Association="Modelo.FK_TV_CITA_REF_ATN_SERV" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_REF_CAN_ESTATUS" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_REF_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_TV_CITA_REF_CENTRO" />
+        <AssociationConnector Association="Modelo.FK_TV_SOLINTE_REF_CEN" />
+        <AssociationConnector Association="Modelo.FK_TV_HOJA_REF_CITA" />
+        <AssociationConnector Association="Modelo.FK_TV_C_ES_REF_ESPEC" />
+        <AssociationConnector Association="Modelo.FK_TV_HOJA_REF_HOSPI" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_REF_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_TV_CITA_REF_INGRESO" />
+        <AssociationConnector Association="Modelo.FK_TV_C_ES_REF_INTERAT" />
+        <AssociationConnector Association="Modelo.FK_TV_C_ES_REF_INIVEL" />
+        <AssociationConnector Association="Modelo.FK_TV_C_ES_REF_INTIP" />
+        <AssociationConnector Association="Modelo.FK_PROC_PROG_REF_PROC_MED" />
+        <AssociationConnector Association="Modelo.FK_TV_AUXINT_REF_S_AUX" />
+        <AssociationConnector Association="Modelo.FK_TV_C_ES_REF_TV_CAN" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_REF_TV_MED_EST" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_REF_USUA" />
+        <AssociationConnector Association="Modelo.FK_TV_C_ES_REF_MED_ES" />
+        <AssociationConnector Association="Modelo.FK_PROC_PROG_REF_TV_CITA" />
+        <AssociationConnector Association="Modelo.FK_TV_CITA_REF_TV_MED_EST" />
+        <AssociationConnector Association="Modelo.FK_TV_SOLINTE_REF_USUA" />
+        <EntityTypeShape EntityType="Modelo.INTERCONSULTA_SOLICITUD" Width="1.5" PointX="103.5" PointY="57.375" />
+        <AssociationConnector Association="Modelo.FK_INTERCON_REFERENCE_CANA_900" />
+        <AssociationConnector Association="Modelo.FK_INTERCON_REFERENCE_ESPEC904" />
+        <AssociationConnector Association="Modelo.FK_EXCARCEL_REFERENCE_INTER928" />
+        <AssociationConnector Association="Modelo.FK_HOJA_REF_REFERENCE_INTER908" />
+        <AssociationConnector Association="Modelo.FK_INTERCON_REFERENCE_INTER903" />
+        <AssociationConnector Association="Modelo.FK_INTERCON_REFERENCE_INTER901" />
+        <AssociationConnector Association="Modelo.FK_INTERCON_REFERENCE_INEST907" />
+        <AssociationConnector Association="Modelo.FK_INTERCON_REFERENCE_INTER902" />
+        <AssociationConnector Association="Modelo.FK_INTERCON_REFERENCE_USUA906" />
+        <AssociationConnector Association="Modelo.FK_SERVICIO_REFERENCE_INTER922" />
+        <AssociationConnector Association="Modelo.FK_SOL_INTE_REFERENCE_INTER907" />
+        <EntityTypeShape EntityType="Modelo.TV_CANALIZACION_SERV_AUX" Width="1.5" PointX="123.5" PointY="68.375" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_SA_REF_INIVEL" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_SA_REF_INTIPO" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_SA_REF_SA" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_SA_REF_CAN" />
+        <AssociationConnector Association="Modelo.FK_TV_CAN_SA_REF_MED_ES" />
+        <EntityTypeShape EntityType="Modelo.TV_INTERCONSULTA_SOLICITUD" Width="1.5" PointX="121.25" PointY="58.375" />
+        <AssociationConnector Association="Modelo.FK_TV_ISOL_REF_CEN" />
+        <AssociationConnector Association="Modelo.FK_TV_ISOL_REF_ESP" />
+        <AssociationConnector Association="Modelo.FK_TV_ISOL_REF_ING" />
+        <AssociationConnector Association="Modelo.FK_TV_ISOL_REF_INTERAT" />
+        <AssociationConnector Association="Modelo.FK_TV_ISOL_REF_INTER" />
+        <AssociationConnector Association="Modelo.FK_TV_ISOL_REF_INTIPO" />
+        <AssociationConnector Association="Modelo.FK_TV_HOJA_REF_INTER" />
+        <AssociationConnector Association="Modelo.FK_TV_AUXINT_REF_INTER" />
+        <AssociationConnector Association="Modelo.FK_TV_ISOL_REF_MED_ES" />
+        <AssociationConnector Association="Modelo.FK_TV_ISOL_REF_USUA" />
+        <AssociationConnector Association="Modelo.FK_TV_SOLINTE_REF_INTER" />
+        <EntityTypeShape EntityType="Modelo.HISTORICO_DOCUMENTOS" Width="1.5" PointX="47.25" PointY="34.75" />
+        <EntityTypeShape EntityType="Modelo.TIPO_DOCUMENTO_HISTORICO" Width="1.5" PointX="45" PointY="32.875" />
+        <AssociationConnector Association="Modelo.FK_HIST_DOC_REF_DEPTO" />
+        <AssociationConnector Association="Modelo.FK_HIST_DOC_REF_FORMATO_DOC" />
+        <AssociationConnector Association="Modelo.FK_HIST_DOC_REF_IMPUTADO" />
+        <AssociationConnector Association="Modelo.FK_HIST_DOC_REF_TIPO_DOC" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

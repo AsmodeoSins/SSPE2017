@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="ControlPenales.SeccionNotasEnfermeriaHEView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Name="RecetaMedicaWindow"
+             d:DesignHeight="550" d:DesignWidth="1200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuNotasEnfermeriaHEView Grid.Column="0" Grid.Row="0"></Views:MenuNotasEnfermeriaHEView>
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Notas de enfermería">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="1" Grid.ColumnSpan="14" Name="lblReferencia" Grid.Row="0"></Label>
+                <Label Grid.Column="0" Grid.Row="1" Content="Anotación" HorizontalAlignment="Center"></Label>
+                <TextBox Grid.Column="1" CharacterCasing="Upper" MaxWidth="{Binding ElementName=lblReferencia, Path=ActualWidth}" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="14" Grid.Row="1" Text="{Binding AnotacionNuevaHojaEnfermeria, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                <Button Grid.Column="16" Grid.Row="1" Name="BT_Aceptar" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" Content="Agregar anotación" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding OnClick}" 
+                CommandParameter="agregar_anotacion_hoja_enfermeria" Style="{DynamicResource AccentedSquareButtonStyle}" 
+                Height="28" Focusable="True" />
+                <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="16" Header="Nota de Enfermería">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Name="lblXX"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="1" MaxWidth="{ Binding ElementName=lblXX, Path=ActualWidth}" MinHeight="70" Text="{Binding NotaEnfermeriaExistente, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap" IsReadOnly="True"></TextBox>
+                    </Grid>
+                </GroupBox>
+                <Label Grid.Column="3" Grid.ColumnSpan="16" Grid.Row="2" Content="" Name="lblRe"></Label>
+                <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="16" Header="Nota de enfermería del turno anterior">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Column="0" Grid.Row="0" MinHeight="50" Text="{ Binding TextoAntiguaNotaEnfermeria, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

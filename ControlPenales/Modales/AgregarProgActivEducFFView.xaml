@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ControlPenales.AgregarProgActivEducFFView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border Background="#90000000">
+        <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="666" MinWidth="666">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Edición de participaciones" Style="{DynamicResource DescriptionHeaderStyle}" />
+                <Label Grid.Column="0" Grid.Row="1" Content="Programa"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="2" SelectedValue="{ Binding IdTipoP, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ItemsSource="{ Binding ListProgramas, Mode=TwoWay}" SelectedValuePath="ID_TIPO_PROGRAMA" DisplayMemberPath="NOMBRE" IsEnabled="{Binding EnabledActividadesTipoPFederal}">
+                </ComboBox>
+
+                <Label Grid.Column="1" Grid.Row="1" Content="Participó"></Label>
+                <ComboBox Grid.Column="1" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding Participo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="3" Content="Fecha de Inicio"></Label>
+                <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{ Binding FecInicioProg, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="0" Grid.Row="4"></DatePicker>
+                <Label Grid.Column="1" Grid.Row="3" Content="Fecha de Fin"></Label>
+                <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{ Binding FecFinProg, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="4"></DatePicker>
+                <Button Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_prog_activ_edu" Command="{Binding OnClick}" Content="Guardar"></Button>
+                <Button Grid.Column="1" Grid.Row="5" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_prog_activ_edu" Command="{Binding OnClick}" Content="Cancelar"></Button>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>

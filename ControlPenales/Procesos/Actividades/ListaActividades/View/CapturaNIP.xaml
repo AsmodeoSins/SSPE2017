@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="ControlPenales.CapturaNIP"
+             x:Name="CapturaNIPWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d"
+             Width="200" Height="220"
+             d:DesignHeight="220" d:DesignWidth="200">
+    
+    <Grid>
+        <Border>
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4.5*"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Label VerticalAlignment="Center" Content="NIP:" FontSize="12" FontWeight="Bold"></Label>
+                        <TextBox Text="{Binding NIPBuscar}" VerticalAlignment="Center" Width="100">
+                            <i:Interaction.Behaviors>
+                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <Button Margin="5 0 0 0" Width="35" Command="{Binding OnClick}" CommandParameter="onBuscarPorNIP"  Background="{Binding ColorAprobacionNIP}" Height="30" Style="{DynamicResource AccentedSquareButtonStyle}" Content="{Binding CheckMark}"></Button>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="7" Content="7"  Style="{DynamicResource AccentedSquareButtonStyle}" />
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="4" Grid.Row="1" Content="4" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="1" Grid.Row="2" Content="1" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="8" Grid.Column="1" Content="8" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="5" Grid.Column="1" Grid.Row="1" Content="5" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="2" Grid.Column="1" Grid.Row="2" Content="2" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="9" Grid.Column="2" Content="9" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="6" Grid.Column="2" Grid.Row="1" Content="6" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+                        <Button Margin="2" Command="{Binding OnClick}" CommandParameter="3" Grid.Column="2" Grid.Row="2" Content="3" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+
+                    </Grid>
+                </DockPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Margin="2" Name="BorrarNIP" Command="{Binding OnClick}" CommandParameter="limpiarNIP"  Style="{DynamicResource AccentedSquareButtonStyle}" Background="{Binding FondoLimpiarNIP}" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseEnter">
+                                <i:InvokeCommandAction Command="{Binding ButtonMouseEnter}" CommandParameter="limpiarNIP"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseLeave">
+                                <i:InvokeCommandAction Command="{Binding ButtonMouseLeave}" CommandParameter="limpiarNIP"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Rectangle Width="12" Height="12" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_close}" />
+                        </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Margin="2" Command="{Binding OnClick}" CommandParameter="0"  Grid.Column="1"  Content="0" Style="{DynamicResource AccentedSquareButtonStyle}"/>
+                    <Button Margin="2" Command="{Binding OnClick}" CommandParameter="backspace" Grid.Column="2" FontStyle="Normal" FontSize="16" FontWeight="Bold" Style="{DynamicResource AccentedSquareButtonStyle}" Background="{Binding FondoBackSpaceNIP}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseEnter">
+                                <i:InvokeCommandAction Command="{Binding ButtonMouseEnter}" CommandParameter="backspaceNIP"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseLeave">
+                                <i:InvokeCommandAction Command="{Binding ButtonMouseLeave}" CommandParameter="backspaceNIP"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Rectangle Width="20" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clear_reflect_horizontal}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

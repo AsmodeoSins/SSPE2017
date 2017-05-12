@@ -1,0 +1,316 @@
+﻿<UserControl x:Class="ControlPenales.AgregarCitaEspecialistaView"
+             Name="AgregarCitaEspecialistaWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_buscar_interconsulta"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:IngresoUbicacion x:Key="IngresoUbicacion" />
+        <Views:GetFechaCitaInterconsulta x:Key="GetFechaCitaInterconsulta"></Views:GetFechaCitaInterconsulta>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="866" MaxWidth="866" MinHeight="500" MaxHeight="700">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Buscar Solicitudes de Interconsulta" Style="{DynamicResource DescriptionHeaderStyle}"/>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="170"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <GroupBox  Header="No.Expediente">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                            <ColumnDefinition Width="10"></ColumnDefinition>
+                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=AnioBuscarInter, Path=Text.Length}"
+                                                     Value="4">
+                                                        <Setter Property="FocusManager.FocusedElement"
+                                                    Value="{Binding ElementName=FolioBuscarInter}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Año"></TextBlock>
+                                        <TextBlock Grid.Column="2" Grid.Row="0" Text="Folio"></TextBlock>
+                                        <TextBox Grid.Column="0" Grid.Row="1" IsEnabled="{Binding CamposCitasEspecialistas, UpdateSourceTrigger=PropertyChanged}" Text="{Binding AnioBuscarInter,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" MaxLength="4" Name="AnioBuscarInter" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_interconsultas" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                                        <TextBox Grid.Column="2" IsEnabled="{Binding CamposCitasEspecialistas, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Name="FolioBuscarInter" Text="{Binding FolioBuscarInter,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" MaxLength="6" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_interconsultas" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Nombre" Grid.Column="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre"></TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="0" Text="Apellido Paterno"></TextBlock>
+                                        <TextBlock Grid.Column="2" Grid.Row="0" Text="Apellido Materno"></TextBlock>
+
+                                        <TextBox Grid.Column="0" Grid.Row="1" MaxLength="30" IsEnabled="{Binding CamposCitasEspecialistas, UpdateSourceTrigger=PropertyChanged}" Text="{Binding NombreBuscarInter,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="NombreBuscarInter" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_interconsultas" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="1" Grid.Row="1" MaxLength="30" IsEnabled="{Binding CamposCitasEspecialistas, UpdateSourceTrigger=PropertyChanged}" Text="{Binding ApellidoPaternoBuscarInter,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoPaternoBuscarInter" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_interconsultas" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="2" Grid.Row="1" MaxLength="40" Text="{Binding ApellidoMaternoBuscarInter,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoMaternoBuscarInter" ToolTip="Presionar ENTER para realizar la búsqueda" IsEnabled="{Binding CamposCitasEspecialistas, UpdateSourceTrigger=PropertyChanged}">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_interconsultas" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                            <GroupBox Grid.Row="2" Header="Filtros de búsqueda de interconsultas">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Nivel de prioridad" Grid.Column="0" Grid.Row="0"></TextBlock>
+                                        <ComboBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding LstPrioridadesBuscar}" SelectedValuePath="ID_INIVEL" DisplayMemberPath="DESCR" SelectedValue="{Binding IdBuscarPrioridades}" IsEnabled="{Binding CamposCitasEspecialistas, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Fecha Inicio de Búsqueda"></TextBlock>
+                                        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Red" ToolTipService.IsEnabled="{Binding IsFechaIniBusquedaSolValida, Converter={Views:BoolToOppositeBoolConverter}}">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="BorderThickness" Value="0" />
+                                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsFechaIniBusquedaSolValida,ValidatesOnDataErrors=True}" Value="False">
+                                                            <Setter Property="BorderThickness" Value="1" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <ToolTipService.ToolTip>
+                                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                                    <ToolTip.Content>
+                                                        <TextBlock Text="LA FECHA DE INICIO TIENE QUE SER MENOR A LA FECHA FIN!" Style="{StaticResource errorLabel}" />
+                                                    </ToolTip.Content>
+                                                </ToolTip>
+                                            </ToolTipService.ToolTip>
+                                            <DatePicker Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FechaInicialBuscarInter,NotifyOnSourceUpdated=True}" IsEnabled="{Binding CamposCitasEspecialistas, UpdateSourceTrigger=PropertyChanged}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SourceUpdated">
+                                                        <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_busqueda_sol"></i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <DatePicker.InputBindings>
+                                                    <KeyBinding CommandParameter="filtro_interconsultas" Command="{Binding OnClick}" Key="Enter" />
+                                                </DatePicker.InputBindings>
+                                            </DatePicker>
+                                        </Border>
+                                        <TextBlock Grid.Column="2" Grid.Row="0" Text="Fecha Final de Búsqueda"></TextBlock>
+                                        <DatePicker Grid.Row="1" Grid.Column="2" Controls:TextBoxHelper.Watermark="Selecciona una fecha"  SelectedDate="{Binding FechaFinalBuscarInter,NotifyOnSourceUpdated=True}" IsEnabled="{Binding CamposCitasEspecialistas, UpdateSourceTrigger=PropertyChanged}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SourceUpdated">
+                                                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_busqueda_sol"></i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            <DatePicker.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_interconsultas" Command="{Binding OnClick}" Key="Enter" />
+                                            </DatePicker.InputBindings>
+                                        </DatePicker>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                        <StackPanel Grid.Column="1" Margin="0 0 0 10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20*"></RowDefinition>
+                                    <RowDefinition Height="20*"></RowDefinition>
+                                    <RowDefinition Height="20*"></RowDefinition>
+                                    <RowDefinition Height="20*"></RowDefinition>
+                                    <RowDefinition Height="20*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" Grid.Row="2" />
+                                <Button Width="50" Height="50" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Center"  ToolTip="Buscar" IsEnabled="{Binding MenuBuscarEnabled}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="filtro_interconsultas" Command="{Binding OnClick}">
+                                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                    <GroupBox Header="Solicitudes de interconsulta interna pendientes de agendar" Visibility="{Binding VisibleCitasPendientes, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView MaxHeight="150" MinHeight="100" SelectionMode="Single" ItemsSource="{Binding ListaInterconsultasBusqueda}" SelectedItem="{Binding SelectedInterconsultaBusqueda}" >
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridViewColumn Header="AÑO" DisplayMemberBinding="{Binding INTERCONSULTA_SOLICITUD.CANALIZACION.NOTA_MEDICA.ATENCION_MEDICA.INGRESO.ID_ANIO}"></GridViewColumn>
+                                    <GridViewColumn Header="FOLIO"  DisplayMemberBinding="{Binding INTERCONSULTA_SOLICITUD.CANALIZACION.NOTA_MEDICA.ATENCION_MEDICA.INGRESO.ID_IMPUTADO}"></GridViewColumn>
+                                    <GridViewColumn Header="PATERNO"  DisplayMemberBinding="{Binding INTERCONSULTA_SOLICITUD.CANALIZACION.NOTA_MEDICA.ATENCION_MEDICA.INGRESO.IMPUTADO.PATERNO}"></GridViewColumn>
+                                    <GridViewColumn Header="MATERNO"  DisplayMemberBinding="{Binding INTERCONSULTA_SOLICITUD.CANALIZACION.NOTA_MEDICA.ATENCION_MEDICA.INGRESO.IMPUTADO.MATERNO}"></GridViewColumn>
+                                    <GridViewColumn Header="NOMBRE"  DisplayMemberBinding="{Binding INTERCONSULTA_SOLICITUD.CANALIZACION.NOTA_MEDICA.ATENCION_MEDICA.INGRESO.IMPUTADO.NOMBRE}"></GridViewColumn>
+                                    <GridViewColumn Header="Nivel de prioridad"  DisplayMemberBinding="{Binding INTERCONSULTA_SOLICITUD.INTERCONSULTA_NIVEL_PRIORIDAD.DESCR}"></GridViewColumn>
+                                    <GridViewColumn Header="Fecha" DisplayMemberBinding="{Binding INTERCONSULTA_SOLICITUD, Converter={StaticResource GetFechaCitaInterconsulta}}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+
+                    <GroupBox Header="Datos de la cita" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <!--<Label Content="{Binding TipoServicioDescripcion}"></Label>-->
+                            <Grid Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Especialista asignado" Grid.ColumnSpan="2"></Label>
+                                <ComboBox Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LstEspecialistasMostrar}" IsEnabled="False" SelectedValue="{Binding IdEspecialistaMostrado }" SelectedValuePath="IdEspecialista" DisplayMemberPath="NombreEspecialista"></ComboBox>
+                                <Label Content="Fecha" Grid.Row="2"></Label>
+                                <Label Content="Hora de inicio" Grid.Column="1" Grid.Row="2"></Label>
+                                <Label Content="Hora final" Grid.Column="2" Grid.Row="2"></Label>
+                                <Border Grid.Row="3" BorderBrush="Red" ToolTipService.IsEnabled="{Binding AgregarAgendaFechaValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding AgregarAgendaFechaValid,ValidatesOnDataErrors=True}" Value="False">
+                                                    <Setter Property="BorderThickness" Value="1" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <ToolTipService.ToolTip>
+                                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                            <ToolTip.Content>
+                                                <TextBlock Text="LA FECHA DE LA CITA ES REQUERIDA!" Style="{StaticResource errorLabel}" />
+                                            </ToolTip.Content>
+                                        </ToolTip>
+                                    </ToolTipService.ToolTip>
+                                    <!--Cuidado:El datepicker no puede ser validado directamente bajo las reglas del viewmodel -->
+                                    <DatePicker Style="{StaticResource MetroDatePicker}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding AgregarAgendaFecha, NotifyOnSourceUpdated=True}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SourceUpdated">
+                                                <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_agregar_agenda"></i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </DatePicker>
+                                </Border>
+                                <xctk:DateTimeUpDown Grid.Column="1" Grid.Row="3" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm tt"
+                            Value="{Binding AgregarAgendaHoraI,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                                <xctk:DateTimeUpDown Grid.Column="2" Grid.Row="3" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm tt"
+                            Value="{Binding AgregarAgendaHoraF,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                                <Label Grid.Row="4" Content="Área"></Label>
+                                <ComboBox Grid.Row="5" ItemsSource="{Binding LstAreas}" SelectedValuePath="ID_AREA" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectedArea, ValidatesOnDataErrors=True}"
+                          IsEnabled="{Binding IsAreasEnabled}"></ComboBox>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"  Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="seleccionar_interconsulta_especialista" Command="{Binding OnClick}" Content="Guardar"></Button>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,10,10,0"
+                CommandParameter="cancelar_buscar_interconsulta_especialista" Command="{Binding OnClick}" Content="Cancelar"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

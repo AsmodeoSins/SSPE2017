@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCF_BiometricoService.Modelo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="IMPUTADO_BIOMETRICO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BIOMETRICO" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="BIOMETRICO_TIPO" nillable="true" type="tns:BIOMETRICO_TIPO" />
+      <xs:element minOccurs="0" name="CALIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ANIO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_CENTRO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_FORMATO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_IMPUTADO" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_BIOMETRICO" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IMPUTADO_BIOMETRICO" nillable="true" type="tns:IMPUTADO_BIOMETRICO" />
+  <xs:complexType name="BIOMETRICO_TIPO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_TIPO_BIOMETRICO" type="xs:short" />
+      <xs:element minOccurs="0" name="IMPUTADO_BIOMETRICO" nillable="true" type="tns:ArrayOfIMPUTADO_BIOMETRICO" />
+      <xs:element minOccurs="0" name="PERSONA_BIOMETRICO" nillable="true" type="tns:ArrayOfPERSONA_BIOMETRICO" />
+      <xs:element minOccurs="0" name="TIPO_BIOMETRICO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BIOMETRICO_TIPO" nillable="true" type="tns:BIOMETRICO_TIPO" />
+  <xs:complexType name="ArrayOfIMPUTADO_BIOMETRICO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="IMPUTADO_BIOMETRICO" nillable="true" type="tns:IMPUTADO_BIOMETRICO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfIMPUTADO_BIOMETRICO" nillable="true" type="tns:ArrayOfIMPUTADO_BIOMETRICO" />
+  <xs:complexType name="ArrayOfPERSONA_BIOMETRICO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PERSONA_BIOMETRICO" nillable="true" type="tns:PERSONA_BIOMETRICO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPERSONA_BIOMETRICO" nillable="true" type="tns:ArrayOfPERSONA_BIOMETRICO" />
+  <xs:complexType name="PERSONA_BIOMETRICO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BIOMETRICO" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="BIOMETRICO_TIPO" nillable="true" type="tns:BIOMETRICO_TIPO" />
+      <xs:element minOccurs="0" name="ID_FORMATO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_PERSONA" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_BIOMETRICO" type="xs:short" />
+      <xs:element minOccurs="0" name="NORIGINAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PERSONA" nillable="true" type="tns:PERSONA" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PERSONA_BIOMETRICO" nillable="true" type="tns:PERSONA_BIOMETRICO" />
+  <xs:complexType name="PERSONA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CORIGINAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CORREO_ELECTRONICO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CURP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOMICILIO_CALLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DOMICILIO_CODIGO_POSTAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DOMICILIO_NUM_EXT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DOMICILIO_NUM_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ESTADO_CIVIL" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="FEC_NACIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_COLONIA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_ENTIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ETNIA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_MUNICIPIO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_PAIS" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_PERSONA" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_DISCAPACIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_TIPO_PERSONA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="IFE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LUGAR_NACIMIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NACIONALIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="NOMBRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NORIGINAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERSONA_BIOMETRICO" nillable="true" type="tns:ArrayOfPERSONA_BIOMETRICO" />
+      <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEXO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SMATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SNOMBRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SPATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO_MOVIL" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PERSONA" nillable="true" type="tns:PERSONA" />
+  <xs:complexType name="IMPUTADO_BIOMETRICO2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BIOMETRICO" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="CALIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_ANIO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_CENTRO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_FORMATO" type="xs:short" />
+      <xs:element minOccurs="0" name="ID_IMPUTADO" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_BIOMETRICO" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IMPUTADO_BIOMETRICO2" nillable="true" type="tns:IMPUTADO_BIOMETRICO2" />
+  <xs:complexType name="ArrayOfIMPUTADO_BIOMETRICO2">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="IMPUTADO_BIOMETRICO2" nillable="true" type="tns:IMPUTADO_BIOMETRICO2" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfIMPUTADO_BIOMETRICO2" nillable="true" type="tns:ArrayOfIMPUTADO_BIOMETRICO2" />
+</xs:schema>

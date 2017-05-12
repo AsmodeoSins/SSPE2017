@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="ControlPenales.AgregarActivididadesProdCapacFederalesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales">
+    <Border Background="#4C000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="666" MinWidth="666">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Edición de Cursos de Capacitación" Style="{DynamicResource DescriptionHeaderStyle}" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" />
+                <Label Grid.Column="0" Grid.Row="1" Content="Curso" Grid.ColumnSpan="2"></Label>
+                <TextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" MinHeight="50" Text="{Binding DescripcionCursoFederal, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MaxLength="100"></TextBox>
+                <Label Grid.Column="0" Grid.Row="3" Content="Fecha de Inicio"></Label>
+                <Label Grid.Column="1" Grid.Row="3" Content="Fecha de Fin"></Label>
+                <DatePicker Grid.Column="0" Grid.Row="4" Style="{StaticResource MetroDatePicker}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding SelectedFechaInicioCursoFederal, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></DatePicker>
+                <DatePicker Grid.Column="1" Grid.Row="4" Style="{StaticResource MetroDatePicker}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding SelectedFechaFinCursoFederal, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></DatePicker>
+                <Button Grid.Column="0" Grid.Row="9" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_curso_federal" Command="{Binding OnClick}">Guardar</Button>
+                <Button Grid.Column="1" Grid.Row="9" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_curso_federal" Command="{Binding OnClick}">Cancelar</Button>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>

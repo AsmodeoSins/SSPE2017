@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="ControlPenales.DatosIdentificacionExpView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto" mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="900" >
+    <AdornerDecorator>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0" SelectedIndex="{Binding Opcion,UpdateSourceTrigger=PropertyChanged}">
+            <TabItem Header="DATOS GENERALES" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding DatosGeneralesEnabled}" IsSelected="{Binding TabDatosGenerales}" >
+                <Views:DatosGeneralesIdentificacionExpView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="APODOS ALIAS Y REFERENCIAS" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding ApodosAliasEnabled}" IsSelected="{Binding TabApodosAlias}" >
+                <Views:ApodosAliasReferenciasView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="FOTOS Y HUELLAS DIGITALES" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding FotosHuellasEnabled}" IsSelected="{Binding TabFotosHuellas}" >
+                <Views:FotosHuellasDigitalesView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="MEDIA FILIACION" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding MediaFiliacionEnabled}" IsSelected="{Binding TabMediaFiliacion}"
+                     Visibility="{Binding Path=TabVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+                <Views:MediaFiliacionExpView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="SEÑAS PARTICULARES" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding SenasParticularesEnabled}" IsSelected="{Binding TabSenasParticulares}"
+                     Visibility="{Binding Path=TabVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+                <Views:TopografiaHumanaView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="PANDILLA(S)" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{Binding PandillasEnabled}" IsSelected="{Binding TabPandillas}"
+                     Visibility="{Binding Path=TabVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+                <Views:PandillasView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

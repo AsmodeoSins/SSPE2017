@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="ControlPenales.BusquedaInternoTrasladoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <GroupBox Header="Expediente Ingreso Traslado">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0">Folio</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="1"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" >/</TextBlock>
+                <TextBox Grid.Column="2" Grid.Row="1"></TextBox>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Row="1" Header="Nombre de Interno Traslado" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0">Apellido Paterno</Label>
+                <Label Grid.Row="2">Apellido Materno</Label>
+                <Label Grid.Row="4">Nombre</Label>
+                <TextBox Grid.Row="1"></TextBox>
+                <TextBox Grid.Row="3"></TextBox>
+                <TextBox Grid.Row="5"></TextBox>
+
+            </Grid>
+        </GroupBox>
+
+        <Image Grid.Column="2" Grid.Row="1" Width="150" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+        
+        <Label Grid.Row="2" Style="{DynamicResource DescriptionHeaderStyle}">Búsqueda</Label>
+        
+        <GroupBox Grid.Row="3" Header="Núm. Folio">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0">Folio</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="1"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" >/</TextBlock>
+                <TextBox Grid.Column="2" Grid.Row="1"></TextBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="3" Grid.Column="1" Header="Núm. Expediente">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0">Folio</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="1"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" >/</TextBlock>
+                <TextBox Grid.Column="2" Grid.Row="1"></TextBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Header="Nombre, Alias o Apodo">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0">Nombre, Alias o Apodo</Label>
+                <Label Grid.Column="1">Paterno</Label>
+                <Label Grid.Column="2">Materno</Label>
+                <TextBox Grid.Row="1" Grid.Column="0"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="2"></TextBox>
+
+                <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0,0,0">
+                    <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                    <Button  Width="50" Height="50"  ToolTip="Buscar" 
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_menu" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                
+
+            </Grid>
+        </GroupBox>
+
+        <Button Grid.Column="4" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,0,0,0"
+                    CommandParameter="seleccionar_busqueda_interno_traslado" Command="{Binding ClickPageCommand}">Seleccionar Interno</Button>
+
+        <Label Grid.Row="4" Grid.Column="0" Style="{DynamicResource DescriptionHeaderStyle}">Expedientes</Label>
+
+        <DataGrid Grid.Row="5" Grid.ColumnSpan="4" MaxHeight="200" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                <DataGridTextColumn Header="Folio"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                <DataGridTextColumn Header="Paterno"></DataGridTextColumn>
+                <DataGridTextColumn Header="Materno"></DataGridTextColumn>
+                <DataGridTextColumn Header="No. Control"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ingresos"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Image Grid.Row="5" Grid.Column="4" Width="150" VerticalAlignment="Top" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+
+        <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource DescriptionHeaderStyle}">Antecedentes del Interno</Label> <!-- DINAMICAMENTE ASIGNARLE EL NOMBRE, APODOS Y EXPEDIENTE -->
+
+        <DataGrid Grid.Row="7" Grid.ColumnSpan="4" MaxHeight="180" Margin="0 0 0 10" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Núm. Ingreso"></DataGridTextColumn>
+                <DataGridTextColumn Header="Activo"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha Ingreso"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha Ing. Cereso"></DataGridTextColumn>
+                <DataGridTextColumn Header="Núm. Oficio Internación"></DataGridTextColumn>
+                <DataGridTextColumn Header="Autoridad Interno"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Column="4" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}"
+                    CommandParameter="cancelar_busqueda_interno_traslado" Command="{Binding ClickPageCommand}">Cancelar</Button>
+        
+    </Grid>
+</UserControl>

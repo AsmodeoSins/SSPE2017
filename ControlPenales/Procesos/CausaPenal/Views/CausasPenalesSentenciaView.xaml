@@ -1,0 +1,391 @@
+﻿<UserControl x:Class="ControlPenales.CausasPenalesSentenciaView"
+             x:Name="CausaPenalSentenciaWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+   
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CausaPenalSentenciaLoading}" CommandParameter="{Binding ElementName=CausaPenalSentenciaWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding CausaPenalSentenciaUnloading}" CommandParameter="{Binding ElementName=CausaPenalSentenciaWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <Views:SiNoConverter x:Key="ConvertirSiNo"/>
+    </UserControl.Resources>
+    <AdornerDecorator>
+    <Grid VerticalAlignment="Top" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Sentencia" IsEnabled="{Binding CausasPenalesIngresoEnabled}">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0" Margin="0 0 0 3" Width="870" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                        <ColumnDefinition Width="95"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                        <ColumnDefinition Width="115"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Fecha Sentencia"></Label>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Fecha Ejecutoria"></Label>
+                    <Label Grid.Column="4" Grid.Row="0" Content="Inicio Compurgación"></Label>
+
+                    <DatePicker Grid.Column="1" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FecS, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                    <!--<Border Grid.Column="1" Grid.Row="1"  BorderBrush="Red" ToolTipService.IsEnabled="{Binding FecSValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding FecSValid,ValidatesOnDataErrors=True}" Value="False">
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                <ToolTip.Content>
+                                    <TextBlock Text="FECHA ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                                </ToolTip.Content>
+                            </ToolTip>
+                        </ToolTipService.ToolTip>
+                            <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FecS,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                    </Border>-->
+
+                    <DatePicker Grid.Column="3" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FecEjecutoriaS, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <!--<Border Grid.Column="3" Grid.Row="1"  BorderBrush="Red" ToolTipService.IsEnabled="{Binding FecEjecutoriaSValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding FecEjecutoriaSValid,ValidatesOnDataErrors=True}" Value="False">
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                <ToolTip.Content>
+                                    <TextBlock Text="FECHA EJECUTORIA ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                                </ToolTip.Content>
+                            </ToolTip>
+                        </ToolTipService.ToolTip>
+                        --><!--Cuidado:El datepicker no puede ser validado directamente bajo las reglas del viewmodel --><!--
+                        <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FecEjecutoriaS,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    </Border>-->
+                    <DatePicker Grid.Column="5" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FecInicioCompurgacionS, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <!--<Border Grid.Column="5" Grid.Row="1"  BorderBrush="Red" ToolTipService.IsEnabled="{Binding FecInicioCompurgacionSValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding FecInicioCompurgacionSValid,ValidatesOnDataErrors=True}" Value="False">
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                <ToolTip.Content>
+                                    <TextBlock Text="INICIO DE COMPURGACION ES REQUERIDO!" Style="{StaticResource errorLabel}"/>
+                                </ToolTip.Content>
+                            </ToolTip>
+                        </ToolTipService.ToolTip>
+                        <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FecInicioCompurgacionS,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    </Border>-->
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.Row="1" Width="350" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0">Años</Label>
+                    <Label Grid.Column="2" Grid.Row="0">Meses</Label>
+                    <Label Grid.Column="4" Grid.Row="0">Días</Label>
+
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding AniosS,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, TargetNullValue= ''}" >
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding MesesS,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, TargetNullValue= ''}">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="5" Grid.Row="1" Text="{Binding DiasS,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, TargetNullValue= ''}">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.Row="2" Name="estructura">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Multa"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding MultaS}" CharacterCasing="Upper" MaxLength="1000" MaxWidth="{Binding ElementName=motivo,Path=ActualWidth}"></TextBox>
+                    <Grid Grid.Column="1" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Pagada"  HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                        <RadioButton Grid.Column="1" Grid.Row="0" Content="Sí" HorizontalAlignment="Center" GroupName="Multa" IsChecked="{Binding MultaSi}"></RadioButton>
+                        <RadioButton Grid.Column="2" Grid.Row="0" Content="No" HorizontalAlignment="Center" GroupName="Multa"  IsChecked="{Binding MultaNo}"></RadioButton>
+                    </Grid>
+
+
+                    <Label Grid.Column="0" Grid.Row="2" Content="Reparación de Daño"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding ReparacionDanioS}" CharacterCasing="Upper" MaxLength="1000" MaxWidth="{Binding ElementName=motivo,Path=ActualWidth}"></TextBox>
+                    <Grid Grid.Column="1" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Pagada"  HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                        <RadioButton Grid.Column="1" Grid.Row="0" Content="Sí" HorizontalAlignment="Center" GroupName="Reparacion"  IsChecked="{Binding ReparacionSi}"></RadioButton>
+                        <RadioButton Grid.Column="2" Grid.Row="0" Content="No" HorizontalAlignment="Center" GroupName="Reparacion"  IsChecked="{Binding ReparacionNo}"></RadioButton>
+
+                    </Grid>
+
+                    <Label Grid.Column="0" Grid.Row="4" Content="Sustitución de la Pena"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding SustitucionPenaS}" CharacterCasing="Upper" MaxLength="1000" MaxWidth="{Binding ElementName=motivo,Path=ActualWidth}"></TextBox>
+                    <Grid Grid.Column="1" Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Pagada"  HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                        <RadioButton Grid.Column="1" Grid.Row="0" Content="Sí" HorizontalAlignment="Center" GroupName="Sustitucion" IsChecked="{Binding SustitucionSi}"></RadioButton>
+                        <RadioButton Grid.Column="2" Grid.Row="0" Content="No" HorizontalAlignment="Center" GroupName="Sustitucion" IsChecked="{Binding SustitucionNo}"></RadioButton>
+
+                    </Grid>
+
+                    <Label Grid.Column="0" Grid.Row="6" Content="Suspensión Condicional"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Text="{Binding SuspensionCondicionalS}" CharacterCasing="Upper" MaxLength="1000" MaxWidth="{Binding ElementName=motivo,Path=ActualWidth}"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="8" Content="Observación"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Text="{Binding ObservacionS}" CharacterCasing="Upper" MaxLength="1000" MaxWidth="{Binding ElementName=estructura,Path=ActualWidth}"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="10" Content="Motivo de la Cancelación del Antecedente" Grid.ColumnSpan="2" Name="motivo"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Text="{Binding MotivoCancelacionAntecedenteS}" CharacterCasing="Upper" MaxLength="1000" MaxWidth="{Binding ElementName=motivo,Path=ActualWidth}"></TextBox>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Autoria" IsEnabled="{Binding CausasPenalesIngresoEnabled}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Grado de Participación" HorizontalAlignment="Center"></Label>
+                <Label Grid.Column="2" Grid.Row="0" Content="Grado de Autoria" HorizontalAlignment="Center"></Label>
+
+                <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding LstGradosAutoria}" DisplayMemberPath="DESCR" SelectedValuePath="ID_GRADO_AUTORIA" SelectedValue="{Binding GradoAutoriaS, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                <ComboBox Grid.Column="3" Grid.Row="0" ItemsSource="{Binding LstGradosParticipacion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_GRADO_PARTICIPACION" SelectedValue="{Binding GradoParticipacionS, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Compurgación">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Años Abonados"></Label>
+                <Label Grid.Column="1" Grid.Row="0" Content="Meses Abonados"></Label>
+                <Label Grid.Column="2" Grid.Row="0" Content="Días Abonados"></Label>
+                <Label Grid.Column="3" Grid.Row="0" Content="Fecha Real de Compurgación"></Label>
+
+                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding AniosAbonadosS}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding MesesAbonadosS,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue= ''}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding DiasAbonadosS,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, TargetNullValue= ''}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <DatePicker Grid.Column="3" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FecRealCompurgacionS, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                <!--<Border Grid.Column="3" Grid.Row="1"  BorderBrush="Red" ToolTipService.IsEnabled="{Binding FecRealCompurgacionSValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FecRealCompurgacionSValid,ValidatesOnDataErrors=True}" Value="False">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                            <ToolTip.Content>
+                                <TextBlock Text="FECHA REAL DE COMPURGACION ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    --><!--Cuidado:El datepicker no puede ser validado directamente bajo las reglas del viewmodel --><!--
+                    <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FecRealCompurgacionS,UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                </Border>-->
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="4" Header="Delitos">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Column="0" Grid.Row="0" Margin="0 10 0 10" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding LstSentenciaDelitos}"
+                        SelectedItem="{Binding SelectedSentenciaDelito}" Style="{StaticResource MetroDataGrid}" MaxWidth="{Binding ElementName=motivo,Path=ActualWidth}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Delito" Binding="{Binding MODALIDAD_DELITO.DELITO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Modalidad" Binding="{Binding DESCR_DELITO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Grave" Binding="{Binding MODALIDAD_DELITO.DELITO.GRAVE,Converter={StaticResource ConvertirSiNo}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding TIPO_DELITO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cantidad" Binding="{Binding CANTIDAD}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Objeto" Binding="{Binding OBJETO}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_delito_sentencia_listado" Visibility="{Binding MostrarOpcion}"
+                                    IsEnabled="{Binding CausasPenalesIngresoEnabled}" />
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_delito_sentencia_listado" Visibility="{Binding MostrarOpcion}"
+                                    IsEnabled="{Binding CausasPenalesIngresoEnabled}" />
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_delito_sentencia_listado" Visibility="{Binding EliminarSentenciaDelito}"
+                                    IsEnabled="{Binding CausasPenalesIngresoEnabled}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+                <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding SentenciaDelitoEmpty, Converter={StaticResource booleanToVisibilityConverter}}">No hay información.</Label>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

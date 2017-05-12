@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="GESAL.Views.menuComandosView2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+    <!-- Resources -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
+            <Label HorizontalAlignment="Center" Content="Agregar" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Agregar"  CommandParameter="agregar" Command="{Binding CmdAccionMenuSinValidar}"
+                        Style="{StaticResource MetroCircleButtonStyle}" IsEnabled="{Binding AgregarHabilitado}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50 0 0 0" Grid.Column="2">
+            <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Buscar"  CommandParameter="buscar" Command="{Binding CmdAccionMenuSinValidar}"
+                        Style="{StaticResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_magnify_browse}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50 0 0 0"  Grid.Column="3">
+            <Label HorizontalAlignment="Center" Content="Editar" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Editar" CommandParameter="editar" Command="{Binding CmdAccionMenuSinValidar}"  IsEnabled="{Binding EditarHabilitado}"
+                        Style="{StaticResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_edit}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50 0 0 0"  Grid.Column="4">
+            <Label HorizontalAlignment="Center" Content="Eliminar" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Eliminar" CommandParameter="eliminar" Command="{Binding CmdAccionMenuSinValidar}"  IsEnabled="{Binding EliminarHabilitado}"
+                        Style="{StaticResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50 0 0 0" Grid.Column="5">
+            <Label HorizontalAlignment="Center" Content="Salvar" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Salvar" CommandParameter="salvar" Command="{Binding CmdAccionMenu}" IsEnabled="{Binding SalvarHabilitado}"
+                        Style="{StaticResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_save}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50 0 0 0" Grid.Column="6">
+            <Label HorizontalAlignment="Center" Content="Cancelar" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Cancelar" CommandParameter="cancelar" Command="{Binding CmdAccionMenuSinValidar}"  IsEnabled="{Binding CancelarHabilitado}"
+                        Style="{StaticResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cancel}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50 0 0 0" Grid.Column="7">
+            <Label HorizontalAlignment="Center" Content="Imprimir" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Imprimir" CommandParameter="imprimir" Command="{Binding CmdAccionMenuSinValidar}"  IsEnabled="{Binding ImprimirHabilitado}"
+                        Style="{StaticResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_printer_text}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>
+

@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="ControlPenales.LiberacionView"
+             x:Name="LiberacionWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto" >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoading}" CommandParameter="{Binding ElementName=LiberacionWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=CP_ANIO, Path=Text.Length}" Value="4">
+                            <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=CP_FOLIO}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Views:MenuIconosView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
+
+            <Label Grid.Column="0" Grid.Row="1"  Content="Pre Autorización" Style="{DynamicResource DescriptionHeaderStyle}" />
+            
+            <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Header="Datos del Expediente" Visibility="{Binding Path=GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+                <Views:DatosExpedienteView />
+            </GroupBox>
+            
+            <GroupBox Grid.Column="1" Grid.Row="3" Header="Datos de Egreso de Cereso">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="15"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Año"></Label>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Folio"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="1" Name="CP_ANIO" Text="{Binding CPAnio,ValidatesOnDataErrors=True}" TabIndex="100" >
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <Label Grid.Column="1" Grid.Row="1" Content="/" HorizontalAlignment="Center" VerticalAlignment="Center"  ></Label>
+                        <TextBox Grid.Column="2" Grid.Row="1" Name="CP_FOLIO" Text="{Binding CPFolio,ValidatesOnDataErrors=True}" TabIndex="101" >
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </Grid>
+                    
+                    <Label Grid.Column="0" Grid.Row="1" Content="Fecha de Egreso"></Label>
+                    <Label Grid.Column="1" Grid.Row="1" Content="No. de Oficio de Salida"></Label>
+
+                    <!--<DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />-->
+                
+                    <!--<Border Grid.Column="0" Grid.Row="1"  BorderBrush="Red"  ToolTipService.IsEnabled="{Binding EFechaValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding EFechaValid,ValidatesOnDataErrors=True}" Value="False">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                            <ToolTip.Content>
+                                <TextBlock Text="LA FECHA DE EGRESO ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>-->
+                    <DatePicker Grid.Column="0" Grid.Row="2" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding EFecha,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding Edicion}" TabIndex="102"></DatePicker>
+                <!--</Border>-->
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding EOficio, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="50" CharacterCasing="Upper" IsEnabled="{Binding Edicion}" TabIndex="103"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Content="Autoridad que da Salida"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" ItemsSource="{Binding LstAutoridad}" SelectedValuePath="ID_LIBERACION_AUTORIDAD" DisplayMemberPath="DESCR" SelectedValue="{Binding EAutoridad,ValidatesOnDataErrors=True}" IsEnabled="{Binding Edicion}" TabIndex="5"></ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Motivo de la Salida"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" ItemsSource="{Binding LstMotivo}" SelectedValuePath="ID_LIBERACION_MOTIVO" DisplayMemberPath="DESCR" SelectedValue="{Binding EMotivo,ValidatesOnDataErrors=True}" IsEnabled="{Binding Edicion}" TabIndex="6"></ComboBox>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="3" Header="Causas Penales">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Column="0" Grid.Row="0" ItemsSource="{Binding LstCausaPenal}" SelectedItem="{Binding SelectedCausaPenal}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año" Binding="{Binding CP_ANIO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Folio" Binding="{Binding CP_FOLIO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Juzgado" Binding="{Binding JUZGADO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Fecha" Binding="{Binding CP_FEC_RADICACION,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estatus" Binding="{Binding CAUSA_PENAL_ESTATUS.DESCR}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Grid.Column="0" Grid.Row="1" Content="No hay información." FontStyle="Italic" HorizontalContentAlignment="Center" Visibility="{Binding CausasPenalesVisible}"></Label>
+            </Grid>
+        </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

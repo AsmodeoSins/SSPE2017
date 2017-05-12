@@ -1,0 +1,361 @@
+﻿<UserControl x:Class="ControlPenales.ControlParticipantesView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Views="clr-namespace:ControlPenales" mc:Ignorable="d" Height="auto" Width="auto" d:DesignWidth="1060" Name="ControlParticipantesWindow">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ControlParticipantesLoading}" CommandParameter="{Binding ElementName=ControlParticipantesWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="280"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="1" Content="Control Participantes" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Generales" IsEnabled="{Binding GroupBoxGeneralesEnabled}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="320"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border BorderThickness="1" Grid.RowSpan="2" BorderBrush="#3F7096" Margin="0,0,10,0">
+                    <Grid Background="{Binding Planimetriacolor}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="160"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Width="150" Source="{Binding ImagenParticipante}" Margin="0,10,0,0" />
+                        <ProgressBar Grid.Row="1" Grid.Column="0" Maximum="{Binding MaxValueProBar}" Minimum="0" Value="{Binding CantidadActividadesAprovadas}" Margin="25,0,35,0" />
+                        <Grid Grid.Row="2" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">AVANCE</Label>
+                            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding AvanceTratamiento}" />
+                            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">HORAS DE TRATAMIENTO</Label>
+                            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding HorasTratamiento}" />
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Grid Grid.Column="1" Grid.RowSpan="3">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=AnioInterno, Path=Text.Length}" Value="4">
+                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioInterno}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0">AÑO</Label>
+                    <Label Grid.Row="0" Grid.Column="1">FOLIO</Label>
+                    <Label Grid.Row="0" Grid.Column="2">PATERNO</Label>
+                    <Label Grid.Row="0" Grid.Column="3">MATERNO</Label>
+                    <Label Grid.Row="0" Grid.Column="4">NOMBRE(S)</Label>
+                    <TextBox Grid.Row="1" Grid.Column="0" x:Name="AnioInterno" Text="{Binding TextAnio,UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=AnioInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextFolio,UpdateSourceTrigger=PropertyChanged}" x:Name="FolioInterno">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=FolioInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="5" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" x:Name="PaternoInterno">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=PaternoInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding TextMaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" x:Name="MaternoInterno">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=MaternoInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding TextNombreImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" x:Name="NombreInterno">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=NombreInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Button Grid.Column="5" Grid.Row="0" Grid.RowSpan="2" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" ToolTip="Buscar"
+                            Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_imputado" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Grid.Column="6" Grid.Row="0" Grid.RowSpan="2" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" ToolTip="Limpiar"
+                            Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="limpiar_Busqueda" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clean}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Label Grid.Row="2" Grid.Column="0">UBICACIÓN</Label>
+                    <Label Grid.Row="2" Grid.Column="2">PLANIMETRÍA</Label>
+                    <Label Grid.Row="2" Grid.Column="3">SENTENCIA</Label>
+                    <Label Grid.Row="2" Grid.Column="4">SENTENCIA RESTANTE</Label>
+                    <Label Grid.Row="2" Grid.Column="5">ESTATUS</Label>
+                    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding TextUbicacion}" />
+                    <TextBox Grid.Row="3" Grid.Column="2" IsReadOnly="True" Text="{Binding TextPlanimetria}" />
+                    <TextBox Grid.Row="3" Grid.Column="3" IsReadOnly="True" Text="{Binding TextSentencia}" />
+                    <TextBox Grid.Row="3" Grid.Column="4" IsReadOnly="True" Text="{Binding TextSentenciaRes}" />
+                    <TextBox Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding TextEstatus}" />
+                    <GroupBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="7" Header="Agregar">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" VerticalAlignment="Center" Style="{DynamicResource AccentedSquareButtonStyle}" Width="150" Command="{Binding AgregarCommand}"
+                                    CommandParameter="GRUPO" Height="28">Grupo</Button>
+                            <Button Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource AccentedSquareButtonStyle}" Width="150" Command="{Binding AgregarCommand}"
+                                    CommandParameter="COMPLEMENTARIA" Height="28">Complementaria</Button>
+                            <Button Grid.Column="2" VerticalAlignment="Center" Style="{DynamicResource AccentedSquareButtonStyle}" Width="150" Command="{Binding AgregarCommand}"
+                                    CommandParameter="CITA" Height="28">Cita</Button>
+                            <Button Grid.Column="3" VerticalAlignment="Center" Style="{DynamicResource AccentedSquareButtonStyle}" Width="150" Command="{Binding AgregarCommand}"
+                                    CommandParameter="SANCIONES" Height="28">Cancelar/Suspender</Button>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <Expander IsExpanded="True" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="Evolución de Programas">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="EJE" />
+                <ComboBox Grid.Row="1" ItemsSource="{Binding ListaEjes}" SelectedValue="{Binding SelectedEje}" DisplayMemberPath="DESCR" Margin="0,0,0,10" HorizontalAlignment="Stretch" MinWidth="200"
+                        MaxWidth="250" IsEnabled="{Binding EjeEnabled}">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding COMPLEMENTARIO}" Value="COMPLEMENTARIO">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                <StackPanel>
+                                                    <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                    <TextBlock Text="COMPLEMENTARIO" Foreground="#427399" />
+                                                    <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding COMPLEMENTARIO}" Value="MODELO">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                <StackPanel>
+                                                    <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                    <TextBlock Text="MODELO" Foreground="#427399" />
+                                                    <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <DataGrid Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding ListNotasTecnicas}" CanUserAddRows="False"
+                        SelectedItem="{Binding SelectedGrupoEvolucion}" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False"
+                        Style="{StaticResource MetroDataGrid}" MaxHeight="220" MinHeight="120">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="EJE" Binding="{Binding EJE}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="PROGRAMA" Binding="{Binding PROGRAMA}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="ACTIVIDAD" Binding="{Binding ACTIVIDAD}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="GRUPO" Binding="{Binding GRUPO}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="INICIO" Binding="{Binding INICIO}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="FIN" Binding="{Binding FIN}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="ASISTENCIA" Binding="{Binding ASISTENCIA}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="NOTA TECNICA" Binding="{Binding NOTA}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="ACREDITADO" Binding="{Binding ACREDITADO}" IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Expander>
+        <Expander IsExpanded="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="Horario">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="GRUPO" Margin="5" />
+                <ComboBox Grid.Row="1" ItemsSource="{Binding ListaGrupo}" SelectedValue="{Binding SelectedGrupo}" DisplayMemberPath="ACTIVIDAD.DESCR" Margin="0,0,10,10" HorizontalAlignment="Stretch"
+                        MinWidth="200" MaxWidth="250" IsEnabled="{Binding GrupoEnabled}">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RECURRENCIA}" Value="COMPLEMENTARIO">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                <StackPanel>
+                                                    <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                    <TextBlock Text="COMPLEMENTARIO" Foreground="#427399" />
+                                                    <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RECURRENCIA}" Value="MODELO">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                <StackPanel>
+                                                    <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                    <TextBlock Text="MODELO" Foreground="#427399" />
+                                                    <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="INICIO" Margin="5" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding InicioGrupo}" MinWidth="50" Margin="5" />
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="FIN" Margin="5" />
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding FinGrupo}" MinWidth="50" Margin="5" />
+                <TextBlock Grid.Row="0" Grid.Column="3" Text="ASISTENCIAS" Margin="5" />
+                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding AsistenciasGrupo}" MinWidth="50" Margin="5" TextAlignment="Center" />
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="FALTAS" Margin="5" />
+                <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding FaltasGrupo}" MinWidth="50" Margin="5" TextAlignment="Center" />
+                <TextBlock Grid.Row="0" Grid.Column="5" Text="JUSTIFICADAS" Margin="5" />
+                <TextBlock Grid.Row="1" Grid.Column="5" Text="{Binding JustificadasGrupo}" MinWidth="50" Margin="5" TextAlignment="Center" />
+                <DataGrid Grid.Row="2" Grid.ColumnSpan="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding ListHorario}" CanUserAddRows="False"
+                        CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" MaxHeight="220"
+                        MinHeight="120">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="EJE" Binding="{Binding EJE}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="PROGRAMA" Binding="{Binding PROGRAMA}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="ACTIVIDAD" Binding="{Binding ACTIVIDAD}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="GRUPO" Binding="{Binding GRUPO}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="FECHA" Binding="{Binding FECHA}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="HORARIO" Binding="{Binding HORARIO}" IsReadOnly="True" />
+                        <DataGridTemplateColumn Header="ASISTENCIA" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <CheckBox Visibility="{Binding ShowCheck}" IsChecked="{Binding ASISTENCIA}" HorizontalAlignment="Center" IsEnabled="False" />
+                                        <TextBlock Visibility="{Binding ShowLabel}" Text="{Binding ESTATUS}" HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Expander>
+        <Expander IsExpanded="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Header="Empalme">
+            <ListBox Grid.Row="3" ScrollViewer.CanContentScroll="False" ItemsSource="{Binding ListEmpalme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" MaxHeight="400"
+                    VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Expander Header="{Binding HEADEREXPANDER}">
+                            <DataGrid Grid.Row="2" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding ListHorario}" CanUserAddRows="False"
+                                    CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}"
+                                    MaxHeight="220" MinHeight="120">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="EJE" Binding="{Binding EJE}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="PROGRAMA" Binding="{Binding PROGRAMA}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="ACTIVIDAD" Binding="{Binding ACTIVIDAD}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="GRUPO" Binding="{Binding GRUPO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="HORARIO" Binding="{Binding HORARIO}" IsReadOnly="True" />
+                                    <DataGridTemplateColumn Header="ELEGIDA" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding ELEGIDA}" HorizontalAlignment="Center" IsEnabled="False" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Expander>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Expander>
+    </Grid>
+</UserControl>

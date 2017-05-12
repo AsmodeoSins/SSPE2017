@@ -1,0 +1,168 @@
+﻿<UserControl x:Class="ControlPenales.SeguimientoLiberadosReferenciasView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--EDITAR GUARDAR Y CANCELAR-->
+        <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Editar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Editar"
+                    Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_editar_media" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_edit}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Guardar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Guardar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_guardar_media" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Cancelar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Cancelar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_cancelar_media" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cancel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <Label Grid.Column="0" Grid.Row="1" FontWeight="Bold" Content="Media Filiación" />
+
+        <Label Grid.Column="0" Grid.Row="2" Content="Estatura(cm)"></Label>
+        <Label Grid.Column="1" Grid.Row="2" Content="Peso(kg)"></Label>
+        <Label Grid.Column="2" Grid.Row="2" Content="Complexión"></Label>
+        <Label Grid.Column="3" Grid.Row="2" Content="Tez"></Label>
+
+        <Controls:NumericUpDown Grid.Column="0" Grid.Row="3" TextAlignment="Left" Minimum="0" Value="{Binding Imputado.mf_estatura}" />
+        <Controls:NumericUpDown Grid.Column="1" Grid.Row="3" TextAlignment="Left" Minimum="0" Value="{Binding Imputado.mf_peso}"/>
+        <TextBox Grid.Column="2" Grid.Row="3" Text="{Binding Imputado.mf_complexion}"></TextBox>
+        <TextBox Grid.Column="3" Grid.Row="3" Text="{Binding Imputado.mf_tez}"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="4" Content="Ojos"></Label>
+        <Label Grid.Column="1" Grid.Row="4" Content="Pelo"></Label>
+        <Label Grid.Column="2" Grid.Row="4" Content="Color Pelo"></Label>
+
+        <TextBox Grid.Column="0" Grid.Row="5" Text="{Binding Imputado.mf_ojos}"></TextBox>
+        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Imputado.mf_pelo}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding Imputado.mf_color_pelo}"></TextBox>
+
+        <!--AGREGAR BORRAR Y CANCELAR-->
+        <StackPanel Grid.Column="2" Grid.Row="6" Grid.RowSpan="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Agregar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Agregar"
+                    Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_agregar_referencia" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_user_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Borrar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Borrar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_borrar_referencia" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_user_minus}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Content="Cancelar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Cancelar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_cancelar_referencia" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cancel}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            
+        </StackPanel>
+
+        <Label Grid.Column="0" Grid.Row="8" FontWeight="Bold" Content="Referencias" />
+
+        <Label Grid.Column="0" Grid.Row="9" Content="Apellido Paterno"></Label>
+        <Label Grid.Column="1" Grid.Row="9" Content="Apellido Materno"></Label>
+        <Label Grid.Column="2" Grid.Row="9" Content="Nombre"></Label>
+        <Label Grid.Column="3" Grid.Row="9" Content="Teléfono Local"></Label>
+
+        <TextBox Grid.Column="0" Grid.Row="10"></TextBox>
+        <TextBox Grid.Column="1" Grid.Row="10"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="10"></TextBox>
+        <TextBox Grid.Column="3" Grid.Row="10"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="11" Content="Teléfono Movil"></Label>
+        <Label Grid.Column="1" Grid.Row="11" Content="Relación"></Label>
+        <Label Grid.Column="2" Grid.Row="11" Content="Domicilio"></Label>
+
+        <TextBox Grid.Column="0" Grid.Row="12"></TextBox>
+        <ComboBox Grid.Column="1" Grid.Row="12"></ComboBox>
+        <TextBox Grid.Column="2" Grid.Row="12" Grid.ColumnSpan="2"></TextBox>
+
+        <DataGrid Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="4" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding Imputado.referencias}" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding apellido_paterno}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido Materno" Binding="{Binding apellido_materno}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre"  Binding="{Binding nombre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Teléfono Local"  Binding="{Binding telefono_casa}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Teléfono Móvil"  Binding="{Binding telefono_movil}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Relación"  Binding="{Binding relacion}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Domicilio"  Binding="{Binding domicilio}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
+</UserControl>
+
+    

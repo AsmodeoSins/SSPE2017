@@ -1,0 +1,194 @@
+﻿<UserControl x:Class="ControlPenales.UnidadReceptoraView"
+             x:Name="UnidadReceptoraWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Loading}" CommandParameter="{Binding ElementName=UnidadReceptoraWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:CatalogosEstatus x:Key="EstatusNull"/>
+    </UserControl.Resources>
+    <StackPanel>
+
+        <Views:MenuCatalogosView />
+
+        <Grid Visibility="{Binding GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Unidad Receptora" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label>Búsqueda</Label>
+                <TextBox IsEnabled="{Binding TextoHabilitado}" ToolTip="Presione ENTER para buscar" Margin="2" MinWidth="200" MaxWidth="500" Text="{Binding Busqueda}" CharacterCasing="Upper" MaxLength="{Binding MaxLength}" Name="txtBuscar">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button IsEnabled="{Binding BuscarHabilitado}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0" Name="btnBuscar"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar" Content="Buscar" Command="{Binding OnClick}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </Button.InputBindings>
+                </Button>
+            </StackPanel>
+
+            <ListView   Grid.Row="2" MaxHeight="700" Margin="10" Name="lvMedia" ItemsSource="{Binding LstUnidadReceptora}" SelectedItem="{Binding UnidadReceptora}" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nombre" Width="Auto" DisplayMemberBinding="{Binding NOMBRE}"/>
+                        <GridViewColumn Header="Descripción" Width="Auto" DisplayMemberBinding="{Binding DESCRIPCION}" />
+                        <GridViewColumn Header="Estatus" Width="Auto" DisplayMemberBinding="{Binding ESTATUS,Converter={StaticResource EstatusNull}}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            
+            
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding EmptyVisible, Converter={StaticResource booleanToVisibilityConverter}}" Content="No hay información"></Label>
+        </Grid>
+
+        <Grid Visibility="{Binding AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}" Margin="10,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="{Binding HeaderAgregar, Mode=TwoWay}" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <!--<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">-->
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Content="Nombre" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Name="nombre"></Label>
+                <TextBox  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding NombreUR,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{Binding ElementName=nombre,Path=ActualWidth}" MaxLength="100"></TextBox>
+
+                <Label Content="Descripción" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Name="descripcion"></Label>
+                <TextBox  Grid.Column="0" Grid.Row="3" MinHeight="50" MaxHeight="50" Grid.ColumnSpan="3" Text="{Binding DescripcionUR,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{Binding ElementName=nombre,Path=descripcion}" MaxLength="100"></TextBox>
+
+               
+                <Label Content="Estado" Grid.Column="0" Grid.Row="4"></Label>
+                <Label Content="Domicilio" Grid.Column="1" Grid.Row="4"></Label>
+                <Label Content="Colonia" Grid.Column="2" Grid.Row="4"></Label>
+
+                <!--<ComboBox Grid.Column="0" Grid.Row="5" ItemsSource="{Binding LstPais}" SelectedItem="{Binding SelectedPais}" SelectedValuePath="{Binding Pais,ValidatesOnDataErrors=True}"></ComboBox>-->
+                <ComboBox Grid.Column="0" Grid.Row="5" ItemsSource="{Binding LstEstado}" SelectedItem="{Binding SelectedEstado}" SelectedValue="{Binding EntidadUR, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  SelectedValuePath="ID_ENTIDAD" DisplayMemberPath="DESCR">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding LstMunicipio}" SelectedItem="{Binding SelectedMunicipio}" SelectedValue="{Binding MunicipioUR, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  SelectedValuePath="ID_MUNICIPIO" DisplayMemberPath="MUNICIPIO1">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="5" ItemsSource="{Binding LstColonia}" SelectedItem="{Binding SelectedColonia}" SelectedValue="{Binding ColoniaUR, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="ID_COLONIA" DisplayMemberPath="DESCR">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <Label Content="Calle" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Name="calle"></Label>
+                <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Text="{Binding CalleUR,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{Binding ElementName=calle,Path=ActualWidth}" ></TextBox>
+
+                <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Numero Exterior"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Numero Interior"></Label>
+                    <Label Grid.Column="2" Grid.Row="0" Content="CP"></Label>
+                    <Label Grid.Column="3" Grid.Row="0" Content="Teléfono"></Label>
+                    <Label Grid.Column="4" Grid.Row="0" Content="Estatus"></Label>
+                    
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding NoExteriorUR,ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" CharacterCasing="Upper" Text="{Binding NoInteriorUR}" MaxLength="6"></TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding CPUR,ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="5" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TelefonoUR,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="14" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <ComboBox Grid.Column="4" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{Binding EstatusUR,ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Tag="A" IsSelected="True">ACTIVO</ComboBoxItem>
+                        <ComboBoxItem Tag="I">INACTIVO</ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+                <ListView   Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" MaxHeight="700" Margin="10" SelectionMode="Single" ItemsSource="{Binding LstResponsables}" SelectedItem="{Binding Responsable}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Nombre" DisplayMemberBinding="{Binding NOMBRE}"/>
+                            <GridViewColumn Header="Apellido Paterno" DisplayMemberBinding="{Binding PATERNO}" />
+                            <GridViewColumn Header="Apellido Materno" DisplayMemberBinding="{Binding MATERNO}" />
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="addResponsable"/>
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editResponsable"/>
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="delResponsable"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                </ListView>
+            </Grid>
+
+            <!--</StackPanel>-->
+
+        </Grid>
+    </StackPanel>
+    
+</UserControl>

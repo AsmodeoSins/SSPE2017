@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="ControlPenales.ReporteSituacionJuridicaView"
+             x:Name="ReporteSituacionJuridicaWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoading}" CommandParameter="{Binding ElementName=ReporteSituacionJuridicaWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Situación Jurídica" FontSize="20" Margin="50 10 10 10" HorizontalAlignment="Left"/>
+
+        <Button Grid.Row="1" HorizontalAlignment="Left" Margin="50 0 0 0" Width="100" Content="Generar" Style="{StaticResource AccentedSquareButtonStyle}" Command="{Binding OnClick}" CommandParameter="GenerarReporte"/>
+        <WindowsFormsHost Grid.Row="2" Width="1100" Height="650" Name="WFH" Margin="20" Visibility="{Binding ReportViewerVisible}"  HorizontalAlignment="Center" >
+            <rv:ReportViewer x:Name="ReportSituacionJuridica"></rv:ReportViewer>
+        </WindowsFormsHost>
+    </Grid>
+</UserControl>

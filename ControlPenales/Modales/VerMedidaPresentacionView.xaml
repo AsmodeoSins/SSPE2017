@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="ControlPenales.VerMedidaPresentacionView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Views:GetDiaSemana x:Key="dia"></Views:GetDiaSemana>
+        <Views:SiNoConverter x:Key="sn"></Views:SiNoConverter>
+        <Views:TomarAsistenciaVisible x:Key="AsistenciaVisible"></Views:TomarAsistenciaVisible>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_apodo"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                     MaxHeight="600" MinHeight="600" MinWidth="666" MaxWidth="666" Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Presentación" Style="{DynamicResource DescriptionHeaderStyle}" Name="presentacion" />
+
+                        <Label Grid.Row="1" Content="Lugar"></Label>
+                        <TextBox Grid.Row="2" Text="{Binding SelectedMedidaLibertad.MEDIDA_PRESENTACION.LUGAR_CUMPLIMIENTO.DESCR}"></TextBox>
+
+                        <Label Grid.Row="3" Content="Observaciones"></Label>
+                        <TextBox Grid.Row="4" Text="{Binding SelectedMedidaLibertad.MEDIDA_PRESENTACION.OBSERVACIONES}"></TextBox>
+                    
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="Dia"></Label>
+                            <Label Grid.Column="1" Grid.Row="0" Content="Cada"></Label>
+
+                            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding SelectedMedidaLibertad.MEDIDA_PRESENTACION.DIAS,Converter={StaticResource dia}}"></TextBox>
+                            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SelectedMedidaLibertad.MEDIDA_PRESENTACION.CADA}"></TextBox>
+                            
+                            <Label Grid.Column="0" Grid.Row="2" Content="Primera Asistencia"></Label>
+                            <Label Grid.Column="1" Grid.Row="2" Content="Ultima Asistencia"></Label>
+
+                            <DatePicker Grid.Column="0" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding SelectedMedidaLibertad.MEDIDA_PRESENTACION.PRIMERA_ASISTENCIA,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                            <DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding SelectedMedidaLibertad.MEDIDA_PRESENTACION.ULTIMA_ASISTENCIA,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+
+                        </Grid>
+                        
+                        <Button Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right"  Width="50" Height="50" ToolTip="Reporte Bitacora de Presentación"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="reporte_bitacora" Command="{Binding OnClick}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_printer}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+
+                        <DataGrid Grid.Row="7" AutoGenerateColumns="False"  ItemsSource="{Binding LstMedidaPresentacionDetalle}" SelectedItem="{Binding SelectedMedidaPresentacionDetalle}"  CanUserAddRows="False"  Padding="0 10 0 0" Style="{StaticResource MetroDataGrid}" MinHeight="200" MaxHeight="200" MaxWidth="{Binding ElementName=participacion,Path=ActualWidth}">
+                            <!--<i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding OnClickSelect}" CommandParameter="{Binding ElementName=dgNotificacion, Path=SelectedItem}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>-->
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="FECHA" Binding="{Binding FECHA,StringFormat=dd/MM/yyyy}" IsReadOnly="True"  ></DataGridTextColumn> 
+                                <DataGridTextColumn Header="ASISTENCIA" Binding="{Binding ASISTENCIA,Converter={StaticResource sn}}" IsReadOnly="True"></DataGridTextColumn>
+                                <DataGridTextColumn Header="FECHA ASISTENCIA" Binding="{Binding FECHA_ASISTENCIA,StringFormat=dd/MM/yyyy}" IsReadOnly="True"></DataGridTextColumn>
+                                <DataGridTextColumn Header="OBSERVACIÓN" Binding="{Binding OBSERVACION}" IsReadOnly="True"></DataGridTextColumn>
+                                <!--<DataGridTemplateColumn Header="TOMAR ASISTENCIA">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="ASISTENCIA" HorizontalAlignment="Center" VerticalAlignment="Top" Width="auto" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="tomar_asistencia" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" Visibility="{Binding ASISTENCIA,Converter={StaticResource AsistenciaVisible}}"></Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>-->
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Tomar Asistencia" Command="{Binding OnClick}" CommandParameter="tomar_asistencia"/>
+                                    <MenuItem Header="Tomar Asistencia (Huella Empleado)" Command="{Binding BuscarHuellaEmpleado}" CommandParameter="tomar_asistencia_empleado"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                        <Label Grid.Row="7" Padding="0 50 0 0" Content="No hay información" FontStyle="Italic" HorizontalAlignment="Center" Visibility="{Binding PresentacionMedidaEmpty}" ></Label>
+
+                        <Button Grid.Row="8" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                        CommandParameter="cerrar_medida_presentacion" Command="{Binding OnClick}">Cerrar</Button>
+                        
+                    
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

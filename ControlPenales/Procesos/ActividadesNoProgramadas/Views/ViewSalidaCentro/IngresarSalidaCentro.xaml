@@ -1,0 +1,193 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.IngresarSalidaCentro"
+        x:Name="IngresarSalidaCentroWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Views="clr-namespace:ControlPenales"
+        xmlns:local="clr-namespace:ControlPenales"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        xmlns:Dedo="clr-namespace:ControlPenales.BiometricoServiceReference"
+        Title="Autorización" Height="450" Width="800" IsWindowDraggable="False" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowButtonCommandsOverlayBehavior="HiddenTitleBar">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoading}" CommandParameter="{Binding ElementName=IngresarSalidaCentroWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Width="300" BorderBrush="Black" Position="Right" IsModal="True" Theme="Light" IsOpen="{Binding CapturaNIPVisible}" Header="Identificación por NIP">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height=".2*"/>
+                    </Grid.RowDefinitions>
+                    <Views:CapturaNIP />
+                    <TextBlock HorizontalAlignment="Center" Grid.Row="1" FontSize="14" FontWeight="Bold" Text="{Binding MensajeAprobacionNIP}" Foreground="{Binding ColorAprobacion}" />
+                </Grid>
+            </Controls:Flyout>
+            <Controls:Flyout IsModal="True" CloseButtonVisibility="Collapsed" Theme="Light" Position="Right" Width="800" Height="225" IsOpen="{Binding CapturaIncidenciaVisible}">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition />
+                        <RowDefinition Height=".4*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Se requiere un certificado médico." FontSize="12" FontWeight="Bold" />
+                    <TextBlock Grid.Row="1" Text="Sin embargo, no existe un médico disponible actualmente." FontSize="12" FontWeight="Bold" />
+                    <TextBlock Grid.Row="2" Text="Capture observación:" FontSize="12" FontWeight="Bold" />
+                    <TextBox Grid.Row="3" CharacterCasing="Upper" Text="{Binding TextoIncidencia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,ValidatesOnDataErrors=True}" Width="400" Height="150" Foreground="Black" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <Button Grid.Row="4" Width="150" Height="30" Style="{StaticResource AccentedSquareButtonStyle}" Content="Capturar Incidencia" BorderBrush="Black" Command="{Binding OnClick}" CommandParameter="CerrarIncidenciaFlyout"/>
+                </Grid>
+            </Controls:Flyout>
+            <Controls:Flyout IsModal="True" Theme="Light"  Position="Right" Width="800" Height="280" IsOpen="{Binding CapturaIncidenciaFalsoPositivoVisible}">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".4*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition />
+                        <RowDefinition Height=".4*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Ha denegado el acceso a la salida del centro, por lo cuál, debe capturar una incidencia de falso positivo." FontSize="12" FontWeight="Bold" />
+                    <TextBlock Grid.Row="1" Text="Si ha removido la asistencia por accidente, haga clic en Cancelar." FontSize="12" FontWeight="Bold" />
+                    <TextBlock Grid.Row="2" Text="Capture NIP:" FontSize="12" FontWeight="Bold" />
+
+                    <TextBox Grid.Row="3" Text="{Binding IncidenciaNIP,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,ValidatesOnDataErrors=True}" Width="400" Height="20" Foreground="Black" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" >
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="13" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock Grid.Row="4" Text="Capture observación:" FontSize="12" FontWeight="Bold" />
+                    <TextBox Grid.Row="5" CharacterCasing="Upper" Text="{Binding TextoIncidenciaFalsoPositivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True,ValidatesOnDataErrors=True}" Width="400" Height="150" Foreground="Black" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left"/>
+                    <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button  Width="150" Height="30" Style="{StaticResource AccentedSquareButtonStyle}" Margin="0 0 5 0" Content="Capturar Incidencia" BorderBrush="Black" Command="{Binding OnClick}" CommandParameter="CerrarIncidenciaFalsoPositivoFlyout"/>
+                        <Button Width="150" Height="30" Content="Cancelar" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5 0 0 0" Command="{Binding OnClick}" CommandParameter="CancelarIncidenciaFalsoPositivoFlyout"/>
+                    </StackPanel>
+
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".25*"/>
+            <RowDefinition Height=".15*"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Control de Ingreso a Salida de Centro" VerticalAlignment="Center" Margin="10" FontSize="20"/>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width=".12*"/>
+                    <ColumnDefinition Width=".3*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding ScannerMessage}" FontWeight="Bold" FontSize="14" Foreground="{Binding ColorAprobacion}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ScannerMessageVisible,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Image Margin="10 0 0 10" Source="{Binding ImagenEvaluacion}" Width="40" Height="40" Visibility="{Binding ImagenEvaluacionVisible,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Controls:ProgressRing Margin="10 0 0 10" Width="30" Height="30" Visibility="{Binding ProgressRingVisible}"></Controls:ProgressRing>
+                </StackPanel>
+
+                <Label Grid.Column="1" Content="/" VerticalAlignment="Center" FontSize="30" Visibility="{Binding ScannerMessageVisible,Converter={StaticResource BooleanToVisibilityConverter}}"></Label>
+                <StackPanel Margin="0 0 10 0" Width="80" Grid.Column="2">
+                    <Label HorizontalAlignment="Center" Content="Captura NIP"/>
+                    <Button  Width="50" Height="50"  ToolTip="Identificar por huellas" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="OpenCloseFlyout">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_layout_expand_left}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock FontWeight="Bold" Text="{Binding TextoSeleccionDedo}" VerticalAlignment="Center" Foreground="{Binding ColorEstatusLector,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}"/>
+            <ComboBox Margin="10 10 10 0" Width="200" VerticalAlignment="Top" SelectedValuePath="Tag" SelectedValue="{Binding SelectedFinger,Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding OnSelectionChanged}" CommandParameter="SeleccionDedoBusqueda"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Separator Height="25" >
+                    <Separator.Template>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Separator Background="#3373F2"/>
+                                <TextBlock Text="Mano Derecha" Foreground="#3373F2"/>
+                                <Separator Background="#3373F2"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Separator.Template>
+                </Separator>
+                <ComboBoxItem Content="Pulgar Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.PULGAR_DERECHO }" />
+                <ComboBoxItem Content="Índice Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.INDICE_DERECHO }" />
+                <ComboBoxItem Content="Medio Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.MEDIO_DERECHO }" />
+                <ComboBoxItem Content="Anular Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.ANULAR_DERECHO }" />
+                <ComboBoxItem Content="Meñique Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.MENIQUE_DERECHO }" />
+                <Separator Height="25" >
+                    <Separator.Template>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Separator Background="#3373F2"/>
+                                <TextBlock Text="Mano Izquierda" Foreground="#3373F2"/>
+                                <Separator Background="#3373F2"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Separator.Template>
+                </Separator>
+                <ComboBoxItem Content="Pulgar Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.PULGAR_IZQUIERDO }" />
+                <ComboBoxItem Content="Índice Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.INDICE_IZQUIERDO }" />
+                <ComboBoxItem Content="Medio Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.MEDIO_IZQUIERDO }" />
+                <ComboBoxItem Content="Anular Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.ANULAR_IZQUIERDO }" />
+                <ComboBoxItem Content="Meñique Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.MENIQUE_IZQUIERDO }" />
+            </ComboBox>
+        </StackPanel>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width=".45*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid Style="{StaticResource MetroDataGrid}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Margin="10" Background="WhiteSmoke" ItemsSource="{Binding ImputadoEntrante,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" SelectedItem="{Binding SelectedImputadoUbicacion}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"/>
+                    <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"/>
+                    <DataGridTextColumn Header="Ap. Paterno" Binding="{Binding PATERNO}"/>
+                    <DataGridTextColumn Header="Ap. Materno" Binding="{Binding MATERNO}"/>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding NOMBRE}"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox HorizontalAlignment="Center" Command="{Binding Path=DataContext.OnClick,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}},UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" CommandParameter="PermitirUbicacion" IsChecked="{Binding Path=DataContext.UbicacionPermitidaChecked,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}" IsEnabled="{Binding Path=DataContext.UbicacionPermitidaChecked,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <GroupBox Grid.Column="1" Margin="10" Header="Identificación">
+                <Image Source="{Binding ImagenImputado}" Width="200" />
+            </GroupBox>
+        </Grid>
+
+    </Grid>
+</Controls:MetroWindow>

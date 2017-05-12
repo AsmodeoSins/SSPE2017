@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2912E026-54C9-418A-9E21-6B2C08EB6EAB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SSP.Controlador</RootNamespace>
+    <AssemblyName>Controlador</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dlls\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit">
+      <HintPath>..\packages\LinqKit.1.0\lib\35\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MoreLinq">
+      <HintPath>..\packages\morelinq.1.1.1\lib\net35\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Catalogo\Almacenes\cAlmacen.cs" />
+    <Compile Include="Catalogo\Almacenes\cAlmacen_Tipo_Cat.cs" />
+    <Compile Include="Catalogo\Almacenes\cAlmacen_Grupo.cs" />
+    <Compile Include="Catalogo\Almacenes\cIncidencia_Tipo.cs" />
+    <Compile Include="Catalogo\Almacenes\cProducto.cs" />
+    <Compile Include="Catalogo\Almacenes\cProducto_Categoria.cs" />
+    <Compile Include="Catalogo\Almacenes\cProducto_Presentacion.cs" />
+    <Compile Include="Catalogo\Almacenes\cProducto_SubCategoria.cs" />
+    <Compile Include="Catalogo\Almacenes\cProducto_Tipo_Cat.cs" />
+    <Compile Include="Catalogo\Almacenes\cProducto_Unidad_Medida.cs" />
+    <Compile Include="Catalogo\Almacenes\cProveedor.cs" />
+    <Compile Include="Catalogo\Justicia\Actividades\V_AGENDA.cs" />
+    <Compile Include="Catalogo\Justicia\AreaTecnica\cTecnicaArea.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cCausaPenalAutoridadBaja.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cCausaPenalBaja.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cCausaPenalDocto.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cRecursoDocto.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoIncidenteDocto.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoIndirectoDocto.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoDirectoDocto.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoIncidente.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoDirectoSentencia.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoIncidenteTipo.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoIndirectoSentencia.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoIndirecto.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoDirecto.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoIndirectoTipos.cs" />
+    <Compile Include="Catalogo\Justicia\CausaPenal\cAmparoIndirectoTipo.cs" />
+    <Compile Include="Catalogo\Justicia\ConsultaExpediente\cHistoricoDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\ConsultaExpediente\cTipoDocumentoHistorico.cs" />
+    <Compile Include="Catalogo\Justicia\ConsultaUnificada\cClasificacionDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\ConsultaUnificada\cConsultaUnificada.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cDecomisoModelo.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cDecomisoFabricante.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cCompania.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cDecomisoImagen.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cEmpleado.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cDrogaUM.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cTurno.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cGrupoTactico.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cDecomisoObjeto.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cDecomisoIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cDecomisoPersona.cs" />
+    <Compile Include="Catalogo\Justicia\Decomisos\cDecomiso.cs" />
+    <Compile Include="Catalogo\Justicia\DepartamentoAreaTecnica\cDepartamentoAreaTecnica.cs" />
+    <Compile Include="Catalogo\Justicia\Documentos\cFormatoDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Documentos\cTipoDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Documentos\cImputadoTipoDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Documentos\cImputadoDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Egreso\cLiberacionAutoridad.cs" />
+    <Compile Include="Catalogo\Justicia\Egreso\cLiberacionMotivo.cs" />
+    <Compile Include="Catalogo\Justicia\Egreso\cLiberacion.cs" />
+    <Compile Include="Catalogo\Justicia\Empleado\cTipoEmpleado.cs" />
+    <Compile Include="Catalogo\Justicia\Equipos\cCatalogoEquipos.cs" />
+    <Compile Include="Catalogo\Justicia\Equipos\cEquipo_Area.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cClasificacionCriminologica.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cComportamientoHomo.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEducacionCertificado.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIImputado.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEmiIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cEstudioPersonalidad.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cFichasJuridicas.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cPersonalidadDetalle.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cPersonalidadDetalleDias.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cPersonalidadEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cPersonalidadMotivo.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cPersonalidadSituacion.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cPersonalidadTipoEstudio.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioPersonalidad\cRealizacionEstudios.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioSocioEconomico\cEstudioSocioEconomico.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioSocioEconomico\cEstudioSocioEconomicoCat.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEventoEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEventoInfTecnica.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEventoPresidium.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEventoPrograma.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEvento.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEventoTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEventoIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEventoVestimenta.cs" />
+    <Compile Include="Catalogo\Justicia\Eventos\cEventoImpacto.cs" />
+    <Compile Include="Catalogo\Justicia\Excarcelaciones\cExcarcelacion.cs" />
+    <Compile Include="Catalogo\Justicia\Excarcelaciones\cExcarcelacionTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Excarcelaciones\cExcarcelacion_Cancela_Motivo.cs" />
+    <Compile Include="Catalogo\Justicia\Excarcelaciones\cExcarcelacion_Destino.cs" />
+    <Compile Include="Catalogo\Justicia\Excarcelaciones\cExcarcelacion_Estatus.cs" />
+    <Compile Include="Catalogo\Justicia\Excarcelaciones\cExcarcelacion_Tipo_Docto.cs" />
+    <Compile Include="Catalogo\Justicia\IncidenciaActividadesNoProgramadas\cTrasladoIncidenciaTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cDelitoGrupo.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cHistoriaClinica.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cIngresoUbicacion.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cJuzgadoTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cAbogadoCausaPenalDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cAbogadoIngresoDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cAbogadoIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cAbogadoTitulo.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cActuarioIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cActuarioLista.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cApoyoEconomico.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cEntrevistaInicialTrabajoSocial.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cFotografias.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cGiro.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cEscalaRiesgo.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cLugarCumplimiento.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cFuente.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaPresentacionDetalle.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cProcesoLibertadSeguimiento.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cTipoDocumentoMedida.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cParticularidad.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedida.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaPresentacion.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaLugar.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaPersona.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaLibertadEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cMedidaLibertad.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cProcesoLibertad.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cNuceloFamiliar.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cReportePsicologico.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cUsoDrogasFrec.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cVisitaDomiciliaria.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cCamaHospital.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cCanalizacion.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cCaracterNotificacionResultadoServAux.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cCateterTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cCitasEspecialistas.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cCita_Tipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cControlPrenatal.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cDentalNomenclatura.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cDietas.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cEnfermedad.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\CertificadoMedico\cAtencionMedica.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cEspecialidades.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cEspecialistas.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cFamiliarPatologicos.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cForma_Farmaceutica.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHistoriaClinicaDental.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHistoriaClinicaDentalDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHistoriaClinicaDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHojaControlEnfermeria.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHojaEnfermeria.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHojaEnfermeriaCateter.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHojaEnfermeriaLectura.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHojaEnfermeriaMedicamento.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHojaEnfermeriaSolucion.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHojaEnfermeriaSondaGasogastrica.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHojaEnfermeriaUlcera.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHoja_Referencia_Medica.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHospitales.cs" />
+    <Compile Include="Catalogo\Justicia\Liberados\cLiberado.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cMedicamento.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cNotaEgreso.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cNotaEvolucion.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHospitalizacion.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cHospitalizacionIngresoTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cInterconsultaTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cLiquido.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cLiquidoHojaCtrl.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cLiquidoHojaCtrlConcen.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cLiquidoHojaCtrlConcenDetalle.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cLiquidoHojaCtrlConcenTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cLiquidoHora.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cLiquidoTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cLiquidoTurno.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cMotivoEgresoMedico.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cNivelPrioridad.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cNotaMedicaDieta.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cNota_Defuncion.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cNotificacionTipoResultServAux.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cNotificacionTSResultadoServAux.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cOdontograma.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cOdontogramaSimbologias.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cOdontogramaTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cProcAtencionMedicaDet.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cProc_Atencion_Medica_Prog.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cPresentacion_Medicamento.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cRecetaMedica.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cProcedimientosSubtipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cProcedimientosMedicos.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cProcedimientosMateriales.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cInterconsultaAtencionTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cPatologicoCat.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cRecetaMedicaDetalle.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cRiesgoNositicacionResultServAux.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cServicioAuxiliarResultado.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cServ_Aux_Diag_Trat.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cInterconsulta_Solicitud.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cSolicitudInterconsultaInterna.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cSubtipo_Serv_Aux_Diag_Trat.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cTipoNotificacionTrabajoSocial.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cTipo_Serv_Aux_Diag_Trat.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cTratamientoDental.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cTratamientoTipoDental.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\Traslado_Virtual_Medico\cTraslado_Virtual_Medico.cs" />
+    <Compile Include="Catalogo\Justicia\NotaMedica\cPronostico.cs" />
+    <Compile Include="Catalogo\Justicia\Medico\cTipoDocumentosHistoriaClinica.cs" />
+    <Compile Include="Catalogo\Justicia\NotaMedica\cEnfermedades.cs" />
+    <Compile Include="Catalogo\Justicia\NotaMedica\cNotaMedica.cs" />
+    <Compile Include="Catalogo\Justicia\NotaMedica\cSignosVitales.cs" />
+    <Compile Include="Catalogo\Justicia\OrganizacionInterna\cDepartamentoAcceso.cs" />
+    <Compile Include="Catalogo\Justicia\OrganizacionInterna\cEje.cs" />
+    <Compile Include="Catalogo\Justicia\OrganizacionInterna\cPrograma.cs" />
+    <Compile Include="Catalogo\Justicia\Otros\cDepartamentosAcceso.cs" />
+    <Compile Include="Catalogo\Justicia\Parametros\cParametros.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTipoPersona.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cActaConsejoTecnicoComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cActaConsejoTecnicoFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cActaDeterminoFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cActaFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cActividadesEstudioEducativoFueroComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cActividadesFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cActividadParticipacionFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cActrividadesEstudioCapacitacionTrabajoFueroComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cCapacidad.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cCapacitacionCursoFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cCapacitacionEstudioTrabajoPenitFueroComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cCapacitacionFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cClasificCriminologicaComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cComunicacionComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cCorrectivoFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cCorrectivosSeguridadFueroComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cCriminologicoFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cDiasLaboradosFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cDisfuncionNeurologicaComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cEscolaridadesAnterioresIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cEstudioCapacitTrabajoPenitenciarioComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cEstudioMedicoFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cEstudioPersonalidadFueroComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cEstudioPsicologicoFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cEstudioTrabajoSocialFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cFichaIdentificacionFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cFiliacionFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cGrupoFamiliarFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cGrupoSocioFamiliarComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cGruposSocioEconomicoComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cInformeAreaSeguridadCustodiaComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cNivelIntelectualComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cPeligrosidad.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cPersonalidadEstudioCriminodiagnosticoComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cPersonalidadEstudioEducativoCultDepComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cPersonalidadEstudioMedicoComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cPersonalidadEstudioPsicologicoComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cPersonalidadEstudioPsiquiatricoComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cPersonalidadEstudioSocioFamiliarComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cPersonalidadFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cProgramaRealizacionEstudios.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cProgramasEstudioEducativoComun.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cRealizacionEstudiosPersonalidad.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cSustanciaToxicaFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cTrasladoInternacionalPersonalidad.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cTrasladoInternacionalSanciones.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cTrasladoInternacionalVisitas.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cTrasladoIslasPersonalidad.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cTrasladoNacionalPersonalidad.cs" />
+    <Compile Include="Catalogo\Justicia\RealizacionEstudiosPersonalidad\cVigilanciaFueroFederal.cs" />
+    <Compile Include="Catalogo\Justicia\SeguimientoLibertad\cAgendaActividadLibertadDetalle.cs" />
+    <Compile Include="Catalogo\Justicia\SeguimientoLibertad\cAgendaActividadLibertad.cs" />
+    <Compile Include="Catalogo\Justicia\SeguimientoLibertad\cProgramaLibertad.cs" />
+    <Compile Include="Catalogo\Justicia\SeguimientoLibertad\cAgendaActividadEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\SeguimientoLibertad\cUnidadReceptoraReponsable.cs" />
+    <Compile Include="Catalogo\Justicia\SeguimientoLibertad\cUnidadReceptora.cs" />
+    <Compile Include="Catalogo\Justicia\Sesion\cSesion.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAtencionRecibida.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAtencionResultado.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAtencionCita.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAtencionIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAtencionServicio.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAtencionTipo.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAtencionSolicitud.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAreaTecnica.cs" />
+    <Compile Include="Catalogo\Justicia\SolicitudCitas\cAtencion_Cita_In_Motivo.cs" />
+    <Compile Include="Catalogo\Justicia\Traslados\cIngresoUbicacionAnterior.cs" />
+    <Compile Include="Catalogo\Justicia\Traslados\cTrasladoDetalle.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cEjes.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIEstatusPrograma.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFactorCriminodiagnostico.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFactorUbicacion.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFactorResultado.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFactorNivel.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFactoresHuida.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIIngresosAnteriores.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cExfuncionarioSegPub.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEducacionGrado.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cDrogaFrecuencia.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIGrupoFamiliar.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMI.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIActividad.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIClasCriminologica.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIEnfermedad.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFactoresSocioFamiliares.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFamConDelito.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFamiliarDroga.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFichaIdentificacion.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIHPS.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMISancionDisciplinaria.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMISenasParticulares.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMISituacionJuridica.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEmisor.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMITatuaje.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMITipoActividad.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIUltimosEmpleos.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIUsoDroga.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cEMIFactoresAbandono.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cFrecuencia.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cMotivoProstitucion.cs" />
+    <Compile Include="Catalogo\Justicia\EstudioMI\cPerteneceCrimenOrg.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cDelitoTitulo.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cDialecto.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cIdioma.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cNuc.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cIngresoBiometrico.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cImputadoPadres.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cIngresoDelito.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cRecursoDelito.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cGradoParticipacion.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cGradoAutoria.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cImputadoBiometrico.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cRecursoResultado.cs" />
+    <Compile Include="Catalogo\Justicia\Traslados\cTraslado.cs" />
+    <Compile Include="Catalogo\Justicia\Traslados\cTrasladoMotivo.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cTipoRecurso.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cSentenciaDelito.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cSentencia.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cCausaPenalEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cRecurso.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cTermino.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cJuzgado.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cFuero.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cTipoOrden.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cCoparticipeApodo.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cCoparticipeAlias.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cCoparticipe.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cAgencia.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cTipoDelito.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cDelito.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cModalidadDelito.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cCausaPenalDelito.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cCausaPenal.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cSenasParticulares.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cAnatomiaTopografica.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cImputadoPandilla.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cImputadoFiliacion.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cAbogado.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cAbogadoCausaPenal.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cAbogadoDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Notificaciones\cUsuarioMensaje.cs" />
+    <Compile Include="Catalogo\Justicia\Notificaciones\cTipoMensaje.cs" />
+    <Compile Include="Catalogo\Justicia\Notificaciones\cMensaje.cs" />
+    <Compile Include="Catalogo\Justicia\OrganizacionInterna\cCentroDepartamentos.cs" />
+    <Compile Include="Catalogo\Justicia\OrganizacionInterna\cDepartamentos.cs" />
+    <Compile Include="Catalogo\Justicia\Otros\cArtForma.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cTipoSeguridad.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cTipoDisposicion.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cTipoAutoridadInterna.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cEstatusAdministrativo.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cCama.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cCelda.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cClasificacionJuridica.cs" />
+    <Compile Include="Catalogo\Justicia\OrganizacionInterna\cAreaTrabajo.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cFamiliarResponsable.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTatuajeClasificacion.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTipoDiscapacidad.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTipoReferencia.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cRelacionPersonalInterno.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cApodo.cs" />
+    <Compile Include="Catalogo\Justicia\Otros\cDrogas.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cEstadoCivil.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cColonia.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cAlias.cs" />
+    <Compile Include="Catalogo\Justicia\Pertenencias\cIngresoPertenencias.cs" />
+    <Compile Include="Catalogo\Justicia\Pertenencias\cIngresoPertenenciasDet.cs" />
+    <Compile Include="Catalogo\Justicia\Pertenencias\cObjetoTipo.cs" />
+    <Compile Include="Catalogo\Justicia\Planimetria\cSectorClasificacionCelda.cs" />
+    <Compile Include="Catalogo\Justicia\Planimetria\cSectorClasificacion.cs" />
+    <Compile Include="Catalogo\Justicia\Planimetria\cObservacionPlanimetria.cs" />
+    <Compile Include="Catalogo\Justicia\SancionesDiciplinarias\cSancion.cs" />
+    <Compile Include="Catalogo\Justicia\SancionesDiciplinarias\cSancionTipo.cs" />
+    <Compile Include="Catalogo\Justicia\SancionesDiciplinarias\cIncidenteTipo.cs" />
+    <Compile Include="Catalogo\Justicia\SancionesDiciplinarias\cIncidente.cs" />
+    <Compile Include="Catalogo\Justicia\Traslados\cTipoAutoridadSalida.cs" />
+    <Compile Include="Catalogo\Justicia\Traslados\cTrasladoMotivoSalida.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cGrupoAsistencia.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cGrupoHorarioEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cGrupoEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cGrupoHorario.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cGrupo.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cGrupoParticipanteCancelado.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cGrupoParticipanteEstatus.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cGrupoParticipante.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cActividadEje.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cActividad.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cNotaTecnica.cs" />
+    <Compile Include="Catalogo\Justicia\Tratamiento\cTipoPrograma.cs" />
+    <Compile Include="Catalogo\Justicia\Usuarios\cProcesoUsuario.cs" />
+    <Compile Include="Catalogo\Justicia\Usuarios\cProcesoRol.cs" />
+    <Compile Include="Catalogo\Justicia\Usuarios\cSistemaRol.cs" />
+    <Compile Include="Catalogo\Justicia\Usuarios\cProceso.cs" />
+    <Compile Include="Catalogo\Justicia\Usuarios\cUsuarioRol.cs" />
+    <Compile Include="Catalogo\Justicia\Usuarios\cUsuario.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cAcompanante.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cAduanaAcompanante.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cAduanaIngresoCP.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cAduanaIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cAduana.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cPasesVisitanteIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cPersonaNIP.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cPuesto.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cPersonaExterna.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cPases.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitaDia.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitaApellido.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitaEdificio.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitaExterna.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitaAgenda.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cArea.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cEstatusVisita.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cPersonaBiometrico.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cTipoVisitante.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitaAutorizada.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitaDocumento.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cCorrespondencia.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitanteIngresoPase.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitanteIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cVisitante.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cTipoRelacion.cs" />
+    <Compile Include="Catalogo\Justicia\Legal\cTipoIngreso.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTipoLunar.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTipoDefecto.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTipoCicatriz.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTipoSangre.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cSector.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cEdificio.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cEscolaridad.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cMunicipio.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cEntidad.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cCentro.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cPandilla.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cOcupacion.cs" />
+    <Compile Include="Catalogo\Justicia\Institucion\cPaises.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cMediaFiliacion.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTipoFiliacion.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cTatuaje.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cReligion.cs" />
+    <Compile Include="Catalogo\Justicia\Persona\cEtnia.cs" />
+    <Compile Include="Catalogo\Justicia\Ingreso\cImputado.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cPersona.cs" />
+    <Compile Include="Catalogo\Justicia\Visitas\cTipoVisita.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Catalogo\Justicia\Yarda\cYarda.cs" />
+    <Compile Include="Enums\FormaEntradaOrden.cs" />
+    <Compile Include="Principales\Almacenes\cCalendarizar_Entrega.cs" />
+    <Compile Include="Principales\Almacenes\cCalendarizar_Entrega_Producto.cs" />
+    <Compile Include="Principales\Almacenes\cMovimiento.cs" />
+    <Compile Include="Principales\Almacenes\cIncidencia.cs" />
+    <Compile Include="Principales\Almacenes\cOrden_Compra.cs" />
+    <Compile Include="Principales\Almacenes\cOrden_Compra_Detalle.cs" />
+    <Compile Include="Principales\Almacenes\cRequisicion.cs" />
+    <Compile Include="Principales\Almacenes\cRequisicionProducto.cs" />
+    <Compile Include="Principales\Almacenes\cRequisicion_Centro.cs" />
+    <Compile Include="Principales\Almacenes\cRequisicion_Centro_Producto.cs" />
+    <Compile Include="Principales\Almacenes\cVista_Inventario_Producto.cs" />
+    <Compile Include="Principales\Compartidos\cParametro.cs" />
+    <Compile Include="Principales\Compartidos\cParametroClave.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modelo\Modelo.csproj">
+      <Project>{51784e3a-5b50-4a5b-9138-ca6615d03df0}</Project>
+      <Name>Modelo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Servidor\Servidor.csproj">
+      <Project>{cf4e9ba2-c1ba-479f-babe-fa546822b767}</Project>
+      <Name>Servidor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

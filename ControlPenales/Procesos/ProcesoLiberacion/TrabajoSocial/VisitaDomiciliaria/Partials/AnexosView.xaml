@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="ControlPenales.AnexosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" 
+             Name="AnexosWindow"
+             Width="auto" Height="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding AnexosLoading}" CommandParameter="{Binding ElementName=AnexosWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="ANEXO 1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+                <GroupBox Header="CROQUIS">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Name="lblnombreCroquis">Nombre</TextBlock>
+                        <TextBlock Grid.Column="1" Name="lbltelefonoCroquis">Teléfono</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Name="lblDireccionCroquis">Dirección:</TextBlock>
+
+                            <TextBox Name="TxtNombreCroquis" Grid.Row="1" Text="{Binding TextNombreCroquis,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"   MaxWidth="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lblnombreCroquis}"  MaxLength="{Binding NombreCroquisMax}"></TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextTelCroquis,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lbltelefonoCroquis}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="14" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                            <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Text="{Binding TextDireccionCroquis,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxLength="{Binding DireccionCroquisMax}" MaxWidth="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lblDireccionCroquis}"></TextBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+       </GroupBox>
+        <GroupBox Header="ANEXO 2" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <GroupBox Header="FOTOGRAFÍAS">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel>
+                            <Label>Seleccione:</Label>
+                            <Button Grid.Column="1" Width="120" Style="{DynamicResource AccentedSquareButtonStyle}" Command="{Binding AddFotografiaClick}" CommandParameter="documento" HorizontalAlignment="Left" >Agregar Fotografía</Button>
+                        </StackPanel>
+                        
+                        <Image Source="{Binding ImagenSuperiorIzquierda}" Grid.Column="0" Grid.Row="1" Width="250" Height="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                        </Image>
+                            <Image Source="{Binding ImagenSuperiorDerecha}" Grid.Column="1" Grid.Row="1"  Width="250" Height="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                        </Image>
+                            <Image Source="{Binding ImagenInferiorIzquierda}" Grid.Column="0" Grid.Row="2"  Width="250" Height="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                        </Image>
+                            <Image Source="{Binding ImagenInferiorDerecha}" Grid.Column="1" Grid.Row="2"   Width="250" Height="250" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                        </Image>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

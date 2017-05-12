@@ -1,0 +1,1832 @@
+﻿<UserControl x:Class="ControlPenales.NotaMedicaView" 
+             Name="NotasMedicaWindow" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:actb="clr-namespace:ControlPenales.Controls"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding NotaMedicaLoaded}" CommandParameter="{Binding ElementName=NotasMedicaWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="UnLoaded">
+            <i:InvokeCommandAction Command="{Binding NotaMedicaUnLoaded}" CommandParameter="{Binding ElementName=NotasMedicaWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick}" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cerrar_buscar_huella_2"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Views:MultiValueConverter x:Key="MultiParamConverter"></Views:MultiValueConverter>
+        <Views:TrimStringConverter x:Key="Trimming" />
+        <Views:GetPersonaNombre x:Key="getPersonaNombre" />
+        <Views:ConvertSignosVitales x:Key="convertSignosVitales" />
+        <Views:ConvertConsultaMedica x:Key="convertConsultaMedica" />
+        <Views:ConvertEstatusStringToBool x:Key="convertEstatusStringToBool" />
+        <Views:BoolToOppositeBoolConverter x:Key="boolToOppositeBoolConverter" />
+        <Views:AutocompleteViewModel x:Key="vm" />
+        <Views:AutocompleteViewModel x:Key="autoProcedimientos" />
+        <CollectionViewSource x:Key="xml">
+            <CollectionViewSource.Source>
+                <PriorityBinding>
+                    <Binding Source="{StaticResource vm}" Path="QueryCollection" IsAsync="True"/>
+                    <Binding Source="{StaticResource vm}" Path="WaitMessage"/>
+                </PriorityBinding>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="receta">
+            <CollectionViewSource.Source>
+                <PriorityBinding>
+                    <Binding Source="{StaticResource vm}" Path="QueryReceta" IsAsync="True"/>
+                    <Binding Source="{StaticResource vm}" Path="WaitMessage"/>
+                </PriorityBinding>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="collectionProcedimientos">
+            <CollectionViewSource.Source>
+                <PriorityBinding>
+                    <Binding Source="{StaticResource autoProcedimientos}" Path="QueryProcedimiento" IsAsync="True"/>
+                    <Binding Source="{StaticResource autoProcedimientos}" Path="WaitMessage"/>
+                </PriorityBinding>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <Views:MyDataTemplateSelector x:Key="TemplateSelector"/>
+        <DataTemplate x:Key="TheItemTemplate">
+            <Border CornerRadius="5" BorderBrush="#427399" BorderThickness="3" Background="Transparent" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <Grid HorizontalAlignment="Left" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="2" HorizontalAlignment="Left">
+                        <TextBlock Text="CLAVE:  "/>
+                        <TextBlock Text="{Binding CLAVE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="NOMBRE:  "/>
+                        <TextBlock Text="{Binding NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="TheItemTemplateReceta">
+            <Border CornerRadius="5" BorderBrush="#427399" BorderThickness="3" Background="Transparent" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <Grid HorizontalAlignment="Left" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <!--<ColumnDefinition Width="300"></ColumnDefinition>-->
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--<StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="CATEGORIA:  "/>
+                        <TextBlock Text="{Binding PRODUCTO.PRODUCTO_CATEGORIA.NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>-->
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="PRODUCTO:  "/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Width="225" Text="{Binding PRODUCTO.NOMBRE, Converter={StaticResource Trimming}}" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="FORMA FARM.:  "/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="{Binding PRODUCTO.FORMA_FARMACEUTICA.DESCR, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="TheItemTemplateProcedimientos">
+            <Border CornerRadius="5" BorderBrush="#427399" BorderThickness="3" Background="Transparent" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <Grid HorizontalAlignment="Left" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="CATEGORIA:  "/>
+                        <TextBlock Text="{Binding PRODUCTO.PRODUCTO_CATEGORIA.NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="PRODUCTO:  "/>
+                        <TextBlock Text="{Binding PRODUCTO.NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="WaitTemplate">
+            <TextBlock Text="{Binding}" Background="SlateBlue"/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Name="lbGeneral" Visibility="Hidden"></Label>
+        <Grid Name="gridIconos" ShowGridLines="false" VerticalAlignment="Top"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">Guardar</Label>
+                <Button Width="50" Height="50" ToolTip="Guardar" IsEnabled="{Binding MenuGuardarEnabled}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="guardar_menu"
+                    Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">
+                    Buscar
+                </Label>
+                <Button Width="50" Height="50" ToolTip="Buscar" IsEnabled="{Binding MenuBuscarEnabled}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_menu" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">Limpiar</Label>
+                <Button  Width="50" Height="50" ToolTip="Limpiar" 
+                IsEnabled="{Binding MenuLimpiarEnabled}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="limpiar_menu" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clean}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">Reporte</Label>
+                <Button  Width="50" Height="50" ToolTip="Reporte" IsEnabled="{Binding MenuReporteEnabled}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="reporte_menu" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_printer}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="5" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">Ficha</Label>
+                <Button Width="50" Height="50" ToolTip="Ficha" IsEnabled="{Binding MenuFichaEnabled}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="ficha_menu" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clipboard_file}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="6" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">H. Clinica</Label>
+                <Button Width="50" Height="50" ToolTip="Historia Clinica" IsEnabled="{Binding MenuHClinicaEnabled}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="historia_clinica_menu" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_book_open_information}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="7" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">Archivos</Label>
+                <Button Width="50" Height="50" ToolTip="Ayuda" IsEnabled="{Binding MenuArchivosEnabled}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_archivos_medicos" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cabinet_files}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="8" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">Ayuda</Label>
+                <Button Width="50" Height="50" ToolTip="Ayuda" IsEnabled="{Binding MenuAyudaEnabled}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="ayuda_menu" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_question}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="9" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">Salir</Label>
+                <Button Width="50" Height="50" ToolTip="Salir" IsEnabled="{Binding MenuSalirEnabled}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="salir_menu" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_door_lock_closed}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="1">
+            <Grid Visibility="{Binding ListaImputadosVisible}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Content="Lista de Imputados" Style="{DynamicResource DescriptionHeaderStyle}" Name="lbAnchoListas" />
+                <Label Grid.Row="1" Content="{Binding TextContador}" Style="{DynamicResource DescriptionHeaderStyle}" HorizontalAlignment="Right" />
+                <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Margin="0 5 0 0" Grid.Row="2" SelectedIndex="{Binding TabImputadosIndex}"
+                                                       Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="TabListas">
+                    <TabItem Header="{Binding CitasMedicasPropiasHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabCitasMedicas}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListCitadosPropios}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaCitasMedicasPropias">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding CITA_FECHA_HORA,StringFormat={}{0:HH:mm tt}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Medico" Binding="{Binding USUARIO.EMPLEADO.PERSONA, Converter={StaticResource getPersonaNombre}}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Signos vitales" IsReadOnly="True">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA, Converter={StaticResource convertSignosVitales}}">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consulta">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA, Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Estatus" Binding="{Binding ATENCION_CITA_ESTATUS.DESCR}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaCitasMedicasPropias}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="{Binding CitasMedicasHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabCitasMedicas}" Visibility="{Binding CitasVisible}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListCitados}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaCitasMedicas">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding CITA_FECHA_HORA,StringFormat={}{0:HH:mm tt}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Medico" Binding="{Binding USUARIO.EMPLEADO.PERSONA, Converter={StaticResource getPersonaNombre}}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Signos vitales">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA, Converter={StaticResource convertSignosVitales}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consulta">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA, Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Estatus" Binding="{Binding ATENCION_CITA_ESTATUS.DESCR}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaCitasMedicas}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="{Binding HistoriaClinicaHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabHistoriaClinica}" Visibility="{Binding HistoriaClinicaVisible}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListHistoriaClinica}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaHistoriaClinicaCitas">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding CITA_FECHA_HORA,StringFormat={}{0:HH:mm tt}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Medico" Binding="{Binding USUARIO.EMPLEADO.PERSONA, Converter={StaticResource getPersonaNombre}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tipo de atencion" Binding="{Binding ATENCION_SERVICIO.ATENCION_TIPO.DESCR}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Signos vitales">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=., Converter={StaticResource convertSignosVitales}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consulta">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ., Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Estatus" Binding="{Binding ATENCION_CITA_ESTATUS.DESCR}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaHistoriaClinicaCitas}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="{Binding ProcedimientosMedicosHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabProcedimientosMedicos}" Visibility="{Binding _ProcedimientosMedicosListaVisible}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListProcedimientosMedicosCitas}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaProcedimientosMedicos">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding CITA_FECHA_HORA,StringFormat={}{0:HH:mm tt}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Responsable" Binding="{Binding USUARIO.EMPLEADO.PERSONA, Converter={StaticResource getPersonaNombre}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Estatus" Binding="{Binding ATENCION_CITA_ESTATUS.DESCR}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaProcedimientosMedicos}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="{Binding ExcarcelacionesHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabExcarcelaciones}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListExcarcelados}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaExcarcelaciones">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding PROGRAMADO_FEC}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Signos vitales salida">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA, Converter={StaticResource convertSignosVitales}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consulta">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA, Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Signos vitales entrada">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA1,Converter={StaticResource convertSignosVitales}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consulta">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=.,Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaExcarcelaciones}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="{Binding TrasladosHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabTraslados}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListTrasladados}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaTraslados">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding TRASLADO.TRASLADO_FEC,StringFormat={}{0:HH:mm tt}}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Signos vitales">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA, Converter={StaticResource convertSignosVitales}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consultas">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ATENCION_MEDICA, Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaTraslados}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="{Binding NuevoIngresoHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabNuevoIngreso}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListNuevosIngresos}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaNuevoIngreso">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding FEC_INGRESO_CERESO}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Signos vitales">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=., Converter={StaticResource convertSignosVitales}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consultas">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=., Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaNuevoIngreso}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="{Binding UrgenciasHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabUrgencias}" Visibility="{Binding UrgenciasVisible}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListUrgencias}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaUrgencias">
+                            <!-- no cambiar el nombre del datagrid-->
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding INGRESO.IMPUTADO.ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding INGRESO.IMPUTADO.ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding ATENCION_FEC,StringFormat={}{0:HH:mm tt}}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Signos vitales">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=., Converter={StaticResource convertSignosVitales}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consultas">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=., Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaUrgencias}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="{Binding SancionesHeader}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabSanciones}" Visibility="{Binding SancionesVisible}">
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" SelectionUnit="FullRow" ItemsSource="{Binding ListSanciones}" Height="650" IsReadOnly="True" Margin="1"
+                          Style="{StaticResource MetroDataGrid}" Grid.Row="3" Width="{Binding ActualWidth,ConverterParameter=x-10,Converter={Views:MathConverter},ElementName=lbGeneral}" Name="dgListaSanciones">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding INGRESO.IMPUTADO.ID_ANIO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio" Binding="{Binding INGRESO.IMPUTADO.ID_IMPUTADO}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora" Binding="{Binding ATENCION_FEC,StringFormat={}{0:HH:mm tt}}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Signos vitales">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=., Converter={StaticResource convertSignosVitales}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Consultas">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Path=., Converter={StaticResource convertConsultaMedica}}" IsEnabled="False">
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox" BasedOn="{StaticResource MetroDataGridCheckBox}">
+                                                        <Setter Property="Background" Value="White" />
+                                                    </Style>
+                                                </CheckBox.Style>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgListaSanciones}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+            </Grid>
+            <Grid Visibility="{Binding NotaMedicaVisible}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Nota Médica" Style="{DynamicResource DescriptionHeaderStyle}" />
+                <Button Grid.Row="0" Style="{DynamicResource AccentedSquareButtonStyle}" Width="148" HorizontalAlignment="Right" VerticalAlignment="Center" CommandParameter="regresar_listado" 
+                        Command="{Binding OnClick}" Visibility="{Binding BotonRegresarVisible}">Regresar al Listado</Button>
+                <GroupBox Grid.Row="1" Header="Datos del Paciente" Margin="0 0 0 2">
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=AnioBuscar, Path=Text.Length}" Value="4">
+                                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscar}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">Año</Label>
+                        <Label Grid.Column="1" Grid.Row="1" Margin="-7.5,0,0,0">/</Label>
+                        <Label Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">Folio</Label>
+                        <Label Grid.Column="2" Grid.Row="0" VerticalAlignment="Center">Apellido Paterno</Label>
+                        <Label Grid.Column="3" Grid.Row="0" VerticalAlignment="Center">Apellido Materno</Label>
+                        <Label Grid.Column="4" Grid.Row="0" VerticalAlignment="Center">Nombre</Label>
+
+                        <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextAnioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" Name="AnioBuscar"  CharacterCasing="Upper" MaxLength="4" 
+                         IsReadOnly="{Binding BuscarReadOnly}" Margin="0 0 10 0" Width="50">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextFolioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" Name="FolioBuscar" CharacterCasing="Upper" MaxLength="5" 
+                         IsReadOnly="{Binding BuscarReadOnly}" Margin="10 0 0 0" Width="50">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoPaternoBuscar" 
+                         MaxLength="30" IsReadOnly="{Binding BuscarReadOnly}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextMaternoImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  Name="ApellidoMaternoBuscar" 
+                         MaxLength="30" IsReadOnly="{Binding BuscarReadOnly}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding TextNombreImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  Name="NombreBuscar" MaxLength="40" 
+                         IsReadOnly="{Binding BuscarReadOnly}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <StackPanel >
+                                <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" Margin="2" Visibility="Collapsed"/>
+                                <Button Width="50" Height="50" VerticalAlignment="Top" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_visible" 
+                                    Command="{Binding OnClick}" IsEnabled="{Binding MenuBuscarEnabled}" Visibility="Collapsed" >
+                                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                        <Label Content="Sexo" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"></Label>
+                        <Label Content="Edad" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"></Label>
+                        <Label Grid.Column="3" Grid.Row="2" Content="Tipo de Atención" VerticalAlignment="Center"></Label>
+                        <Label Grid.Column="4" Grid.Row="2" Content="Tipo de Servicio" VerticalAlignment="Center"></Label>
+                        <TextBox MaxWidth="{ Binding ElementName=lblAnchoColumna, Path=ActualWidth}" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="3" IsReadOnly="True" 
+                         Text="{ Binding Sexo, UpdateSourceTrigger=PropertyChanged }"></TextBox>
+                        <TextBox MaxWidth="{ Binding ElementName=lblAnchoColumna, Path=ActualWidth}" Grid.Column="2" Grid.Row="3" IsReadOnly="True" 
+                         Text="{ Binding Edad, UpdateSourceTrigger=PropertyChanged }"></TextBox>
+                        <ComboBox Grid.Column="3" Grid.Row="3" ItemsSource="{Binding ListAtencionTipo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_ATENCION" SelectedValue="{Binding SelectTipoAtencionValue,UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectTipoAtencion,ValidatesOnDataErrors=True}" VerticalAlignment="Center" IsEnabled="{Binding AtencionTipoEnabled}"></ComboBox>
+                        <ComboBox Grid.Column="4" Grid.Row="3" ItemsSource="{Binding ListTipoServicio}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_SERVICIO" SelectedValue="{Binding SelectTipoServicioValue,UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding SelectTipoServicio,ValidatesOnDataErrors=True}" VerticalAlignment="Center" IsEnabled="{Binding TipoNotaEnabled}"></ComboBox>
+                        <Image Grid.Column="5" Grid.Row="0" Grid.RowSpan="6" Height="125" Source="{Binding FotoIngreso}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" ></Image>
+
+                        <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Cambiar Medico?" Visibility="{Binding CambiarMedicoVisible}"></Label>
+                        <CheckBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" IsChecked="{Binding CheckCambiarMedico}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                  Visibility="{Binding CambiarMedicoVisible}" IsEnabled="{Binding CheckMedicoEnable}"></CheckBox>
+
+                        <ComboBox Grid.Row="5" Grid.Column="2" ItemsSource="{Binding ListMedicos}" SelectedValuePath="ID_EMPLEADO" SelectedValue="{Binding SelectMedico}" SelectedItem="{Binding SelectMedicoItem}"
+                                  IsEnabled="{Binding MedicoEnabled}" Visibility="{Binding CambiarMedicoVisible}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding PERSONA.PATERNO, Converter={StaticResource Trimming}}"></Run>
+                                        <Run Text="{Binding PERSONA.MATERNO, Converter={StaticResource Trimming}}"></Run>
+                                        <Run Text="{Binding PERSONA.NOMBRE, Converter={StaticResource Trimming}}"></Run>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+                <Expander Header="Signos Vitales" Grid.Row="2" Visibility="{Binding SignosVitalesVisible}" IsExpanded="{Binding SignosVitalesExpandidos}">
+                    <AdornerDecorator>
+                        <Grid IsEnabled="{Binding ElementosDisponibles}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Peso (KG)" Grid.Column="0" Grid.Row="0" Name="lblSig"></Label>
+                            <!--<Label Content="{Binding TextLabelTallaGlicemia}" Grid.Column="1" Grid.Row="0"></Label>-->
+                            <Label Content="Tensión Arterial" Grid.Column="2" Grid.Row="0"></Label>
+                            <!--IsEnabled="{Binding PesoEnabled}"-->
+                            <TextBox Grid.Column="0" Grid.Row="1" MaxLength="5" Text="{Binding Peso,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"  
+                                 IsReadOnly="{Binding SignosVitalesReadOnly}">
+                                <i:Interaction.Behaviors>
+                                    <Views:TextBoxInputBehavior InputMode="DecimalInput"/>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.]" MaxLength="5" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <!--IsEnabled="{Binding TallaEnabled}"-->
+                            <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" Content="{Binding TextLabelTallaGlicemia}"></Label>
+                                <Label Grid.Column="1" Grid.Row="0" Content="Glucemia (MG/DL)" Visibility="{Binding GlucemiaVisible}"></Label>
+                                <TextBox Grid.Column="0" Grid.ColumnSpan="{Binding TallaEstaturaColspan}" Grid.Row="1" MaxLength="20" Text="{Binding Talla,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"  
+                                 IsReadOnly="{Binding SignosVitalesReadOnly}">
+                                    <i:Interaction.Behaviors>
+                                        <Views:TextBoxInputBehavior InputMode="DecimalInput"/>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.]" MaxLength="20" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="1" MaxLength="20" Text="{Binding Glucemia,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"  
+                                 IsReadOnly="{Binding SignosVitalesReadOnly}" Visibility="{Binding GlucemiaVisible}">
+                                    <i:Interaction.Behaviors>
+                                        <Views:TextBoxInputBehavior InputMode="DecimalInput"/>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.]" MaxLength="20" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                            </Grid>
+                            <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
+                                <TextBox MaxLength="5" Text="{Binding TensionArterial1,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding ElementosDisponibles}" Width="75" 
+                                     IsReadOnly="{Binding SignosVitalesReadOnly}">
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="5" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <Label Content="  /  "></Label>
+                                <TextBox MaxLength="5" Text="{Binding TensionArterial2,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding ElementosDisponibles}" Width="75" 
+                                     IsReadOnly="{Binding SignosVitalesReadOnly}">
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="5" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                            </StackPanel>
+                            <Label Content="Frecuencia Cardiaca (PPM)" Grid.Column="0" Grid.Row="2"></Label>
+                            <Label Content="Frecuencia Respiratoria (RPM)" Grid.Column="1" Grid.Row="2"></Label>
+                            <Label Content="Temperatura (°C)" Grid.Column="2" Grid.Row="2"></Label>
+                            <TextBox Grid.Row="3" MaxLength="20" Text="{Binding TextFrecuenciaCardiaca,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding ElementosDisponibles}" 
+                                 IsReadOnly="{Binding SignosVitalesReadOnly}">
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <TextBox Grid.Column="1" Grid.Row="3" MaxLength="20" Text="{Binding FrecuenciaRespira,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding ElementosDisponibles}" 
+                                 IsReadOnly="{Binding SignosVitalesReadOnly}">
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <TextBox Grid.Column="2" Grid.Row="3" MaxLength="20" Text="{Binding Temperatura,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding ElementosDisponibles}" 
+                                 IsReadOnly="{Binding SignosVitalesReadOnly}">
+                                <i:Interaction.Behaviors>
+                                    <Views:TextBoxInputBehavior InputMode="DecimalInput"/>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.]" MaxLength="20" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <!--<Label Content="Estatura (CM)" Visibility="{Binding EstaturaVisible}" Grid.Row="4" IsEnabled="{Binding ElementosDisponibles}"></Label>
+                            <TextBox Text="{Binding TextEstatura,UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" MaxLength="5" Visibility="{Binding EstaturaVisible}" IsEnabled="{Binding ElementosDisponibles}">
+                                <i:Interaction.Behaviors>
+                                    <Views:TextBoxInputBehavior InputMode="DecimalInput"/>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.]" MaxLength="5" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>-->
+                            <Label Content="Observaciones" Grid.Column="{Binding ObservacionesSignosVitalesColumn}" Name="lblGrande" Grid.Row="4" Grid.ColumnSpan="3" Visibility="{Binding ObsSignosVitalesVisible}"></Label>
+                            <TextBox Width="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lblGrande}" Grid.Column="{Binding ObservacionesSignosVitalesColumn}" Grid.Row="5" Grid.ColumnSpan="3"
+                                 MaxLength="500" Name="ObservacionesSignosTB" HorizontalAlignment="Left" Text="{Binding ObservacionesSignosVitales, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                 IsEnabled="{Binding ElementosDisponibles}" CharacterCasing="Upper" IsReadOnly="{Binding SignosVitalesReadOnly}" Visibility="{Binding ObsSignosVitalesVisible}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </Expander>
+                <Expander Grid.Row="3" Header="Exploracion Fisica" Visibility="{Binding ExploracionFisicaVisible}">
+                    <AdornerDecorator>
+                        <StackPanel>
+                            <Label Grid.Column="0" Grid.Row="2" Content="Exploración Física" Name="lblMaestro"></Label>
+                            <TextBox Grid.Column="0" Grid.Row="3" MaxLength="500" IsEnabled="{Binding ElementosDisponibles}" CharacterCasing="Upper" TextWrapping="Wrap" Height="75" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 Text="{Binding ExploracionFisica, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="ExploracionFisicaTB" HorizontalAlignment="Left"
+                                 Width="{Binding ActualWidth,ConverterParameter=x-150,Converter={Views:MathConverter},ElementName=lblMaestro}"></TextBox>
+                        </StackPanel>
+                    </AdornerDecorator>
+                </Expander>
+                <Grid Grid.Row="4" IsEnabled="{Binding ElementosDisponibles}" Visibility="{Binding CertificadoMedicoIngresoVisible}">
+                    <Views:CertificadoMedicoIngresoView x:Name="CertificadoIngresoWindow" Visibility="{Binding CertificadoMedicoIngresoVisible}" />
+                </Grid>
+                <Expander Header="Diagnostico" Grid.Column="0" Grid.Row="5" Visibility="{Binding DiagnosticoVisible}">
+                    <AdornerDecorator>
+                        <Grid IsEnabled="{Binding ElementosDisponibles}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Name="lbAnchoEnfermedad" Content=""></Label>
+                            <StackPanel Grid.Column="0" Grid.Row="0" Margin="1 0 3 0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Diagnóstico"></Label>
+                                    <actb:AutoCompleteTextBox CharacterCasing="Upper" Text="{Binding Source={StaticResource vm}, Path=QueryText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"
+                                                  x:Name="AutoCompleteTB" MaxCompletions="10" Width="350" ItemsSource="{Binding Source={StaticResource xml}}" ItemTemplateSelector="{StaticResource TemplateSelector}" 
+                                                  Binding="{Binding XPath=suggestion/@data}"/>
+                                </StackPanel>
+                                <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" ItemsSource="{Binding ListEnfermedades}" SelectedItem="{Binding SelectEnfermedad}" Height="150" SelectionUnit="FullRow"
+                                          Style="{StaticResource MetroDataGrid}" Grid.Column="1" Margin="0 3 0 0" Width="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lbAnchoDiagnostico1}">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding CLAVE}">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Foreground" Value="Black"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="Clave">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="FontSize" Value="13px"></Setter>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Foreground" Value="White"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding NOMBRE}">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Foreground" Value="Black"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="Nombre">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="FontSize" Value="13px"></Setter>
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Foreground" Value="White"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu >
+                                            <MenuItem Header="Borrar..." CommandParameter="borrar_enfermedad" Command="{Binding OnClick}" IsEnabled="{Binding BorrarEnfermedadEnabled}" />
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                </DataGrid>
+                                <Label Grid.Column="0" Grid.Row="0" Content="Pronóstico"></Label>
+                                <ComboBox IsEnabled="{Binding ElementosDisponibles}" ItemsSource="{Binding LstPronostico}" SelectedValue="{Binding SelectedPronostico,ValidatesOnDataErrors=True}"
+                                          SelectedValuePath="ID_PRONOSTICO" DisplayMemberPath="DESCR" Width="300" HorizontalAlignment="Left"></ComboBox>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Solicita Interconsulta" Margin="0 0 -5 0"></Label>
+                                        <CheckBox IsChecked="{Binding SolicitaInterconsultaCheck}" Margin="10 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <Label Content="Amerita hospitalización?" Margin="20 0 -5 0"></Label>
+                                        <CheckBox Margin="10 5 0 0" IsChecked="{Binding CheckedHospitalizacion}" IsEnabled="{Binding HospitalizacionEnable}" ></CheckBox>
+                                    </StackPanel>
+                                    <StackPanel Visibility="{Binding CertificadoMedicoIngresoVisible}" Orientation="Horizontal">
+                                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Label Content="Pone en peligro la vida?" Margin="20 0 -5 0"></Label>
+                                            <CheckBox Margin="10 5 0 0" IsChecked="{Binding CheckedPeligroVida}" ></CheckBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 10 0">
+                                            <Label Content="Tarda 15 días en sanar?" Margin="20 0 -5 0"></Label>
+                                            <CheckBox Margin="10 5 0 0" IsChecked="{Binding Checked15DiasSanar}" ></CheckBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Visibility="Collapsed">
+                                    <Label Content="Requiere estudios?"></Label>
+                                    <CheckBox IsChecked="{Binding RequiereEstudiosCheck}" VerticalAlignment="Center" Margin="10 3 0 0"></CheckBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0 5 0 5">
+                                <Label Content="Requiere de un seguimiento médico?"></Label>
+                                <CheckBox Margin="10 0 0 3" IsChecked="{Binding CheckedSeguimiento}" VerticalAlignment="Center" Content="Si / No" IsEnabled="{Binding SeguimientoCheckedEnabled}"></CheckBox>
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="agendar_cita" 
+                                     Command="{Binding OnClick}" Margin="10 3 0 0" IsEnabled="{Binding SeguimientoEnabled}">Agendar Cita</Button>
+                                <Label Content="{Binding StrFechaSeguimiento}" Margin="20 3 0 0"></Label>
+                            </StackPanel>
+                            <!--<TextBox IsEnabled="{Binding ElementosDisponibles}" Grid.Row="1" MaxLength="500" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" CharacterCasing="Upper"
+                         Text="{Binding Pronostico,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Name="PronosticoTB" HorizontalAlignment="Left" Height="75" 
+                         Width="{Binding ActualWidth,ConverterParameter=x-150,Converter={Views:MathConverter},ElementName=lblMaestro}"/>-->
+                            <Expander Header="Historia clinica" Grid.Row="2" IsEnabled="{Binding HistoriaClinicaEnabled}" Visibility="{Binding HistoriaClinicaVisible}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Visibility="{Binding CertificadoMedicoIngresoVisible}">
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Padecimiento Actual" Name="lblMaestro2"></Label>
+                                        <TextBox Grid.Column="0" Grid.Row="1" MaxLength="500" IsEnabled="{Binding ElementosDisponibles}" CharacterCasing="Upper" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                             Text="{Binding ResumenInterr, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="75" Name="ResumenInterrogatorioTB" HorizontalAlignment="Left"
+                                             Width="{Binding ActualWidth,ConverterParameter=x-150,Converter={Views:MathConverter},ElementName=lblMaestro2}"></TextBox>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Grid.Row="2" Grid.Column="0" Content="Toxicomanias"></Label>
+                                            <CheckBox Grid.Row="2" Content="Si / No" Margin="10 5 0 0" IsChecked="{Binding CheckedToxicomanias}"></CheckBox>
+                                        </StackPanel>
+                                        <TextBox Grid.Row="3" Height="75" AcceptsReturn="True" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoDiagnostico}"
+                                             Text="{Binding TextToxicomanias,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CheckedToxicomanias}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                        <Label Grid.Column="0" Grid.Row="4" Content="Tratamiento"></Label>
+                                        <ComboBox IsEnabled="{Binding ElementosDisponibles}" Grid.Row="5" ItemsSource="{Binding LstPronostico}" SelectedValue="{Binding SelectedPronostico,ValidatesOnDataErrors=True}"
+                                                  SelectedValuePath="ID_PRONOSTICO" DisplayMemberPath="DESCR"></ComboBox>
+                                    </StackPanel>
+                                    <GroupBox Grid.Row="1" Grid.Column="0" Header="Antecedentes patologicos personales">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="300"></ColumnDefinition>
+                                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <DataGrid Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Height="200" Background="WhiteSmoke" AutoGenerateColumns="False"  CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding LstPatologicos}" 
+                                                  SelectedItem="{Binding SelectedPatologico,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                                                <i:Interaction.Triggers>
+                                                    <Views:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged" >
+                                                        <cmd:EventToCommand Command="{Binding CargarMasResultados}" PassEventArgsToCommand="True" />
+                                                    </Views:RoutedEventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Descripción" Binding="{Binding PATOLOGICO_CAT.DESCR }" ></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                                <DataGrid.RowStyle>
+                                                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MetroDataGridRow}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding SELECCIONADO,UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                                                <Setter Property="Background" Value="SkyBlue"></Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </DataGrid.RowStyle>
+                                            </DataGrid>
+                                            <Label Name="lbPatos" Grid.Column="2"></Label>
+                                            <DataGrid Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" Height="200" Background="WhiteSmoke" AutoGenerateColumns="False" Name="dgHistorialClinico" CanUserAddRows="False" 
+                                                      ItemsSource="{Binding LstCondensadoPatologicos}" SelectedItem="{Binding SelectedCondensadoPato}" IsReadOnly="False" Style="{StaticResource MetroDataGrid}" >
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Fecha Registro" Binding="{Binding REGISTRO_FEC,StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Descripción" Binding="{Binding PATOLOGICO_CAT.DESCR}" IsReadOnly="True"></DataGridTextColumn>
+                                                    <DataGridTemplateColumn Header="Recuperado">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <CheckBox IsChecked="{Binding RECUPERADO,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" IsEnabled="{Binding DESHABILITADO}"></CheckBox>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Observaciones" IsReadOnly="False">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding OBSERVACIONES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="1000" IsEnabled="{Binding DESHABILITADO}"></TextBox>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                </DataGrid.Columns>
+                                                <DataGrid.InputBindings>
+                                                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgHistorialClinico}"></MouseBinding>
+                                                </DataGrid.InputBindings>
+                                            </DataGrid>
+                                            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,0,10,0"
+                                                CommandParameter="agregar_patol" Command="{Binding OnClick}" IsEnabled="{Binding HabilitaImputados}">agregar -- ></Button>
+                                            <Button Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,0,10,0"
+                                                CommandParameter="remove_patol" Command="{Binding OnClick}">&lt; -- quitar</Button>
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </Expander>
+                            <Expander Grid.Row="3" Grid.Column="0" Header="Odontograma" Visibility="{Binding TratamientoDentalVisible}" Margin="0 1 0 0">
+                                <Views:OdontogramaView Style="{StaticResource ViewTabStyle}" x:Name="OdontogramaView" />
+                            </Expander>
+                            <Expander Header="Mujeres" Grid.Row="4" Visibility="{Binding MujeresVisible}">
+                                <Grid IsEnabled="{Binding MujeresEnabled}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Menarquía" Name="lblReferencia"></Label>
+                                    <Label Grid.Column="1" Grid.Row="0" Content="Años Ritmo"></Label>
+                                    <Label Grid.Column="2" Grid.Row="0" Content="Embarazos"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding CheckMenarquia,TargetNullValue={x:Static sys:String.Empty}, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                             MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}" IsEnabled="False" ><!--IsEnabled="{Binding MenarquiaEnabled}"-->
+                                        <i:Interaction.Behaviors>
+                                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextAniosRitmo, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}" MaxLength="100" CharacterCasing="Upper"></TextBox>
+                                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextEmbarazos,TargetNullValue={x:Static sys:String.Empty},UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}">
+                                        <i:Interaction.Behaviors>
+                                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                    <Label Grid.Column="0" Grid.Row="2" Content="Partos"></Label>
+                                    <Label Grid.Column="1" Grid.Row="2" Content="Abortos"></Label>
+                                    <Label Grid.Column="2" Grid.Row="2" Content="Cesáreas"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding TextPartos,TargetNullValue={x:Static sys:String.Empty},UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}">
+                                        <i:Interaction.Behaviors>
+                                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TextAbortos,TargetNullValue={x:Static sys:String.Empty},UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}">
+                                        <i:Interaction.Behaviors>
+                                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                    <TextBox Grid.Column="2" Grid.Row="3" Text="{Binding TextCesareas,TargetNullValue={x:Static sys:String.Empty},UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}">
+                                        <i:Interaction.Behaviors>
+                                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                    <Label Grid.Column="0" Grid.Row="4" Content="Fecha de la ultima menstruación"></Label>
+                                    <Label Grid.Column="1" Grid.Row="4" Content="Deformaciones Orgánicas"></Label>
+                                    <Label Grid.Column="2" Grid.Row="4" Content="Fecha Probable de Parto"></Label>
+                                    <DatePicker Grid.Column="0" Grid.Row="5" SelectedDate="{Binding FechaUltimaMenstruacion,TargetNullValue={x:Static sys:String.Empty},UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.Watermark="Selecciona una fecha"></DatePicker>
+                                    <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding TextDeformacionesOrganicas,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="100" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}"></TextBox>
+                                    <DatePicker Grid.Column="2" Grid.Row="5" SelectedDate="{Binding FechaProbParto,TargetNullValue={x:Static sys:String.Empty},UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.Watermark="Selecciona una fecha"></DatePicker>
+                                    <Label Grid.Column="0" Grid.Row="6" Content="Lleva control prenatal"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="7" SelectedValuePath="Tag" SelectedValue="{Binding ControlPreNatal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="0"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="1"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="1" Grid.Row="6" Content="Control Familiar" Grid.ColumnSpan="2" Name="lblBigReference"></Label>
+                                    <ComboBox Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" IsEnabled="{Binding IsEnabledControlP, UpdateSourceTrigger=PropertyChanged}" 
+                                          SelectedValue="{ Binding SelectControlPreNatal, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" 
+                                          ItemsSource="{ Binding ListControlPrenatal}" SelectedValuePath="ID_CONTROL_PRENATAL" DisplayMemberPath="DESCR"></ComboBox>
+                                </Grid>
+                            </Expander>
+                        </Grid>
+                    </AdornerDecorator>
+                </Expander>
+                <Expander Header="Tratamiento" Grid.Column="0" Grid.Row="6" Visibility="{Binding TratamientoVisible}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Medicamento" HorizontalAlignment="Stretch" Name="lbAnchoTratamiento" VerticalAlignment="Top"></Label>
+                        <!--<TextBox Grid.Row="1" IsEnabled="{Binding ElementosDisponibles}" CharacterCasing="Upper" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             Width="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lbAnchoTratamiento}" VerticalAlignment="Top"
+                             Text="{Binding Recetas,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>-->
+                        <actb:AutoCompleteTextBox Grid.Row="1" CharacterCasing="Upper" Text="{Binding Source={StaticResource vm}, Path=TextReceta, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" IsEnabled="{Binding ElementosDisponibles}"
+                                                  x:Name="AutoCompleteReceta" MaxCompletions="10000" Width="400" ItemsSource="{Binding Source={StaticResource receta}}" ItemTemplateSelector="{StaticResource TemplateSelector}" 
+                                                  Binding="{Binding XPath=suggestion/@data}" HorizontalAlignment="Left"/>
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" ItemsSource="{Binding ListRecetas}" Height="150" SelectionUnit="FullRow" IsReadOnly="True"
+                                  Grid.Row="2" Width="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lbAnchoTratamiento}" SelectedItem="{Binding SelectReceta}" 
+                                  Name="dgRecetaMedica" Style="{StaticResource MetroDataGrid}"><!--IsEnabled="{Binding RecetaEnabled}"-->
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Descripción" Binding="{Binding PRODUCTO.NOMBRE}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Cantidad">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding CANTIDAD,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True,TargetNullValue={x:Static sys:String.Empty}}"
+                                                      IsEnabled="{Binding Path=DataContext.RecetaEnabled,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                <i:Interaction.Behaviors>
+                                                    <Views:TextBoxInputBehavior InputMode="DecimalInput"/>
+                                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.]" MaxLength="3" />
+                                                </i:Interaction.Behaviors>
+                                            </TextBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Binding="{Binding PRODUCTO.PRODUCTO_UNIDAD_MEDIDA.NOMBRE}" Header="Unidad de medida"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="PRESENTACIÓN">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding PRODUCTO.PRODUCTO_PRESENTACION_MED}" DisplayMemberPath="PRESENTACION_MEDICAMENTO.DESCRIPCION" SelectedValuePath="ID_PRESENTACION_MEDICAMENTO" 
+                                                      SelectedValue="{Binding PRESENTACION,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
+                                                      IsEnabled="{Binding Path=DataContext.RecetaEnabled,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Duración (Días)">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding DURACION,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True,TargetNullValue={x:Static sys:String.Empty}}"
+                                                      IsEnabled="{Binding Path=DataContext.RecetaEnabled,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                <i:Interaction.Behaviors>
+                                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                                                </i:Interaction.Behaviors>
+                                            </TextBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Mañana">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding HORA_MANANA,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
+                                                      IsEnabled="{Binding Path=DataContext.RecetaEnabled,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Tarde">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding HORA_TARDE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
+                                                      IsEnabled="{Binding Path=DataContext.RecetaEnabled,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Noche">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding HORA_NOCHE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"
+                                                      IsEnabled="{Binding Path=DataContext.RecetaEnabled,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Observaciones">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding OBSERVACIONES,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" MinWidth="200" CharacterCasing="Upper"
+                                                      IsEnabled="{Binding Path=DataContext.RecetaEnabled,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"></TextBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgRecetaMedica}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_receta" IsEnabled="{Binding RecetaEnabled}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                        <Label Content="Dietas" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Label>
+                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" ItemsSource="{Binding ListDietas}" Height="150" SelectionUnit="FullRow" IsReadOnly="True"
+                              Style="{StaticResource MetroDataGrid}" Grid.Row="4" Width="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lbAnchoTratamiento}" IsEnabled="{Binding ElementosDisponibles}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Descripción" Binding="{Binding DIETA.DESCR}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Elige">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ELEGIDO,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" Name="CKB_DIETA" HorizontalAlignment="Center" 
+                                                      IsEnabled="{Binding Path=DataContext.DietasEnabled,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Unchecked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                    <Binding />
+                                                                    <Binding ElementName="CKB_DIETA" />
+                                                                    <Binding ElementName="CKB_DIETA" />
+                                                                </MultiBinding>
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="Checked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                    <Binding />
+                                                                    <Binding ElementName="CKB_DIETA" />
+                                                                    <Binding />
+                                                                </MultiBinding>
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Grid.Row="5" Grid.Column="0" Content="Observaciones" Grid.ColumnSpan="3" Visibility="{Binding ObservacionesTratamientoVisible}"></Label>
+                        <TextBox Grid.Row="6" Height="75" AcceptsReturn="True" Text="{Binding TextObservacionesConclusionesCertificado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"
+                         Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbDiagnostico}" Visibility="{Binding ObservacionesTratamientoVisible}"></TextBox>
+                    </Grid>
+                </Expander>
+                <StackPanel Grid.Row="7" Grid.Column="0" Visibility="Collapsed">
+                    <Grid Visibility="{Binding TabMedicoVisibles}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Name="lbAnchoGeneral" Visibility="Collapsed"></Label>
+                        <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Margin="0 5 0 0" SelectedIndex="{Binding TabSelected}" Visibility="Collapsed"
+                                                       Width="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lbAnchoGeneral}">
+                            <TabItem Header="NOTA DE URGENCIA" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabDatosNotaUrgencia}">
+                                <Grid IsEnabled="{Binding ElementosDisponibles}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Content="Motivo de la Consulta"></Label>
+                                    <Label Grid.Row="2" Content="Estado mental"></Label>
+                                    <Label Grid.Row="4" Content="Destino"></Label>
+                                    <Label Grid.Row="6" Content="Procedimiento en el area" Name="lbAnchoUrgencia"></Label>
+                                    <TextBox Grid.Row="1" CharacterCasing="Upper" Height="50" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoUrgencia}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextUrgenciaMotivo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="3" CharacterCasing="Upper" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoUrgencia}"
+                                             TextWrapping="Wrap" AcceptsReturn="False" Text="{Binding TextUrgenciaEstadoMental, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="5" CharacterCasing="Upper" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoUrgencia}"
+                                             TextWrapping="Wrap" AcceptsReturn="False" Text="{Binding TextUrgenciaDestino, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="7" CharacterCasing="Upper" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoUrgencia}" Height="75"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextUrgenciaProcedimiento, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="NOTA DE EVOLUCION" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabDatosNotaEvolucion}">
+                                <Grid IsEnabled="{Binding ElementosDisponibles}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Content="Existencia de nota medica por turno"></Label>
+                                    <Label Grid.Row="2" Content="Evolucion"></Label>
+                                    <Label Grid.Row="4" Content="Actualizacion por cuadro clinico" Name="lbAnchoEvolucion"></Label>
+                                    <TextBox Grid.Row="1" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoEvolucion}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextExistencia, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="500"></TextBox>
+                                    <TextBox Grid.Row="3" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoEvolucion}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextEvolucion, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="500"></TextBox>
+                                    <TextBox Grid.Row="5" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoEvolucion}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextActualizacion, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="500"></TextBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="NOTA DE REFERENCIA/TRASLADO" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabDatosNotaTraslado}">
+                                <Grid IsEnabled="{Binding ElementosDisponibles}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Content="Motivo de envio"></Label>
+                                    <Label Grid.Row="2" Content="Establecimiento que envia"></Label>
+                                    <Label Grid.Row="4" Content="Establecimiento receptor" Name="lbAnchoTraslado"></Label>
+                                    <TextBox Grid.Row="1" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoTraslado}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextTrasladoMotivo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="3" CharacterCasing="Upper" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoTraslado}"
+                                             TextWrapping="Wrap" AcceptsReturn="False" Text="{Binding TextTrasladoEnvia, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="5" CharacterCasing="Upper" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoTraslado}"
+                                             TextWrapping="Wrap" AcceptsReturn="False" Text="{Binding TextTrasladoReceptor, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="NOTA DE INTERCONSULTA" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabDatosNotaInterconsulta}">
+                                <Grid IsEnabled="{Binding ElementosDisponibles}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Content="Criterio diagnostico"></Label>
+                                    <Label Grid.Row="2" Content="Sugerencias"></Label>
+                                    <Label Grid.Row="4" Content="Tratamiento"></Label>
+                                    <Label Grid.Row="6" Content="Motivo de consulta" Name="lbAnchoInterCons"></Label>
+                                    <TextBox Grid.Row="1" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoInterCons}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextInterconsultaCriterio, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="3" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoInterCons}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextInterconsultaSugerencias, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="5" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoInterCons}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextInterconsultaTratamiento, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="7" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoInterCons}"
+                                             TextWrapping="Wrap" AcceptsReturn="False" Text="{Binding TextInterconsultaMotivo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="NOTA DE PRE-OPERATORIA" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabDatosNotaPreOp}">
+                                <Grid IsEnabled="{Binding ElementosDisponibles}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Content="Fecha de la cirugia"></Label>
+                                    <Label Grid.Row="2" Content="Diagnostico"></Label>
+                                    <Label Grid.Row="4" Content="Plan quirúrgico"></Label>
+                                    <Label Grid.Row="6" Content="Riesgo quirúrgico"></Label>
+                                    <Label Grid.Row="8" Content="Cuidados"></Label>
+                                    <Label Grid.Row="10" Content="Plan terapéutico preoperatorio" Name="lbAnchoPreOp"></Label>
+                                    <DatePicker Grid.Row="1" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreOp}" 
+                                                SelectedDate="{Binding TextPreOpFecha, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                    <TextBox Grid.Row="3" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPreOpDiagnostico, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="5" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPreOpPlan, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="7" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPreOpRiesgo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="9" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPreOpCuidados, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="11" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPreOpPlanTerapeutico, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="NOTA DE PRE-ANESTESICA" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabdatosNotaPreAnest}">
+                                <Grid IsEnabled="{Binding ElementosDisponibles}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Content="Evolucion clinica"></Label>
+                                    <Label Grid.Row="2" Content="Tipo de anestesia"></Label>
+                                    <Label Grid.Row="4" Content="Riesgo anestésico" Name="lbAnchoPreAnest"></Label>
+                                    <TextBox Grid.Row="1" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreAnest}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPreAnestEvolucion, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="3" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreAnest}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPreAnestTipo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="5" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPreAnest}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPreAnestRiesgo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="NOTA DE POST-OPERATORIO" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabDatosNotaPostOp}">
+                                <Grid IsEnabled="{Binding ElementosDisponibles}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Content="Operación planeada"></Label>
+                                    <Label Grid.Row="2" Content="Operación realizada"></Label>
+                                    <Label Grid.Row="4" Content="Diagnostico post-operatorio"></Label>
+                                    <Label Grid.Row="6" Content="Descripción de la tecnica quirúrgica"></Label>
+                                    <Label Grid.Row="8" Content="Hallazgos transoperatorios"></Label>
+                                    <Label Grid.Row="10" Content="Reporte de gasas y compresas"></Label>
+                                    <Label Grid.Row="12" Content="Incidentes"></Label>
+                                    <Label Grid.Row="14" Content="Accidentes"></Label>
+                                    <Label Grid.Row="16" Content="Cuantificación de sangrado"></Label>
+                                    <Label Grid.Row="18" Content="Resultados e interpretación de estudios de servicios auxiliares de diagnosticos transoperatorios"></Label>
+                                    <Label Grid.Row="20" Content="Estado post-quirúrgico inmediato"></Label>
+                                    <Label Grid.Row="22" Content="Plan y tratamiento post-operatorio inmediato"></Label>
+                                    <Label Grid.Row="24" Content="Envio de piezas y biopsias quirúrgicas para el examen macroscópico" Name="lbAnchoPostOp"></Label>
+                                    <TextBox Grid.Row="1" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpPlaneada, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="3" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpRealizada, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="5" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpDiagnosticoPostOp, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="7" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpTecnicaQuirurgica, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="9" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpHallazgosTransoperatorios, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="11" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpGasasCompresas, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="13" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpIncidentes, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="15" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpAccidentes, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="17" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpSangrado, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="19" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpInterpretacion, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="21" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpEstadoInmediato, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="23" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpTratamientoInmediato, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                    <TextBox Grid.Row="25" CharacterCasing="Upper" Height="75" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAnchoPostOp}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding TextPostOpPiezasBiopsias, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                                </Grid>
+                            </TabItem>
+                        </Controls:MetroAnimatedSingleRowTabControl>
+                    </Grid>
+                </StackPanel>
+                <Expander Grid.Row="7" Grid.Column="0" Header="Procedimientos Medicos" Visibility="{Binding ProcedimientosMedicosVisible}">
+                    <Grid IsEnabled="{Binding ElementosDisponibles}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--<DataGrid Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Height="200" Background="WhiteSmoke" AutoGenerateColumns="False"  CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding ListProcedimientosMedicos}" 
+                                                  SelectedItem="{Binding SelectProcedimientoMedico,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                            <i:Interaction.Triggers>
+                                <Views:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged" >
+                                    <cmd:EventToCommand Command="{Binding CargarMasResultadosProcedimientos}" PassEventArgsToCommand="True" />
+                                </Views:RoutedEventTrigger>
+                            </i:Interaction.Triggers>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Subtipo" Binding="{Binding PROC_MED_SUBTIPO.DESCR}" ></DataGridTextColumn>
+                                <DataGridTextColumn Header="Descripción" Binding="{Binding DESCR }" ></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow" BasedOn="{StaticResource MetroDataGridRow}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SELECCIONADO,UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                            <Setter Property="Background" Value="SkyBlue"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                        </DataGrid>-->
+                        <StackPanel Grid.RowSpan="4">
+                            <Label Grid.Row="0" Content="Clasificacion de Procedimiento"></Label>
+                            <ComboBox Grid.Row="1" ItemsSource="{Binding ListProcedimientoSubtipo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_PROCMED_SUBTIPO" SelectedItem="{Binding SelectProcedimientoSubtipo}"></ComboBox>
+                            <Label Grid.Row="0" Content="Procedimiento Médico"></Label>
+                            <ComboBox Grid.Row="1" ItemsSource="{Binding ListProcedimientoMedicoHijo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_PROCMED" SelectedItem="{Binding SelectProcedimientoMedicoHijo}"></ComboBox>
+                        </StackPanel>
+                        <Label Name="lbProcMeds" Grid.Column="2"></Label>
+                        <DataGrid Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" Height="200" Background="WhiteSmoke" AutoGenerateColumns="False" Name="dgProcedimientosMedicos" CanUserAddRows="False" 
+                                  ItemsSource="{Binding ListProcMedsSeleccionados}" SelectedItem="{Binding SelectProcMedSeleccionado}" IsReadOnly="False" Style="{StaticResource MetroDataGrid}" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Descripción" Binding="{Binding PROC_MED_DESCR}" IsReadOnly="True"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Agenda" IsReadOnly="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="Agendar" HorizontalAlignment="Right" VerticalAlignment="Center" Width="93" Margin="5" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                                        CommandParameter="{Binding}" Style="{DynamicResource AccentedSquareButtonStyle}" Focusable="True" />
+                                                <TextBlock Margin="10 0 0 0" Text="{Binding AGENDA}" TextWrapping="NoWrap"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Observaciones" IsReadOnly="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding OBSERV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="500"></TextBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <!--<DataGridTemplateColumn Header="Enfermeros" IsReadOnly="False">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding Path=DataContext.ListEnfermeros,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" SelectedValuePath="ID_USUARIO" 
+                                                      SelectedValue="{Binding ENFERMERO,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Run Text="{Binding EMPLEADO.PERSONA.PATERNO, Converter={StaticResource Trimming}}"></Run>
+                                                            <Run Text="{Binding EMPLEADO.PERSONA.MATERNO, Converter={StaticResource Trimming}}"></Run>
+                                                            <Run Text="{Binding EMPLEADO.PERSONA.NOMBRE, Converter={StaticResource Trimming}}"></Run>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>-->
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OnClick}" CommandParameter="{Binding ElementName=dgProcedimientosMedicos}"></MouseBinding>
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,0,10,0"
+                                CommandParameter="agregar_procedimiento_medico" Command="{Binding OnClick}" IsEnabled="{Binding HabilitaImputados}">agregar -- ></Button>
+                        <Button Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,0,10,0"
+                                CommandParameter="remove_procedimiento_medico" Command="{Binding OnClick}">&lt; -- quitar</Button>
+                    </Grid>
+                </Expander>
+                <Expander Grid.Row="8" Grid.Column="0" Header="Procedimiento medico" Visibility="{Binding ProcedimientoMedicoSeleccionadoVisible}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition MaxHeight="70"></RowDefinition>
+                            <RowDefinition MinHeight="35"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="34"></RowDefinition>
+                                <RowDefinition Height="34"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label>Procedimiento Medico</Label>
+                            <ComboBox Grid.Row="1" ItemsSource="{Binding ListProcedimientosMedicosEnCitaParaAgregar}" VerticalAlignment="Top" DisplayMemberPath="DESCR" SelectedItem="{Binding SelectProcMedEnCitaParaAgendar}"></ComboBox>
+                            <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Label HorizontalAlignment="Center" Padding="0">Agregar</Label>
+                                <Button Width="40" Height="40" ToolTip="Agregar" IsEnabled="{Binding AgregarProcedimientoMedicoEnabled}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="agregar_procedimiento_en_cita" Command="{Binding OnClick}">
+                                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Label HorizontalAlignment="Center" Padding="0">Eliminar</Label>
+                                <Button Width="40" Height="40" ToolTip="Eliminar" IsEnabled="{Binding EliminarProcedimientoMedicoEnabled}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="eliminar_procedimiento_en_cita" 
+                                        Command="{Binding OnClick}">
+                                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_delete}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+                            <Label VerticalAlignment="Top">Producto</Label>
+                            <actb:AutoCompleteTextBox CharacterCasing="Upper" Text="{Binding Source={StaticResource autoProcedimientos}, Path=TextProcedimiento, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" 
+                                                      IsEnabled="{Binding ElementosDisponibles}" x:Name="AutoCompleteTB_ProcsMeds" MaxCompletions="10000" Width="400" ItemsSource="{Binding Source={StaticResource collectionProcedimientos}}" 
+                                                      ItemTemplateSelector="{StaticResource TemplateSelector}" Binding="{Binding XPath=suggestion/@data}" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                        <ListBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding ListProcedimientosMedicosEnCita, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListBox.Resources>
+                                <Style TargetType="ListBoxItem">
+                                    <Style.Resources>
+                                        <!-- SelectedItem with focus -->
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                                        <!-- SelectedItem without focus -->
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                                        <!-- SelectedItem text foreground -->
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                                    </Style.Resources>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                </Style>
+                            </ListBox.Resources>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Expander Header="{Binding PROC_MED.DESCR}">
+                                            <DataGrid ItemsSource="{Binding PROCEDIMIENTOS_MATERIALES, Mode=TwoWay}" Style="{StaticResource MetroDataGrid}" AutoGenerateColumns="False" CanUserAddRows="False" Visibility="{Binding IsVisible}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Material" Binding="{Binding PRODUCTO.NOMBRE}" IsReadOnly="True"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Unidad de Medida" Binding="{Binding PRODUCTO.PRODUCTO_UNIDAD_MEDIDA.NOMBRE}" IsReadOnly="True"></DataGridTextColumn>
+                                                    <DataGridTemplateColumn Header="Cantidad Utilizada">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding CANTIDAD,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue=''}" MaxLength="6">
+                                                                    <i:Interaction.Behaviors>
+                                                                        <Views:TextBoxInputBehavior InputMode="DecimalInput"/>
+                                                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.]" MaxLength="5" />
+                                                                    </i:Interaction.Behaviors>
+                                                                </TextBox>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                </DataGrid.Columns>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                                        <i:InvokeCommandAction Command="{Binding OnClick}" CommandParameter="prueba_doble_click" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </DataGrid>
+                                        </Expander>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <!--<DataGrid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding ListProcedimientosMedicosEnCita}" AutoGenerateColumns="False" CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" 
+                                  SelectedItem="{Binding SelectProcedimientoMedicoAgendado}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Procedimiento Medico" IsReadOnly="True" Binding="{Binding PROC_MATERIAL.PROC_MED.DESCR}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Producto" IsReadOnly="True" Binding="{Binding PRODUCTO.NOMBRE}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Cantidad Utilizada">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding CANTIDAD,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True,TargetNullValue=''}" MaxLength="6">
+                                                <i:Interaction.Behaviors>
+                                                    <Views:TextBoxInputBehavior InputMode="DecimalInput" />
+                                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9.]" MaxLength="6" />
+                                                </i:Interaction.Behaviors>
+                                            </TextBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_procedimiento_medico_agendado" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>-->
+                    </Grid>
+                </Expander>
+                <Expander Grid.Row="9" Grid.Column="0" Header="Dental" Visibility="{Binding ProcedimientoTratamientoDentalVisible}">
+                    <Views:OdontogramaView Style="{StaticResource ViewTabStyle}" x:Name="OdontogramaView2" />
+                </Expander>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

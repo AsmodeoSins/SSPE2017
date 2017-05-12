@@ -1,0 +1,116 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.LoginView" x:Name="LogginWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Views="clr-namespace:ControlPenales" xmlns:Dedo="clr-namespace:ControlPenales.BiometricoServiceReference" xmlns:dic="clr-namespace:Resources.ControlPenales.Login;assembly=Resources"
+        xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources" Title="{x:Static dic:LoginView.titulo}" xmlns:local="clr-namespace:ControlPenales" WindowStartupLocation="CenterScreen"
+        GlowBrush="{DynamicResource AccentColorBrush}" NonActiveGlowBrush="Red" ResizeMode="NoResize" BorderThickness="1" BorderBrush="#3FAFDF" Icon="/ControlPenales;component/Imagen/favicon.ico"
+        Width="500" Height="216" Topmost="True">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoading}" CommandParameter="{Binding ElementName=LogginWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=tbUsuario}" IsEnabled="{Binding EnabledContent}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--<Image Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" Width="64" Height="64" Source="/ControlPenales;component/Imagen/user64.png"></Image>-->
+        <Image Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" Width="90" Height="90" Source="/ControlPenales;component/Imagen/LOGO_SSP.jpg"></Image>
+        <ComboBox Grid.Column="2" Grid.Row="0" Width="250" Margin="0 10 0 0" HorizontalAlignment="Left" ItemsSource="{Binding LstCentro}" SelectedValuePath="ID_CENTRO" DisplayMemberPath="DESCR"
+                SelectedValue="{Binding SelectedCentro}" SelectedItem="{Binding SelectCentro,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+        <TextBox Grid.Column="2" Grid.Row="1" MaxLength="20" Name="tbUsuario" Margin="0 10 0 0" Width="250" HorizontalAlignment="Left"
+                Controls:TextBoxHelper.Watermark="{x:Static dic:LoginView.usuario_watermark}" Text="{Binding User.Username,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" CharacterCasing="Upper">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=tbPassword}" Command="{Binding LoginCommand}"></KeyBinding>
+            </TextBox.InputBindings>
+            <i:Interaction.Behaviors>
+                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ0-9_]*$" MaxLength="20" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <!-- PENDIENTE MAXLENGTH CONTRASENA -->
+        <PasswordBox Grid.Column="2" Grid.Row="2" Name="tbPassword" Margin="0 10 0 0" Width="250" HorizontalAlignment="Left" MaxLength="10" 
+                Controls:TextBoxHelper.Watermark="{x:Static dic:LoginView.contrasena_watermark}" Controls:TextBoxHelper.ButtonContent="4" Controls:TextBoxHelper.ButtonCommand="{Binding LoginCommand}"
+                Style="{DynamicResource MetroButtonPasswordBox}">
+            <PasswordBox.InputBindings>
+                <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=tbPassword}" Command="{Binding LoginCommand}"></KeyBinding>
+            </PasswordBox.InputBindings>
+        </PasswordBox>
+        
+        
+        <!--<Grid > </Grid>-->
+        
+        <Label Grid.Column="2" Grid.Row="3" Foreground="red" Content="{Binding ErrorLogin}"></Label>
+        <!--<Button Grid.Column="2" Grid.Row="4" Width="100" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Height="40" 
+                Command="{Binding LimpiarCommand}" Visibility="{Binding Path=BandError, Converter={StaticResource booleanToVisibilityConverter}}" Margin="0,0,0,43" 
+                Content="{x:Static dicGeneral:General.aceptar}"/>-->
+        <TextBlock Grid.Row="4" Height="20" Margin="12,-15,0,0" Grid.ColumnSpan="2" Text="{Binding VersionInfo}"></TextBlock>
+        <StackPanel Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Margin="0,11,4,43" Grid.RowSpan="2" Visibility="{Binding VisibleBotonBiometrico}">
+            <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.huella}" Padding="0" />
+            <Button Width="50" Height="50" Command="{Binding FingerProperties}" CommandParameter="{Binding ElementName=LogginWindow}" ToolTip="{x:Static dicGeneral:General.tooltip_huellas}"
+                    Style="{DynamicResource MetroCircleButtonStyle}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        <ComboBox VerticalAlignment="Bottom" SelectedValuePath="Tag" SelectedValue="{Binding DD_Dedo,Mode=TwoWay}" Height="26" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" Width="249">
+            <Separator Height="25">
+                <Separator.Template>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Separator Background="#3373F2" />
+                            <TextBlock Text="{x:Static dicGeneral:General.mano_derecha}" Foreground="#3373F2" />
+                            <Separator Background="#3373F2" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Separator.Template>
+            </Separator>
+            <ComboBoxItem Content="{x:Static dicGeneral:General.pulgar_derecho}" Tag="{x:Static Dedo:enumTipoBiometrico.PULGAR_DERECHO }" />
+            <ComboBoxItem Content="{x:Static dicGeneral:General.indice_derecho}" Tag="{x:Static Dedo:enumTipoBiometrico.INDICE_DERECHO }" />
+            <ComboBoxItem Content="{x:Static dicGeneral:General.medio_derecho}" Tag="{x:Static Dedo:enumTipoBiometrico.MEDIO_DERECHO }" />
+            <ComboBoxItem Content="{x:Static dicGeneral:General.anular_derecho}" Tag="{x:Static Dedo:enumTipoBiometrico.ANULAR_DERECHO }" />
+            <ComboBoxItem Content="{x:Static dicGeneral:General.menique_derecho}" Tag="{x:Static Dedo:enumTipoBiometrico.MENIQUE_DERECHO }" />
+            <Separator Height="25">
+                <Separator.Template>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Separator Background="#3373F2" />
+                            <TextBlock Text="{x:Static dicGeneral:General.mano_izquierda}" Foreground="#3373F2" />
+                            <Separator Background="#3373F2" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Separator.Template>
+            </Separator>
+            <ComboBoxItem Content="{x:Static dicGeneral:General.pulgar_izquiedo}" Tag="{x:Static Dedo:enumTipoBiometrico.PULGAR_IZQUIERDO }" />
+            <ComboBoxItem Content="{x:Static dicGeneral:General.indice_izquierdo}" Tag="{x:Static Dedo:enumTipoBiometrico.INDICE_IZQUIERDO }" />
+            <ComboBoxItem Content="{x:Static dicGeneral:General.medio_izquierdo}" Tag="{x:Static Dedo:enumTipoBiometrico.MEDIO_IZQUIERDO }" />
+            <ComboBoxItem Content="{x:Static dicGeneral:General.anular_izquierdo}" Tag="{x:Static Dedo:enumTipoBiometrico.ANULAR_IZQUIERDO }" />
+            <ComboBoxItem Content="{x:Static dicGeneral:General.menique_izquierdo}" Tag="{x:Static Dedo:enumTipoBiometrico.MENIQUE_IZQUIERDO }" />
+        </ComboBox>
+        <Label Content="{x:Static dicGeneral:General.seleccionar_dedo}" Grid.Column="1" HorizontalAlignment="Left" Margin="26,58,0,0" Grid.Row="4" VerticalAlignment="Top" Width="113" />
+        <Grid Grid.ColumnSpan="5" Grid.RowSpan="5" Visibility="{Binding LoginLoading}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border Margin="0,0,0,-37">
+                <Border.Background>
+                    <SolidColorBrush Color="#FF434A4C" Opacity="0.45" />
+                </Border.Background>
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="{Binding LoginMargin,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                    <Canvas Background="White" Margin="0,-16" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="80" Width="auto" />
+                    <Label Content="Iniciando Sesión..." VerticalAlignment="Center" HorizontalAlignment="Center" Margin="250,-15,50,0" Foreground="Black" FontSize="20" />
+                    <Controls:ProgressRing IsActive="True" Width="35" Height="50" Margin="420,-15,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

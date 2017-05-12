@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="ControlPenales.CatalogoTipoFiliacionView"
+             x:Name="TipoFiliacionViewWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Views:CatalogosEstatus x:Key="EstatusNull"/>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding TipoFiliacionLoading}" CommandParameter="{Binding ElementName=TipoFiliacionView}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <StackPanel>
+        <Views:MenuCatalogosView />
+        <Grid Visibility="{Binding GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Tipo Filiación" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label>Búsqueda</Label>
+                <TextBox IsEnabled="{Binding TextoHabilitado}" Margin="2" MinWidth="200" MaxWidth="500" Text="{Binding Busqueda}" CharacterCasing="Upper" MaxLength="{Binding MaxLength}" Name="txtBuscar">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button IsEnabled="{Binding BuscarHabilitado}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar_articulo_medicamento" Content="Buscar"
+                Command="{Binding OnClick}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </Button.InputBindings>
+                </Button>
+            </StackPanel>
+
+            <ListView Grid.Row="2" MaxHeight="500" Margin="10" Name="lvMedia" ItemsSource="{Binding ListItems}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Media Filiación" Width="Auto" DisplayMemberBinding="{Binding MEDIA_FILIACION.DESCR}" />
+                        <GridViewColumn Header="Descripción" Width="Auto" DisplayMemberBinding="{Binding DESCR}" />
+                        <GridViewColumn Header="Estatus" Width="Auto" DisplayMemberBinding="{Binding ESTATUS,Converter={StaticResource EstatusNull}}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding EmptyVisible, Converter={StaticResource booleanToVisibilityConverter}}" Content="No hay información"></Label>
+        </Grid>
+
+        <Grid Visibility="{Binding AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.ColumnSpan="2" Content="{Binding HeaderAgregar}" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Media Filiación"></Label>
+            <ComboBox Grid.Row="1" Grid.Column="1" MinWidth="300" MaxWidth="500" Margin="5" ItemsSource="{Binding Path=ListMediaFiliacion}" SelectedValuePath="ID_MEDIA_FILIACION" DisplayMemberPath="DESCR"
+            SelectedValue="{Binding ValueMediaFiliacion, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" IsEnabled="{Binding EnableMediaFiliacion}" ></ComboBox>
+
+            <Label Grid.Row="2" Grid.Column="0"  VerticalAlignment="Center" Content="Descripción"></Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Descripcion, Mode=TwoWay, ValidatesOnDataErrors=True}" MinWidth="300" MaxWidth="400" CharacterCasing="Upper" Focusable="True"  Margin="5" MaxLength="20" Views:FocusExtension.IsFocused="{Binding FocusText}" HorizontalAlignment="Left" ></TextBox>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Estatus:" Margin="5"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" Margin="5" Width="150" HorizontalAlignment="Left" ItemsSource="{Binding Lista_Estatus.LISTA_ESTATUS}"
+                      DisplayMemberPath="DESCRIPCION"  SelectedItem="{Binding SelectedEstatus,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+
+
+        </Grid>
+    </StackPanel>
+</UserControl>

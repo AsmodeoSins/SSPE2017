@@ -1,0 +1,171 @@
+﻿<UserControl x:Class="GESAL.Views.BusquedaRequisicionProductos"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Converters="clr-namespace:MVVMShared.Converters;assembly=MVVMShared"
+             xmlns:glob="clr-namespace:System.Globalization;assembly=mscorlib">
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" Width="888"
+					CornerRadius="10,0,10,0"  HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="720" MinHeight="320">
+                <StackPanel>
+                    <Label Style="{StaticResource estiloTituloControl}" Content="Busqueda de Requisiciones"></Label>
+                    <DataGrid Margin="5 10 0 0" MaxHeight="200"  AutoGenerateColumns="False" ItemsSource="{Binding Requisiciones}" SelectedItem="{Binding SelectedRequisicionPopUp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MetroDataGrid}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False" CanUserResizeColumns="False" SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="CLAVE" MinWidth="50">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding ID_REQUISICION}"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="TIPO" MinWidth="200">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding ALMACEN_TIPO_CAT.DESCR }"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="MES" MinWidth="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding MES, Converter={Converters:InttoMesMarkUp}, ConverterCulture={x:Static glob:CultureInfo.CurrentCulture}}" ></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="AÑO" MinWidth="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding ANIO}" ></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <!--<DataGrid.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Style.Triggers>
+                                    <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                        <Setter Property="Foreground" Value="Black" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>-->
+                    </DataGrid>
+                    <GroupBox Header="{Binding EncabezadoRequisicionDetalle, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Margin="5 10 0 0">
+                        <Grid>
+                            <DataGrid Margin="5 10 0 0" MaxHeight="200"  AutoGenerateColumns="False" ItemsSource="{Binding Requisicion_Productos, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding SelectedRequisicion_ProductoPopUp}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False" CanUserResizeColumns="False" Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="CLAVE" MinWidth="50">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding ID_PRODUCTO}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="PRODUCTO" MinWidth="300">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding NOMBRE_PRODUCTO }"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="CANTIDAD" MinWidth="150">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding CANTIDAD}" ></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="" MinWidth="150">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <CheckBox Margin="5" IsChecked="{Binding IS_SELECTED, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CommandParameter="vacio" Command="{Binding Path=DataContext.OnChecked, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"></CheckBox>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                                <!--<DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                                <Setter Property="Foreground" Value="Black" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.CellStyle>-->
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="{Binding EncabezadoRequisicionCentroDetalle}"  Margin="5 10 0 0">
+                        <Grid>
+                            <DataGrid Margin="5 10 0 0" MaxHeight="200"  AutoGenerateColumns="False" ItemsSource="{Binding Requisicion_Centro_Productos}"  Style="{StaticResource MetroDataGrid}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False" CanUserResizeColumns="False" SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="CENTRO" MinWidth="250">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding REQUISICION_CENTRO.ALMACEN.CENTRO.DESCR}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="PRODUCTO" MinWidth="300">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding PRODUCTO.NOMBRE }"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="CANTIDAD" MinWidth="150">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding CANTIDAD}" ></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                                <!--<DataGrid.CellStyle>
+                                    <Style TargetType="{x:Type DataGridCell}">
+                                        <Style.Triggers>
+                                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                                <Setter Property="Foreground" Value="Black" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.CellStyle>-->
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Aceptar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdSeleccionarRequisiciones_Productos}" CommandParameter="seleccionado" HorizontalAlignment="Center"></Button>
+                        <Button Content="Cancelar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdCancelarRequisiciones_Productos}" CommandParameter="cancelado" HorizontalAlignment="Center" ></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

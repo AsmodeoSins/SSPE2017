@@ -1,0 +1,233 @@
+﻿<UserControl x:Class="ControlPenales.TopografiaHumanaView"
+             x:Name="TopografiaHumanaWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SenaParticularLoading}" CommandParameter="{Binding ElementName=TopografiaHumanaWindow}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding SenasParticularUnloading}" CommandParameter="{Binding ElementName=TopografiaHumanaWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Grid HorizontalAlignment="Stretch" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="500"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0"  Content="Tipografia Humana" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="1" TabStripPlacement="Top" Grid.RowSpan="3">
+                <TabItem Header="FRENTE" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding TabFrente}" >
+                    <Views:SeniasFrenteView IsEnabled="{Binding IdentificacionSeniasEnabled}" />
+                </TabItem>
+                <TabItem Header="DORSO" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding TabDorso}" >
+                    <Views:SeniasDorsoView IsEnabled="{Binding IdentificacionSeniasEnabled}"/>
+                </TabItem>
+            </Controls:MetroAnimatedSingleRowTabControl>
+
+            <GroupBox Grid.Column="1" Grid.Row="1" Header="Datos">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="9*"></ColumnDefinition>
+                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+
+                    </Grid.RowDefinitions>
+
+                    <StackPanel VerticalAlignment="Top">
+                        <Label>Expediente</Label>
+                        <TextBox Text="{Binding TextExpediente}" IsReadOnly="True"></TextBox>
+
+                        <Label>Nombre</Label>
+                        <TextBox TextWrapping="Wrap" Height="55" Text="{Binding TextNombreCompleto}" IsReadOnly="True"></TextBox>
+                    </StackPanel>
+
+                    <Image Grid.Column="1" Grid.Row="0" Source="{Binding ImagenImputado}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="2" ></Image>
+                </Grid>
+            </GroupBox>
+
+            <DataGrid Grid.Column="1" Grid.Row="2"  AutoGenerateColumns="False" MinHeight="0" MaxHeight="200" CanUserAddRows="False" IsReadOnly="True"
+                  ItemsSource="{Binding ListSenasParticulares}" SelectedItem="{Binding SelectSenaParticular}" VerticalAlignment="Top" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID_INGRESO" Binding="{Binding ID_INGRESO}" />
+                    <DataGridTextColumn Header="CÓDIGO" Binding="{Binding CODIGO}" />
+                    <DataGridTextColumn Header="SIGNIFICADO" Binding="{Binding SIGNIFICADO}" Width="300" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding OnClick}" CommandParameter="seleccionar_sena_particular" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+
+            <Grid Grid.Column="1" Grid.Row="3" IsEnabled="{Binding DatosEnabled}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"></ColumnDefinition>
+                    <ColumnDefinition Width="125"></ColumnDefinition>
+                    <ColumnDefinition Width="199*"></ColumnDefinition>
+                    <ColumnDefinition Width="51*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Header="Presenta" >
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton IsChecked="{Binding SelectPresentaIngresar}" Margin="0,0,20,0">Al Ingresar</RadioButton>
+                        <RadioButton IsChecked="{Binding SelectPresentaIntramuros}">Intramuros</RadioButton>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Header="Tipo" >
+                    <StackPanel>
+                        <RadioButton Grid.Column="0" Grid.Row="0" Command="{Binding TipoClick}" CommandParameter="1" IsChecked="{Binding SelectTipoCicatriz}">Cicatriz</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="1" Command="{Binding TipoClick}" CommandParameter="2" IsChecked="{Binding SelectTipoTatuaje}">Tatuaje</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="2" Command="{Binding TipoClick}" CommandParameter="3" IsChecked="{Binding SelectTipoLunar}">Lunar</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="3" Command="{Binding TipoClick}" CommandParameter="4" IsChecked="{Binding SelectTipoDefecto}">Defecto Fisico</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="4" Command="{Binding TipoClick}" CommandParameter="5" IsChecked="{Binding SelectTipoProtesis}">Prótesis</RadioButton>
+                        <RadioButton Grid.Column="0" Grid.Row="5" Command="{Binding TipoClick}" CommandParameter="6" IsChecked="{Binding SelectTipoAmputacion}">Amputación</RadioButton>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Header="Codigo">
+                    <StackPanel>
+
+                        <Label Grid.Column="0" Grid.Row="0">Cantidad</Label>
+                        <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextCantidad,UpdateSourceTrigger=PropertyChanged}" Views:FocusExtension.IsFocused="{Binding FocusCantidad}" MaxLength="2">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-99]+$" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <Label Grid.Column="0" Grid.Row="2">Código</Label>
+                        <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding CodigoSenia,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" MaxLength="10" />
+
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Header="Fotografía">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <!--<RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>-->
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Width="auto" Source="{Binding ImagenTatuaje}" ></Image>
+
+                        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Visibility="Collapsed">
+                            <Label HorizontalAlignment="Center" Content="Consultar Imagen" Padding="0"/>
+                            <Button  Width="50" Height="50"  ToolTip="Consultar Imagen" IsEnabled="False"
+                            Style="{DynamicResource MetroCircleButtonStyle}"    CommandParameter="buscar_visible" Command="{Binding OnClick}" >
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+
+                        <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
+                            <Label HorizontalAlignment="Center" Content="Tomar Foto" Padding="0"/>
+                            <Button  Width="50" Height="50"  ToolTip="Tomar Foto"
+                            Style="{DynamicResource MetroCircleButtonStyle}"   CommandParameter="tomar_foto_senas" Command="{Binding OnClick}" >
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Header="Clasificación Tatuaje" Grid.ColumnSpan="2" >
+                    <StackPanel>
+                        <Label>Clasificación Tatuaje</Label>
+                        <ComboBox Margin="0,5,0,0" ItemsSource="{Binding ListClasificacionTatuaje}" IsEnabled="{Binding TipoTatuajeEnabled}"
+                              SelectedItem="{Binding SelectClasificacionTatuaje,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                            <!--<ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="MinWidth" Value="100"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>-->
+                        </ComboBox>
+                        <Label>Imagen Tatuaje</Label>
+                        <ComboBox Margin="0,5,0,0" ItemsSource="{Binding ListTipoTatuaje}" IsEnabled="{Binding TipoTatuajeEnabled}"
+                              SelectedItem="{Binding SelectTatuaje,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR">
+                            <ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ComboBox.ItemsPanel>
+                            <!--<ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="MinWidth" Value="100"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>-->
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"  Header="Significado" Grid.ColumnSpan="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10*"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Height="auto" Text="{Binding TextSignificado,Mode=TwoWay}" TextWrapping="Wrap" CharacterCasing="Upper" IsReadOnly="True"></TextBox>
+                        <Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,5,5,0"
+                            CommandParameter="ampliar_descripcion" Command="{Binding OnClick}">Ampliar Descripción</Button>
+                    </Grid>
+                </GroupBox>
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,10,0,0"
+                    CommandParameter="guardar_menu" Command="{Binding OnClick}" IsEnabled="{Binding MenuGuardarEnabled}">Guardar</Button>
+            </Grid>
+
+
+
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

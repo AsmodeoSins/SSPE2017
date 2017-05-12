@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ControlPenales.MermasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" >
+    <StackPanel>
+        <Label Grid.Row="0" Margin="10" Content="MERMAS POR AUTORIZAR" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="4" Margin="10" MinWidth="200" MinHeight="150" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding Lista1}" Style="{StaticResource MetroDataGrid}"
+                      AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Pedido}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Usuario" Binding="{Binding Almacen}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Estatus" Binding="{Binding Pedido}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Motivo"></DataGridTextColumn>
+                <DataGridTextColumn Header="Observaciones"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding OnClick}" CommandParameter="click_doble"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
+        <StackPanel Visibility="{Binding Path=ProductosVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <DataGrid Grid.Row="3" Grid.ColumnSpan="4" Margin="10" MinWidth="200" MinHeight="150" ItemsSource="{Binding Lista2}" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Producto" IsReadOnly="True" Binding="{Binding Producto}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Cantidad" IsReadOnly="True" Binding="{Binding Cantidad}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Unidad de Medida" IsReadOnly="True" Binding="{Binding UnidadMedida}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Visibility="{Binding Path=BotonesVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Button Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_autorizar_merma" 
+                        Command="{Binding OnClick}" Margin="10">Autorizar</Button>
+            <Button Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_rechazar_merma" 
+                        Command="{Binding OnClick}" Margin="10">Rechazar</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

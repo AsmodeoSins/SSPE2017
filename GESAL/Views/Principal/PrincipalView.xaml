@@ -1,0 +1,215 @@
+﻿<Controls:MetroWindow x:Class="GESAL.Views.Principal.PrincipalView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Converters="clr-namespace:MVVMShared.Converters;assembly=MVVMShared"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:toastinetWpf="clr-namespace:ToastinetWPF;assembly=ToastinetWPF"
+                      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      Dialog:DialogParticipation.Register="{Binding}"
+                      xmlns:Views="clr-namespace:GESAL.Views"
+                      xmlns:SharedViews="clr-namespace:MVVMShared.Views;assembly=MVVMShared"
+                      Title="Sistema de Gestión de Almacenes" 
+                      WindowStartupLocation="Manual"                      
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
+                      NonActiveGlowBrush="Red"
+                      BorderThickness="1"
+                      BorderBrush="#3FAFDF"
+                      Icon="/GESAL;component/Resources/Images/icon-GESAL.png"
+                      WindowState="Maximized"
+                      Name="MainMenu">
+    <!-- Resources -->
+    <Window.Resources>
+        <Converters:MultiValueConverter x:Key="MultiParamConverter"></Converters:MultiValueConverter>
+        <!--<Style BasedOn="{StaticResource {x:Type Menu}}"
+         TargetType="Menu">
+            <Setter Property="FontSize" Value="12"></Setter>
+        </Style>-->
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdLoad}" CommandParameter="{Binding ElementName=MainMenu}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Image Source="/GESAL;component/Resources/Images/userWhite24.png" VerticalAlignment="Center"></Image>
+            <TextBlock VerticalAlignment="Center" Foreground="White">Usuario:</TextBlock>
+            <Label Content="{Binding Usuario.NombreCompleto}" VerticalAlignment="Center" Foreground="White" Margin="10 0 0 0"></Label>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid Name="grid_Main">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="{Binding ElementName=grid_Main,Path=ActualWidth}" Grid.Column="1" Grid.Row="0" >
+            <MenuItem Header="Catalagos">
+                <MenuItem Header="Producto">
+                    <MenuItem Header="Producto" Command="{Binding ChangePageCommand}">
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                <Binding Source="GESAL.ViewModels.CatProductoViewModel"></Binding>
+                                <Binding Source="GESAL.Views.CatProductoView"></Binding>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
+                    <MenuItem Header="Unidades de Medida" Command="{Binding ChangePageCommand}">
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                <Binding Source="GESAL.ViewModels.CatProducto_Unidad_MedidaViewModel"></Binding>
+                                <Binding Source="GESAL.Views.CatProducto_Unidad_MedidaView"></Binding>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
+                    <MenuItem Header="Categorias de Producto" Command="{Binding ChangePageCommand}">
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                <Binding Source="GESAL.ViewModels.CatProducto_CategoriaViewModel"></Binding>
+                                <Binding Source="GESAL.Views.CatProducto_CategoriaView"></Binding>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
+                    <MenuItem Header="Subcategorias de Producto" Command="{Binding ChangePageCommand}">
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                <Binding Source="GESAL.ViewModels.CatProducto_SubCategoriaViewModel"></Binding>
+                                <Binding Source="GESAL.Views.CatProducto_SubCategoriaView"></Binding>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
+                    <MenuItem Header="Presentaciones de Producto" Command="{Binding ChangePageCommand}">
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                <Binding Source="GESAL.ViewModels.CatProducto_PresentacionViewModel"></Binding>
+                                <Binding Source="GESAL.Views.CatProducto_PresentacionView"></Binding>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Almacenes">
+                    <MenuItem Header="Almacenes" Command="{Binding ChangePageCommand}">
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                <Binding Source="GESAL.ViewModels.CatAlmacenViewModel"></Binding>
+                                <Binding Source="GESAL.Views.CatAlmacenView"></Binding>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
+                    <MenuItem Header="Tipos de Almacen" Command="{Binding ChangePageCommand}">
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                <Binding Source="GESAL.ViewModels.CatProducto_TipoViewModel"></Binding>
+                                <Binding Source="GESAL.Views.CatProducto_TipoView"></Binding>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
+                    <MenuItem Header="Grupos de Almacen" Command="{Binding ChangePageCommand}">
+                        <MenuItem.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                <Binding Source="GESAL.ViewModels.CatAlmacen_GrupoViewModel"></Binding>
+                                <Binding Source="GESAL.Views.CatAlmacen_GrupoView"></Binding>
+                            </MultiBinding>
+                        </MenuItem.CommandParameter>
+                    </MenuItem>
+                </MenuItem>
+            </MenuItem>
+            <Separator></Separator>
+            <MenuItem Header="Requisiciones">
+                <MenuItem Header="Requisiciones Extraordinarias" Command="{Binding ChangePageCommand}">
+                    <MenuItem.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                            <Binding Source="GESAL.ViewModels.RequisicionExtraordinariaPrincipalViewModel"></Binding>
+                            <Binding Source="GESAL.Views.RequisicionExtraordinariaPrincipalView"></Binding>
+                        </MultiBinding>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+            </MenuItem>
+            <Separator></Separator>
+            <MenuItem Header="Ordenes de Compra">
+                <MenuItem Header="Captura O.C" Command="{Binding ChangePageCommand}">
+                    <MenuItem.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                            <Binding Source="GESAL.ViewModels.CapturaOCViewModel"></Binding>
+                            <Binding Source="GESAL.Views.CapturaOCView"></Binding>
+                        </MultiBinding>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+            </MenuItem>
+            <Separator></Separator>
+            <MenuItem Header="Calendarización">
+                <MenuItem Header="Proveedores" Command="{Binding ChangePageCommand}">
+                    <MenuItem.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                            <Binding Source="GESAL.ViewModels.CalendarizacionViewModel"></Binding>
+                            <Binding Source="GESAL.Views.CalendarizacionView"></Binding>
+                        </MultiBinding>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+                <MenuItem Header="Alimentación"></MenuItem>
+            </MenuItem>
+            <Separator></Separator>
+            <MenuItem Header="Movimientos">
+                <MenuItem Header="Entradas por OC" Command="{Binding ChangePageCommand}">
+                    <MenuItem.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                            <Binding Source="GESAL.ViewModels.EntradasAlmacenesViewModel"></Binding>
+                            <Binding Source="GESAL.Views.EntradasAlmacenesView"></Binding>
+                        </MultiBinding>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+                <MenuItem Header="Entradas Extraordinarias"></MenuItem>
+                <MenuItem Header="Mermas"></MenuItem>
+            </MenuItem>
+            <Separator></Separator>
+            <MenuItem Header="Reportes">
+            </MenuItem>
+        </Menu>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0 0 30 0" Grid.Row="1" Grid.Column="1">
+            <StackPanel>
+                <Controls:TransitioningContentControl Name="contenedorVistas"  Margin="0 0 0 10" Transition="Right" />
+            </StackPanel>
+        </ScrollViewer>
+        <!--POP UPS-->
+        <!--PopUp Datos de Almacen-->
+        <Views:AlmacenPopUpView  Grid.RowSpan="2" Visibility="{Binding VisibleAlmacenPopUp,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="AlmacenPopUpView"/>
+        <!--PopUp Datos de Unidad de Medida-->
+        <Views:Producto_Unidad_MedidaPopUpView  Grid.RowSpan="2" Visibility="{Binding VisibleProducto_Unidad_MedidaPopUp,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="Producto_Unidad_MedidaPopUpView"/>
+        <!--PopUp Datos de SubCategorias-->
+        <Views:Producto_SubCategoriaPopUpView  Grid.RowSpan="2" Visibility="{Binding VisibleProducto_SubCategoriaPopUp,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="Producto_SubCategoriaPopUpView"/>
+        <!--PopUp Datos de Categorias-->
+        <Views:Producto_CategoriaPopUpView Grid.RowSpan="2" Visibility="{Binding VisibleProducto_CategoriaPopUp,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="Producto_CategoriaPopUpView"/>
+        <!--PopUp Datos de Almacen Tipo-->
+        <Views:Almacen_TipoPopUpView Grid.RowSpan="2" Visibility="{Binding VisibleAlmacen_TipoPopUp,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="Almacen_TipoPopUpView"/>
+        <!--PopUp Datos de Presentacion-->
+        <Views:Producto_PresentacionPopUpView Grid.RowSpan="2" Visibility="{Binding VisibleProducto_PresentacionPopUp,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="Producto_PresentacionPopUpView"/>
+        <!--PopUp Datos de Producto-->
+        <Views:ProductoPopUpView Grid.RowSpan="2" Visibility="{Binding VisibleProductoPopUp,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="ProductoPopUpView"/>
+        <!--PopUp Datos de Grupo de Almacen-->
+        <Views:Almacen_GrupoPopUpView Grid.RowSpan="2" Visibility="{Binding VisibleAlmacen_GrupoPopup,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="Almacen_GrupoPopUpView"/>
+        <!--Busqueda de Proveedores--> <!--Debido a que el grid es de 2 renglones en este caso el popup-->
+        <Views:BusquedaProveedoresView Grid.RowSpan="2" Visibility="{Binding VisibleBusquedaProveedores,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="BusquedaProveedoresView"/>
+        <!--Busqueda de Requisiciones-->
+        <Views:BusquedaRequisicionProductos Grid.RowSpan="2" Visibility="{Binding VisibleBusquedaRequisicionesProductos,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="BusquedaRequisicionesProductosView"/>
+        <!--Busqueda de Ordenes de Compra-->
+        <Views:BusquedaOrdenes_CompraView Grid.RowSpan="2" Visibility="{Binding VisibleBusquedaOrdenes_Compra,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="BusquedaOrdenes_CompraView"/>
+        <!--Agenda-->
+        <Views:AgendaView Grid.RowSpan="2" Visibility="{Binding VisibleAgenda,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="AgendaView"/>
+        <!--Busqueda de Ordenes de Compra con Detalle de Productos en Transito-->
+        <Views:BusquedaOrdenes_Compra_TransitoDetalleView Grid.RowSpan="2" Visibility="{Binding VisibleBusquedaOrdenes_Compra_TransitoDetalle,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="BusquedaOrdenes_Compra_TransitoDetalleView"/>
+        <!--Fondo Obscuro-->
+        <Views:FondoObscuroView Grid.RowSpan="2" Visibility="{Binding VisibleFondoObscuro,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="FondoObscuroView"/>
+        <!--Captura de Lotes en entradas-->
+        <Views:AsignaLotesProductoView Grid.RowSpan="2" Visibility="{Binding VisibleAsignaLotesProducto,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="AsignaLotesProductoView"/>
+        <!--Captura de rechazo de producto-->
+        <Views:RechazoProductoEntradaView Grid.RowSpan="2" Visibility="{Binding VisibleRechazoProducto,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="RechazoProductoEntradaView"/>
+        <!--busqueda de requisiciones -->
+        <Views:BusquedaRequisicionView Grid.RowSpan="2" Visibility="{Binding VisibleBusquedaRequisicion,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="BusquedaRequisicionView"/>
+        <!--Dialogo mensaje falso-->
+        <Views:MensajeConfirmacionProxy Grid.RowSpan="2" Visibility="{Binding VisibleMensajeProxy,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="MensajeConfirmacionProxy"/>
+        <!--Dialogo escaner-->
+        <Views:DigitalizacionDocumentosView Grid.RowSpan="2" Visibility="{Binding VisibleDigitalizacionDocumento,Source={StaticResource PopUpsSources}}" DataContext="{Binding PopUpDataContext,Source={StaticResource PopUpsSources}}" x:Name="DigitalizacionDocumentosView"/>
+        <!--Ventana de Loading-->
+        <SharedViews:Loading x:Name="LoadingPanel" Grid.RowSpan="2" Height="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="auto" Visibility="{Binding ShowLoading, Source={StaticResource StaticSources}}"  />
+    </Grid>
+</Controls:MetroWindow>

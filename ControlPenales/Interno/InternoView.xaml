@@ -1,0 +1,682 @@
+﻿<UserControl x:Class="ControlPenales.InternoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+  
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <!--BUSQUEDA-->
+        <Views:MenuInternoBusquedaView Grid.Column="0" Grid.Row="0" Visibility="{Binding BuscarVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:MenuInternoBusquedaView>
+        <Views:BuscarView Grid.Column="0" Grid.Row="1" Visibility="{Binding BuscarVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:BuscarView>
+        <!--CONSULTA EXPEDIENTE-->
+        <Grid Grid.Column="0" Grid.Row="0" Visibility="{Binding ExpedienteVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="105" MinWidth="105"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Consulta a Expediente: 2014/666" Style="{DynamicResource DescriptionHeaderStyle}" />
+            
+            <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" MaxHeight="100" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="No.Ingreso"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Activo"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha Ingreso"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Clasificación Jurídica"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tipo Seguridad"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Edificio"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Sector"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Celda"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+            <!--MENU LATERAL-->
+            <Grid Grid.Column="0" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Identificación" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Identificación"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_lateral_identificacion" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Información&#x0a;   Jurídica" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Informacion Juridica"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_lateral_informacion_juridica" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_scale}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content=" Información&#x0a;Administrativa" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Información Administrativa"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_lateral_informacion_administrativa" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_layer}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Estudios" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Estudios"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_lateral_estudios" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cabinet_files}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Visitas" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Visitas"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_lateral_visitas" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_group}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Agenda" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Agenda"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_lateral_agenda" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_calendar}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Expediente Físico" Padding="0" />
+                    <Button Width="50" Height="50" ToolTip="Expediente Físico"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_lateral_expediente_fisico" Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_man_walk}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+            
+           </Grid>
+            <!--MUESTRA OPCIONES-->
+            <GroupBox Header="Identificación" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding IdentificacionGBVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="4" Controls:TabControlHelper.IsUnderlined="True">
+                    <TabItem Header="Datos Generales" Style="{StaticResource HeaderTabStyle}">
+                        <Views:DatosGeneralesIdentificacionView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Apodos, Alias y Referencias" Style="{StaticResource HeaderTabStyle}">
+                        <Views:ApodosAliasReferenciasView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Media Filiacion" Style="{StaticResource HeaderTabStyle}">
+                        <Views:MediaFiliacionView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Señas Particulares" Style="{StaticResource HeaderTabStyle}">
+                        <Views:SeniasParticularesView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Fotos y Huellas Digitales" Style="{StaticResource HeaderTabStyle}">
+                        <Views:FotosHuellasDigitalesView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+            </GroupBox>
+
+            <GroupBox Header="Informacion Juridica" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding JuridicoGBVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="4" Controls:TabControlHelper.IsUnderlined="True">
+                    <TabItem Header="Datos Ingreso" Style="{StaticResource HeaderTabStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Causa Pensal"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Inicio Compurgación"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Juzgado/Fuero"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Sentencia"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Ejecutoria"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Views:DatosIngresoInternoView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource ViewTabStyle}" />
+                            
+                            <Button Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Width="150" FontSize="11.5"
+                    Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="cancelar_antecedentes" Command="{Binding OnClick}">Cancelar Antecedentes</Button>
+                            
+                            <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Header="Compurgacion" Padding="0 10 0 10" FontSize="11.5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0">Inicio de la Compuración</Label>
+                                    <Label Grid.Column="0" Grid.Row="1" FontWeight="Bold">00/00/0000</Label>
+                                    
+                                    <GroupBox Grid.Column="0" Grid.Row="2" Header="Pena">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold">Años</Label>
+                                            <Label Grid.Column="1" Grid.Row="0">0</Label>
+                                            <Label Grid.Column="2" Grid.Row="0" FontWeight="Bold">Meses</Label>
+                                            <Label Grid.Column="3" Grid.Row="0">0</Label>
+                                            <Label Grid.Column="4" Grid.Row="0" FontWeight="Bold">Dias</Label>
+                                            <Label Grid.Column="5" Grid.Row="0">0</Label>
+                                        </Grid>
+                                    </GroupBox>
+
+                                    <GroupBox Grid.Column="1" Grid.Row="2" Header="Cumlpido">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold">Años</Label>
+                                            <Label Grid.Column="1" Grid.Row="0">0</Label>
+                                            <Label Grid.Column="2" Grid.Row="0" FontWeight="Bold">Meses</Label>
+                                            <Label Grid.Column="3" Grid.Row="0">0</Label>
+                                            <Label Grid.Column="4" Grid.Row="0" FontWeight="Bold">Dias</Label>
+                                            <Label Grid.Column="5" Grid.Row="0">0</Label>
+                                        </Grid>
+                                    </GroupBox>
+
+                                    <GroupBox Grid.Column="2" Grid.Row="2" Header="Abonos">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold">Años</Label>
+                                            <Label Grid.Column="1" Grid.Row="0">0</Label>
+                                            <Label Grid.Column="2" Grid.Row="0" FontWeight="Bold">Meses</Label>
+                                            <Label Grid.Column="3" Grid.Row="0">0</Label>
+                                            <Label Grid.Column="4" Grid.Row="0" FontWeight="Bold">Dias</Label>
+                                            <Label Grid.Column="5" Grid.Row="0">0</Label>
+                                        </Grid>
+                                    </GroupBox>
+
+                                    <GroupBox Grid.Column="3" Grid.Row="2" Header="Restante">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold">Años</Label>
+                                            <Label Grid.Column="1" Grid.Row="0">0</Label>
+                                            <Label Grid.Column="2" Grid.Row="0" FontWeight="Bold">Meses</Label>
+                                            <Label Grid.Column="3" Grid.Row="0">0</Label>
+                                            <Label Grid.Column="4" Grid.Row="0" FontWeight="Bold">Dias</Label>
+                                            <Label Grid.Column="5" Grid.Row="0">0</Label>
+                                        </Grid>
+                                    </GroupBox>
+
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Datos de Causa Penal" Style="{StaticResource HeaderTabStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Causa Pensal"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Inicio Compurgación"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Juzgado/Fuero"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Sentencia"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Ejecutoria"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <DataGrid Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False" Padding="0 10 0 0" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Delito"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Modalidad"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Grave"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Sentencia" Style="{StaticResource HeaderTabStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Causa Pensal"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Inicio Compurgación"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Juzgado/Fuero"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Sentencia"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Ejecutoria"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <DataGrid Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False" Padding="0 10 0 0" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Delito"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Modalidad"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Grave"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Ingresos Anteriores al Translado" Style="{StaticResource HeaderTabStyle}">
+                    </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+            </GroupBox>
+
+            <GroupBox Header="Informacion Administrativa" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding AdministrativoGBVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="4" Controls:TabControlHelper.IsUnderlined="True">
+                    <TabItem Header="Bitacora Cambios" Style="{StaticResource HeaderTabStyle}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition  Height="auto"></RowDefinition>
+                                <RowDefinition  Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" FontSize="11.5">Ubicación</Label>
+                            <TextBox Grid.Column="0" Grid.Row="1" FontSize="11.5"></TextBox>
+                            <DataGrid Grid.Column="0" Grid.Row="2" AutoGenerateColumns="false" Padding="0 10 0 0" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Fecha"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Motivo de Cambio"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Ubicación"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Medidas Diciplinarias" Style="{StaticResource HeaderTabStyle}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" MaxHeight="150" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Fecha Registro"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Motivo"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Status"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Autorización"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <GroupBox Grid.Column="0" Grid.Row="1" Header="Datos del Incidente" Padding="0 10 0 0" FontSize="11.5"></GroupBox>
+
+                            <GroupBox Grid.Column="0" Grid.Row="2" Header="Sanciones" Padding="0 10 0 0" FontSize="11.5">
+                                <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Sanción"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Fecha Inicio"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Fecha Final"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </GroupBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Excarcarcelaciones" Style="{StaticResource HeaderTabStyle}" >
+                        <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Fecha"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Motivo"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tipo Salida"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Traslados" Style="{StaticResource HeaderTabStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Fecha"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Motivo"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <GroupBox Grid.Column="0" Grid.Row="1" Header="Datos de Traslado" FontSize="11.5"></GroupBox>
+                        </Grid>
+                    </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+            </GroupBox>
+
+            <GroupBox Header="Estudios" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding EstudioGBVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Estudios de Personalidad" HorizontalAlignment="Stretch">
+                        <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Fecha Solicitud"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Folio"></DataGridTextColumn>
+                                <DataGridTextColumn Header="No.Ingreso"></DataGridTextColumn>
+                                <DataGridTextColumn Header="No.Est."></DataGridTextColumn>
+                                <DataGridTextColumn Header="Solicitado Por"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Situación"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="1" Header="Desarrollo del Estudio" HorizontalAlignment="Stretch">
+                        <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="No."></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tipo de Estudio"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Fecha Solicitud"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+
+                    <Button Grid.Column="0" Grid.Row="2" Name="btnSeleccionarIngreso" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Padding="0 10 0 10" 
+                    Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar_seleccionar" Command="{Binding OnClick}">Historial EMI</Button>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Visitas" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding VistasGBVisible, Converter={StaticResource booleanToVisibilityConverter}}" HorizontalAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Visitantes del Interno">
+                        <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="No."></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Relación"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Situación con este Interno"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="1" Header="Datos Visitante">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="75"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            
+                            <Label Grid.Column="0" Grid.Row="0">Apellido Paterno</Label>
+                            <Label Grid.Column="1" Grid.Row="0">Apellido Materno</Label>
+                            <Label Grid.Column="2" Grid.Row="0">Nombre</Label>
+                            
+                            <TextBox Grid.Column="0" Grid.Row="1"></TextBox>
+                            <TextBox Grid.Column="1" Grid.Row="1"></TextBox>
+                            <TextBox Grid.Column="2" Grid.Row="1"></TextBox>
+
+                            <Label Grid.Column="0" Grid.Row="2">Sexo</Label>
+                            <Label Grid.Column="1" Grid.Row="2">Relación</Label>
+                            <Label Grid.Column="2" Grid.Row="2">Situación</Label>
+
+                            <TextBox Grid.Column="0" Grid.Row="3"></TextBox>
+                            <TextBox Grid.Column="1" Grid.Row="3"></TextBox>
+                            <TextBox Grid.Column="2" Grid.Row="3"></TextBox>
+
+                            <Label Grid.Column="0" Grid.Row="4">CURP</Label>
+                            <Label Grid.Column="1" Grid.Row="4">RFC</Label>
+                            <Label Grid.Column="2" Grid.Row="4">Teléfono</Label>
+
+                            <TextBox Grid.Column="0" Grid.Row="5"></TextBox>
+                            <TextBox Grid.Column="1" Grid.Row="5"></TextBox>
+                            <TextBox Grid.Column="2" Grid.Row="5"></TextBox>
+
+                            <Label Grid.Column="0" Grid.Row="6" FontWeight="Bold">Domicilio</Label>
+                            
+                            <Grid Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                
+                                <Label Grid.Column="0" Grid.Row="0">País</Label>
+                                <Label Grid.Column="1" Grid.Row="0">Estado</Label>
+                                <Label Grid.Column="2" Grid.Row="0">Municipio</Label>
+                                <Label Grid.Column="3" Grid.Row="0">Colonia</Label>
+
+                                <TextBox Grid.Column="0" Grid.Row="1"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="1"></TextBox>
+                                <TextBox Grid.Column="2" Grid.Row="1"></TextBox>
+                                <TextBox Grid.Column="3" Grid.Row="1"></TextBox>
+
+                                <Label Grid.Column="0" Grid.Row="2">Calle</Label>
+                                <Label Grid.Column="1" Grid.Row="2">Numero Exterior</Label>
+                                <Label Grid.Column="2" Grid.Row="2">Numero Interior</Label>
+                                <Label Grid.Column="3" Grid.Row="2">Código Postal</Label>
+
+                                <TextBox Grid.Column="0" Grid.Row="3"></TextBox>
+                                <Controls:NumericUpDown Grid.Column="1" Grid.Row="3" TextAlignment="Left" Minimum="0" />
+                                <Controls:NumericUpDown Grid.Column="2" Grid.Row="3" TextAlignment="Left" Minimum="0" />
+                                <Controls:NumericUpDown Grid.Column="3" Grid.Row="3" TextAlignment="Left" Minimum="0" />
+                            </Grid>
+
+                            <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Top">
+                                <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+                                <Button Width="50" Height="50" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_abogado" Command="{Binding ClickPageCommand}" >
+                                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                            </StackPanel>
+
+                            <Image Grid.Column="4" Grid.Row="0" Grid.RowSpan="7" Grid.ColumnSpan="2" Width="150" VerticalAlignment="Top"  Margin="0 10 0 0" Source="/ControlPenales;component/Imagen/placeholder_person.gif" ></Image>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="0" Grid.Row="2" Header="Horario Visita">
+                        <DataGrid AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Dia"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora Entrada"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Hora Salida"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tipo Visita"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Area"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Agenda" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding AgendaGBVisible, Converter={StaticResource booleanToVisibilityConverter}}" HorizontalAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MinWidth="200" MaxWidth="200"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource DescriptionHeaderStyle}" Content="{Binding FechaLetra}"></Label>
+                    <Views:ControlAgendaView Grid.Column="0" Grid.Row="1"></Views:ControlAgendaView>
+                    <Calendar Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" SelectedDate="{Binding Fecha}" ></Calendar>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Expediente Fisico" Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Visibility="{Binding ExpedienteFisicoGBVisible, Converter={StaticResource booleanToVisibilityConverter}}" HorizontalAlignment="Stretch">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Menu Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                        <MenuItem Header="Archivo"></MenuItem>
+                        <MenuItem Header="Ventadas"></MenuItem>
+                        <MenuItem Header="Ayuda"></MenuItem>
+                    </Menu>
+                    <GroupBox Grid.Column="0" Grid.Row="1" Header="Visualización"></GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="2" Header="Documento Actual"></GroupBox>
+                    <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+
+        </Grid>
+    </Grid>
+    </UserControl>
+
+    

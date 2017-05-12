@@ -1,0 +1,273 @@
+﻿<UserControl x:Class="ControlPenales.RegistroCorrespondenciaView"
+             xmlns:Name="CorrespondenciaWindows"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:DataRangeSlider="clr-namespace:Andora.UserControlLibrary;assembly=Andora.UserControlLibrary"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoaded}" CommandParameter="{Binding ElementName=CorrespondenciaWindows}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_RegistroCorrespondencia"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+        <!--TITULO-->
+        <Label Grid.Column="0" Grid.Row="1"  Content="Registro de Correspondencia" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <!--<Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    MinHeight="660" Width="800">-->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--<StackPanel Panel.ZIndex="1000" Margin="0,5,10,264" Grid.Row="0"  Grid.Column="2" HorizontalAlignment="Right">
+                        <Label HorizontalAlignment="Center" Content="Registro" Padding="0" Panel.ZIndex="1000"/>
+                        <Button Command="{Binding OnClick}" CommandParameter="RegistroCorrespondencia" ToolTip="Registro" Panel.ZIndex="1000"
+                            Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyleWhite}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clipboard_file}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>-->
+
+
+                    <!--<StackPanel HorizontalAlignment="Right" Grid.Column="1" Panel.ZIndex="1000" Grid.Row="0" Margin="0,5,0,264">
+                        <Label HorizontalAlignment="Center" Content="Limpiar" Padding="0" />
+                        <Button Width="50" Height="50" Command="{Binding OnClick}" CommandParameter="LimpiarRegistroCorrespondencia" ToolTip="Limpiar" 
+                            Style="{DynamicResource MetroCircleButtonStyleWhite}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clean}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>-->
+                    
+                    <GroupBox Grid.Row="0" Grid.ColumnSpan="3" >
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <Label Foreground="White" Height="40" VerticalAlignment="Center" >REGISTRO DE CORRESPONDENCIA</Label>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Vertical">
+                                <GroupBox Header="Depositante" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30" />
+                                            <RowDefinition Height="30" />
+                                            <RowDefinition Height="30" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Content="Fecha Depósito: " />
+                                        <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Content="{Binding FechaRegistroCorrespondencia,Mode=OneWay}" />
+                                        <Label Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Content="Hora Depósito: " />
+                                        <Label Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right" Content="{Binding HoraRegistro,Mode=OneWay}" />
+
+                                        <Label Grid.Column="0" Grid.Row="1" Content="Paterno " />
+                                        <Label Grid.Column="1" Grid.Row="1" Content="Materno " />
+                                        <Label Grid.Column="2" Grid.Row="1" Content="Nombre(s)" />
+
+                                        <TextBox Grid.Column="0" Grid.Row="2" Name="DepPaterno" Text="{Binding DepPaterno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=DepPaterno}" Command="{Binding EnterClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+                                        <TextBox Grid.Column="1" Grid.Row="2" Name="DepMaterno" Text="{Binding DepMaterno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=DepMaterno}" Command="{Binding EnterClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+                                        <TextBox Grid.Column="2" Grid.Row="2" Name="DepNombre" Text="{Binding DepNombre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=DepNombre}" Command="{Binding EnterClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+
+                                        <StackPanel Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="30 0 0 0 ">
+                                            <Label HorizontalAlignment="Center" Content="Visitante" Padding="0" />
+                                            <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Buscar Visitante" Width="50" Height="50" CommandParameter="BuscarVisitante_Correspondencia" Command="{Binding OnClick}">
+                                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+                                        
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Destinatario" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="32"/>
+                                            <RowDefinition Height="32"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Paterno " />
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Materno " />
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Nombre(s)" />
+
+                                        <TextBox Grid.Column="0" Grid.Row="1" Name="DesPaterno" Text="{Binding DesPaterno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=DesPaterno}" Command="{Binding BuscarClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+                                        <TextBox Grid.Column="1" Grid.Row="1" Name="DesMaterno" Text="{Binding DesMaterno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=DesMaterno}" Command="{Binding BuscarClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+                                        <TextBox Grid.Column="2" Grid.Row="1" Name="DesNombre" Text="{Binding DesNombre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=DesNombre}" Command="{Binding BuscarClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                        </TextBox>
+
+                                        <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="30 0 0 0 ">
+                                            <Label HorizontalAlignment="Center" Content="Imputado" Padding="0" />
+                                            <Button Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Buscar Imputado" Width="50" Height="50" CommandParameter="BuscarImputado_Correspondencia" Command="{Binding OnClick}" >
+                                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+                                        
+                                    </Grid>
+                                </GroupBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <GroupBox Header="Remitente" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="32"/>
+                                            <RowDefinition Height="32"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Ubicación Física Destinatario" TextWrapping="Wrap"/>
+                                        <TextBox Grid.Column="1" Grid.Row="0" IsReadOnly="True" Height="30" Name="Ubicacion" Text="{Binding UbicacionFisica,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" IsTabStop="False"/>
+
+                                        <Label Grid.Column="0" Grid.Row="1" Content="Remitente"/>
+                                        <TextBox Grid.Column="1" Grid.Row="1" Height="Auto" Text="{Binding Remitente,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  
+                                                 CharacterCasing="Upper" MaxLength="300"  MaxWidth="{Binding ElementName=Ubicacion,Path=ActualWidth}"/>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Recepción">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="30"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" IsReadOnly="True" Text="{Binding UsuarioRecepcion,Mode=OneTime}" CharacterCasing="Upper" IsTabStop="False"/>
+                                        <Label Grid.Column="0" Grid.Row="1" Content="Observaciones" Grid.ColumnSpan="2" Name="Observaciones"/>
+                                        <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" CharacterCasing="Upper" MaxLength="1000"
+                                                 Text="{Binding ObservacionRecepcion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxWidth="{Binding ElementName=Observaciones,Path=ActualWidth}"/>
+                                    </Grid>
+                                </GroupBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <Button Width="50" Height="50" HorizontalAlignment="Right" Command="{Binding OnClick}" CommandParameter="MarcarRegistro_RegistroCorrespondencia" 
+                            ToolTip="Entregar\Actualizar" Margin="0,5,5,264" Style="{DynamicResource MetroCircleButtonStyleWhite}" Grid.Row="1"  Grid.Column="2" Panel.ZIndex="1000" >
+                        <Rectangle Width="20" Height="23" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clipboard_paper_check}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <GroupBox Grid.Row="1" Grid.ColumnSpan="3" >
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <Label Foreground="White" Height="40" VerticalAlignment="Center" >REGISTRO DE ENTREGA A INTERNO</Label>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <Grid>
+                            <DataGrid Name="RegistroEntrega" AutoGenerateColumns="False"  MaxHeight="200" CanUserAddRows="false" IsReadOnly="True" VerticalAlignment="Top"
+                              ItemsSource="{Binding ListaRegistroEntrega}" MinHeight="200" SelectedItem="{Binding SelectRegistroEntrega}" Style="{StaticResource MetroDataGrid}"
+                              HorizontalAlignment="Stretch" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <cmd:EventToCommand Command="{Binding MouseDoubleClickCommand}" CommandParameter="{Binding ElementName=RegistroEntrega, Path=SelectedItem}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Año" Binding="{Binding Anio}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Folio" Binding="{Binding Folio}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Interno" Binding="{Binding Interno}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Fecha Depósito" Binding="{Binding Fecha_Deposito}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Hora Depósito" Binding="{Binding Hora_Deposito}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Remitente" Binding="{Binding Remitente}"></DataGridTextColumn>
+                                    <DataGridCheckBoxColumn Header="Entrega" Binding="{Binding Entrega}"></DataGridCheckBoxColumn>
+                                    <DataGridTextColumn Header="Observaciones" Binding="{Binding Observaciones}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <Label HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding EmptyRegistroEntrega}"
+                           Content="No se encontró información." Width="156" Margin="310,30,310,0" Panel.ZIndex="150150150"/>
+                        </Grid>
+                    </GroupBox>
+                    <!--<StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="3" HorizontalAlignment="Right" >
+                        <Button Style="{DynamicResource AccentedSquareButtonStyle}" HorizontalAlignment="Center" CommandParameter="cancelar_RegistroCorrespondencia" 
+                                Command="{Binding OnClick}" Width="150" Height="28" VerticalAlignment="Center" Margin="10">Cerrar</Button>
+                    </StackPanel>-->
+                </Grid>
+            <!--</Border>
+        </Border>-->
+    </Grid>
+</UserControl>

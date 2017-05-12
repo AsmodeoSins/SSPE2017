@@ -1,0 +1,1572 @@
+﻿<Application x:Class="GESAL.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:MVVMShared.ViewModels;assembly=MVVMShared"
+             xmlns:Helpers="clr-namespace:MVVMShared.Helpers;assembly=MVVMShared"
+             xmlns:Currency="clr-namespace:CurrencyTextBoxControl;assembly=CurrencyTextBoxControl"
+             xmlns:GESAL="clr-namespace:GESAL"
+             xmlns:Converter="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
+             xmlns:HLDatePicker="clr-namespace:GESAL.Views.Controles.HighlightDatesDatePicker">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/GESAL;component/Resources/Styles/Colores.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Cobalt.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/GESAL;component/Resources/Styles/GESAL.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/GESAL;component/Resources/Styles/Control.DataGrid.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/GESAL;component/Resources/Styles/Control.ComboBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/GESAL;component/Resources/Styles/Control.ListView.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/GESAL;component/Resources/Styles/Control.Button.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/GESAL;component/Resources/Styles/Control.PasswordBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/GESAL;component/Resources/Styles/Control.TabControl.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- ESTILOS -->
+            
+            <!--Estilo para calendario Highlight-->
+            <Style x:Key="MetroCalendarCustom"
+           TargetType="{x:Type Calendar}">
+                <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+                <Setter Property="Foreground"
+                Value="white" />
+                <Setter Property="CalendarDayButtonStyle"
+                Value="{DynamicResource MetroCalendarDayButtonStyleCustom}" />
+                <Setter Property="CalendarItemStyle"
+                Value="{DynamicResource MetroCalendarItemStyle}" />
+                <Setter Property="CalendarButtonStyle"
+                Value="{DynamicResource MetroCalendarButtonStyle}" />
+                <Setter Property="Background"
+                Value="{DynamicResource WhiteBrush}" />
+                <Setter Property="BorderBrush"
+                Value="{DynamicResource BlackBrush}" />
+                <Setter Property="BorderThickness"
+                Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Calendar}">
+                            <StackPanel x:Name="PART_Root"
+                                HorizontalAlignment="Center"
+                                Background="{DynamicResource WhiteBrush}">
+                                <CalendarItem x:Name="PART_CalendarItem"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Background="{TemplateBinding Background}"
+                                      Style="{TemplateBinding CalendarItemStyle}" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="MetroCalendarDayButtonStyleCustom"
+           TargetType="{x:Type CalendarDayButton}">
+                <Setter Property="MinWidth"
+                Value="5" />
+                <Setter Property="MinHeight"
+                Value="5" />
+                <Setter Property="FontSize"
+                Value="{DynamicResource ContentFontSize}" />
+                <Setter Property="FontFamily"
+                Value="{DynamicResource ContentFontFamily}" />
+                <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+                <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CalendarDayButton}">
+                            <!-- Agregado para highlightdatepicker -->
+                            <ControlTemplate.Resources>
+                                <HLDatePicker:HighlightDateConverter x:Key="HighlightDate" />
+                            </ControlTemplate.Resources>
+                            <!-- Fin Agregado -->
+
+                            <Grid x:Name="CalendarDayButtonGrid">
+                                <!--Se agrega un id para poder hacer referencia al grid despues-->
+                                <!-- Agregado para highlightdatepicker -->
+                                <Grid.ToolTip>
+                                    <MultiBinding Converter="{StaticResource HighlightDate}">
+                                        <MultiBinding.Bindings>
+                                            <Binding />
+                                            <!--Espacio para que el calendario envie la fecha-->
+                                            <!--First, let’s deal with the easy part: Why doesn’t the first binding declare a Path?
+                                            Remember that the WPF calendar control gives each date a DataContext in the form of a DateTime object.
+                                            Since the DataContext is a simple object (a DateTime), there is only one path possible. So, instead of something like this:
+                                            <Binding Path=MyProperty />
+                                            we get the declaration shown above, with no Path property.-->
+                                            <Binding RelativeSource="{RelativeSource FindAncestor,AncestorType={x:Type HLDatePicker:HighlightDatesDatePicker}}"></Binding>
+                                            <!--Envia la referencia a la instancia padre del control-->
+                                            <Binding RelativeSource="{RelativeSource FindAncestor, 
+                     AncestorType={x:Type HLDatePicker:HighlightDatesDatePicker}}" 
+                     Path="HighlightedDateList" />
+                                            <Binding RelativeSource="{RelativeSource FindAncestor, 
+                     AncestorType={x:Type HLDatePicker:HighlightDatesDatePicker}}" 
+                     Path="DisplayDate" />
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Grid.ToolTip>
+                                <!-- Fin Agregado -->
+
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition GeneratedDuration="0:0:0.1" />
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0"
+                                                         To="0.5"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Storyboard.TargetName="HighlightBackground" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0"
+                                                         To="0.5"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Storyboard.TargetName="HighlightBackground" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0"
+                                                         To="0"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Storyboard.TargetName="HighlightBackground" />
+                                                <DoubleAnimation Duration="0"
+                                                         To=".35"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Storyboard.TargetName="NormalText" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="ActiveStates">
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition GeneratedDuration="0" />
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="Active" />
+                                        <VisualState x:Name="Inactive">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Duration="0"
+                                                                       Storyboard.TargetName="NormalText"
+                                                                       Storyboard.TargetProperty="(TextElement.Foreground)">
+                                                    <DiscreteObjectKeyFrame Value="{DynamicResource GrayBrush2}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="BlackoutDayStates">
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition GeneratedDuration="0" />
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="NormalDay" />
+                                        <VisualState x:Name="BlackoutDay">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0"
+                                                         To="1"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Storyboard.TargetName="Blackout" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Rectangle x:Name="TodayBackground"
+                                   Fill="{DynamicResource AccentColorBrush}"
+                                   Opacity="0" />
+
+                                <!-- Agregado para highlightdatepicker -->
+                                <!--Pinta el cuadro del color seleccionado en la propiedad DateHighlightBrush-->
+                                <Rectangle x:Name="AccentBackground"
+                                RadiusX="1" RadiusY="1"
+                                IsHitTestVisible="False"
+                                Fill="{Binding RelativeSource={RelativeSource AncestorType=HLDatePicker:HighlightDatesDatePicker}, 
+                                Path=DateHighlightBrush}" />
+                                <!-- fin agregado -->
+
+                                <Rectangle x:Name="SelectedBackground"
+                                   Fill="{DynamicResource AccentColorBrush4}"
+                                   Opacity="0" />
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" />
+                                <Rectangle x:Name="HighlightBackground"
+                                   Opacity="0"
+                                   Fill="{DynamicResource AccentColorBrush4}" />
+                                <Path x:Name="Blackout"
+                              Data="M8.1772461,11.029181 L10.433105,11.029181 L11.700684,12.801641 L12.973633,11.029181 L15.191895,11.029181 L12.844727,13.999395 L15.21875,17.060919 L12.962891,17.060919 L11.673828,15.256231 L10.352539,17.060919 L8.1396484,17.060919 L10.519043,14.042364 z"
+                              HorizontalAlignment="Stretch"
+                              Margin="3"
+                              Opacity="0"
+                              RenderTransformOrigin="0.5,0.5"
+                              Stretch="Fill"
+                              VerticalAlignment="Stretch"
+                              Fill="{DynamicResource AccentColorBrush3}" />
+                                <ContentPresenter x:Name="NormalText"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="5,1,5,1"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          TextElement.Foreground="{DynamicResource GrayBrush1}" />
+                                <Rectangle x:Name="DayButtonFocusVisual"
+                                   IsHitTestVisible="false"
+                                   Visibility="Collapsed"
+                                   Stroke="{DynamicResource AccentColorBrush3}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsToday"
+                                           Value="False" />
+                                        <Condition Property="IsSelected"
+                                           Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="NormalText"
+                                    Property="TextElement.Foreground"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                                    <Setter TargetName="DayButtonFocusVisual"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                </MultiTrigger>
+                                <Trigger Property="IsToday"
+                                 Value="True">
+                                    <Setter TargetName="TodayBackground"
+                                    Property="Opacity"
+                                    Value="1" />
+                                    <Setter TargetName="NormalText"
+                                    Property="TextElement.Foreground"
+                                    Value="{DynamicResource AccentSelectedColorBrush}" />
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsToday"
+                                           Value="True" />
+                                        <Condition Property="IsBlackedOut"
+                                           Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="TodayBackground"
+                                    Property="Opacity"
+                                    Value="0.5" />
+                                    <Setter TargetName="Blackout"
+                                    Property="Fill"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                                </MultiTrigger>
+
+                                <!-- Agregado para highlightdatepicker -->
+                                <!-- No tooltips if tooltips turned off -->
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=HLDatePicker:HighlightDatesDatePicker}, Path=ShowHighlightedDateText}" Value="False">
+                                    <Setter TargetName="CalendarDayButtonGrid" Property="ToolTipService.IsEnabled" Value="False" />
+                                </DataTrigger>
+
+                                <!-- No highlighting if IValueConverter returned null -->
+                                <DataTrigger Value="{x:Null}">
+                                    <DataTrigger.Binding>
+                                        <MultiBinding Converter="{StaticResource HighlightDate}">
+                                            <MultiBinding.Bindings>
+                                                <Binding />
+                                                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type HLDatePicker:HighlightDatesDatePicker}}" />
+                                                <Binding RelativeSource="{RelativeSource FindAncestor, 
+                     AncestorType={x:Type HLDatePicker:HighlightDatesDatePicker}}" 
+                     Path="HighlightedDateList" />
+                                                <Binding RelativeSource="{RelativeSource FindAncestor, 
+                     AncestorType={x:Type HLDatePicker:HighlightDatesDatePicker}}" 
+                     Path="DisplayDate" />
+                                            </MultiBinding.Bindings>
+                                        </MultiBinding>
+
+                                    </DataTrigger.Binding>
+                                    <Setter TargetName="AccentBackground" Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                                <!--fin agregado-->
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--Estilo para que una columga no pueda tener focus-->
+            <Style x:Key="NoFocusColumStyle" TargetType="{x:Type DataGridCell}">
+                <Setter Property="IsHitTestVisible" Value="False"/>
+            </Style>
+            <!--Estilo para quitar el mouse over de los renglones del datagrid-->
+            <Style x:Key="RowStyleNoMouseOver" TargetType="{x:Type DataGridRow}">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!--Estilo para quitar el mouse over de las celdas de datagrid-->
+            <Style x:Key="CellStyleNoMouseOver" TargetType="{x:Type DataGridCell}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                <Setter Property="Cursor" Value="Arrow" />
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                            <Grid x:Name="Root" Background="Transparent">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CurrentStates" >
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition GeneratedDuration="0" />
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="Regular" />
+                                        <VisualState x:Name="Current" />
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Rectangle x:Name="FocusVisual" Stroke="#FF6DBDD1" StrokeThickness="1" Fill="#66FFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="false" Opacity="0" />
+                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Cursor="{TemplateBinding Cursor}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" />
+                                <Rectangle x:Name="RightGridLine" Grid.Column="1" VerticalAlignment="Stretch" Width="1" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!--Estilo para quitar el mouse over de listviewitem-->
+            <Style x:Key="LvItemStyleNoMouseOverWithFocus" TargetType="{x:Type ListViewItem}">
+                <!--<Setter Property="Focusable" Value="false"/>-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Border x:Name="border" Background="Transparent">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Disabled" />
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <VisualState x:Name="Unselected" />
+                                        <VisualState x:Name="Selected">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
+        										Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="LightBlue" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="SelectedUnfocused">
+                                            <Storyboard>
+                                                <ColorAnimationUsingKeyFrames Storyboard.TargetName="border"
+        										Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                    <EasingColorKeyFrame KeyTime="0" Value="SkyBlue" />
+                                                </ColorAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="CurrencyTextBoxNormal" TargetType="{x:Type Currency:CurrencyTextBox}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Currency:CurrencyTextBox}">
+                            <TextBox x:Name="PART_TextBox"  TextAlignment="Right" Text="{Binding Number, RelativeSource={RelativeSource TemplatedParent}, StringFormat=C, UpdateSourceTrigger=PropertyChanged}"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- TEXBLOCK PARA TOOLTIP DE BORDE DE ERROR -->
+            <Style x:Key="errorLabel" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            </Style>
+            <!--ControlTemplate PARA TOOLTIP DE BORDE DE ERROR-->
+            <ControlTemplate x:Key="ToolTipTemplate" TargetType="ToolTip">
+                <Border BorderBrush="#DC000C" BorderThickness="2" CornerRadius="2" Background="#DC000C" MaxWidth="200">
+                    <Grid>
+                        <Grid.ColumnDefinitions>                            
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Grid.Column="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Margin="{TemplateBinding Padding}" 
+                                        VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+
+            <!--BORDE DE ERROR-->
+            <Style TargetType="Border" x:Key="errorBorder">
+                <Setter Property="BorderThickness" Value="0"/>  
+                <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsValid}" Value="False">
+                        <Setter Property="BorderThickness" Value="1"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            
+            <!--ESTILO PARA TITULOS-->
+            <Style TargetType="Label" x:Key="estiloTituloControl">
+                <Setter Property="FontSize" Value="20">
+                </Setter>
+                <Setter Property="FontWeight" Value="Bold">
+                </Setter>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="estiloTituloControlTextBlock">
+                <Setter Property="FontSize" Value="20">
+                </Setter>
+                <Setter Property="FontWeight" Value="Bold">
+                </Setter>
+            </Style>
+            
+            <Style x:Key="DescriptionHeaderStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+            </Style>
+            <Style x:Key="DescriptionHeaderStyleCheckBox" TargetType="CheckBox">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="HorizontalAlignment" Value="Right" />
+            </Style>
+            <Style x:Key="texto_app" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12" />
+            </Style>
+
+            <!-- MOSTRAR OCULTAR ELEMENTOS -->
+            <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></BooleanToVisibilityConverter>
+
+            <!-- ESTILOS CURSOR BOTON -->
+            <Style TargetType="Button">
+                <Setter Property="Cursor" Value="Hand"></Setter>
+            </Style>
+            <!-- ESTILO PARA ERRORES -->
+            <Style x:Key="ErrorStyle" TargetType="{x:Type Control}">
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- ESTILO PARA FOCUS Y VALIDACIONES -->
+            <Style TargetType="{x:Type TextBox}">
+                <Style.Triggers>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />
+
+                        <Setter Property="Controls:TextBoxHelper.IsMonitoring" Value="True" />
+                        <Setter Property="Controls:ControlsHelper.ButtonWidth" Value="22" />
+                        <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
+                        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+                        <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="Height" Value="26" />
+                        <Setter Property="Background" Value="{StaticResource ColorCaptura}" />
+                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}" />
+                        <Setter Property="Controls:ControlsHelper.FocusBorderBrush" Value="{DynamicResource TextBoxFocusBorderBrush}" />
+                        <Setter Property="Controls:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource TextBoxMouseOverBorderBrush}" />
+
+                        <!-- change SnapsToDevicePixels to True to view a better border and validation error -->
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}" />
+                        <Setter Property="CaretBrush" Value="{DynamicResource BlackBrush}" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <ControlTemplate.Resources>
+                                        <Storyboard x:Key="enterGotFocus">
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                             To=".2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                        </Storyboard>
+                                        <Storyboard x:Key="exitGotFocus">
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                        </Storyboard>
+
+                                        <Storyboard x:Key="enterHasText">
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                             From=".2"
+                                             To="0"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                        </Storyboard>
+                                        <Storyboard x:Key="exitHasText">
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                        </Storyboard>
+                                    </ControlTemplate.Resources>
+                                    <Grid>
+                                        <Rectangle x:Name="Base"
+                                   Stroke="{TemplateBinding BorderBrush}"
+                                   StrokeThickness="{TemplateBinding BorderThickness}"
+                                   Fill="{TemplateBinding Background}" />
+                                        <Rectangle x:Name="FocusRectangle"
+                                   Visibility="Collapsed"
+                                   StrokeThickness="{TemplateBinding BorderThickness}" />
+                                        <Grid x:Name="PART_InnerGrid"
+                              Margin="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition x:Name="ButtonColumn"
+                                                  Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.ButtonWidth), Mode=OneWay}" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Border x:Name="ReadOnlyVisualElement"
+                                    Grid.ColumnSpan="2"
+                                    Background="{x:Null}"
+                                    Opacity="0" />
+                                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Grid.Column="0"
+                                          BorderThickness="0"
+                                          IsTabStop="False"
+                                          Margin="2"
+                                          VerticalAlignment="Stretch"
+                                          Background="{x:Null}" />
+                                            <TextBlock x:Name="Message"
+                                       Grid.Column="0"
+                                       Text="{TemplateBinding Controls:TextBoxHelper.Watermark}"
+                                       Padding="{TemplateBinding Padding}"
+                                       Visibility="Collapsed"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       IsHitTestVisible="False"
+                                       Opacity="0.6"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Margin="6,2,6,2" />
+                                            <Button x:Name="PART_ClearText"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    FontSize="16"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    FontFamily="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ButtonFontFamily), Mode=OneWay}"
+                                    Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ButtonContent), Mode=OneWay}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ClearTextButton), Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    IsTabStop="False" />
+                                        </Grid>
+                                        <Rectangle x:Name="DisabledVisualElement"
+                                   Stroke="{DynamicResource ControlsDisabledBrush}"
+                                   StrokeThickness="{TemplateBinding BorderThickness}"
+                                   Fill="{DynamicResource ControlsDisabledBrush}"
+                                   IsHitTestVisible="False"
+                                   Opacity="0" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                                     Value="">
+                                            <Setter TargetName="Message"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                        </DataTrigger>
+
+                                        <!-- multiline textbox cannot bind to actual height so take the fallbach button width -->
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="TextWrapping"
+                                           Value="NoWrap" />
+                                                <Condition Property="AcceptsReturn"
+                                           Value="False" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter TargetName="ButtonColumn"
+                                    Property="Width"
+                                    Value="{Binding ElementName=PART_InnerGrid, Path=ActualHeight, Mode=OneWay}" />
+                                        </MultiTrigger>
+
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.ClearTextButton)}"
+                                     Value="False">
+                                            <Setter TargetName="PART_ContentHost"
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                            <Setter TargetName="Message"
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                                            <Setter TargetName="FocusRectangle"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                            <Setter TargetName="FocusRectangle"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.MouseOverBorderBrush)}" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                                            <Setter TargetName="DisabledVisualElement"
+                                    Property="Opacity"
+                                    Value="0.6"/>
+                                        </Trigger>
+                                        <Trigger Property="IsReadOnly"
+                                 Value="True">
+                                            <Setter TargetName="ReadOnlyVisualElement"
+                                    Property="Opacity"
+                                    Value="1" />
+                                        </Trigger>
+                                        <Trigger Property="IsFocused"
+                                 Value="True">
+                                            <Setter TargetName="FocusRectangle"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                            <Setter TargetName="FocusRectangle"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.FocusBorderBrush)}" />
+                                        </Trigger>
+                                        <Trigger SourceName="PART_ClearText"
+                                 Property="IsMouseOver"
+                                 Value="True">
+                                            <Setter TargetName="PART_ClearText"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush8}" />
+                                            <Setter TargetName="PART_ClearText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                                        </Trigger>
+                                        <Trigger SourceName="PART_ClearText"
+                                 Property="IsPressed"
+                                 Value="True">
+                                            <Setter TargetName="PART_ClearText"
+                                    Property="Background"
+                                    Value="{DynamicResource BlackBrush}" />
+                                            <Setter TargetName="PART_ClearText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource WhiteBrush}" />
+                                        </Trigger>
+
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Controls:TextBoxHelper.HasText"
+                                           Value="False" />
+                                                <Condition Property="IsFocused"
+                                           Value="True" />
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.EnterActions>
+                                                <BeginStoryboard Storyboard="{StaticResource enterGotFocus}" />
+                                            </MultiTrigger.EnterActions>
+                                            <MultiTrigger.ExitActions>
+                                                <BeginStoryboard Storyboard="{StaticResource exitGotFocus}" />
+                                            </MultiTrigger.ExitActions>
+                                        </MultiTrigger>
+
+                                        <Trigger Property="Controls:TextBoxHelper.HasText"
+                                 Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard Storyboard="{StaticResource enterHasText}" />
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+
+                                        <Trigger Property="Controls:TextBoxHelper.IsWaitingForData"
+                                 Value="True">
+                                            <Setter TargetName="Base"
+                                    Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect ShadowDepth="0"
+                                                      Color="{DynamicResource BlackColor}"
+                                                      Opacity="0"
+                                                      BlurRadius="10" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation From="0"
+                                                         To="1"
+                                                         Storyboard.TargetName="Base"
+                                                         Storyboard.TargetProperty="(Effect).Opacity"
+                                                         Duration="00:00:02"
+                                                         AutoReverse="True"
+                                                         RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                        </Trigger>
+                                        <Trigger Property="Controls:TextBoxHelper.IsWaitingForData"
+                                 Value="False">
+                                            <Setter TargetName="Base"
+                                    Property="Effect"
+                                    Value="{x:Null}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="False">
+                        <Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />
+                        <Setter Property="Controls:TextBoxHelper.IsMonitoring" Value="True" />
+                        <Setter Property="Controls:ControlsHelper.ButtonWidth" Value="22" />
+                        <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
+                        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+                        <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="Height" Value="26" />
+                        <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
+                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}" />
+                        <Setter Property="Controls:ControlsHelper.FocusBorderBrush" Value="{DynamicResource TextBoxFocusBorderBrush}" />
+                        <Setter Property="Controls:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource TextBoxMouseOverBorderBrush}" />
+
+                        <!-- change SnapsToDevicePixels to True to view a better border and validation error -->
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}" />
+                        <Setter Property="CaretBrush" Value="{DynamicResource BlackBrush}" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <ControlTemplate.Resources>
+                                        <Storyboard x:Key="enterGotFocus">
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                             To=".2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                        </Storyboard>
+                                        <Storyboard x:Key="exitGotFocus">
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                        </Storyboard>
+
+                                        <Storyboard x:Key="enterHasText">
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                             From=".2"
+                                             To="0"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                        </Storyboard>
+                                        <Storyboard x:Key="exitHasText">
+                                            <DoubleAnimation Duration="0:0:0.2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                        </Storyboard>
+                                    </ControlTemplate.Resources>
+                                    <Grid>
+                                        <Rectangle x:Name="Base"
+                                   Stroke="{TemplateBinding BorderBrush}"
+                                   StrokeThickness="{TemplateBinding BorderThickness}"
+                                   Fill="{TemplateBinding Background}" />
+                                        <Rectangle x:Name="FocusRectangle"
+                                   Visibility="Collapsed"
+                                   StrokeThickness="{TemplateBinding BorderThickness}" />
+                                        <Grid x:Name="PART_InnerGrid"
+                              Margin="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition x:Name="ButtonColumn"
+                                                  Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.ButtonWidth), Mode=OneWay}" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Border x:Name="ReadOnlyVisualElement"
+                                    Grid.ColumnSpan="2"
+                                    Background="{x:Null}"
+                                    Opacity="0" />
+                                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Grid.Column="0"
+                                          BorderThickness="0"
+                                          IsTabStop="False"
+                                          Margin="2"
+                                          VerticalAlignment="Stretch"
+                                          Background="{x:Null}" />
+                                            <TextBlock x:Name="Message"
+                                       Grid.Column="0"
+                                       Text="{TemplateBinding Controls:TextBoxHelper.Watermark}"
+                                       Padding="{TemplateBinding Padding}"
+                                       Visibility="Collapsed"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       IsHitTestVisible="False"
+                                       Opacity="0.6"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Margin="6,2,6,2" />
+                                            <Button x:Name="PART_ClearText"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    FontSize="16"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    FontFamily="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ButtonFontFamily), Mode=OneWay}"
+                                    Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ButtonContent), Mode=OneWay}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ClearTextButton), Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    IsTabStop="False" />
+                                        </Grid>
+                                        <Rectangle x:Name="DisabledVisualElement"
+                                   Stroke="{DynamicResource ControlsDisabledBrush}"
+                                   StrokeThickness="{TemplateBinding BorderThickness}"
+                                   Fill="{DynamicResource ControlsDisabledBrush}"
+                                   IsHitTestVisible="False"
+                                   Opacity="0" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                                     Value="">
+                                            <Setter TargetName="Message"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                        </DataTrigger>
+
+                                        <!-- multiline textbox cannot bind to actual height so take the fallbach button width -->
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="TextWrapping"
+                                           Value="NoWrap" />
+                                                <Condition Property="AcceptsReturn"
+                                           Value="False" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter TargetName="ButtonColumn"
+                                    Property="Width"
+                                    Value="{Binding ElementName=PART_InnerGrid, Path=ActualHeight, Mode=OneWay}" />
+                                        </MultiTrigger>
+
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.ClearTextButton)}"
+                                     Value="False">
+                                            <Setter TargetName="PART_ContentHost"
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                            <Setter TargetName="Message"
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                                            <Setter TargetName="FocusRectangle"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                            <Setter TargetName="FocusRectangle"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.MouseOverBorderBrush)}" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                                            <Setter TargetName="DisabledVisualElement"
+                                    Property="Opacity"
+                                    Value="0.6"/>
+                                        </Trigger>
+                                        <Trigger Property="IsReadOnly"
+                                 Value="True">
+                                            <Setter TargetName="ReadOnlyVisualElement"
+                                    Property="Opacity"
+                                    Value="1" />
+                                        </Trigger>
+                                        <Trigger Property="IsFocused"
+                                 Value="True">
+                                            <Setter TargetName="FocusRectangle"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                            <Setter TargetName="FocusRectangle"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.FocusBorderBrush)}" />
+                                        </Trigger>
+                                        <Trigger SourceName="PART_ClearText"
+                                 Property="IsMouseOver"
+                                 Value="True">
+                                            <Setter TargetName="PART_ClearText"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush8}" />
+                                            <Setter TargetName="PART_ClearText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                                        </Trigger>
+                                        <Trigger SourceName="PART_ClearText"
+                                 Property="IsPressed"
+                                 Value="True">
+                                            <Setter TargetName="PART_ClearText"
+                                    Property="Background"
+                                    Value="{DynamicResource BlackBrush}" />
+                                            <Setter TargetName="PART_ClearText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource WhiteBrush}" />
+                                        </Trigger>
+
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Controls:TextBoxHelper.HasText"
+                                           Value="False" />
+                                                <Condition Property="IsFocused"
+                                           Value="True" />
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.EnterActions>
+                                                <BeginStoryboard Storyboard="{StaticResource enterGotFocus}" />
+                                            </MultiTrigger.EnterActions>
+                                            <MultiTrigger.ExitActions>
+                                                <BeginStoryboard Storyboard="{StaticResource exitGotFocus}" />
+                                            </MultiTrigger.ExitActions>
+                                        </MultiTrigger>
+
+                                        <Trigger Property="Controls:TextBoxHelper.HasText"
+                                 Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard Storyboard="{StaticResource enterHasText}" />
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+
+                                        <Trigger Property="Controls:TextBoxHelper.IsWaitingForData"
+                                 Value="True">
+                                            <Setter TargetName="Base"
+                                    Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect ShadowDepth="0"
+                                                      Color="{DynamicResource BlackColor}"
+                                                      Opacity="0"
+                                                      BlurRadius="10" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation From="0"
+                                                         To="1"
+                                                         Storyboard.TargetName="Base"
+                                                         Storyboard.TargetProperty="(Effect).Opacity"
+                                                         Duration="00:00:02"
+                                                         AutoReverse="True"
+                                                         RepeatBehavior="Forever" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                        </Trigger>
+                                        <Trigger Property="Controls:TextBoxHelper.IsWaitingForData"
+                                 Value="False">
+                                            <Setter TargetName="Base"
+                                    Property="Effect"
+                                    Value="{x:Null}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsFocused" Value="True" />
+                            <Condition Property="Validation.HasError" Value="True" />
+                        </MultiTrigger.Conditions>
+                        <MultiTrigger.Setters>
+                            <Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />
+                            <Setter Property="Controls:TextBoxHelper.IsMonitoring" Value="True" />
+                            <Setter Property="Controls:ControlsHelper.ButtonWidth" Value="22" />
+                            <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
+                            <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+                            <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Height" Value="26" />
+                            <Setter Property="Background" Value="{StaticResource ColorCaptura}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="BorderBrush" Value="Red" />
+                            <Setter Property="Controls:ControlsHelper.FocusBorderBrush" Value="{DynamicResource TextBoxFocusBorderBrush}" />
+                            <Setter Property="Controls:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource TextBoxMouseOverBorderBrush}" />
+                            <!-- change SnapsToDevicePixels to True to view a better border and validation error -->
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
+                            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}" />
+                            <Setter Property="CaretBrush" Value="{DynamicResource BlackBrush}" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type TextBox}">
+                                        <ControlTemplate.Resources>
+                                            <Storyboard x:Key="enterGotFocus">
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                             To=".2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                            </Storyboard>
+                                            <Storyboard x:Key="exitGotFocus">
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                            </Storyboard>
+
+                                            <Storyboard x:Key="enterHasText">
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                             From=".2"
+                                             To="0"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                            </Storyboard>
+                                            <Storyboard x:Key="exitHasText">
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                            </Storyboard>
+                                        </ControlTemplate.Resources>
+                                        <Grid>
+                                            <Rectangle x:Name="Base"
+                                   Stroke="{TemplateBinding BorderBrush}"
+                                   StrokeThickness="{TemplateBinding BorderThickness}"
+                                   Fill="{TemplateBinding Background}" />
+                                            <Rectangle x:Name="FocusRectangle"
+                                   Visibility="Collapsed"
+                                   StrokeThickness="{TemplateBinding BorderThickness}" />
+                                            <Grid x:Name="PART_InnerGrid"
+                              Margin="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition x:Name="ButtonColumn"
+                                                  Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.ButtonWidth), Mode=OneWay}" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border x:Name="ReadOnlyVisualElement"
+                                    Grid.ColumnSpan="2"
+                                    Background="{x:Null}"
+                                    Opacity="0" />
+                                                <ScrollViewer x:Name="PART_ContentHost"
+                                          Grid.Column="0"
+                                          BorderThickness="0"
+                                          IsTabStop="False"
+                                          Margin="2"
+                                          VerticalAlignment="Stretch"
+                                          Background="{x:Null}" />
+                                                <TextBlock x:Name="Message"
+                                       Grid.Column="0"
+                                       Text="{TemplateBinding Controls:TextBoxHelper.Watermark}"
+                                       Padding="{TemplateBinding Padding}"
+                                       Visibility="Collapsed"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       IsHitTestVisible="False"
+                                       Opacity="0.6"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Margin="6,2,6,2" />
+                                                <Button x:Name="PART_ClearText"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    FontSize="16"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    FontFamily="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ButtonFontFamily), Mode=OneWay}"
+                                    Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ButtonContent), Mode=OneWay}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ClearTextButton), Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    IsTabStop="False" />
+                                            </Grid>
+                                            <Rectangle x:Name="DisabledVisualElement"
+                                   Stroke="{DynamicResource ControlsDisabledBrush}"
+                                   StrokeThickness="{TemplateBinding BorderThickness}"
+                                   Fill="{DynamicResource ControlsDisabledBrush}"
+                                   IsHitTestVisible="False"
+                                   Opacity="0" />
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                                     Value="">
+                                                <Setter TargetName="Message"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                            </DataTrigger>
+
+                                            <!-- multiline textbox cannot bind to actual height so take the fallbach button width -->
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="TextWrapping"
+                                           Value="NoWrap" />
+                                                    <Condition Property="AcceptsReturn"
+                                           Value="False" />
+                                                </MultiTrigger.Conditions>
+                                                <Setter TargetName="ButtonColumn"
+                                    Property="Width"
+                                    Value="{Binding ElementName=PART_InnerGrid, Path=ActualHeight, Mode=OneWay}" />
+                                            </MultiTrigger>
+
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.ClearTextButton)}"
+                                     Value="False">
+                                                <Setter TargetName="PART_ContentHost"
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                                <Setter TargetName="Message"
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                            </DataTrigger>
+                                            <Trigger Property="IsMouseOver"
+                                 Value="True">
+                                                <Setter TargetName="FocusRectangle"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                                <Setter TargetName="FocusRectangle"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.MouseOverBorderBrush)}" />
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled"
+                                 Value="False">
+                                                <Setter TargetName="DisabledVisualElement"
+                                    Property="Opacity"
+                                    Value="0.6"/>
+                                            </Trigger>
+                                            <Trigger Property="IsReadOnly"
+                                 Value="True">
+                                                <Setter TargetName="ReadOnlyVisualElement"
+                                    Property="Opacity"
+                                    Value="1" />
+                                            </Trigger>
+                                            <Trigger Property="IsFocused"
+                                 Value="True">
+                                                <Setter TargetName="FocusRectangle"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                                <Setter TargetName="FocusRectangle"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.FocusBorderBrush)}" />
+                                            </Trigger>
+                                            <Trigger SourceName="PART_ClearText"
+                                 Property="IsMouseOver"
+                                 Value="True">
+                                                <Setter TargetName="PART_ClearText"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush8}" />
+                                                <Setter TargetName="PART_ClearText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                                            </Trigger>
+                                            <Trigger SourceName="PART_ClearText"
+                                 Property="IsPressed"
+                                 Value="True">
+                                                <Setter TargetName="PART_ClearText"
+                                    Property="Background"
+                                    Value="{DynamicResource BlackBrush}" />
+                                                <Setter TargetName="PART_ClearText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource WhiteBrush}" />
+                                            </Trigger>
+
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="Controls:TextBoxHelper.HasText"
+                                           Value="False" />
+                                                    <Condition Property="IsFocused"
+                                           Value="True" />
+                                                </MultiTrigger.Conditions>
+                                                <MultiTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource enterGotFocus}" />
+                                                </MultiTrigger.EnterActions>
+                                                <MultiTrigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource exitGotFocus}" />
+                                                </MultiTrigger.ExitActions>
+                                            </MultiTrigger>
+
+                                            <Trigger Property="Controls:TextBoxHelper.HasText"
+                                 Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource enterHasText}" />
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
+                                                </Trigger.ExitActions>
+                                            </Trigger>
+
+                                            <Trigger Property="Controls:TextBoxHelper.IsWaitingForData"
+                                 Value="True">
+                                                <Setter TargetName="Base"
+                                    Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect ShadowDepth="0"
+                                                      Color="{DynamicResource BlackColor}"
+                                                      Opacity="0"
+                                                      BlurRadius="10" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation From="0"
+                                                         To="1"
+                                                         Storyboard.TargetName="Base"
+                                                         Storyboard.TargetProperty="(Effect).Opacity"
+                                                         Duration="00:00:02"
+                                                         AutoReverse="True"
+                                                         RepeatBehavior="Forever" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.EnterActions>
+                                            </Trigger>
+                                            <Trigger Property="Controls:TextBoxHelper.IsWaitingForData"
+                                 Value="False">
+                                                <Setter TargetName="Base"
+                                    Property="Effect"
+                                    Value="{x:Null}" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiTrigger.Setters>
+                    </MultiTrigger>
+                    <!-- FOCUS = TRUE && VALIDATION.HASERROR = TRUE -->
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsFocused" Value="False" />
+                            <Condition Property="Validation.HasError" Value="True" />
+                        </MultiTrigger.Conditions>
+                        <MultiTrigger.Setters>
+                            <Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />
+                            <Setter Property="Controls:TextBoxHelper.IsMonitoring" Value="True" />
+                            <Setter Property="Controls:ControlsHelper.ButtonWidth" Value="22" />
+                            <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush}" />
+                            <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+                            <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Height" Value="26" />
+                            <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="BorderBrush" Value="Red" />
+                            <Setter Property="Controls:ControlsHelper.FocusBorderBrush" Value="{DynamicResource TextBoxFocusBorderBrush}" />
+                            <Setter Property="Controls:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource TextBoxMouseOverBorderBrush}" />
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
+                            <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}" />
+                            <Setter Property="CaretBrush" Value="{DynamicResource BlackBrush}" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type TextBox}">
+                                        <ControlTemplate.Resources>
+                                            <Storyboard x:Key="enterGotFocus">
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                             To=".2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                            </Storyboard>
+                                            <Storyboard x:Key="exitGotFocus">
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                            </Storyboard>
+
+                                            <Storyboard x:Key="enterHasText">
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                             From=".2"
+                                             To="0"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                            </Storyboard>
+                                            <Storyboard x:Key="exitHasText">
+                                                <DoubleAnimation Duration="0:0:0.2"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="Message" />
+                                            </Storyboard>
+                                        </ControlTemplate.Resources>
+                                        <Grid>
+                                            <Rectangle x:Name="Base"
+                                   Stroke="{TemplateBinding BorderBrush}"
+                                   StrokeThickness="{TemplateBinding BorderThickness}"
+                                   Fill="{TemplateBinding Background}" />
+                                            <Rectangle x:Name="FocusRectangle"
+                                   Visibility="Collapsed"
+                                   StrokeThickness="{TemplateBinding BorderThickness}" />
+                                            <Grid x:Name="PART_InnerGrid"
+                              Margin="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition x:Name="ButtonColumn"
+                                                  Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.ButtonWidth), Mode=OneWay}" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border x:Name="ReadOnlyVisualElement"
+                                    Grid.ColumnSpan="2"
+                                    Background="{x:Null}"
+                                    Opacity="0" />
+                                                <ScrollViewer x:Name="PART_ContentHost"
+                                          Grid.Column="0"
+                                          BorderThickness="0"
+                                          IsTabStop="False"
+                                          Margin="2"
+                                          VerticalAlignment="Stretch"
+                                          Background="{x:Null}" />
+                                                <TextBlock x:Name="Message"
+                                       Grid.Column="0"
+                                       Text="{TemplateBinding Controls:TextBoxHelper.Watermark}"
+                                       Padding="{TemplateBinding Padding}"
+                                       Visibility="Collapsed"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       IsHitTestVisible="False"
+                                       Opacity="0.6"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Margin="6,2,6,2" />
+                                                <Button x:Name="PART_ClearText"
+                                    Grid.Column="1"
+                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    FontSize="16"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    FontFamily="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ButtonFontFamily), Mode=OneWay}"
+                                    Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ButtonContent), Mode=OneWay}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:TextBoxHelper.ClearTextButton), Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    IsTabStop="False" />
+                                            </Grid>
+                                            <Rectangle x:Name="DisabledVisualElement"
+                                   Stroke="{DynamicResource ControlsDisabledBrush}"
+                                   StrokeThickness="{TemplateBinding BorderThickness}"
+                                   Fill="{DynamicResource ControlsDisabledBrush}"
+                                   IsHitTestVisible="False"
+                                   Opacity="0" />
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                                     Value="">
+                                                <Setter TargetName="Message"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                            </DataTrigger>
+
+
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="TextWrapping"
+                                           Value="NoWrap" />
+                                                    <Condition Property="AcceptsReturn"
+                                           Value="False" />
+                                                </MultiTrigger.Conditions>
+                                                <Setter TargetName="ButtonColumn"
+                                    Property="Width"
+                                    Value="{Binding ElementName=PART_InnerGrid, Path=ActualHeight, Mode=OneWay}" />
+                                            </MultiTrigger>
+
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:TextBoxHelper.ClearTextButton)}"
+                                     Value="False">
+                                                <Setter TargetName="PART_ContentHost"
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                                <Setter TargetName="Message"
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                            </DataTrigger>
+                                            <Trigger Property="IsMouseOver"
+                                 Value="True">
+                                                <Setter TargetName="FocusRectangle"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                                <Setter TargetName="FocusRectangle"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.MouseOverBorderBrush)}" />
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled"
+                                 Value="False">
+                                                <Setter TargetName="DisabledVisualElement"
+                                    Property="Opacity"
+                                    Value="0.6"/>
+                                            </Trigger>
+                                            <Trigger Property="IsReadOnly"
+                                 Value="True">
+                                                <Setter TargetName="ReadOnlyVisualElement"
+                                    Property="Opacity"
+                                    Value="1" />
+                                            </Trigger>
+                                            <Trigger Property="IsFocused"
+                                 Value="True">
+                                                <Setter TargetName="FocusRectangle"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                                <Setter TargetName="FocusRectangle"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.FocusBorderBrush)}" />
+                                            </Trigger>
+                                            <Trigger SourceName="PART_ClearText"
+                                 Property="IsMouseOver"
+                                 Value="True">
+                                                <Setter TargetName="PART_ClearText"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush8}" />
+                                                <Setter TargetName="PART_ClearText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                                            </Trigger>
+                                            <Trigger SourceName="PART_ClearText"
+                                 Property="IsPressed"
+                                 Value="True">
+                                                <Setter TargetName="PART_ClearText"
+                                    Property="Background"
+                                    Value="{DynamicResource BlackBrush}" />
+                                                <Setter TargetName="PART_ClearText"
+                                    Property="Foreground"
+                                    Value="{DynamicResource WhiteBrush}" />
+                                            </Trigger>
+
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="Controls:TextBoxHelper.HasText"
+                                           Value="False" />
+                                                    <Condition Property="IsFocused"
+                                           Value="True" />
+                                                </MultiTrigger.Conditions>
+                                                <MultiTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource enterGotFocus}" />
+                                                </MultiTrigger.EnterActions>
+                                                <MultiTrigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource exitGotFocus}" />
+                                                </MultiTrigger.ExitActions>
+                                            </MultiTrigger>
+
+                                            <Trigger Property="Controls:TextBoxHelper.HasText"
+                                 Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource enterHasText}" />
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
+                                                </Trigger.ExitActions>
+                                            </Trigger>
+
+                                            <Trigger Property="Controls:TextBoxHelper.IsWaitingForData"
+                                 Value="True">
+                                                <Setter TargetName="Base"
+                                    Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect ShadowDepth="0"
+                                                      Color="{DynamicResource BlackColor}"
+                                                      Opacity="0"
+                                                      BlurRadius="10" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation From="0"
+                                                         To="1"
+                                                         Storyboard.TargetName="Base"
+                                                         Storyboard.TargetProperty="(Effect).Opacity"
+                                                         Duration="00:00:02"
+                                                         AutoReverse="True"
+                                                         RepeatBehavior="Forever" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.EnterActions>
+                                            </Trigger>
+                                            <Trigger Property="Controls:TextBoxHelper.IsWaitingForData"
+                                 Value="False">
+                                                <Setter TargetName="Base"
+                                    Property="Effect"
+                                    Value="{x:Null}" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiTrigger.Setters>
+                    </MultiTrigger>
+                    <!-- FOCUS = FALSE && VALIDATION.HASERROR = TRUE -->
+                </Style.Triggers>
+            </Style>
+
+            <!--ESTILO PARA TAB CONTROL-->
+            <Style x:Key="ViewTabStyle" TargetType="{x:Type UserControl}">
+                <Setter Property="FontSize" Value="11.5"></Setter>
+            </Style>
+
+
+            <Style x:Key="MetroCircleButtonStyleWhite"
+           TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle"
+                Value="{StaticResource MetroCircleButtonFocusVisual}" />
+                <Setter Property="Background"
+                Value="Transparent" />
+                <Setter Property="BorderThickness"
+                Value="2" />
+                <Setter Property="BorderBrush"
+                Value="#FFFFFF" />
+                <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+                <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+                <Setter Property="Padding"
+                Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Fill="{TemplateBinding Background}"
+                                 Margin="4"
+                                 StrokeThickness="0" />
+                                <Ellipse x:Name="ellipsebg"
+                                 Fill="{DynamicResource BlackBrush}"
+                                 Opacity="0"
+                                 Margin="4"
+                                 StrokeThickness="0" />
+                                <Ellipse x:Name="ellipse"
+                                 Margin="4"
+                                 Stroke="{TemplateBinding BorderBrush}"
+                                 StrokeThickness="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=BorderThickness.Left}" />
+                                <ContentPresenter x:Name="content"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed"
+                                 Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="ellipsebg"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="0.3"
+                                                         Duration="0:0:0" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <!-- some out fading -->
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="ellipsebg"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0"
+                                                         Duration="0:0:0.5" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver"
+                                 Value="True">
+                                    <Setter TargetName="ellipse"
+                                    Property="Opacity"
+                                    Value="1" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver"
+                                 Value="False">
+                                    <Setter TargetName="ellipse"
+                                    Property="Opacity"
+                                    Value="0.7" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled"
+                                 Value="false">
+                                    <Setter Property="Foreground"
+                                    Value="{DynamicResource GrayBrush7}" />
+                                    <Setter TargetName="ellipse"
+                                    Property="Opacity"
+                                    Value="0.3" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Views:StaticSourcesViewModel x:Key="StaticSources" />
+            <GESAL:PopUpsViewModels x:Key="PopUpsSources"></GESAL:PopUpsViewModels>
+            <Helpers:EscapePopUpHelpper x:Key="EscapePopUpHelpper" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<centros>
+<centro ID="1" DESCR="CERESO EL HONGO"></centro>
+<centro ID="2" DESCR="CERESO TIJUANA - LA MESA"></centro>
+<centro ID="3" DESCR="CERESO LA OCHO - NO EXISTE"></centro>
+<centro ID="4" DESCR="CERESO MEXICALI"></centro>
+<centro ID="5" DESCR="CERESO ENSENADA"></centro>
+<centro ID="6" DESCR="CERESO EL HONGO II"></centro>
+<centro ID="7" DESCR="CEDEPRO MEXICALI"></centro>
+<centro ID="9" DESCR="CTAM"></centro>
+<centro ID="10" DESCR="CENTRO DE EJECUCION DE MEDIDAS"></centro>
+<centro ID="11" DESCR="CENTRO DE DIAGNOSTICO PARA ADO"></centro>
+<centro ID="12" DESCR="CENTRO DE DIAGNOSTICO PARA ADO"></centro>
+<centro ID="14" DESCR="PRUEBA PRUEBA"></centro>
+<centro ID="15" DESCR="CERESO BC"></centro>
+</centros>

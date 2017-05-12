@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="ControlPenales.CatalogoActividadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ActividadesLoading}" CommandParameter="{Binding ElementName=CatalogoActividadView}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:CatalogosEstatus x:Key="EstatusNull"/>
+    </UserControl.Resources>
+    <StackPanel>
+
+        <Views:MenuCatalogosView />
+
+        <Grid Visibility="{Binding GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Actividades" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label>Búsqueda</Label>
+                <TextBox IsEnabled="{Binding TextoHabilitado}" ToolTip="Presione ENTER para buscar" Margin="2" MinWidth="200" MaxWidth="500" Text="{Binding Busqueda}" CharacterCasing="Upper" MaxLength="{Binding MaxLength}" Name="txtBuscar">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button IsEnabled="{Binding BuscarHabilitado}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0" Name="btnBuscar"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar" Content="Buscar" Command="{Binding OnClick}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </Button.InputBindings>
+                </Button>
+            </StackPanel>
+
+            <ListView Grid.Row="2" MaxHeight="700" Margin="10" Name="lvMedia" ItemsSource="{Binding ListItems}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Descripción" DisplayMemberBinding="{Binding DESCR}" />
+                        <GridViewColumn Header="Tipo de Programa" DisplayMemberBinding="{Binding TIPO_PROGRAMA.DESCR}"/>
+                        <GridViewColumn Header="Objetivo" DisplayMemberBinding="{Binding OBJETIVO}"/>
+                        <GridViewColumn Header="Ocupantes Mínimo" DisplayMemberBinding="{Binding OCUPANTE_MAX}"/>
+                        <GridViewColumn Header="Ocupante Máximo" DisplayMemberBinding="{Binding OCUPANTE_MIN}"/>
+                        <GridViewColumn Header="Prioridad" DisplayMemberBinding="{Binding PRIORIDAD}"/>
+                        <GridViewColumn Header="Estatus"  DisplayMemberBinding="{Binding ACTIVO,Converter={StaticResource EstatusNull}}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding EmptyVisible, Converter={StaticResource booleanToVisibilityConverter}}" Content="No hay información"></Label>
+        </Grid>
+
+        <Grid Visibility="{Binding AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}" Margin="10,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="{Binding HeaderAgregar, Mode=TwoWay}" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <!--<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">-->
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="5">Tipo de Programa:</TextBlock>
+                <ComboBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Width="250" ItemsSource="{Binding ListTipoP}" DisplayMemberPath="NOMBRE"  SelectedValuePath="ID_TIPO_PROGRAMA" SelectedValue="{Binding IdTipoP, Mode=TwoWay, ValidatesOnDataErrors=True}"></ComboBox>
+
+                <Label Content="Descripción:" Grid.Column="0" Grid.Row="1"></Label>
+                <TextBox  Grid.Column="1" Grid.Row="1" Name="txtDescripcion" Text="{Binding Descripcion,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}"  MinWidth="500" MinHeight="50" MaxWidth="500" MaxLength="100" HorizontalAlignment="Left" CharacterCasing="Upper" Focusable="True" Views:FocusExtension.IsFocused="{Binding FocusText}" ></TextBox>
+
+                <Label Content="Objetivo:" Grid.Column="0" Grid.Row="2"></Label>
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Objetivo,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}"  MinWidth="500" MaxWidth="500" HorizontalAlignment="Left" MinHeight="50" CharacterCasing="Upper" Focusable="True" MaxLength="500" Views:FocusExtension.IsFocused="{Binding FocusText}" ></TextBox>
+
+                <Label Content="Ocupantes Mínimo:" Grid.Column="0" Grid.Row="3"></Label>
+                <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding OcupanteMin,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}"  MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" Focusable="True" Views:FocusExtension.IsFocused="{Binding FocusText}" >
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <Label Content="Ocupante Máximo:" Grid.Column="0" Grid.Row="4"></Label>
+                <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding OcupanteMax,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}"  MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" CharacterCasing="Upper" Focusable="True" MaxLength="500" Views:FocusExtension.IsFocused="{Binding FocusText}" >
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+
+                <Label Content="Prioridad:" Grid.Column="0" Grid.Row="5"></Label>
+                <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Prioridad,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}"  MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" CharacterCasing="Upper" Focusable="True" MaxLength="500" Views:FocusExtension.IsFocused="{Binding FocusText}" >
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="2" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+
+                <Label Content="Orden:" Grid.Column="0" Grid.Row="6"></Label>
+                <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Orden,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}"  MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" CharacterCasing="Upper" Focusable="True" MaxLength="500" Views:FocusExtension.IsFocused="{Binding FocusText}" >
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <Label Content="Etapa:" Grid.Column="0" Grid.Row="7"></Label>
+                <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Etapa,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}"  MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" CharacterCasing="Upper" Focusable="True" MaxLength="500" Views:FocusExtension.IsFocused="{Binding FocusText}" >
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="2" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5">Activo:</TextBlock>
+                <ComboBox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="8"  Width="150" SelectedValuePath="Tag"
+                        SelectedValue="{ Binding Activo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+            </Grid>
+            <!--</StackPanel>-->
+
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,174 @@
+﻿<UserControl x:Class="ControlPenales.DatosIngresoInternoView"
+             x:Name="DatosIngresoInternoWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding DatosIngresoInternoLoading}" CommandParameter="{Binding ElementName=DatosIngresoInternoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--<GroupBox Grid.Row="0" Grid.Column="0" Header="expediente del interno" Width="200" HorizontalAlignment="Left" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0">Folio</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="1" Name="tnFolioAnio" Text="{Binding TextAnioIngreso}"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                <TextBox Grid.Column="2" Grid.Row="1" Name="tnFolioFolio" Text="{Binding TextFolioIngreso}"></TextBox>
+            </Grid>
+        </GroupBox>-->
+
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Datos de ingreso">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Fecha de Registro</Label>
+                <Label Grid.Column="1" Grid.Row="0">Fecha de Ingreso al Cereso</Label>
+                <Label Grid.Column="2" Grid.Row="0">Tipo Ingreso</Label>
+                <Label Grid.Column="3" Grid.Row="0">Clasificación Jurídica</Label>
+
+                <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" IsEnabled="false"
+                            SelectedDate="{Binding FechaRegistroIngreso}"></DatePicker>
+                <DatePicker Grid.Column="1" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha"
+                            SelectedDate="{Binding FechaCeresoIngreso, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></DatePicker>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ListTipoIngreso}" SelectedValuePath="ID_TIPO_INGRESO" DisplayMemberPath="DESCR"
+                          SelectedValue="{Binding SelectTipoIngreso, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding ListClasificacionJuridica}" SelectedValuePath="ID_CLASIFICACION_JURIDICA" DisplayMemberPath="DESCR" 
+                          IsEnabled="{Binding ClasificacionJuridicaEnabled}" SelectedValue="{Binding SelectClasificacionJuridica, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></ComboBox>
+
+
+
+
+                <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">Estatus Administrativo</Label>
+                <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2">Delito</Label>
+
+                <ComboBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding ListEstatusAdministrativo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTATUS_ADMINISTRATIVO" 
+                          SelectedValue="{Binding SelectEstatusAdministrativo, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding EstatusAdministrativoEnabled}"></ComboBox>
+                <!--<ComboBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding IngresoDelitos}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INGRESO_DELITO"
+                          SelectedValue="{Binding IngresoDelito, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></ComboBox>-->
+                <TextBox Grid.Column="2" Grid.Row="3" Text="{Binding DescrDelito,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                <Button Grid.Column="3" Grid.Row="3" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}"
+                CommandParameter="buscar_delito" Command="{Binding OnClick}" HorizontalAlignment="Left">Buscar Delito</Button>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Datos de Documento de Internacion">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0">Núm. Oficio</Label>
+                <Label Grid.Column="1" Grid.Row="0">Autoridad que esta Internando</Label>
+
+                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextNumeroOficio, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxLength="10" CharacterCasing="Upper">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-Z0-9/]*$" MaxLength="15" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListTipoAutoridadInterna}" SelectedValuePath="ID_AUTORIDAD_INTERNA" DisplayMemberPath="DESCR" 
+                          SelectedValue="{Binding SelectTipoAutoridadInterna, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="2">Tipo de Seguridad</Label>
+                <Label Grid.Column="1" Grid.Row="2">Queda a Disposición de</Label>
+
+                <ComboBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding ListTipoSeguridad}" SelectedValuePath="ID_TIPO_SEGURIDAD" DisplayMemberPath="DESCR" 
+                          SelectedValue="{Binding SelectTipoSeguridad, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding ListTipoDisposicion}" SelectedValuePath="ID_DISPOSICION" DisplayMemberPath="DESCR" 
+                          SelectedValue="{Binding SelectTipoDisposicion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Ubicación de Ingreso" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0">Selecciona Ubicación</Label>
+                <TreeView ItemsSource="{Binding TreeList}" Grid.Column="0" Grid.Row="2">
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="IsExpanded" Value="{Binding IsNodeExpanded,Mode=TwoWay}"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Node}" DataType="{x:Type TreeViewType:TreeViewList}">
+                            <CheckBox IsChecked="{Binding IsCheck,Mode=TwoWay}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Canvas Width="13" Height="13" Margin="4,0,4,0" >
+                                        <Path Width="13" Height="13" Stretch="Fill" Fill="{DynamicResource BlackBrush}" Data="{Binding Icon}"/>
+                                    </Canvas>
+                                    <TextBlock Text="{Binding Text}" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                                </StackPanel>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Checked" >
+                                        <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="Unchecked" >
+                                        <i:InvokeCommandAction Command="{Binding DataContext.Unchecked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </CheckBox>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </Grid>
+        </GroupBox>
+
+        <StackPanel Grid.Row="3" Visibility="{Binding NoControlProceso}">
+            <Label Margin="0">No. de Control de Proceso</Label>
+            <TextBox Width="250" Margin="6,0,0,0" HorizontalAlignment="Left"></TextBox>
+            <Label>(Sistema Nacional de Seguridad Publica)</Label>
+        </StackPanel>
+    </Grid>
+</UserControl>

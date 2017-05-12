@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="ControlPenales.MedidasJudicialesView"
+             x:Name="MedidasJudicialesWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+               xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding PandillasUnloading}" CommandParameter="{Binding ElementName=MedidasJudicialesWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+    <AdornerDecorator>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Resolución">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <CheckBox Grid.Row="1" Grid.Column="0" Content="MC" IsChecked="{Binding RMC,UpdateSourceTrigger=PropertyChanged}" ></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="1" Content="SSP" IsChecked="{Binding RSSP,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="2" Content="PROV.P" IsChecked="{Binding RProvp,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                <Label Grid.Row="0" Grid.Column="3" Content="NUC"></Label>
+                <Label Grid.Row="0" Grid.Column="4" Content="CAUSA PENAL"></Label>
+                <TextBox Grid.Row="1" Grid.Column="3" MaxLength="16" CharacterCasing="Upper" Text="{Binding RNUC,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="16" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="4" MaxLength="16" CharacterCasing="Upper" Text="{Binding RCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="16" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </Grid>
+        </GroupBox>
+       
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Delito">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Delito"></Label>
+                <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" MaxLength="4000" CharacterCasing="Upper" Text="{Binding DDelitos,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                <CheckBox Grid.Column="0" Grid.Row="2" Content="Reclasificado" IsChecked="{Binding DReclasificado,UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 0"></CheckBox>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Medidas Judiciales">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Medida Judicial"></Label>
+                <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" MaxLength="400" CharacterCasing="Upper"
+                        Text="{Binding MMedidaJudicial,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                <Label Grid.Column="0" Grid.Row="2" Content="Periodicidad"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Content="Apartir del dia"></Label>
+                <Label Grid.Column="2" Grid.Row="2" Content="Duración"></Label>
+                <TextBox Grid.Column="0" Grid.Row="3" MaxLength="500" CharacterCasing="Upper" Text="{Binding MPeridiocidad,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                <!--<Border Grid.Column="1" Grid.Row="3" BorderBrush="Red" ToolTipService.IsEnabled="{Binding MApartirV, Converter={Views:BoolToOppositeBoolConverter}}">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MApartirV,ValidatesOnDataErrors=True}" Value="False">
+                                    <Setter Property="BorderThickness" Value="1" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                            <ToolTip.Content>
+                                <TextBlock Text="{Binding EMensajeErrorFecha}" Style="{StaticResource errorLabel}" />
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    --><!--Cuidado:El datepicker no puede ser validado directamente bajo las reglas del viewmodel -->
+                <DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding MApartir,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                <!--</Border>-->
+                <TextBox Grid.Column="2" Grid.Row="3" MaxLength="500" CharacterCasing="Upper" Text="{Binding MDuracion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Grid.Row="3" Header="Lugares que Frecuenta">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Lugares que frecuenta y horarios"></Label>
+                <TextBox Grid.Column="0" Grid.Row="1" MaxLength="4000" CharacterCasing="Upper" Text="{Binding LLugarFrecuenta,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+            </Grid>
+        </GroupBox>
+       
+        <GroupBox Grid.Column="0" Grid.Row="4" Header="Defensor">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <CheckBox Grid.Column="0" Grid.Row="0" Content="Publico" IsChecked="{Binding DPublico,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                <Label Grid.Column="1" Grid.Row="0" Content="Privado"></Label>
+                <Label Grid.Column="1" Grid.Row="1" Content="Nombre"></Label>
+                <TextBox Grid.Column="2" Grid.Row="1" MaxLength="200" CharacterCasing="Upper" Text="{Binding DNombreDefensor,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding DefensorEnabled,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Label Grid.Column="3" Grid.Row="1" Content="Telefono"></Label>
+                <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding DTelefonoDefensor,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding DefensorEnabled,UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="14" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Grid.Row="5" Header="Persona aval moral durante el proceso">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Nombre"></Label>
+                <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" MaxLength="200" CharacterCasing="Upper" Text="{Binding ANombre,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></TextBox>
+                <Label Grid.Column="0" Grid.Row="2" Content="Relación con el imputado"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Content="Tiempo de conocerlo"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding LstTipoReferencia}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_REFERENCIA" SelectedValue="{Binding ARelacion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                <TextBox Grid.Column="1" Grid.Row="3" MaxLength="100" CharacterCasing="Upper" Text="{Binding ATiempoConocerlo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                <Label Grid.Column="0" Grid.Row="4" Content="Domicilio"></Label>
+                <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" MaxLength="1000" CharacterCasing="Upper" Text="{Binding ADocmicilio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                <Label Grid.Column="0" Grid.Row="6" Content="Teléfono Movil"></Label>
+                <Label Grid.Column="1" Grid.Row="6" Content="Télefono Fijo"></Label>
+                <TextBox Grid.Column="0" Grid.Row="7" Text="{Binding ATelefonoMovil,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="14" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding ATelefonoFijo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="14" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

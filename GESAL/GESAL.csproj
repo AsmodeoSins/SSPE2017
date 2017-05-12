@@ -1,0 +1,836 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43CEA150-D91D-4159-BBB6-1F97010D0F5D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GESAL</RootNamespace>
+    <AssemblyName>GESAL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>E:\Deploys\GESAL\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>39EAA005D573125A0819D6A926BC91E9716CC65E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>GESAL_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CLSFPCaptureDllWrapper">
+      <HintPath>C:\Program Files (x86)\Cogent\FPCapture Express\bin\CLSFPCaptureDllWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="CurrencyTextBoxControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dlls\CurrencyTextBoxControl.dll</HintPath>
+    </Reference>
+    <Reference Include="DPUruNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dlls\DPUruNet.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net40\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras">
+      <HintPath>..\packages\MvvmLightLibs.5.1.1.0\lib\net40\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\dlls\MahApps.Metro\1.1.3.0\NET40\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.Resources">
+      <HintPath>..\dlls\MahApps.Metro.Resources.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dlls\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.DocumentObjectModel-WPF">
+      <HintPath>..\packages\PDFsharp-MigraDoc-WPF.1.32.2608.0\lib\net20\MigraDoc.DocumentObjectModel-WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering-WPF">
+      <HintPath>..\packages\PDFsharp-MigraDoc-WPF.1.32.2608.0\lib\net20\MigraDoc.Rendering-WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering-WPF">
+      <HintPath>..\packages\PDFsharp-MigraDoc-WPF.1.32.2608.0\lib\net20\MigraDoc.RtfRendering-WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfiumViewer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PdfiumViewer.2.5.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp-WPF">
+      <HintPath>..\packages\PDFsharp-MigraDoc-WPF.1.32.2608.0\lib\net20\PdfSharp-WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting-WPF">
+      <HintPath>..\packages\PDFsharp-MigraDoc-WPF.1.32.2608.0\lib\net20\PdfSharp.Charting-WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\net40\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.1.2.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="ToastinetWPF">
+      <HintPath>..\dlls\ToastinetWPF.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WpfControls, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dlls\WpfControls.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFPdfViewer">
+      <HintPath>..\dlls\WPFPdfViewer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AgregarVisitaEdificioView.xaml.cs">
+      <DependentUpon>AgregarVisitaEdificioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Clases\Behaviours\TextBoxInputRegExBehaviour.cs" />
+    <Compile Include="Clases\Enums\AccionSalvar.cs" />
+    <Compile Include="Clases\Extendidas\EXT_ProductoFiltrable.cs" />
+    <Compile Include="Clases\Extendidas\EXT_PRODUCTOS_TRASPASO.cs" />
+    <Compile Include="Clases\Extendidas\EXT_Orden_Compra_Detalle_Transito.cs" />
+    <Compile Include="Clases\Extendidas\EXT_PRODUCTO_REQUISICION.cs" />
+    <Compile Include="Clases\Extendidas\EXT_PRODUCTO_TRASPASO_EXTERNO.cs" />
+    <Compile Include="Clases\Extendidas\EXT_RECEPCION_PRODUCTOS.cs" />
+    <Compile Include="Clases\Extendidas\EXT_RECEPCION_PRODUCTO_LOTES.cs" />
+    <Compile Include="Clases\Extendidas\EXT_V_INVENTARIO_PRODUCTO.cs" />
+    <Compile Include="Clases\ExtensionesClases\ListExtensiones.cs" />
+    <Compile Include="Clases\Misc\DataGridHelper.cs" />
+    <Compile Include="Clases\Misc\DigitalizacionDocumento.cs" />
+    <Compile Include="Clases\Misc\FuncionesFechas.cs" />
+    <Compile Include="Clases\Misc\GlobalVar.cs" />
+    <Compile Include="Clases\Misc\TipoDocumento.cs" />
+    <Compile Include="Models\Estatus.cs" />
+    <Compile Include="Models\TiposBusquedaAlmacen.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Service References\BiometricoServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Autenticacion\AutenticacionViewModel.cs" />
+    <Compile Include="ViewModels\Autenticacion\Parciales\AutenticacionViewModel_Metodos.cs" />
+    <Compile Include="ViewModels\Autenticacion\Parciales\AutenticacionViewModel_Propiedades.cs" />
+    <Compile Include="ViewModels\Autenticacion\Parciales\AutenticacionViewModel_Validaciones.cs" />
+    <Compile Include="ViewModels\BandejaEntrada\BandejaEntradaViewModel.cs" />
+    <Compile Include="ViewModels\Calendarizacion\CalendarizacionViewModel.cs" />
+    <Compile Include="ViewModels\Calendarizacion\Parciales\CalendarizacionViewModel_Metodos.cs" />
+    <Compile Include="ViewModels\Calendarizacion\Parciales\CalendarizacionViewModel_Propiedades.cs" />
+    <Compile Include="ViewModels\Calendarizacion\Parciales\CalendarizacionViewModel_Validaciones.cs" />
+    <Compile Include="ViewModels\Catalogos\CatAlmacenViewModel.cs" />
+    <Compile Include="ViewModels\Catalogos\CatAlmacen_GrupoViewModel.cs" />
+    <Compile Include="ViewModels\Catalogos\CatProductoViewModel.cs" />
+    <Compile Include="ViewModels\Catalogos\CatProducto_CategoriaViewModel.cs" />
+    <Compile Include="ViewModels\Catalogos\CatProducto_PresentacionViewModel.cs" />
+    <Compile Include="ViewModels\Catalogos\CatProducto_SubCategoriaViewModel.cs" />
+    <Compile Include="ViewModels\Catalogos\CatProducto_TipoViewModel.cs" />
+    <Compile Include="ViewModels\Catalogos\CatProducto_Unidad_MedidaViewModel.cs" />
+    <Compile Include="ViewModels\Login\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MovimientosAlmacenes\Entradas\EntradasAlmacenesViewModel.cs" />
+    <Compile Include="ViewModels\MovimientosAlmacenes\Entradas\Parciales\EntradasAlmacenesViewModel_Metodos.cs" />
+    <Compile Include="ViewModels\MovimientosAlmacenes\Entradas\Parciales\EntradasAlmacenesViewModel_Propiedades.cs" />
+    <Compile Include="ViewModels\MovimientosAlmacenes\Entradas\Parciales\EntradasAlmacenesViewModel_Validaciones.cs" />
+    <Compile Include="ViewModels\MovimientosAlmacenes\TraspasosExternos\Parciales\RegistroTraspasosExternosViewModel_Metodos.cs" />
+    <Compile Include="ViewModels\MovimientosAlmacenes\TraspasosExternos\Parciales\RegistroTraspasosExternosViewModel_Propiedades.cs" />
+    <Compile Include="ViewModels\MovimientosAlmacenes\TraspasosExternos\RegistroTraspasosExternosViewModel.cs" />
+    <Compile Include="ViewModels\OrdenCompra\CapturaOCViewModel.cs" />
+    <Compile Include="ViewModels\Principal\PrincipalViewModel.cs" />
+    <Compile Include="ViewModels\Requisiciones\RequisicionExtraordinaria\Principal\Parciales\RequisicionExtraordinariaPrincipalViewModel_Metodos.cs" />
+    <Compile Include="ViewModels\Requisiciones\RequisicionExtraordinaria\Principal\Parciales\RequisicionExtraordinariaPrincipalViewModel_Propiedades.cs" />
+    <Compile Include="ViewModels\Requisiciones\RequisicionExtraordinaria\Principal\Parciales\RequisicionExtraordinariaPrincipalViewModel_Validaciones.cs" />
+    <Compile Include="ViewModels\Requisiciones\RequisicionExtraordinaria\Principal\RequisicionExtraordinariaPrincipalViewModel.cs" />
+    <Compile Include="Views\Autenticacion\AutenticacionView.xaml.cs">
+      <DependentUpon>AutenticacionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BandejaEntrada\BandejaEntradaView.xaml.cs">
+      <DependentUpon>BandejaEntradaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\CatAlmacen_GrupoView.xaml.cs">
+      <DependentUpon>CatAlmacen_GrupoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controles\AnimacionHuellas\AnimacionHuellasView.xaml.cs">
+      <DependentUpon>AnimacionHuellasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controles\Calendario\CalendarioView.xaml.cs">
+      <DependentUpon>CalendarioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controles\Calendario\DayBoxView.xaml.cs">
+      <DependentUpon>DayBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controles\Calendario\WeekRowView.xaml.cs">
+      <DependentUpon>WeekRowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Calendarizacion\CalendarizacionView.xaml.cs">
+      <DependentUpon>CalendarizacionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\CatAlmacenView.xaml.cs">
+      <DependentUpon>CatAlmacenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\CatProductoView.xaml.cs">
+      <DependentUpon>CatProductoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\CatProducto_CategoriaView.xaml.cs">
+      <DependentUpon>CatProducto_CategoriaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\CatProducto_PresentacionView.xaml.cs">
+      <DependentUpon>CatProducto_PresentacionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\CatProducto_SubCategoriaView.xaml.cs">
+      <DependentUpon>CatProducto_SubCategoriaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\CatProducto_TipoView.xaml.cs">
+      <DependentUpon>CatProducto_TipoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Catalogos\CatProducto_Unidad_MedidaView.xaml.cs">
+      <DependentUpon>CatProducto_Unidad_MedidaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controles\ContenedorReporte\Contenedor_ReporteView.xaml.cs">
+      <DependentUpon>Contenedor_ReporteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controles\GridOrdenesCompra\GridOrdenesCompra.xaml.cs">
+      <DependentUpon>GridOrdenesCompra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controles\HighlightDatesDatePicker\DateTimeExtensions.cs" />
+    <Compile Include="Views\Controles\HighlightDatesDatePicker\HighlightDateConverter.cs" />
+    <Compile Include="Views\Controles\HighlightDatesDatePicker\HighlightDatesDatePicker.cs" />
+    <Compile Include="Views\Login\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MenusComandos\menuComandoBasicos2View.xaml.cs">
+      <DependentUpon>menuComandoBasicos2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenusComandos\menuComandosBasicosCatalogosView.xaml.cs">
+      <DependentUpon>menuComandosBasicosCatalogosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenusComandos\menuComandosBasicosView.xaml.cs">
+      <DependentUpon>menuComandosBasicosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenusComandos\menuComandosCatalagosView.xaml.cs">
+      <DependentUpon>menuComandosCatalagosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenusComandos\menuComandosView.xaml.cs">
+      <DependentUpon>menuComandosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenusComandos\menuComandosView2.xaml.cs">
+      <DependentUpon>menuComandosView2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MovimientosAlmacenes\Entradas\EntradasAlmacenesView.xaml.cs">
+      <DependentUpon>EntradasAlmacenesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MovimientosAlmacenes\TraspasosExternos\RegistroTraspasosExternosView.xaml.cs">
+      <DependentUpon>RegistroTraspasosExternosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrdenCompra\CapturaOCView.xaml.cs">
+      <DependentUpon>CapturaOCView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\AgendaView.xaml.cs">
+      <DependentUpon>AgendaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\AsignaLotesProductoView.xaml.cs">
+      <DependentUpon>AsignaLotesProductoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\BusquedaOrdenes_CompraView.xaml.cs">
+      <DependentUpon>BusquedaOrdenes_CompraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\BusquedaOrdenes_Compra_TransitoDetalleView.xaml.cs">
+      <DependentUpon>BusquedaOrdenes_Compra_TransitoDetalleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\BusquedaProveedoresView.xaml.cs">
+      <DependentUpon>BusquedaProveedoresView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\BusquedaRequisicionProductos.xaml.cs">
+      <DependentUpon>BusquedaRequisicionProductos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\BusquedaRequisicionView.xaml.cs">
+      <DependentUpon>BusquedaRequisicionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\CatalogosDatos\AlmacenPopUpView.xaml.cs">
+      <DependentUpon>AlmacenPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\CatalogosDatos\Almacen_GrupoPopUpView.xaml.cs">
+      <DependentUpon>Almacen_GrupoPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\CatalogosDatos\Almacen_TipoPopUpView.xaml.cs">
+      <DependentUpon>Almacen_TipoPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\CatalogosDatos\ProductoPopUpView.xaml.cs">
+      <DependentUpon>ProductoPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\CatalogosDatos\Producto_CategoriaPopUpView.xaml.cs">
+      <DependentUpon>Producto_CategoriaPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\CatalogosDatos\Producto_PresentacionPopUpView.xaml.cs">
+      <DependentUpon>Producto_PresentacionPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\CatalogosDatos\Producto_SubCategoriaPopUpView.xaml.cs">
+      <DependentUpon>Producto_SubCategoriaPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\CatalogosDatos\Producto_Unidad_MedidaPopUpView.xaml.cs">
+      <DependentUpon>Producto_Unidad_MedidaPopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\DigitalizacionDocumentosView.xaml.cs">
+      <DependentUpon>DigitalizacionDocumentosView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\FondoObscuroView.xaml.cs">
+      <DependentUpon>FondoObscuroView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\MensajeConfirmacionProxy.xaml.cs">
+      <DependentUpon>MensajeConfirmacionProxy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PopUps\PopUpsViewModels.cs" />
+    <Compile Include="Views\PopUps\RechazoProductoEntradaView.xaml.cs">
+      <DependentUpon>RechazoProductoEntradaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Principal\PrincipalView.xaml.cs">
+      <DependentUpon>PrincipalView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Requisiciones\RequisicionExtraordinaria\Contenido\RequisicionExtraordinariaView.xaml.cs">
+      <DependentUpon>RequisicionExtraordinariaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Requisiciones\RequisicionExtraordinaria\Principal\RequisicionExtraordinariaPrincipalView.xaml.cs">
+      <DependentUpon>RequisicionExtraordinariaPrincipalView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AgregarVisitaEdificioView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Colores.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Control.Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Control.ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Control.DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\Control.ListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\Control.PasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\Control.TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\GESAL.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Autenticacion\AutenticacionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BandejaEntrada\BandejaEntradaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Catalogos\CatAlmacen_GrupoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controles\AnimacionHuellas\AnimacionHuellasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controles\Calendario\CalendarioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controles\Calendario\DayBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controles\Calendario\WeekRowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Calendarizacion\CalendarizacionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalogos\CatAlmacenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalogos\CatProductoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalogos\CatProducto_CategoriaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalogos\CatProducto_PresentacionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalogos\CatProducto_SubCategoriaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalogos\CatProducto_TipoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Catalogos\CatProducto_Unidad_MedidaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controles\ContenedorReporte\Contenedor_ReporteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controles\GridOrdenesCompra\GridOrdenesCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Login\SplashScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MenusComandos\menuComandoBasicos2View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenusComandos\menuComandosBasicosCatalogosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenusComandos\menuComandosBasicosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenusComandos\menuComandosCatalagosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenusComandos\menuComandosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MenusComandos\menuComandosView2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MovimientosAlmacenes\Entradas\EntradasAlmacenesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MovimientosAlmacenes\TraspasosExternos\RegistroTraspasosExternosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrdenCompra\CapturaOCView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\AgendaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\AsignaLotesProductoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\BusquedaOrdenes_CompraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\BusquedaOrdenes_Compra_TransitoDetalleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\BusquedaProveedoresView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\BusquedaRequisicionProductos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\BusquedaRequisicionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\CatalogosDatos\AlmacenPopUpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\CatalogosDatos\Almacen_GrupoPopUpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\CatalogosDatos\Almacen_TipoPopUpView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PopUps\CatalogosDatos\ProductoPopUpView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PopUps\CatalogosDatos\Producto_CategoriaPopUpView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PopUps\CatalogosDatos\Producto_PresentacionPopUpView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PopUps\CatalogosDatos\Producto_SubCategoriaPopUpView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PopUps\CatalogosDatos\Producto_Unidad_MedidaPopUpView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PopUps\DigitalizacionDocumentosView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\FondoObscuroView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\MensajeConfirmacionProxy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PopUps\RechazoProductoEntradaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Principal\PrincipalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Requisiciones\RequisicionExtraordinaria\Contenido\RequisicionExtraordinariaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Requisiciones\RequisicionExtraordinaria\Principal\RequisicionExtraordinariaPrincipalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="Reportes\Requisicion\RRequisicionExtraordinaria.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="App.config" />
+    <None Include="GESAL_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\ControlPenales.BiometricoServiceReference.CompareResponseImputado.datasource" />
+    <None Include="Properties\DataSources\ControlPenales.BiometricoServiceReference.CompareResponsePersona.datasource" />
+    <None Include="Properties\DataSources\SSP.Servidor.ModelosExtendidos.EXT_Reporte_RequisicionExtraordinaria.datasource" />
+    <None Include="Properties\DataSources\SSP.Servidor.ModelosExtendidos.EXT_Reporte_RequisicionExtraordinaria1.datasource" />
+    <None Include="Properties\DataSources\SSP.Servidor.ModelosExtendidos.EXT_RequisicionExtraordinaria_Encabezado.datasource" />
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Service References\BiometricoServiceReference\BiometricoService.wsdl" />
+    <None Include="Service References\BiometricoServiceReference\BiometricoService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BiometricoServiceReference\BiometricoService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BiometricoServiceReference\BiometricoService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BiometricoServiceReference\BiometricoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BiometricoServiceReference\BiometricoService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BiometricoServiceReference\GESAL.BiometricoServiceReference.CompareResponseImputado.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BiometricoServiceReference\GESAL.BiometricoServiceReference.CompareResponsePersona.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Biometrico\Biometrico.csproj">
+      <Project>{3c2b9db5-401f-4838-b443-729358c05601}</Project>
+      <Name>Biometrico</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Controlador\Controlador.csproj">
+      <Project>{2912e026-54c9-418a-9e21-6b2c08eb6eab}</Project>
+      <Name>Controlador</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modelo\Modelo.csproj">
+      <Project>{51784e3a-5b50-4a5b-9138-ca6615d03df0}</Project>
+      <Name>Modelo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MVVMShared\MVVMShared.csproj">
+      <Project>{91d18add-b48a-479a-b4ac-516e5b9f7510}</Project>
+      <Name>MVVMShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Servidor\Servidor.csproj">
+      <Project>{cf4e9ba2-c1ba-479f-babe-fa546822b767}</Project>
+      <Name>Servidor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\LOGO_SSP.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\icon-GESAL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\aspa-roja-con-borde-incorrecto.png" />
+    <Resource Include="Resources\Images\correcto-verde-icono-esta-bien.png" />
+    <Resource Include="Resources\Images\huella.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\imageNotFound.jpg" />
+    <Resource Include="Resources\Images\information-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Next.png" />
+    <Resource Include="Resources\Images\notificacion.png" />
+    <Resource Include="Resources\Images\notification_warning.png" />
+    <Resource Include="Resources\Images\person24.png" />
+    <Resource Include="Resources\Images\placeholder_person.gif" />
+    <Resource Include="Resources\Images\Previous.png" />
+    <Resource Include="Resources\Images\userWhite24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\BiometricoServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BiometricoServiceReference\BiometricoService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BiometricoServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BiometricoServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BiometricoServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\nophoto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Clases\Providers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\search_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\fingerprint1.png" />
+    <Resource Include="Resources\Images\fingerprint2.png" />
+    <Resource Include="Resources\Images\fingerprint3.png" />
+    <Resource Include="Resources\Images\fingerprint4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\fingerprint5.png" />
+    <Resource Include="Resources\Images\fingerprint6.png" />
+    <Resource Include="Resources\Images\fingerprint7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\LOGO_SSP_NoFondo.JPG" />
+    <Content Include="x64\pdfium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\pdfium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WIA">
+      <Guid>{94A0E92D-43C0-494E-AC29-FD45948A5221}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="ControlPenales.AntecedentesPatologicosPartialView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight" xmlns:local="clr-namespace:ControlPenales"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Views:BoolConverter x:Key="CoverterBool"/>
+    </UserControl.Resources>
+    <Controls:MetroAnimatedSingleRowTabControl Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Grid.RowSpan="2" TabStripPlacement="Top" Height="auto">
+        <TabItem Header="Antecedentes personales patológicos" Style="{StaticResource SubHeaderTabStyle}">
+            <GroupBox Header="ANTECEDENTES PERSONALES PATOLÓGICOS">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Row="0" Grid.Column="0" Header="Seleccione por medio del botón correspondiente la acción que desea">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="4.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="4.5*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <DataGrid Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Height="200" Background="WhiteSmoke" AutoGenerateColumns="False"  CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding LstPatologicos}" SelectedItem="{Binding SelectedPatologico,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                                        <i:Interaction.Triggers>
+                                            <Views:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged" >
+                                                <cmd:EventToCommand Command="{Binding CargarMasResultados}" PassEventArgsToCommand="True" />
+                                            </Views:RoutedEventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Descripción" Binding="{Binding PATOLOGICO_CAT.DESCR }" ></DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                        <DataGrid.RowStyle>
+                                            <Style TargetType="DataGridRow" BasedOn="{StaticResource MetroDataGridRow}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Seleccionado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                                        <Setter Property="Background" Value="SkyBlue"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGrid.RowStyle>
+                                    </DataGrid>
+                                    <DataGrid Grid.Row="0" Name="dgPatos" Grid.Column="2" Grid.RowSpan="5" Height="200" Background="WhiteSmoke" AutoGenerateColumns="False"  
+                              CanUserAddRows="False" ItemsSource="{Binding LstCondensadoPatologicos}" SelectedItem="{Binding SelectedCondensadoPato}" IsReadOnly="False" Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                                        <!--<i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick" >
+                                <i:InvokeCommandAction CommandParameter="{Binding ElementName=dgPatos,Path=SelectedItem}" Command="{Binding DoubleClickGridCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>-->
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Descripción" Binding="{Binding PATOLOGICO_CAT.DESCR}" IsReadOnly="True"></DataGridTextColumn>
+                                            <DataGridCheckBoxColumn Header="Recuperado" Binding="{ Binding RECUPERADO }" IsReadOnly="False"></DataGridCheckBoxColumn>
+                                            <DataGridTemplateColumn Header="Observaciones" IsReadOnly="False">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding OBSERVACIONES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="1000"></TextBox>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,0,10,0"
+                    CommandParameter="agregar_patol" Command="{Binding OnClick}" IsEnabled="{Binding HabilitaImputados , UpdateSourceTrigger=PropertyChanged}">Agregar -- ></Button>
+                                    <Button Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" IsEnabled="{Binding HabilitaImputados, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,0,10,0"
+                    CommandParameter="remove_patol" Command="{Binding OnClick}">&lt; -- quitar</Button>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <Label Grid.Column="0" Grid.Row="1" Content="Medicamentos Activos" Name="lblAlgo"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="2" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" MinHeight="80" Text="{ Binding MedicamentosActivos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblAlgo, Path=ActualWidth}" CharacterCasing="Upper" MaxLength="1000"></TextBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+        </TabItem>
+        <TabItem Header="Grupos Vulnerables" Style="{StaticResource SubHeaderTabStyle}">
+            <GroupBox Grid.Column="0" Grid.Row="3" Header="Grupos Vulnerables">
+                <AdornerDecorator>
+                    <DataGrid Height="200" Name="dgGruposV" Background="WhiteSmoke" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding LstSectoresVulnerbles}" SelectedItem="{Binding SelectedSectorVulnerable}" IsReadOnly="False" Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Población" Binding="{Binding POBLACION}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridCheckBoxColumn Binding="{ Binding ES_GRUPO_VULNERABLE, Converter={ StaticResource CoverterBool}, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Header="Aplica"></DataGridCheckBoxColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </AdornerDecorator>
+            </GroupBox>
+        </TabItem>
+    </Controls:MetroAnimatedSingleRowTabControl>
+</UserControl>

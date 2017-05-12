@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="ControlPenales.UnidadAbastecimientoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" >
+    <StackPanel>
+        <Views:MenuCatalogosView />
+
+        <Grid Visibility="{Binding GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="{Binding CatalogoHeader}" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label>Busqueda</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="2" MinWidth="200" MaxWidth="500"></TextBox>
+                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar_articulo_medicamento" 
+                Command="{Binding OnClick}">Buscar</Button>
+            </StackPanel>
+            
+            <DataGrid Grid.Row="2" Height="200" Grid.ColumnSpan="2" Margin="10" ItemsSource="{Binding ListItems}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" 
+                  SelectedItem="{Binding SelectedItem}" SelectedIndex="{Binding SeleccionIndice}" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Almacén" Binding="{Binding Nombre}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Paterno}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Descripción" Binding="{Binding Materno}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tipo" Binding="{Binding Estatura}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="CERESO" Binding="{Binding Edad}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tipo de Acceso" Binding="{Binding Sexo}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Verificación" Binding="{Binding IsSelected}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Border Visibility="{Binding Path=AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.ColumnSpan="2" Content="{Binding AgregarHeader}" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+                <Label Grid.Row="2" Grid.Column="0">CERESO</Label>
+                <Label Grid.Row="4" Grid.Column="0">Tipo de Búsqueda</Label>
+                <Label Grid.Row="6" Grid.Column="0">Verificación</Label>
+                <Label Grid.Row="8" Grid.Column="0">Nombre</Label>
+                <Label Grid.Row="10" Grid.Column="0">Descripción</Label>
+                <Label Grid.Row="12" Grid.Column="0">Tipo de UA</Label>
+                <Label Grid.Row="14" Grid.Column="0">Almacén</Label>
+
+                <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Cereso}" MinWidth="200" HorizontalAlignment="Left" SelectedItem="{Binding CeresoSelected}" SelectedIndex="{Binding CeresoIndice}"></ComboBox>
+                <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding TipoBusqueda}" MinWidth="200" HorizontalAlignment="Left" SelectedItem="{Binding TipoBusquedaSelected}" SelectedIndex="{Binding TipoBusquedaIndice}"></ComboBox>
+                <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding Verificacion}" MinWidth="200" HorizontalAlignment="Left" SelectedItem="{Binding VerificacionSelected}" SelectedIndex="{Binding VerificacionIndice}"></ComboBox>
+                <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Nombre}" MinWidth="200" MaxWidth="450" HorizontalAlignment="Left"></TextBox>
+                <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Descripcion}" MinWidth="200" MaxWidth="450" HorizontalAlignment="Left"></TextBox>
+                <RadioButton Grid.Row="12" Grid.Column="1" GroupName="TipoUA" Margin="15,0,0,0" MinWidth="200" MaxWidth="450" HorizontalAlignment="Left" IsChecked="{Binding FijaSelected}">Fija</RadioButton>
+                <RadioButton Grid.Row="12" Grid.Column="1" GroupName="TipoUA" Margin="90,0,0,0" MinWidth="200" MaxWidth="450" HorizontalAlignment="Left" IsChecked="{Binding MovilSelected}">Móvil</RadioButton>
+                <ComboBox Grid.Row="14" Grid.Column="1" ItemsSource="{Binding Almacen}" MinWidth="200" HorizontalAlignment="Left" SelectedItem="{Binding AlmacenSelected}" SelectedIndex="{Binding AlmacenIndice}"></ComboBox>
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>

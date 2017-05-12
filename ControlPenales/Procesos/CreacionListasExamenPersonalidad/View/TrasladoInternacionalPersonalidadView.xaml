@@ -1,0 +1,403 @@
+﻿<UserControl x:Class="ControlPenales.TrasladoInternacionalPersonalidadView"
+ mc:Ignorable="d"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                          xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Height="auto" Width="auto">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Views:MenuTrasladosPersonalidadView Grid.Row="0" Grid.ColumnSpan="3" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Solicitud de traslado internacional" Grid.ColumnSpan="2" Style="{DynamicResource DescriptionHeaderStyle}" />
+            <Button Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="regresar_traslado_sol" Command="{Binding OnClick}" Content="Regresar"></Button>
+            <Label Grid.Column="0" Grid.Row="2" Content="Centro de origen"></Label>
+            <TextBox Grid.Column="0" Grid.Row="3" Text="{ Binding NombreCentroOrigenTrasladoIntern, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+            <Label Grid.Column="1" Grid.Row="2" Content="Solicitud al centro de"></Label>
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{ Binding NombreCentroSolicitud, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" IsReadOnly="True"></TextBox>
+            <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Header="I .- Datos personales">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Nombre"></Label>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Edad"></Label>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Edo. Civil"></Label>
+                        <Label Grid.Column="3" Grid.Row="0" Content="Originario"></Label>
+
+                        <TextBox Grid.Column="0" Grid.Row="1" CharacterCasing="Upper" Text="{ Binding NombreTrasladoInternac, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="1" CharacterCasing="Upper" Text="{ Binding EdadTrasladoInternac, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                        <TextBox Grid.Column="2" Grid.Row="1" CharacterCasing="Upper" Text="{ Binding EdoCivilTrasladoInternac, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                        <TextBox Grid.Column="3" Grid.Row="1" CharacterCasing="Upper" Text="{ Binding OriginarioTrasladoInternac, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Lugar de residencia de sus familiares" Grid.ColumnSpan="4"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" CharacterCasing="Upper" Text="{ Binding LugarResidenciaTrasladoInternac, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="4" Content="Escolaridad" Grid.ColumnSpan="2" Name="lblReferencia1"></Label>
+                        <Label Grid.Column="2" Grid.Row="4" Content="Ocupación previa" Grid.ColumnSpan="2"></Label>
+                        <TextBox MaxWidth="{ Binding ElementName=lblReferencia1, Path=ActualWidth}" Grid.Column="0" Grid.Row="5" MinHeight="50" MaxLength="100" TextWrapping="Wrap" CharacterCasing="Upper" Text="{ Binding EscolaridadTrasladoInternac, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2"></TextBox>
+                        <TextBox MaxWidth="{ Binding ElementName=lblReferencia1, Path=ActualWidth}" Grid.Column="2" Grid.Row="5" MinHeight="50" MaxLength="100" TextWrapping="Wrap" CharacterCasing="Upper" Text="{ Binding OcupacionPreviaTrasladoInternac, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2"></TextBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Header="ii .- Situación jurídica">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding LstDelitosUno, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDelitoUno}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Delito" Binding="{Binding Delito}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Proceso" Binding="{Binding Proceso}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Fuero común" Binding="{Binding FComun}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="fuero federal" Binding="{Binding FFederal}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="pena" Binding="{Binding Pena}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="a partir" Binding="{Binding APartir }"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Grid.Column="0" Grid.Row="1" Content="Antecedentes penales"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding AntecedentesPenalesTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Column="0" Grid.Row="3" Content="Enunciarlos en caso afirmativo"></Label>
+                        <DataGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding LstDelitosDos, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedDelitoDos}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Delito" Binding="{Binding Delito}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Proceso" Binding="{Binding Proceso}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Fuero común" Binding="{Binding FComun}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="fuero federal" Binding="{Binding FFederal}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="pena" Binding="{Binding Pena}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="a partir" Binding="{Binding APartir }"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Grid.Column="0" Grid.Row="5" Content="Versión del delito según actas procesales" Grid.ColumnSpan="2" Name="lblReferencia3"></Label>
+                        <TextBox Grid.Column="0" MaxLength="100" Grid.Row="6" MinHeight="50" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblReferencia3, Path=ActualWidth}" Text="{ Binding VersionDelitoTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3" Header="III .- diagnóstico clínico - criminológico actual">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Column="0" Grid.Row="0" Header="ÁREA MÉDICA" Grid.ColumnSpan="2">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Clínicamente sano"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding ClinicSanoTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" Grid.Row="2" Content="En caso negativo indicar padecimiento" Name="lblReferencia4"></Label>
+                                    <TextBox IsEnabled="{ Binding EnabledSanoIntern, UpdateSourceTrigger=PropertyChanged}" MaxLength="500" MaxWidth="{ Binding ElementName=lblReferencia4, Path=ActualWidth}" Grid.Column="0" Grid.Row="3" MinHeight="50" TextWrapping="Wrap" CharacterCasing="Upper" Text="{ Binding IndicaPadecimientoTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    <Label Grid.Column="1" Grid.Row="2" Content="Tratamiento actual"></Label>
+                                    <TextBox Grid.Column="1" MaxLength="500" Grid.Row="3" MinHeight="50" MaxWidth="{ Binding ElementName=lblReferencia4, Path=ActualWidth}" TextWrapping="Wrap" CharacterCasing="Upper" Text="{ Binding TratamientoActualTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Header="ASPECTO PSICOLÓGICO">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Coeficiente intelectual" Name="lblCoefi"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="1" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblCoefi, Path=ActualWidth}" MaxLength="100" Text="{ Binding CoeficIntTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    <Label Grid.Column="1" Grid.Row="0" Content="Daño órgano cerebral"></Label>
+                                    <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding DanioCerebTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" Grid.Row="2" Content="Agresividad" Grid.ColumnSpan="2" Name="lblReferencia5"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="3" MaxLength="500" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblReferencia5, Path=ActualWidth}" TextWrapping="Wrap" MinHeight="50" CharacterCasing="Upper" Text="{ Binding DescAgresividad, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+
+                                    <Label Grid.Column="0" Grid.Row="4" Content="Otros aspectos de personalidad significativos"></Label>
+                                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="5" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblReferencia5, Path=ActualWidth}" TextWrapping="Wrap" MinHeight="50" CharacterCasing="Upper" Text="{ Binding OtrosAspectosPersonalidadTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Header="Social">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Apoyo familiar de padres"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding ApoyoPadresTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="1" Grid.Row="0" Content="Cónyuge"></Label>
+                                    <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding ConyugeTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Content="Mencione el nombre y parentesco de las personas que lo visitan"></Label>
+                                    <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding LstVisitasTraslInt, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedVisitaTrasladoInt}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Nombre" Binding="{Binding NOMBRE}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Paterno" Binding="{Binding PATERNO}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Materno" Binding="{Binding MATERNO }"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Parentesco" Binding="{Binding TIPO_REFERENCIA.DESCR}"></DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Label Grid.Column="0" Grid.Row="4" Content="Frecuencia de visita" Grid.ColumnSpan="2" Name="lblReferencia6"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" MaxLength="500" MaxWidth="{ Binding ElementName=lblReferencia6, Path=ActualWidth}" Text="{ Binding FrecuenciaVisitaTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MinHeight="50"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="En caso de no recibir visitas, señale las causas"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="7" MaxLength="500" MaxWidth="{ Binding ElementName=lblReferencia6, Path=ActualWidth}" Grid.ColumnSpan="2" Text="{ Binding NoRecibeVisitaCausasTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MinHeight="50" IsEnabled="{ Binding EnabledNoVisitTrasladoInternacional, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="8" Content="Cuenta con carta de arraigo domiciliario"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="9" SelectedValuePath="Tag" SelectedValue="{ Binding CartaArraigoCuentaTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" Grid.Row="10" Content="Domicilio" Name="lblReferencia7" Grid.ColumnSpan="2"></Label>
+                                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" MinHeight="50" IsEnabled="{ Binding EnabledCarta}" MaxLength="500" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferencia7, Path=ActualWidth}" Grid.Row="11" Text="{ Binding DomicilioTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="12" Content="Anuencia de cupo por las autoridades del centro receptor"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="13" SelectedValuePath="Tag" SelectedValue="{ Binding AnuenciaCupoTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        <ComboBoxItem Content="SE DESCONOCE" Tag="D"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="1" Grid.Row="12" Content="Fecha"></Label>
+                                    <DatePicker Grid.Column="1" Grid.Row="13" Controls:TextBoxHelper.Watermark="Seleccione una fecha"
+                SelectedDate="{Binding FechaAnuenciaTrasladoInternacional,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                    <Label Grid.Column="0" Grid.Row="14" Content="Nivel socioeconómico" Grid.ColumnSpan="2" Name="lblReferencia8"></Label>
+                                    <TextBox Grid.Column="0" MaxLength="100" Grid.ColumnSpan="2" Grid.Row="15" MaxWidth="{ Binding ElementName=lblReferencia8, Path=ActualWidth}" Text="{ Binding NivelSocioETrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Header="Pedagógico">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Estudia actualmente"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding EstudiaActualTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" Grid.Row="2" Content="En caso negativo, señale las causas" Grid.ColumnSpan="2" Name="lblReferencia9"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" MinHeight="50" MaxLength="100" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferencia9, Path=ActualWidth}" TextWrapping="Wrap" Text="{ Binding CausasNoEstudiaTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding EnabledPorqueEstudia, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="4" Content="Otros cursos o la capacitación que haya recibido"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="5" MaxLength="500" MinHeight="50" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia9, Path=ActualWidth}" Text="{ Binding OtrosCursosCapacRecibTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2"></TextBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Header="laboral">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Actualmente trabaja en la institución"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding AcualmenteTrabajaInstTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" Grid.Row="2" Content="En caso afirmativo, señale ocupación (es)" Grid.ColumnSpan="2" Name="lblReferencia10"></Label>
+                                    <TextBox Grid.Column="0" MaxLength="500" IsEnabled="{ Binding EnabledSI}" Grid.Row="3" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblReferencia10, Path=ActualWidth}" Text="{ Binding SenialeOcupacionTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MinHeight="50"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="4" Content="En caso negativo señale las causas"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="5" MaxLength="500" IsEnabled="{Binding EnabledNO}" MinHeight="50" MaxWidth="{ Binding ElementName=lblReferencia10, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap" Text="{ Binding NegativoSenialeCausas, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="6" Content="Total de días efectivos de trabajo a la fecha"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="7" Text="{ Binding TotalDiasEfectivTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <i:Interaction.Behaviors>
+                                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Header="conducta">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Durante su reclusión la conducta observada se considere"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding ConductaConsidTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                                        <ComboBoxItem Content="BUENA" Tag="1"></ComboBoxItem>
+                                        <ComboBoxItem Content="REGULAR" Tag="2"></ComboBoxItem>
+                                        <ComboBoxItem Content="MALA" Tag="3"></ComboBoxItem>
+                                    </ComboBox>
+                                    <GroupBox Grid.Column="0" Grid.Row="2" Header="Correctivos disciplinarios" Grid.ColumnSpan="2">
+                                        <AdornerDecorator>
+                                            <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding LstSancionesTrasladoInt, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSancionTrasladoIntern}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Motivo" Binding="{Binding MOTIVO}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Fecha" Binding="{Binding SANCION_FEC}"></DataGridTextColumn>
+                                                    <DataGridTextColumn Header="Sanción" Binding="{Binding SANCION}"></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </AdornerDecorator>
+                                    </GroupBox>
+                                    <Label Grid.Column="0" Grid.Row="4" Content="Índice de peligrosidad actual"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="5" ItemsSource="{Binding LstPeligrosidadTraslados}" DisplayMemberPath="DESCR" SelectedValuePath="ID_PELIGROSIDAD"
+                        SelectedValue="{ Binding IdPeligroTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                                    <Label Grid.Column="1" Grid.Row="4" Content="Presenta actualmente adicción a tóxicos"></Label>
+                                    <ComboBox Grid.Column="1" Grid.Row="5" SelectedValuePath="Tag" SelectedValue="{ Binding AdiccionToxicosTrasladoInternacional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" Grid.Row="6" Content="En caso afirmativo cuales" Grid.ColumnSpan="2" Name="lblReferencia11"></Label>
+                                    <TextBox Grid.Column="0" MaxLength="500" TextWrapping="Wrap" Grid.Row="7" IsEnabled="{ Binding EnabledToxicosInt}" MaxWidth="{ Binding ElementName=lblReferencia11, Path=ActualWidth}" Grid.ColumnSpan="2" MinHeight="50" CharacterCasing="Upper" Text="{ Binding CasoAfirmativoCualesTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="8" Content="Requiere continuar con tratamiento" Grid.ColumnSpan="2"></Label>
+                                    <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal">
+                                        <CheckBox Content="PSICOLÓGICO" Grid.Column="0" Grid.Row="1" IsChecked="{ Binding IsPsicoTrasladoInterNacionalChecked, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                        <CheckBox Content="EDUCATIVO" Grid.Column="0" Grid.Row="1" IsChecked="{ Binding IsEducTrasladoInterNacionalChecked, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                        <CheckBox Content="LABORAL" Grid.Column="0" Grid.Row="1" IsChecked="{ Binding IsLabTrasladoInterNacionalChecked, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                    </StackPanel>
+                                    <Label Grid.Column="0" Grid.Row="9" Content="Otros Señale"></Label>
+                                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="10" MaxWidth="{ Binding ElementName=lblReferencia11, Path=ActualWidth}" Text="{ Binding EspecifiqueOtroTratamientoTrasladoInterNacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MinHeight="50" Grid.ColumnSpan="3"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="11" Content="Indique otros aspectos relevantes no contemplados anteriormente, con objeto de emitir una opinión objetiva sobre el caso que nos ocupa" Grid.ColumnSpan="2"></Label>
+                                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="12" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblReferencia11, Path=ActualWidth}" TextWrapping="Wrap" CharacterCasing="Upper" Text="{ Binding OtrosAspectosTrasladoInternacional, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MinHeight="50"></TextBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

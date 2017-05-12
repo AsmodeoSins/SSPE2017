@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="ControlPenales.CitaView"
+             xmlns:Name="CitaWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=CitaWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:EstatusSolicitud x:Key="EstatusSolicitud" />
+        <Views:EstatusSolicitudVisible x:Key="EstatusSolicitudVisible" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=AnioBuscar, Path=Text.Length}" Value="4">
+                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscar}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--MENU-->
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+        <!--TITULO-->
+        <Label Grid.Column="0" Grid.Row="1" Content="Citas" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Grid Grid.Column="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="75"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition MinHeight="10"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Año"></Label>
+            <Label Grid.Column="1" Grid.Row="0" Content="Folio"></Label>
+            <Label Grid.Column="2" Grid.Row="0" Content="Nombre"></Label>
+            <Label Grid.Column="3" Grid.Row="0" Content="Apellido Paterno"></Label>
+            <Label Grid.Column="4" Grid.Row="0" Content="Apellido Materno"></Label>
+            <Label Grid.Column="5" Grid.Row="0" Content="Fecha"></Label>
+            <Label Grid.Column="6" Grid.Row="0" Content="Área"></Label>
+            <Label Grid.Column="7" Grid.Row="0" Content="Estatus"></Label>
+            
+            <StackPanel Grid.Column="8" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Top"  HorizontalAlignment="Center">
+                <Label HorizontalAlignment="Center" Padding="0">Buscar</Label>
+                <Button Width="50" Height="50" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar"
+                        Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding CAnio,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" MaxLength="4" Name="AnioBuscar">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding CFolio,UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" MaxLength="6" Name="FolioBuscar">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=FolioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding CNombre,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="NombreBuscar">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding CPaterno,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="PaternoBuscar">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=PaternoBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding CMaterno,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="MaternoBuscar">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=MaternoBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <DatePicker Grid.Column="5" Grid.Row="1" Style="{StaticResource MetroDatePicker}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding CFecha}" />
+            <ComboBox Grid.Column="6" Grid.Row="1" ItemsSource="{Binding LstArea}" SelectedValuePath="ID_TECNICA" DisplayMemberPath="DESCR"
+                    SelectedValue="{Binding CArea,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <ComboBox Grid.Column="7" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{Binding CEstatus,UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Tag="-1">TODOS</ComboBoxItem>
+                    <ComboBoxItem Tag="0">SOLICITADA</ComboBoxItem>
+                <ComboBoxItem Tag="1">AGENDADA</ComboBoxItem>
+                <ComboBoxItem Tag="2">DESCARTADA</ComboBoxItem>
+            </ComboBox>
+            <DataGrid Grid.Column="0" Grid.Row="3"  Grid.ColumnSpan="9" AutoGenerateColumns="False" ItemsSource="{Binding LstSolicitudes}" SelectedItem="{Binding SelectedSolicitud}" SelectionMode="Single"
+                    CanUserAddRows="False" MaxHeight="500" Padding="0 10 0 0" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+                <i:Interaction.Triggers>
+                    <Views:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                        <cmd:EventToCommand Command="{Binding CargarMasResultadosImputado}" PassEventArgsToCommand="True" />
+                    </Views:RoutedEventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding ATENCION_INGRESO.ATENCION_SOLICITUD.SOLICITUD_FEC,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Anio" Binding="{Binding ATENCION_INGRESO.ID_ANIO}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Folio" Binding="{Binding ATENCION_INGRESO.ID_IMPUTADO}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding ATENCION_INGRESO.INGRESO.IMPUTADO.NOMBRE}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding ATENCION_INGRESO.INGRESO.IMPUTADO.PATERNO}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Apellido Materno" Binding="{Binding ATENCION_INGRESO.INGRESO.IMPUTADO.MATERNO}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Actividad" Binding="{Binding ATENCION_INGRESO.ATENCION_SOLICITUD.ACTIVIDAD}" MaxWidth="300"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Estatus" Binding="{Binding ATENCION_INGRESO.ESTATUS,Converter={StaticResource EstatusSolicitud}}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Área Técnica" Binding="{Binding ATENCION_INGRESO.ATENCION_SOLICITUD.AREA_TECNICA.DESCR}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Tipo de Atención" Binding="{Binding ATENCION_INGRESO.ATENCION_SOLICITUD.ATENCION_TIPO.DESCR}"></DataGridTextColumn>
+                    <!--<DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="cancelar_agenda"
+                                        Command="{Binding Path=DataContext.OnClick,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                        Visibility="{Binding ATENCION_INGRESO.ESTATUS,Converter={StaticResource EstatusSolicitudVisible }}">cancelar agenda</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <DockPanel Background="#e4e7e4">
+                            <StackPanel>
+                                <Label Content="{Binding TITULO_SOL_ATENDIDAS}"></Label>
+                                <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding SOLICITUDES_ATENDIDAS}" SelectionMode="Single" 
+                                CanUserAddRows="False" Padding="0 10 0 20" Style="{StaticResource MetroDataGrid}" IsReadOnly="True" Background="#e4e7e4" HorizontalAlignment="Stretch" Visibility="{Binding IsGrisSolicitudesVisible}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Fecha" Binding="{Binding CITA_FECHA_HORA,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="ACTIVIDAD" Binding="{Binding ATENCION_SOLICITUD.ACTIVIDAD}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </DockPanel>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Agendar" Command="{Binding OnClick}" CommandParameter="agendar_cita" Visibility="{Binding CMenuVisible}"/>
+                        <MenuItem Header="Descartar" Command="{Binding OnClick}" CommandParameter="descartar_solicitud" Visibility="{Binding CMenuVisible}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ALCANZO_TOPE_ATENCIONES}" Value="True">
+                                <Setter Property="Background" Value="Yellow"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="8" HorizontalAlignment="Center" Margin="0 40 0 0" FontStyle="Italic" Content="No hay infrmación" Visibility="{Binding EmptySolicitudes}" />
+        </Grid>
+    </Grid>
+</UserControl>

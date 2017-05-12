@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="ControlPenales.EntradasAlmacenView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <StackPanel>
+        <Views:MenuIconosView />
+        <StackPanel Visibility="{Binding Path=GeneralMedicamentoVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Label Content="Entradas Almacén" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+            <Label Margin="10,0,0,-8">Almacén</Label>
+            <ComboBox MinWidth="350" MaxWidth="555" Margin="10" HorizontalAlignment="Left"></ComboBox>
+            <DataGrid MaxHeight="300" Margin="10" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Inv."></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nombre Genérico"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Presentación"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Caduca"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Cantidad"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Forma Farmacéutica"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Vía Administración"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Clave"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Cajas"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Unidades"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Proveedor"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Lote"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <GroupBox Header="Captura" Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0">Artículo</Label>
+                    <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">Cuadro Básico</Label>
+                    <Label Grid.Row="0" Grid.Column="3">Caduca</Label>
+                    <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="2">
+                        <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+                        <Button Width="50" Height="50" ToolTip="Buscar"
+                            Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_medicamento" Command="{Binding OnClick}" >
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    
+                    <TextBox Grid.Row="1" Grid.Column="0"></TextBox>
+                    <CheckBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"></CheckBox>
+                    <DatePicker Grid.Row="1" Grid.Column="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha"></DatePicker>
+
+                    <Label Grid.Row="2" Grid.Column="0">Presentación</Label>
+                    <Label Grid.Row="2" Grid.Column="2">Unidades</Label>
+                    <Label Grid.Row="2" Grid.Column="3">Cajas</Label>
+                    <Label Grid.Row="2" Grid.Column="4">Cantidad</Label>
+                    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="0,0,10,0"></TextBox>
+                    <TextBox Grid.Row="3" Grid.Column="2"></TextBox>
+                    <TextBox Grid.Row="3" Grid.Column="3"></TextBox>
+                    <TextBox Grid.Row="3" Grid.Column="4"></TextBox>
+
+                    <Label Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2">Proveedor</Label>
+                    <Label Grid.Row="4" Grid.Column="5">Lote</Label>
+                    <ComboBox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2"></ComboBox>
+                    <TextBox Grid.Row="5" Grid.Column="5"></TextBox>
+
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+        <Views:BuscarMedicamentosView Visibility="{Binding Path=BuscarMedicamentoVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+    </StackPanel>
+</UserControl>

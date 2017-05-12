@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="ControlPenales.RecetaMedicaView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Name="RecetaMedicaWindow"
+             d:DesignHeight="550" d:DesignWidth="1200">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding RecetaMedicaLoading}" CommandParameter="{Binding ElementName=RecetaMedicaWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <local:TrimStringConverter x:Key="Trimming" />
+        <local:NombreConverter x:Key="NombreConverter"></local:NombreConverter>
+        <local:VisitanteNombreCompleto x:Key="VisitanteNombreCompleto"></local:VisitanteNombreCompleto>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=AnioBuscar, Path=Text.Length}" Value="4">
+                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscar}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuRecetaMedicaView Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Receta Médica" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Header="filtros de búsqueda" Grid.Column="0" Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="4.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="4.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="5.5*"></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Margin="0,10,0,0" Content="Año"></Label>
+                <Label Grid.Column="1" Grid.Row="1" Margin="-7.5,0,0,0" Content="/"></Label>
+                <Label Grid.Column="1" Grid.Row="0" Margin="10,10,0,0" Content="Folio"></Label>
+                <Label Grid.Column="2" Grid.Row="0" Margin="0,10,0,0" Content="Apellido Paterno"></Label>
+                <Label Grid.Column="3" Grid.Row="0" Margin="0,10,0,0" Content="Apellido Materno"></Label>
+                <Label Grid.Column="4" Grid.Row="0" Margin="0,10,0,0" Content="Nombre"></Label>
+
+                <TextBox Grid.Column="0" Grid.Row="1" Margin="0,0,10,0" Text="{Binding AnioD,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" Name="AnioBuscar"  CharacterCasing="Upper" MaxLength="4" IsReadOnly="{Binding AnioBuscarHabilitado,Converter={local:BoolToOppositeBoolConverter}}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="10,0,0,0" Text="{Binding FolioD,UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" Name="FolioBuscar" CharacterCasing="Upper" MaxLength="5" IsReadOnly="{Binding FolioBuscarHabilitado,Converter={local:BoolToOppositeBoolConverter}}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=FolioBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding PaternoD, Converter={StaticResource Trimming},UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoPaternoBuscar" MaxLength="30" IsReadOnly="{Binding ApellidoPaternoBuscarHabilitado,Converter={local:BoolToOppositeBoolConverter}}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=ApellidoPaternoBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding MaternoD, Converter={StaticResource Trimming}, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  Name="ApellidoMaternoBuscar" MaxLength="30" IsReadOnly="{Binding ApellidoMaternoBuscarHabilitado,Converter={local:BoolToOppositeBoolConverter}}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=ApellidoMaternoBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding NombreD, Converter={StaticResource Trimming}, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  Name="NombreBuscar" MaxLength="40" IsReadOnly="{Binding NombreBuscarHabilitado,Converter={local:BoolToOppositeBoolConverter}}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="Fecha" Grid.ColumnSpan="2"></Label>
+                <DatePicker Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" SelectedDate="{Binding FechaBusqueda, UpdateSourceTrigger=PropertyChanged}" DisplayDateEnd="{ Binding FechaMaxima}" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+                <Label Grid.Column="2" Grid.Row="2" Content="Tipo de Atención" ></Label>
+                <ComboBox Grid.Column="2" Grid.Row="3" ItemsSource="{Binding LstAtencionTipo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_ATENCION" SelectedValue="{Binding SelectedAtencionTipo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_tipo_atencion">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Label Grid.Column="3" Grid.Row="2" Content="Tipo de Servicio"></Label>
+                <ComboBox Grid.Column="3" Grid.Row="3"  ItemsSource="{Binding LstAtencionServicio}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_SERVICIO" SelectedValue="{Binding SelectedAtencionServicio,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="4">
+                    <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                    <Button Width="50" Height="50" VerticalAlignment="Top" ToolTip="Buscar"
+                Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_visible" Command="{Binding ModelClick}" IsEnabled="{Binding BuscarImputadoHabilitado}" >
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+                <Image Grid.Column="6" Grid.Row="0" Grid.RowSpan="4" Height="100" Source="{Binding ImagenIngreso}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" ></Image>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="3" Header="Resultados de la búsqueda">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid  AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" ItemsSource="{Binding LstNotasMedicasReceta}" SelectionUnit="FullRow" IsReadOnly="True"
+                                  SelectedItem="{Binding SelectedNotaMedica}" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Fecha" Binding="{ Binding ATENCION_MEDICA.ATENCION_FEC ,StringFormat=dd/MM/yyyy HH:mm:ss}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Folio" Binding="{Binding ATENCION_MEDICA.ID_IMPUTADO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Año" Binding="{Binding ATENCION_MEDICA.ID_ANIO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding ATENCION_MEDICA.INGRESO.IMPUTADO, Converter={ StaticResource NombreConverter}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tipo de Atención" Binding="{Binding ATENCION_MEDICA.ATENCION_SERVICIO.ATENCION_TIPO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tipo de Servicio" Binding="{Binding ATENCION_MEDICA.ATENCION_SERVICIO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Médico" Binding="{Binding PERSONA, Converter={StaticResource VisitanteNombreCompleto}}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Grid.Column="0" Grid.Row="2" FontStyle="Italic" Content="No hay información." HorizontalAlignment="Center" Visibility="{Binding EmptyResultados,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

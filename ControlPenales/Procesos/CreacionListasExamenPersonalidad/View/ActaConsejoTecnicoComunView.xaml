@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="ControlPenales.ActaConsejoTecnicoComunView"
+             Name="ActaConsejoTecnicoWindow"
+mc:Ignorable="d"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{ Binding ActaConsejoTecnicoLoading}" CommandParameter="{Binding ElementName=ActaConsejoTecnicoWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Views:MenuActaConsejoTecnicoComun Grid.Row="0" Grid.ColumnSpan="3" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Acta de consejo técnico de fuero común" Grid.ColumnSpan="2" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <Button Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="regresar_acta" Command="{Binding OnClick}" Content="Regresar"></Button>
+            <Label Grid.Column="0" Grid.Row="2" Content="Lugar" Grid.ColumnSpan="3" Name="lblReferencia"></Label>
+            <TextBox MaxLength="500" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Text="{ Binding LugarActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}" CharacterCasing="Upper"></TextBox>
+            <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Header="Miembros del Consejo Técnico">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Presidente del Consejo" Name="lblReferenciaGrupo"></Label>
+                        <TextBox Grid.Column="0" MaxLength="200" Grid.Row="1" Text="{ Binding NombrePresidenteActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Secretario del Consejo"></Label>
+                        <TextBox Grid.Column="1"  MaxLength="200" Grid.Row="1" Text="{ Binding NombreSecretarioActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Jefe del departamento jurídico" Grid.ColumnSpan="3" Name="lblReferenciaGrupoBig"></Label>
+                        <TextBox Grid.Column="0" MaxLength="200" Grid.ColumnSpan="3" Grid.Row="3" Text="{ Binding NombreJuridicoActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferenciaGrupoBig, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="4" Content="Jefe del departamento medico"></Label>
+                        <TextBox Grid.Column="0" MaxLength="200" Grid.Row="5" Text="{ Binding NombreMedicoActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="6" Content="Jefe del departamento de psicología"></Label>
+                        <TextBox Grid.Column="0"  Grid.Row="7" MaxLength="200" CharacterCasing="Upper" Text="{ Binding NombrePsiccoActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="8" Content="Jefe del departamento de criminología"></Label>
+                        <TextBox Grid.Column="0" MaxLength="200" Grid.Row="9" CharacterCasing="Upper" Text="{ Binding NombreCriminologiaActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="10" Content="Jefe del departamento de trabajo social"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="11" MaxLength="200" CharacterCasing="Upper" Text="{ Binding NombreTrabajoSocialActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="12" Content="Jefe del departamento educativo"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="13" MaxLength="200" CharacterCasing="Upper" Text="{ Binding NombreEducativoActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="14" Content="Jefe del departamento del área laboral"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="15" MaxLength="200" CharacterCasing="Upper" Text="{ Binding NombreAreaLaboralActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="16" Content="Comandante de seguridad y custodia"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="17" MaxLength="200" CharacterCasing="Upper" Text="{ Binding NombreSeguridadActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{ Binding ElementName=lblReferenciaGrupo, Path=ActualWidth}"></TextBox>
+                        <Label Grid.Column="1" Grid.Row="4" Content="Opinión"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="5" SelectedValuePath="Tag" SelectedValue="{ Binding OpinionMedico, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="APROBADO" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="APLAZADO" Tag="N"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Column="1" Grid.Row="6" Content="Opinión"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="7" SelectedValuePath="Tag" SelectedValue="{ Binding OpinionPsico, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="APROBADO" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="APLAZADO" Tag="N"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Column="1" Grid.Row="8" Content="Opinión"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="9" SelectedValuePath="Tag" SelectedValue="{ Binding OpinionCrimi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="APROBADO" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="APLAZADO" Tag="N"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Column="1" Grid.Row="10" Content="Opinión"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="11" SelectedValuePath="Tag" SelectedValue="{ Binding OpinionTrabSocial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="APROBADO" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="APLAZADO" Tag="N"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Column="1" Grid.Row="12" Content="Opinión"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="13" SelectedValuePath="Tag" SelectedValue="{ Binding OpinionEscolar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="APROBADO" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="APLAZADO" Tag="N"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Column="1" Grid.Row="14" Content="Opinión"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="15" SelectedValuePath="Tag" SelectedValue="{ Binding OpinionLaboral, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="APROBADO" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="APLAZADO" Tag="N"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Grid.Column="1" Grid.Row="16" Content="Opinión"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="17" SelectedValuePath="Tag" SelectedValue="{ Binding OpinionSeguridad, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="APROBADO" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="APLAZADO" Tag="N"></ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+
+            <Label Grid.Column="0" Grid.Row="5" Content="Nombre del interno" Grid.ColumnSpan="3" Name="lblReferenciaX"></Label>
+            <TextBox Grid.Column="0" MaxLength="200" CharacterCasing="Upper" Grid.Row="6" Grid.ColumnSpan="3" MaxWidth="{ Binding ElementName=lblReferenciaX, Path=ActualWidth}" Text="{ Binding NombreInternoActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MinHeight="30"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="7" Content="Acuerdo" Grid.ColumnSpan="3"></Label>
+            <TextBox Grid.Column="0" CharacterCasing="Upper" MaxLength="1000" Grid.Row="8" MaxWidth="{ Binding ElementName=lblReferenciaX, Path=ActualWidth}" Grid.ColumnSpan="3" Text="{ Binding AcuerdoActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MinHeight="50" TextWrapping="Wrap"></TextBox>
+            <Label Grid.Column="0" Grid.Row="9" Content="Los integrantes del consejo técnico interdisciplinario manifestaron" Grid.ColumnSpan="3"></Label>
+            <TextBox Grid.Column="0" CharacterCasing="Upper" MaxLength="4000" Grid.Row="10" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferenciaX, Path=ActualWidth}" Text="{ Binding ManifestaronActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MinHeight="50" Grid.ColumnSpan="3"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="11" Content="Opinión" Grid.ColumnSpan="3"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="12" SelectedValuePath="Tag" SelectedValue="{ Binding OpinionActaComun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="FAVORABLE" Tag="S"></ComboBoxItem>
+                <ComboBoxItem Content="FAVORABLE POR MAYORÍA" Tag="N"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="13" Content="Hace constar que la presente actuación fue de:" Grid.ColumnSpan="3"></Label>
+            <TextBox Grid.Column="0" CharacterCasing="Upper" MaxLength="100" Grid.Row="14" MaxWidth="{ Binding ElementName=lblReferenciaX, Path=ActualWidth}" Text="{ Binding ActuacionActaComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MinHeight="50" Grid.ColumnSpan="3"></TextBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

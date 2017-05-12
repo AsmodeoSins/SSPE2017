@@ -1,0 +1,521 @@
+﻿<UserControl x:Class="ControlPenales.EstudioTrabajoSocialFFView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:Views="clr-namespace:ControlPenales" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1100" d:DesignHeight="2040">
+    <UserControl.Resources>
+        <Views:EscolaridadConverter x:Key="ConvertirEscolaridd" />
+    </UserControl.Resources>
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Nombre" Name="lblRe1"></Label>
+            <TextBox Grid.Column="0" Grid.Row="1" Text="{ Binding NombbreImptSocioFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe1, Path=ActualWidth}" MaxLength="100"></TextBox>
+            <Label Grid.Column="1" Grid.Row="0" Content="Dialecto"></Label>
+            <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="ID_DIALECTO" ItemsSource="{ Binding LstDialectos }" DisplayMemberPath="DESCR" SelectedValue="{ Binding Dialecto, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <Label Grid.Column="2" Grid.Row="0" Content="Lugar de nacimiento"></Label>
+            <TextBox Grid.Column="2" MaxLength="100" Grid.Row="1" Text="{ Binding LugarFechaNac, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe1, Path=ActualWidth}"></TextBox>
+            <Label Grid.Column="3" Grid.Row="0" Content="Fecha de Nacimiento"></Label>
+            <DatePicker Grid.Column="3" Grid.Row="1" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{ Binding FechaNacimientoTSFederal, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+
+            <Label Grid.Column="0" Grid.Row="2" Content="Escolaridad al ingresar al centro"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="3" SelectedValuePath="ID_ESCOLARIDAD" ItemsSource="{ Binding LstEscolaridadesGrupoFamTSFF}" DisplayMemberPath="DESCR" 
+                  SelectedValue="{ Binding EscolaridadIngreso, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <Label Grid.Column="1" Grid.Row="2" Content="Escolaridad actual"></Label>
+            <ComboBox Grid.Column="1" Grid.Row="3" SelectedValuePath="ID_ESCOLARIDAD" ItemsSource="{ Binding LstEscolaridadesGrupoFamTSFF}" DisplayMemberPath="DESCR" 
+                  SelectedValue="{ Binding EscolaridadActual, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <Label Grid.Column="2" Grid.Row="2" Content="Estado civil"></Label>
+            <ComboBox Grid.Column="2" Grid.Row="3" ItemsSource="{Binding ListEstadoCivil}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTADO_CIVIL" MaxWidth="{ Binding ElementName=lblRe1, Path=ActualWidth}" SelectedValue="{Binding IdEdoCivilTSFF,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+            <Label Grid.Column="3" Grid.Row="2" Content="Domicilio" Name="lblReb"></Label>
+            <TextBox Grid.Column="3" MaxLength="200" Grid.Row="3" Text="{ Binding Domicilio, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReb, Path=ActualWidth}"></TextBox>
+            <Label Grid.Column="0" Grid.Row="4" Content="Ocupación antes de ingresar al centro"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="5" SelectedValuePath="ID_OCUPACION" ItemsSource="{ Binding LstOcupaciones}" DisplayMemberPath="DESCR" 
+                  SelectedValue="{ Binding OcupacionAntesIngreso, UpdateSourceTrigger=PropertyChanged}" ></ComboBox>
+            <GroupBox Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="6" Header="Datos generales del grupo familiar primario">
+                <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding LstGrupoFam }" Style="{StaticResource MetroDataGrid}" 
+                      SelectedItem="{ Binding SelectedGrupoFamTSFF}" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nombre" Binding="{ Binding NOMBRE }"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Parentesco" Binding="{ Binding PARENTESCO }"></DataGridTextColumn>
+                        <DataGridTextColumn Header="edad" Binding="{ Binding EDAD }"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estado civil" Binding="{ Binding ESTADO_CIVIL}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="escolaridad" Binding="{ Binding ID_ESTUDIO , Converter={ StaticResource ConvertirEscolaridd}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ocupación" Binding="{ Binding OCUPACION}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="agregar_int_gpo_tec" Visibility="{Binding MostrarOpcion}" />
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_int_gpo_tec" Visibility="{Binding MostrarOpcion}" />
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_int_gpo_tec" Visibility="{Binding MostrarOpcion}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="7" Header="Señalar como era la situación económica en su familia primaria" Grid.ColumnSpan="4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="0" Grid.Row="0" Text="Señalar características de la zona" Name="lblRe2"></TextBlock>
+                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IdCaractZona, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" MaxWidth="{ Binding ElementName=lblRe2, Path=ActualWidth}" >
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="URBANA" Tag="U"></ComboBoxItem>
+                        <ComboBoxItem Content="SEMI-URBANA" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="RURAL" Tag="R"></ComboBoxItem>
+                        <ComboBoxItem Content="CRIMINOGENA (Existencia de bandas o pandillas, sobrepoblación, prostíbulos, cantinas, billares, etc.)" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="1" Grid.Row="0" Text="Responsable de la manutención del hogar"></TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" MaxWidth="{ Binding ElementName=lblRe2, Path=ActualWidth}" Text="{ Binding ResponsableManutHogar, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="100"></TextBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="0" Text="Total de ingresos mensuales"></TextBlock>
+                    <TextBox Grid.Column="2" MaxWidth="{ Binding ElementName=lblRe2, Path=ActualWidth}" Grid.Row="1" Text="{ Binding TotalIngresosMensuales, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="5" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="3" Grid.Row="0" Text="Total de egresos mensuales"></TextBlock>
+                    <TextBox Grid.Column="3" MaxWidth="{ Binding ElementName=lblRe2, Path=ActualWidth}" Grid.Row="1" Text="{ Binding TotalEgresosMensuales, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="5" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="4" Grid.Row="0" Text="Actualmente coopera el interno económicamente con la familia"></TextBlock>
+                    <TextBox Grid.Column="4" MaxWidth="{ Binding ElementName=lblRe2, Path=ActualWidth}" Grid.Row="1" Text="{ Binding IdActualmenteCooperaEconoConFamilia, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="100"></TextBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="5" Grid.Row="0" Text="Tiene fondos de ahorro"></TextBlock>
+                    <TextBox Grid.Column="5" MaxLength="100"  MaxWidth="{ Binding ElementName=lblRe2, Path=ActualWidth}" Grid.Row="1" Text="{ Binding TieneFondosAhorro, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="4" Header="Características del núcleo primario">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Grupo familiar"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IdGrupoFamiliarPrim, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="FUNCIONAL" Tag="F"></ComboBoxItem>
+                        <ComboBoxItem Content="DISFUNCIONAL" Tag="D"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Relaciones interfamiliares"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IdRelacionesInterf, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="ADECUADA" Tag="A"></ComboBoxItem>
+                        <ComboBoxItem Content="INADECUADA" Tag="I"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Hubo violencia intrafamiliar"></Label>
+                    <ComboBox Grid.Column="2" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IdHuboViolenciaIntro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="2" Content="En caso afirmativo especificar" Name="lblRefe"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="3" Text="{ Binding EspecifiqueViolenciaIntro, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRefe, Path=ActualWidth}"
+                         IsEnabled="{ Binding EnabledEspecifiViole1, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></TextBox>
+                    <Label Grid.Column="1" Grid.Row="2" Content="Nivel socio- económico y cultural"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="3" SelectedValuePath="Tag" SelectedValue="{ Binding IdNivelSocioEconoPrim, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="ALTO" Tag="A"></ComboBoxItem>
+                        <ComboBoxItem Content="MEDIO" Tag="M"></ComboBoxItem>
+                        <ComboBoxItem Content="BAJO" Tag="B"></ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="2" Text="Algún integrante de la familia tiene antecedentes penales o adicción a algún estupefaciente o cualquier tipo de tóxicos"></TextBlock>
+                    <ComboBox Grid.Column="2" Grid.Row="3" SelectedValuePath="Tag" SelectedValue="{ Binding IdAlgunIntegranteCuentaAntecedentesAdiccion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" >
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Content="Especifique" Name="lblRe4"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="5" Grid.ColumnSpan="3" MinHeight="40" 
+                         MaxWidth="{ Binding ElementName=lblRe4, Path=ActualWidth}" Text="{ Binding EspecifiqueAdiccion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                         CharacterCasing="Upper" IsEnabled="{Binding EnabledAdicto1, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3" Content="Concepto que tiene la familia del interno"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="7" Grid.ColumnSpan="3" MinHeight="40" MaxWidth="{ Binding ElementName=lblRe4, Path=ActualWidth}" Text="{ Binding ConceptoTieneFamiliaInterno, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="4" Header="Datos generales del grupo familiar secundario (Conteste los siguientes puntos si el interno es casado o vive en unión libre)">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Expander Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Header="GRUPO FAMILIAR SECUNDARIO">
+                        <DataGrid CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding LstGrupoFamSecu }" Style="{StaticResource MetroDataGrid}" 
+                      SelectedItem="{ Binding SelectedGrupoFamFFSec}" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nombre" Binding="{ Binding NOMBRE }"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Parentesco" Binding="{ Binding PARENTESCO }"></DataGridTextColumn>
+                                <DataGridTextColumn Header="edad" Binding="{ Binding EDAD }"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Estado civil" Binding="{ Binding ESTADO_CIVIL}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="escolaridad" Binding="{ Binding ID_ESTUDIO, Converter={ StaticResource ConvertirEscolaridd}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Ocupación" Binding="{ Binding OCUPACION}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="agregar_int_gpo_tec_sec" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_int_gpo_tec_sec" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_int_gpo_tec_sec" Visibility="{Binding MostrarOpcion}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </Expander>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Hijos de uniones anteriores" Name="lblRe5"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="2" Text="{ Binding CantidadHijosUnionesAnteriores, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe5, Path=ActualWidth}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Label Grid.Column="1" Grid.Row="1" Content="Grupo familiar"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding IdGrupoFamiliarSecundario, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="FUNCIONAL" Tag="F"></ComboBoxItem>
+                        <ComboBoxItem Content="DISFUNCIONAL" Tag="D"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="2" Grid.Row="1" Content="Relaciones interfamiliares"></Label>
+                    <ComboBox Grid.Column="2" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding IdRelacionInterFamSec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="ADECUADA" Tag="A"></ComboBoxItem>
+                        <ComboBoxItem Content="INADECUADA" Tag="I"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="3" Grid.Row="1" Content="Hubo violencia intrafamiliar"></Label>
+                    <ComboBox Grid.Column="3" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding IDHuboViolenciaIntraFam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Content="En caso afirmativo, especificar" Name="lblRe6"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="4" Grid.ColumnSpan="4" MinHeight="40" 
+                         MaxWidth="{ Binding ElementName=lblRe6, Path=ActualWidth}" Text="{ Binding EspecifiqueViolenciaIntraFam, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                         CharacterCasing="Upper" IsEnabled="{ Binding IsEnabledViolenciaNo2, UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True}" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="5" Content="Nivel socio-económico y cultural"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="6" SelectedValuePath="Tag" SelectedValue="{ Binding IdNivelSocioEconCulturalSec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="ALTO" Tag="A"></ComboBoxItem>
+                        <ComboBoxItem Content="MEDIO" Tag="M"></ComboBoxItem>
+                        <ComboBoxItem Content="BAJO" Tag="B"></ComboBoxItem>
+                    </ComboBox>
+
+                    <GroupBox Grid.Column="0" Grid.Row="7" Header="Tipo de vivienda" Grid.ColumnSpan="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Name="lblRe7" TextWrapping="WrapWithOverflow" Grid.Column="0" Grid.Row="0" Text="Número de habitaciones en total (Sala, Comedor, Cocina, Recamaras, Baño, Cuarto de Servicio, etc.)."></TextBlock>
+                            <TextBox Grid.Column="0" MaxWidth="{ Binding ElementName=lblRe7, Path=ActualWidth}" Grid.Row="1" Text="{ Binding CantidadHabitacionesTotal, UpdateSourceTrigger=PropertyChanged}" >
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="WrapWithOverflow" Text="Como es su vivienda (Descripción, materiales de los que está construida)" Name="lblReeee"></TextBlock>
+                            <TextBox MaxWidth="{ Binding ElementName=lblReeee, Path=ActualWidth}" MaxLength="500" Grid.Column="1" Grid.Row="1" Text="{ Binding DescripcionVivienda, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                            <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="0" Grid.Row="2" Name="lblP" Text="El transporte está cerca de su vivienda o tiene que caminar para tomarlo"></TextBlock>
+                            <TextBox Grid.Column="0" Grid.Row="3" MinHeight="50" MaxLength="500" MaxWidth="{ Binding ElementName=lblP, Path=ActualWidth}" Text="{ Binding TransporteCercaVivienda, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                            <Label Grid.Column="1" Grid.Row="2" Content="Mobiliario y enseres domésticos" Name="lblPert"></Label>
+                            <TextBox Grid.Column="1" Grid.Row="3" MinHeight="50" MaxLength="500" MaxWidth="{ Binding ElementName=lblPert, Path=ActualWidth}" Text="{ Binding EnseresMobiliarioDomestico, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                        </Grid>
+                    </GroupBox>
+
+                    <Label Grid.Column="0" Grid.Row="8" Content="Señalar características de la zona"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="9" SelectedValuePath="Tag" SelectedValue="{ Binding IdCaracZonaSec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" >
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="URBANA" Tag="U"></ComboBoxItem>
+                        <ComboBoxItem Content="SEMI-URBANA" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="RURAL" Tag="R"></ComboBoxItem>
+                        <ComboBoxItem Content="CRIMINOGENA (Existencia de bandas o pandillas, sobrepoblación, prostíbulos, cantinas, billares, etc.)" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2" Content="Relación con medio externo" Name="lblRe8"></Label>
+                    <TextBox Grid.Column="1" Grid.Row="9" MaxWidth="{ Binding ElementName=lblRe8, Path=ActualWidth}" MaxLength="500" Grid.ColumnSpan="2" Text="{ Binding RelacionMedioExterno, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="3" MaxWidth="{ Binding ElementName=lblRe8, Path=ActualWidth}" Grid.Row="8" Text="Algún miembro de la familia presenta problemas de conducta para o antisocial"></TextBlock>
+                    <ComboBox Grid.Column="3" Grid.Row="9" SelectedValuePath="Tag" SelectedValue="{ Binding IdMiembroProblemasConductaAntisocial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="10" Content="Especifique" Name="lblRe9" Grid.ColumnSpan="3"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="11" MaxWidth="{ Binding ElementName=lblRe9, Path=ActualWidth}" Grid.ColumnSpan="3" 
+                         Text="{ Binding EspecifiqueProblemasConductaAntisocial, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"
+                         IsEnabled="{ Binding IsEnabledConductaPara, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Name="lblRe10" Grid.Column="3" Grid.Row="10" Text="Número de parejas con las que ha vivido de manera estable"></TextBlock>
+                    <TextBox Grid.Column="3" Grid.Row="11" MaxWidth="{ Binding ElementName=lblRe10, Path=ActualWidth}" Text="{ Binding NumeroParejasVividoManeraEstable, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="10" Header="Datos del interno" Grid.ColumnSpan="4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Trabajo desempeñado antes de su reclusión" Name="lblRe11"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="1" Text="{ Binding TrabajoDesempeniadoAntesReclusion, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Tiempo de laborar"></Label>
+                    <TextBox Grid.Column="1" Grid.Row="1" MaxLength="100"  Text="{ Binding TiempoLaborar, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Sueldo percibido"></Label>
+                    <TextBox Grid.Column="2" Grid.Row="1" Text="{ Binding SueldoPercibido, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="0" Grid.Row="2" Text="Aparte del interno, señale otras aportaciones económicas de la familia, quien las realiza y a cuánto ascienden"></TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="3" MaxLength="500" MinHeight="50" Text="{ Binding DescripcionAportacionesEconomicasQuienCuanto, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="1" Grid.Row="2" Content="Distribución del gasto familiar"></Label>
+                    <TextBox Grid.Column="1" Grid.Row="3" MaxLength="500" MinHeight="50" Text="{ Binding DsitribucionGastoFamiliar, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="2" Content="La alimentación familiar en que consiste"></Label>
+                    <TextBox Grid.Column="2" Grid.Row="3" MaxLength="500" MinHeight="50" Text="{ Binding DescripcionAlimentacionFamiliar, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Con que servicios públicos cuenta (luz, agua, drenaje, etc)"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="5" MaxLength="500" Text="{ Binding DescripcionServiciosCuenta, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}"></TextBox>
+                    <Label Grid.Column="1" Grid.Row="4" Content="Cuenta con oferta de trabajo"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="5" SelectedValuePath="Tag" SelectedValue="{ Binding IdCuentaOfertaTrabajo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="2" Grid.Row="4" Content="En que consiste"></Label>
+                    <TextBox Grid.Column="2" Grid.Row="5" MaxLength="500" Text="{ Binding ConsisteOfertaFF, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" 
+                         MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}" IsEnabled="{ Binding IsEnabledOfertaT, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="6" Content="Cuenta con apoyo de la familia o de alguna otra persona"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="7" SelectedValuePath="Tag" SelectedValue="{ Binding IdCuentaApoyoFamiliaOtraPersona, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="1" Grid.Row="6" Content="Recibe visitas familiares"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="7" SelectedValuePath="Tag" SelectedValue="{ Binding IdRecibeVisitasFamiliares, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="2" Grid.Row="6" Content="Radican en el estado"></Label>
+                    <ComboBox Grid.Column="2" Grid.Row="7" SelectedValuePath="Tag" IsEnabled="{ Binding IsEnabledVisitasCampos, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{ Binding IdRadicanEstado, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="8" Content="Parentesco"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="9" ItemsSource="{Binding LstParentescos, Mode=TwoWay}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_REFERENCIA" SelectedValue="{Binding IdParentescoVisTSFF,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                          IsEnabled="{ Binding IsEnabledVisitasCampos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                    <Label Grid.Column="1" Grid.Row="8" Content="Frecuencia"></Label>
+                    <TextBox Grid.Column="1" MaxLength="500" Grid.Row="9" Text="{ Binding FrecuenciaVisitas, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"
+                         IsEnabled="{ Binding IsEnabledVisitasCampos, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe11, Path=ActualWidth}"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="8" Content="Es visitado por otras personas"></Label>
+                    <ComboBox Grid.Column="2" Grid.Row="9" SelectedValuePath="Tag" SelectedValue="{ Binding IsVisitadoPorOtrasPersonas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="10" Content="¿Quienes?" Grid.ColumnSpan="3"></Label>
+                    <Grid Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Name="lblRRR" Grid.ColumnSpan="5"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" MaxLength="500" Grid.ColumnSpan="5" MinHeight="40" MaxWidth="{ Binding ElementName=lblRRR, Path=ActualWidth}" 
+                         Text="{ Binding QuienesVisitanOtrasPersonas, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsEnabledVisiOtrasP, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                        <Button Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Grid.Column="6" Grid.Row="2" IsEnabled="{ Binding IsEnabledVisiOtrasP, UpdateSourceTrigger=PropertyChanged}"
+                CommandParameter="seleccionar_quienes_visitan_socio_federal_uno" Command="{Binding OnClick}" Content="Seleccionar"></Button>
+                    </Grid>
+                    <Label Grid.Column="0" Grid.Row="12" Content="Aval moral (Nombre)" Grid.ColumnSpan="2" Name="lblRe13"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" MaxLength="200" MaxWidth="{ Binding ElementName=lblRe13, Path=ActualWidth}" Text="{ Binding NombreAvalMoral, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="12" Content="Parentesco"></Label>
+                    <ComboBox ItemsSource="{Binding LstParentescos}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_REFERENCIA" SelectedValue="{Binding IdParentAvalTSFF,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Grid.Column="2" Grid.Row="13"></ComboBox>
+                    <GroupBox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="3" Header="Detalle al ser externado">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Column="0" Grid.Row="0" Content="Con quien va a vivir al ser externado" Grid.ColumnSpan="4"></Label>
+                            <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" Name="lblRefe1" Grid.ColumnSpan="4"></Label>
+                                <TextBox Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" MinHeight="40" MaxLength="200" Grid.ColumnSpan="4" Text="{ Binding ConQuienViviraSerExternado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblRefe1, Path=ActualWidth}" ></TextBox>
+                                <Button Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Grid.Column="4" Grid.Row="1" CommandParameter="seleccionar_quienes_visitan_socio_federal_dos" Command="{Binding OnClick}" Content="Seleccionar"></Button>
+                            </Grid>
+                            <Label Grid.Column="0" Grid.Row="2" Content="Calle" Name="lblRe15"></Label>
+                            <TextBox Grid.Column="0" Grid.Row="3" MaxLength="200" Text="{ Binding NombreCalleExternado, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe15, Path=ActualWidth}" CharacterCasing="Upper"></TextBox>
+                            <Label Grid.Column="1" Grid.Row="2" Content="No."></Label>
+                            <TextBox Grid.Column="1" Grid.Row="3" MaxLength="50" CharacterCasing="Upper" Text="{ Binding NoQuienViviraSerExternado, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe15, Path=ActualWidth}"></TextBox>
+                            <Label Grid.Column="2" Grid.Row="2" Content="Código postal"></Label>
+                            <TextBox Grid.Column="2" Grid.Row="3" Text="{ Binding CodPosQuienViviraSerExternado, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe15, Path=ActualWidth}">
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="5" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <Label Grid.Column="3" Grid.Row="2" Content="Pais"></Label>
+                            <ComboBox Grid.Column="3" Grid.Row="3" ItemsSource="{Binding LstPaises}" SelectedValuePath="ID_PAIS_NAC" DisplayMemberPath="PAIS" SelectedItem="{Binding SelectedPais}"
+                        SelectedValue="{Binding EPais,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <Label Grid.Column="0" Grid.Row="4" Content="Entidad Federativa"></Label>
+                            <ComboBox Grid.Column="0" Grid.Row="5" ItemsSource="{Binding LstEntidades}" SelectedValuePath="ID_ENTIDAD" DisplayMemberPath="DESCR" SelectedItem="{Binding SelectedEstado}"
+                        SelectedValue="{Binding EEstado,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledCampo}">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <Label Grid.Column="1" Grid.Row="4" Content="Delegacion o Municipio"></Label>
+                            <ComboBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding LstMunicipios}" SelectedValuePath="ID_MUNICIPIO" DisplayMemberPath="MUNICIPIO1" SelectedItem="{Binding SelectedMunicipio}"
+                        SelectedValue="{Binding EMunicipio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" TabIndex="19" IsEnabled="{Binding EnabledCampo}">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <Label Grid.Column="2" Grid.Row="4" Content="Colonia"></Label>
+                            <ComboBox Grid.Column="2" Grid.Row="5" ItemsSource="{Binding ListColonia}" SelectedValuePath="ID_COLONIA" DisplayMemberPath="DESCR"
+                        SelectedValue="{Binding EColonia,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" TabIndex="20" IsEnabled="{Binding EnabledCampo}">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                            <Label Grid.Column="3" Grid.Row="4" Content="Parentesco"></Label>
+                            <ComboBox Grid.Column="3" Grid.Row="5" ItemsSource="{Binding LstParentescos, Mode=TwoWay}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_REFERENCIA" SelectedValue="{Binding IdParentescoQuienViviraSerExternado,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                        </Grid>
+                    </GroupBox>
+                    <Label Grid.Column="0" Grid.Row="15" Content="Cual es su opinión acerca de su internamiento" Name="lblRe16"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="16" MinHeight="50" Text="{ Binding OpicionAcercaInternamiento, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MaxWidth="{ Binding ElementName=lblRe16, Path=ActualWidth}"></TextBox>
+                    <Label Grid.Column="1" Grid.Row="15" Content="De qué manera le ha influenciado su estancia en prisión"></Label>
+                    <TextBox Grid.Column="1" MaxLength="500" Grid.Row="16" MinHeight="50" Text="{ Binding DeQueManeraLeInfluenciaEstanciaPrision, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe16, Path=ActualWidth}" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="15" Content="Diagnostico social y pronóstico de externación"></Label>
+                    <TextBox Grid.Column="2" MaxLength="500" Grid.Row="16" MinHeight="50" Text="{ Binding DiagnosticoPronosticoExternacion, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe16, Path=ActualWidth}" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0"  Grid.Row="17" Content="Anote su opinión sobre la concesión de beneficios al interno en estudio" Grid.ColumnSpan="3" Name="lblRe17"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="18" Grid.ColumnSpan="3" MinHeight="40" Text="{ Binding OpinionConcesionBeneficio, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe17, Path=ActualWidth}" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="19" Content="Fecha de estudio"></Label>
+                    <DatePicker Grid.Column="0" Grid.Row="20" Controls:TextBoxHelper.Watermark="Seleccione una fecha" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}" SelectedDate="{ Binding FecEstudioSocioFF, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    <Label Grid.Column="1" Grid.Row="19" Content="Lugar" Grid.ColumnSpan="2" Name="lblRe18"></Label>
+                    <TextBox Grid.Column="1" Grid.Row="20" MaxLength="100" CharacterCasing="Upper" Text="{ Binding LugarTS, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblRe18, Path=ActualWidth}"></TextBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

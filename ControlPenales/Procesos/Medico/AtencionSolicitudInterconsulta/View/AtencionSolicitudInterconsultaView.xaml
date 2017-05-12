@@ -1,0 +1,378 @@
+﻿<UserControl x:Class="ControlPenales.AtencionSolicitudInterconsultaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Views:MultiValueConverter x:Key="MultiParamConverter"></Views:MultiValueConverter>
+        <Views:GetDestinoDescripcion x:Key="GetDestinoDescripcion"></Views:GetDestinoDescripcion>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdSolicitudInterconsultaOnLoading}" CommandParameter="{Binding ElementName=SolicitudInterconsultaWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuSolicitudInterconsultaView Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1"  Content="Atención de Solicitud de Canalización" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Grid.Row="2" Header="Datos del Imputado">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Folio"></Label>
+                        <TextBox Grid.Row="1" Text="{Binding TextAnioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}"  CharacterCasing="Upper" MaxLength="4" 
+                         IsReadOnly="True" Margin="0 0 10 0" Width="50">
+                        </TextBox>
+                        <Label Grid.Column="1" Grid.Row="1" Margin="-7.5,0,0,0" >/</Label>
+                        <Label Content="Año" Grid.Column="1"></Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextFolioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" CharacterCasing="Upper" MaxLength="5" 
+                         IsReadOnly="True" Margin="10 0 0 0" Width="50">
+                        </TextBox>
+                        <Label Content="Apellido Paterno" Grid.Column="2"></Label>
+                        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" 
+                         MaxLength="30" IsReadOnly="True">
+                        </TextBox>
+                        <Label Content="Apellido Materno" Grid.Column="3"></Label>
+                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextMaternoImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  
+                         MaxLength="30" IsReadOnly="True">
+                        </TextBox>
+                        <Label Content="Nombre" Grid.Column="4"></Label>
+                        <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding TextNombreImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="40" 
+                         IsReadOnly="True">
+                        </TextBox>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Sexo"></Label>
+                        <Label Content="Edad" Grid.Column="1"></Label>
+                        <Label Content="Fecha de Nacimiento" Grid.Column="2"></Label>
+                        <TextBox Grid.Row="1" IsReadOnly="True" 
+                         Text="{ Binding TextSexoImputado, UpdateSourceTrigger=PropertyChanged }"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="1" IsReadOnly="True" Text="{Binding TextEdadImputado}"></TextBox>
+                        <TextBox Grid.Column="2" Grid.Row="1" IsReadOnly="True" Text="{Binding TextFechaNacImputado}"></TextBox>
+                    </Grid>
+                </Grid>
+                <Image Grid.Column="1" Height="150" Source="{Binding ImagenIngreso}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" ></Image>
+            </Grid>
+        </GroupBox>
+        <TabControl Grid.Row="3" Style="{StaticResource MetroTabControl}" SelectedIndex="{Binding SelectedTabIndex}" IsEnabled="{Binding IsInterconsultaEnabled}">
+            <TabItem Header="Datos de solicitud" Style="{StaticResource HeaderTabStyle}" >
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="Canalización a especialidad" Visibility="{Binding IsCanalizacionVisible}">
+                            <DataGrid Grid.Row="1" ItemsSource="{Binding LstExtEspecialidad}" AutoGenerateColumns="False" CanUserAddRows="False"  Style="{StaticResource MetroDataGrid}" Margin="0 0 10 0" MaxHeight="200" SelectedItem="{Binding SelectedExtEspecialidad }" IsEnabled="{Binding GridsSolicitudesEnabled}">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Agregar a Interconsulta" CommandParameter="agregar_interconsulta_especialidad" Command="{Binding OnClick}"></MenuItem>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Tipo de atención" Binding="{Binding INTERCONSULTA_ATENCION_DESCR}" MinWidth="200"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Especialidad" Binding="{Binding Descr}" MinWidth="200"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="Tipo de Interconsulta">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox ItemsSource="{Binding LstInterconsulta_Tipo}" SelectedValue="{Binding SelectedInterconsulta_Tipo, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INTER" IsEnabled="{Binding IsEnabled}"></ComboBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Nivel de prioridad">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox ItemsSource="{Binding LstNivel_Prioridad}" SelectedValue="{Binding SelectedNivel_Prioridad, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INIVEL" IsEnabled="{Binding IsEnabled}"></ComboBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Programado">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsEnabled="False" IsChecked="{Binding IsProgramado}"></CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                        <GroupBox Header="Canalización a servicios auxiliares de diagnostico y tratamiento" Grid.Row="1" Visibility="{Binding IsCanalizacionVisible}">
+                            <DataGrid Grid.Row="3" Grid.Column="1" ItemsSource="{Binding LstServAuxSeleccionados}" AutoGenerateColumns="False" CanUserAddRows="False"  Style="{StaticResource MetroDataGrid}" IsReadOnly="True" MaxHeight="200" IsEnabled="{Binding GridsSolicitudesEnabled}" SelectedItem="{Binding SelectedServAuxCanalizacion}">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Agregar a Interconsulta" CommandParameter="agregar_interconsulta" Command="{Binding OnClick}"></MenuItem>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Subtipo" Width="150" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding SUBTIPO_DESCR}" TextWrapping="Wrap"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Servicio Auxiliar" Width="300" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding DESCR}" TextWrapping="Wrap"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Tipo de Interconsulta">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox ItemsSource="{Binding LstInterconsulta_Tipo}" SelectedValue="{Binding SelectedInterconsulta_Tipo, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INTER" IsEnabled="{Binding IsEnabled}"></ComboBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Nivel de prioridad">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox ItemsSource="{Binding LstNivel_Prioridad}" SelectedValue="{Binding SelectedNivel_Prioridad, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="DESCR" SelectedValuePath="ID_INIVEL" IsEnabled="{Binding IsEnabled}"></ComboBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Programado">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsEnabled="False" IsChecked="{Binding IsProgramado}"></CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                        <GroupBox Header="Interconsultas generadas de la canalización" Grid.Row="2" Visibility="{Binding IsCanalizacionVisible}">
+                            <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding LstCanalizacionInterconsultas}" SelectedItem="{Binding SelectedCanalizacionInterconsulta}" SelectionMode="Single">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Cerrar hoja de referencia médica" Command="{Binding OnClick}" CommandParameter="cerrar_hoja_referencia_medica"></MenuItem>
+                                        <MenuItem Header="Agregar fecha de cita a hoja de referencia médica" Command="{Binding OnClick}" CommandParameter="agregar_fecha_cita_hoja_referencia"></MenuItem>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Tipo de interconsulta" Binding="{Binding INTERCONSULTA_SOLICITUD.INTERCONSULTA_TIPO.DESCR}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Nivel de prioridad" Binding="{Binding INTERCONSULTA_SOLICITUD.INTERCONSULTA_NIVEL_PRIORIDAD.DESCR}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Tipo de Atención" Binding="{Binding INTERCONSULTA_SOLICITUD.INTERCONSULTA_ATENCION_TIPO.DESCR}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Destino" Binding="{Binding INTERCONSULTA_SOLICITUD, Converter={StaticResource GetDestinoDescripcion}}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Estatus" Binding="{Binding INTERCONSULTA_SOLICITUD.INTERCONSULTA_SOL_ESTATUS.DESCR}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                                <DataGrid.RowDetailsTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Background="#e4e7e4">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Label Content="Especialidad" Visibility="{Binding IsCanalizacionEspecialidad}" FontWeight="Bold"></Label>
+                                                <Label Content="{Binding INTERCONSULTA_SOLICITUD.ESPECIALIDAD.DESCR}" Grid.Row="1" Visibility="{Binding IsCanalizacionEspecialidad}"></Label>
+                                                <Label Content="Servicios Auxiliares" Visibility="{Binding IsCanalizacionServAux}" FontWeight="Bold"></Label>
+                                                <DataGrid HeadersVisibility="None" Visibility="{Binding IsCanalizacionServAux}"  CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding INTERCONSULTA_SOLICITUD.SERVICIO_AUX_INTERCONSULTA}" Grid.Row="1" IsReadOnly="True" Style="{StaticResource MetroDataGrid}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Binding="{Binding SERVICIO_AUX_DIAG_TRAT.DESCR}"></DataGridTextColumn>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </Grid>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </DataGrid.RowDetailsTemplate>
+                            </DataGrid>
+                        </GroupBox>
+                        <GroupBox Header="Datos de hoja de referencia médica" Visibility="{Binding IsReferenciaVisible}" Grid.Row="4">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Visibility="{Binding IsServicioAuxiliarHojaRefVisible}" Content="Servicios Auxiliares de Diagnostico Asignados"></Label>
+                                <DataGrid Grid.Row="1" Visibility="{Binding IsServicioAuxiliarHojaRefVisible}" ItemsSource="{Binding LstSerAuxHojaRef}" AutoGenerateColumns="False" CanUserAddRows="False"  Style="{StaticResource MetroDataGrid}" IsReadOnly="True" MaxHeight="200" IsEnabled="{Binding IsModoInsercion}" SelectedItem="{Binding SelectedServAuxCanalizacion}">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Subtipo" Width="150" IsReadOnly="True">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding SUBTIPO_DESCR}" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Servicio Auxiliar" Width="300" IsReadOnly="True">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding DESCR}" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Label Visibility="{Binding IsEspecialidadHojaRefVisible}" Content="Especialidad Asignada"></Label>
+                                <Label Visibility="{Binding IsEspecialidadHojaRefVisible}" Content="{Binding HRefEspecialidad}" Grid.Row="1"></Label>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Institución Médica"></Label>
+                                    <ComboBox ItemsSource="{Binding LstHospitales}" Grid.Row="1" SelectedValuePath="ID_HOSPITAL" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectedRefMedHospital, NotifyOnSourceUpdated=True,ValidatesOnDataErrors=True}" IsEnabled="{Binding IsModoInsercion}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SourceUpdated">
+                                                <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_hospital">
+                                                </i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                    <Label Grid.Column="1" Content="Otro Hospital" Visibility="{Binding IsOtroHospitalSelected}"></Label>
+                                    <TextBox Grid.Row="1" Grid.Column="1" CharacterCasing="Upper" MaxLength="100" Text="{Binding TextRefMedOtroHospital, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Visibility="{Binding IsOtroHospitalSelected}" IsReadOnly="{Binding IsModoInsercion, Converter={Views:BoolToOppositeBoolConverter}}"></TextBox>
+                                    <Label Grid.Row="2" Content="No. Exp. H.G.T."></Label>
+                                    <TextBox Grid.Row="3" Text="{Binding TextRefMedExpHGT, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxLength="500" CharacterCasing="Upper" IsReadOnly="{Binding IsModoInsercion, Converter={Views:BoolToOppositeBoolConverter}}"></TextBox>
+                                    <Label Content="Atención al paciente" Grid.Row="2" Grid.Column="1"></Label>
+                                    <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding LstTipoCitas}" SelectedValue="{Binding SelectedRefMedTipoCitaValue, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_CITA" IsEnabled="{Binding IsModoInsercion}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SourceUpdated">
+                                                <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_tipo_citas">
+                                                </i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                    <Label Content="Fecha de la cita" Grid.Row="4"></Label>
+                                    <Border Grid.Row="5" BorderBrush="Red"  ToolTipService.IsEnabled="{Binding IsFechaCitaValid, Converter={Views:BoolToOppositeBoolConverter}}" 
+                                    Width="200" HorizontalAlignment="Left">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="BorderThickness" Value="0"/>
+                                                <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                                <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsFechaCitaValid,ValidatesOnDataErrors=True}" Value="False">
+                                                        <Setter Property="BorderThickness" Value="1"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                                <ToolTip.Content>
+                                                    <TextBlock Text="FECHA DE LA CITA ES REQUERIDA!" Style="{StaticResource errorLabel}"/>
+                                                </ToolTip.Content>
+                                            </ToolTip>
+                                        </ToolTipService.ToolTip>
+                                        <xctk:DateTimePicker Format="Custom" FormatString="dd/MM/yyyy hh:mm tt" Watermark="Seleccione una fecha"
+                                        Text="{Binding FechaCita,StringFormat=dd/MM/yyyy hh:mm tt,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, TargetNullValue=''}"
+                                         MinHeight="26" Minimum="{Binding FechaMinima}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SourceUpdated">
+                                                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_cita">
+                                                    </i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </xctk:DateTimePicker>
+                                    </Border>
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Content="Motivo"></Label>
+                                    <TextBox Grid.Row="1" Height="200" Text="{Binding TextRefMedMotivo, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxLength="1000" IsReadOnly="{Binding IsModoInsercion, Converter={Views:BoolToOppositeBoolConverter}}"></TextBox>
+                                    <Label Grid.Row="2" Content="Observaciones"></Label>
+                                    <TextBox Grid.Row="3" Text="{Binding TextRefMedObservaciones, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="200" CharacterCasing="Upper" MaxLength="1000" IsReadOnly="{Binding IsModoInsercion, Converter={Views:BoolToOppositeBoolConverter}}"></TextBox>
+                                </Grid>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Datos de solicitud para interconsulta interna" Grid.Row="4" Visibility="{Binding IsSolicitudInternaVisible}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="Unidad Médica"></Label>
+                                    <ComboBox Grid.Column="1" ItemsSource="{Binding LstCentros}" SelectedValue="{Binding SelectedSolIntCentro, ValidatesOnDataErrors=True}" SelectedValuePath="ID_CENTRO" DisplayMemberPath="DESCR" IsEnabled="{Binding IsModoInsercion}"></ComboBox>
+                                </Grid>
+                                <Label Content="Motivo" Grid.Row="1"></Label>
+                                <TextBox Text="{Binding TextSolIntMotivo}" Grid.Row="2" CharacterCasing="Upper" MaxLength="1000" IsReadOnly="{Binding IsModoInsercion, Converter={Views:BoolToOppositeBoolConverter}}"></TextBox>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </AdornerDecorator>
+            </TabItem>
+            <TabItem Header="Nota Médica (consulta)" Style="{StaticResource HeaderTabStyle}">
+                <Views:SI_Nota_Medica_View x:Name="SI_Nota_Medica_Window"></Views:SI_Nota_Medica_View>
+            </TabItem>
+        </TabControl>
+        <!--<Expander Header="Datos de solicitud" Grid.Row="3" IsExpanded="True" Margin="5">
+            
+        </Expander>-->
+    </Grid>
+</UserControl>
+

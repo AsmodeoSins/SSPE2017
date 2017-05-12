@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="ControlPenales.BuscarConsultasMedicasView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight" xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_buscar_consulta_medica"
+                    PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:TrimStringConverter x:Key="TrimmingTrimming" />
+        <Views:DateConverter x:Key="ConvertirEdad" />
+        <Views:GetTipoPersona x:Key="GetTipoPersona" />
+        <Views:AtencionCitaConverter x:Key="AtencionCitaConverter" />
+        <Views:MultiValueConverter x:Key="MultiParamConverter"></Views:MultiValueConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" Width="488" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="420"
+                    MinHeight="320">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Buscar" Name="lbAncho"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextBuscarConsultaMedica,UpdateSourceTrigger=PropertyChanged}" Height="26" CharacterCasing="Upper" MaxLength="30" Name="Buscar"
+                              Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbAncho}">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=Buscar}" Command="{Binding EnterClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Content="Buscar" Name="lbGrid"></Label>
+                    <DataGrid AutoGenerateColumns="False" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" MaxHeight="200" CanUserAddRows="false" Style="{StaticResource MetroDataGrid}" IsReadOnly="True" 
+                              ItemsSource="{Binding ListConsultasMedicas}" MinHeight="200" SelectedItem="{Binding SelectConsultaMedica}" Name="dgConsultasMedicas" 
+                              HorizontalAlignment="Stretch" Margin="5" FontSize="11" SelectionMode="Single" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding CITA_FECHA_HORA,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Tipo de Atencion" Binding="{Binding ATENCION_SERVICIO.ATENCION_TIPO.DESCR}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Estatus" Binding="{Binding Converter={StaticResource AtencionCitaConverter}}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontStyle="Italic" Content="No se encontro información." Width="156" Margin="0 40 0 0" Panel.ZIndex="150150150"
+                            Visibility="{Binding EmptyBuscarConsultasMedicasVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <StackPanel VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Button  Width="130" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="8"
+                            CommandParameter="seleccionar_consulta_medica" Command="{Binding OnClick}">Seleccionar</Button>
+                        <Button Width="130" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="8"
+                            CommandParameter="otro_servicio" Command="{Binding OnClick}">otro servicio</Button>
+                        <Button Width="130" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="8"
+                            CommandParameter="cancelar_buscar_consulta_medica" Command="{Binding OnClick}">Cancelar</Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

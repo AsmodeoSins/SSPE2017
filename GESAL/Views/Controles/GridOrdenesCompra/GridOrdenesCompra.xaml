@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="GESAL.Views.Controles.GridOrdenesCompra.GridOrdenesCompra"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+    <DataGrid Margin="5 10 0 0" MaxHeight="200"  AutoGenerateColumns="False" ItemsSource="{Binding Ordenes_Compra}" SelectedItem="{Binding SelectedOrden_CompraPopUp}" Style="{StaticResource MetroDataGrid}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False" CanUserResizeColumns="False"  Name="dgOrden_Compra" SelectionMode="Single">
+        <DataGrid.Columns>
+            <DataGridTemplateColumn Header="ORDEN COMPRA" MinWidth="50">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding NUM_ORDEN}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="TIPO ALMACEN" MinWidth="200">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding REQUISICION.ALMACEN_TIPO_CAT.DESCR}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="FECHA ELABORACIÓN" MinWidth="200">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding FECHA, StringFormat=d}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+        <!--<DataGrid.CellStyle>
+            <Style TargetType="{x:Type DataGridCell}">
+                <Style.Triggers>
+                    <Trigger Property="DataGridCell.IsSelected" Value="True">
+                        <Setter Property="Foreground" Value="Black" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </DataGrid.CellStyle>-->
+    </DataGrid>
+</UserControl>

@@ -1,0 +1,194 @@
+﻿<UserControl x:Class="ControlPenales.BuscarExcarcelacionesAutorizacionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <GroupBox Header="Buscar excarcelaciones" HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Header="No.Expediente">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=AnioBuscarExc, Path=Text.Length}" Value="4">
+                                                <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscarExc}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                                <TextBlock Grid.Column="2" Grid.Row="0">Folio</TextBlock>
+                                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding AnioBuscarExc,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" MaxLength="4" Name="AnioBuscarExc"
+                                        ToolTip="Presionar ENTER para realizar la búsqueda">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding CommandParameter="buscar_excarcelacion" Command="{Binding OnClick}" Key="Enter" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                                <TextBox Grid.Column="2" Grid.Row="1" Name="FolioBuscarExc" Text="{Binding FolioBuscarExc,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" MaxLength="6"
+                                        ToolTip="Presionar ENTER para realizar la búsqueda">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding CommandParameter="buscar_excarcelacion" Command="{Binding OnClick}" Key="Enter" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Nombre" Grid.Column="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Column="0" Grid.Row="0">Nombre</TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="0">Apellido Paterno</TextBlock>
+                                <TextBlock Grid.Column="2" Grid.Row="0">Apellido Materno</TextBlock>
+                                <TextBox Grid.Column="0" Grid.Row="1" MaxLength="30" Text="{Binding NombreBuscarExc,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="NombreBuscarExc"
+                                        ToolTip="Presionar ENTER para realizar la búsqueda">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding CommandParameter="buscar_excarcelacion" Command="{Binding OnClick}" Key="Enter" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="1" MaxLength="30" Text="{Binding ApellidoPaternoBuscarExc,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                                        Name="ApellidoPaternoBuscarExc" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding CommandParameter="buscar_excarcelacion" Command="{Binding OnClick}" Key="Enter" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Column="2" Grid.Row="1" MaxLength="40" Text="{Binding ApellidoMaternoBuscarExc,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                                        Name="ApellidoMaternoBuscarExc" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding CommandParameter="buscar_excarcelacion" Command="{Binding OnClick}" Key="Enter" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <GroupBox Grid.Row="1" Header="Datos generales de la excarcelación">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5*"></ColumnDefinition>
+                                <ColumnDefinition Width=".5*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock>Tipo de Excarcelación</TextBlock>
+                            <TextBlock Grid.Column="1">Estatus de Excarcelación</TextBlock>
+                            <ComboBox Grid.Row="1" ItemsSource="{Binding Excarcelacion_TiposBuscar}" SelectedValuePath="ID_TIPO_EX" DisplayMemberPath="DESCR"
+                                    SelectedValue="{Binding SelectedExc_TipoBuscarValue, NotifyOnSourceUpdated=True}"></ComboBox>
+                            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Excarcelacion_EstatusBuscar}" SelectedValuePath="ID_ESTATUS" DisplayMemberPath="DESCR"
+                                    SelectedValue="{Binding SelectedExcarcelacion_EstatusBuscarValue, NotifyOnSourceUpdated=True}"></ComboBox>
+                            <TextBlock Grid.Row="2">Fecha Inicial de Busqueda </TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="2">Fecha Final de Busqueda</TextBlock>
+                            <Border Grid.Row="3" BorderBrush="Red" ToolTipService.IsEnabled="{Binding IsFechaIniValida, Converter={Views:BoolToOppositeBoolConverter}}">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                        <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsFechaIniValida,ValidatesOnDataErrors=True}" Value="False">
+                                                <Setter Property="BorderThickness" Value="1" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                        <ToolTip.Content>
+                                            <TextBlock Text="LA FECHA DE INICIO TIENE QUE SER MENOR A LA FECHA FIN!" Style="{StaticResource errorLabel}" />
+                                        </ToolTip.Content>
+                                    </ToolTip>
+                                </ToolTipService.ToolTip>
+                                <DatePicker Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FechaInicialBuscarExc, NotifyOnSourceUpdated=True}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SourceUpdated">
+                                            <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_busqueda"></i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <DatePicker.InputBindings>
+                                        <KeyBinding CommandParameter="buscar_excarcelacion" Command="{Binding OnClick}" Key="Enter" />
+                                    </DatePicker.InputBindings>
+                                </DatePicker>
+                            </Border>
+                            <DatePicker Grid.Row="3" Grid.Column="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FechaFinalBuscarExc, NotifyOnSourceUpdated=True}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SourceUpdated">
+                                        <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_busqueda"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <DatePicker.InputBindings>
+                                    <KeyBinding CommandParameter="buscar_excarcelacion" Command="{Binding OnClick}" Key="Enter" />
+                                </DatePicker.InputBindings>
+                            </DatePicker>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+                <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 5 0 0">
+                    <Label HorizontalAlignment="Center" Padding="0">Buscar</Label>
+                    <Button Width="50" Height="50" ToolTip="Buscar Excarcelación" IsEnabled="{Binding MenuBuscarEnabled}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_excarcelacion"
+                            Command="{Binding OnClick}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

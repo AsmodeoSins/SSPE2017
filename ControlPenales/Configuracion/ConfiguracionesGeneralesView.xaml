@@ -1,0 +1,58 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.ConfiguracionesGeneralesView"
+                      Name="ConfiguracionesGeneralesMenu"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                      xmlns:Views="clr-namespace:ControlPenales"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
+                      NonActiveGlowBrush="Red"
+                      BorderThickness="1"
+                      BorderBrush="#3FAFDF"
+                      Title="Configuraciones Generales" mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="660" MinWidth="300" MinHeight="300" WindowStartupLocation="CenterOwner">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoaded}" CommandParameter="{Binding ElementName=ConfiguracionesGeneralesMenu}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Button Name="BT_Aceptar" Grid.Row="4" Grid.Column="4" Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="85" Margin="1 0 10 45" Command="{Binding CommandAceptar}" CommandParameter="{Binding ElementName=ConfiguracionesGeneralesMenu}" 
+                Style="{DynamicResource AccentedSquareButtonStyle}" Height="28" Focusable="True" />
+        <Button Name="BT_Cancelar" Grid.Row="4" Grid.Column="4" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="85" Margin="1 0 10 5" Command="{Binding CommandCancelar}" CommandParameter="{Binding ElementName=ConfiguracionesGeneralesMenu}" 
+                Style="{DynamicResource AccentedSquareButtonStyle}" Height="28" Focusable="True" />
+
+        <TextBlock Grid.ColumnSpan="5" Text="Configuración" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25" />
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Label Margin="5" VerticalAlignment="Center">Pruebas</Label>
+            <ComboBox Margin="4" Width="150" Height="26"></ComboBox>
+        </StackPanel>
+        
+        <GroupBox Header="Guardar Huella en Busqueda" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="4">
+            <StackPanel HorizontalAlignment="Stretch" >
+                <CheckBox Content="Registro" HorizontalAlignment="Left" Margin="0,8,8,0" VerticalAlignment="Stretch" IsChecked="{Binding GuardarHuellaEnBusquedaRegistro}" />
+                <CheckBox Content="Jurídico" HorizontalAlignment="Left" Margin="0,8,8,0" VerticalAlignment="Stretch" IsChecked="{Binding GuardarHuellaEnBusquedaJuridico}"/>
+                <CheckBox Content="Estatus Administrativo" HorizontalAlignment="Left" Margin="0,8,8,0" VerticalAlignment="Stretch" IsChecked="{Binding GuardarHuellaEnBusquedaEstatusAdministrativo}"/>
+                <CheckBox Content="Padrón Visita" HorizontalAlignment="Left" Margin="0,8,8,0" VerticalAlignment="Stretch" IsChecked="{Binding GuardarHuellaEnBusquedaPadronVisita}"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Controls:MetroWindow>

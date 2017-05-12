@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="ControlPenales.DatosPacienteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <GroupBox Header="Datos del Paciente" Margin="0 0 0 2" Visibility="{Binding IsDatosPacienteVisible}" IsEnabled="{Binding IsDatosPacienteEnabled}">
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=AnioBuscar, Path=Text.Length}" Value="4">
+                            <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscar}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">Año</Label>
+            <Label Grid.Column="1" Grid.Row="1" Margin="-7.5,0,0,0">/</Label>
+            <Label Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">Folio</Label>
+            <Label Grid.Column="2" Grid.Row="0" VerticalAlignment="Center">Apellido Paterno</Label>
+            <Label Grid.Column="3" Grid.Row="0" VerticalAlignment="Center">Apellido Materno</Label>
+            <Label Grid.Column="4" Grid.Row="0" VerticalAlignment="Center">Nombre</Label>
+
+            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextAnioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" Name="AnioBuscar"  CharacterCasing="Upper" MaxLength="4" 
+                         IsReadOnly="{Binding AnioBuscarHabilitado,Converter={Views:BoolToOppositeBoolConverter}}" Margin="0 0 10 0" Width="50">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextFolioImputado,UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" Name="FolioBuscar" CharacterCasing="Upper" MaxLength="5" 
+                         IsReadOnly="{Binding FolioBuscarHabilitado,Converter={Views:BoolToOppositeBoolConverter}}" Margin="10 0 0 0" Width="50">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=FolioBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoPaternoBuscar" 
+                         MaxLength="30" IsReadOnly="{Binding ApellidoPaternoBuscarHabilitado,Converter={Views:BoolToOppositeBoolConverter}}">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=ApellidoPaternoBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextMaternoImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  Name="ApellidoMaternoBuscar" 
+                         MaxLength="30" IsReadOnly="{Binding ApellidoMaternoBuscarHabilitado,Converter={Views:BoolToOppositeBoolConverter}}">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=ApellidoMaternoBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding TextNombreImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  Name="NombreBuscar" MaxLength="40" Margin="0 0 50 0"
+                         IsReadOnly="{Binding NombreBuscarHabilitado,Converter={Views:BoolToOppositeBoolConverter}}">
+                <TextBox.InputBindings>
+                    <KeyBinding CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                </TextBox.InputBindings>
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                </i:Interaction.Behaviors>
+            </TextBox>
+
+            <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" Margin="2"/>
+                <Button Width="50" Height="50" VerticalAlignment="Top" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_visible" 
+                            Command="{Binding OnClick}" IsEnabled="{Binding BuscarImputadoHabilitado}" >
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <Label Content="Sexo" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"></Label>
+            <Label Content="Edad" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center"></Label>
+            <Label Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="2" Content="Tipo de Atención" VerticalAlignment="Center"></Label>
+            <TextBox MaxWidth="{ Binding ElementName=lblAnchoColumna, Path=ActualWidth}" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="3" IsReadOnly="True" 
+                         Text="{ Binding Sexo, UpdateSourceTrigger=PropertyChanged }"></TextBox>
+            <TextBox MaxWidth="{ Binding ElementName=lblAnchoColumna, Path=ActualWidth}" Grid.Column="2" Grid.Row="3" IsReadOnly="True" 
+                         Text="{ Binding Edad, UpdateSourceTrigger=PropertyChanged }"></TextBox>
+            <ComboBox Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="3" ItemsSource="{Binding ListAtencionTipo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_ATENCION"
+                            SelectedValue="{Binding SelectTipoAtencion}" VerticalAlignment="Center" IsEnabled="{Binding TipoNotaEnabled}"></ComboBox>
+            <Image Grid.Column="5" Grid.Row="0" Grid.RowSpan="4" Height="125" Source="{Binding FotoIngreso}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" ></Image>
+        </Grid>
+    </GroupBox>
+</UserControl>

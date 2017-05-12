@@ -1,0 +1,177 @@
+﻿<UserControl x:Class="ControlPenales.ReporteTiempoCompurgacion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             mc:Ignorable="d" 
+             d:DesignHeight="1200" d:DesignWidth="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Reporte de internos por tiempo de compurgación" FontSize="20" Margin="50 10 0 10"/>
+        <GroupBox Header="Criterios de compurgación" Grid.Row="1" HorizontalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="Desde">
+                    <Grid HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Controls:NumericUpDown Width="30" Margin="-5 0 0 0" VerticalAlignment="Center"/>
+                            <TextBlock Text=":años" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Center">
+                            <Controls:NumericUpDown Width="30" VerticalAlignment="Center"/>
+                            <TextBlock Text=":meses" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center">
+                            <Controls:NumericUpDown Width="30" Margin="-15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBlock Text=":días" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Header="Hasta">
+                    <Grid HorizontalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Controls:NumericUpDown Width="30" Margin="-5 0 0 0" VerticalAlignment="Center"/>
+                            <TextBlock Text=":años" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal"  HorizontalAlignment="Center">
+                            <Controls:NumericUpDown Width="30" VerticalAlignment="Center"/>
+                            <TextBlock Text=":meses" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center">
+                            <Controls:NumericUpDown Width="30" Margin="-15 0 0 0" VerticalAlignment="Center"/>
+                            <TextBlock Text=":días" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Column="2" Header="Tipo" Width="auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <RadioButton Content="Compurgado"/>
+                            <RadioButton Grid.Row="1" Content="Por Compurgar"/>
+                        </Grid>
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Text="{Binding TextoTipoCriterioCompurgacion}"/>
+                            <DatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Controls:TextBoxHelper.Watermark="Seleccione una fecha"/>
+                        </StackPanel>
+
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Button Margin="15" Content="Calcular" Style="{DynamicResource AccentedSquareButtonStyle}"  Command="{Binding OnClick}"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center">
+                    <TextBox Width="120" VerticalAlignment="Center"/>
+                    <TextBlock Text=" registros" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+            <GroupBox Grid.Column="1" Header="Generar" Width="150" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Padding="0" Content="Listado"/>
+                        <Button Width="50" Height="50" ToolTip="Limpiar" IsEnabled="{Binding MenuLimpiarEnabled}" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Padding="0" Content="Carátulas"/>
+                        <Button Width="50" Height="50" ToolTip="Limpiar" IsEnabled="{Binding MenuLimpiarEnabled}" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <Button Margin="15" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Content="Salir" Style="{DynamicResource AccentedSquareButtonStyle}"  Command="{Binding OnClick}"/>
+        </Grid>
+        <GroupBox Grid.Row="3" Header="Basado en tiempo real de compurgación" HorizontalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <Button Margin="15" Content="Calcular" Style="{DynamicResource AccentedSquareButtonStyle}"  Command="{Binding OnClick}"/>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <TextBox Width="120" VerticalAlignment="Center"/>
+                        <TextBlock Text=" registros" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+                <GroupBox Grid.Column="1" Header="Generar" Width="150" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Margin="0 0 10 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Padding="0" Content="Listado"/>
+                            <Button Width="50" Height="50" ToolTip="Limpiar" IsEnabled="{Binding MenuLimpiarEnabled}" Style="{DynamicResource MetroCircleButtonStyle}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Margin="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Padding="0" Content="Carátulas"/>
+                            <Button Width="50" Height="50" ToolTip="Limpiar" IsEnabled="{Binding MenuLimpiarEnabled}" Style="{DynamicResource MetroCircleButtonStyle}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                <Button Margin="15" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Content="Salir" Style="{DynamicResource AccentedSquareButtonStyle}"  Command="{Binding OnClick}"/>
+            </Grid>
+        </GroupBox>
+        <WindowsFormsHost Grid.Row="4" Width="800" Height="500" Name="WFH_2" Margin="20" Visibility="{Binding GafeteReportViewerVisible}"  HorizontalAlignment="Center" >
+            <rv:ReportViewer x:Name="ReportGafete"></rv:ReportViewer>
+        </WindowsFormsHost>
+    </Grid>
+</UserControl>

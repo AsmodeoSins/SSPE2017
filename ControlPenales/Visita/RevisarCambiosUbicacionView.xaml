@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="ControlPenales.RevisarCambiosUbicacionView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             Height="auto" Width="auto" >
+    <UserControl.Resources>
+        <!-- DataGrid style -->
+        <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
+            <Setter Property="ColumnHeaderStyle" Value="{DynamicResource ColumnHeaderStyle1}"/>
+        </Style>
+        <!-- DataGridColumnHeader style -->
+        <Style x:Key="ColumnHeaderStyle1" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#3FAFDF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Padding" Value="10,5,10,5" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1F8FBF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel>
+        <Views:MenuIconosView />
+
+        <Label Content="CAMBIOS DE UBICACIÓN" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <StackPanel Orientation="Horizontal">
+            <Label Margin="10">Fecha Inicial</Label>
+            <DatePicker Controls:TextBoxHelper.Watermark="Selecciona una fecha" Margin="10"></DatePicker>
+            <Label Margin="10">Fecha Final</Label>
+            <DatePicker Controls:TextBoxHelper.Watermark="Selecciona una fecha" Margin="10"></DatePicker>
+            <Label Margin="10">Acercamiento</Label>
+            <ComboBox Width="150" Margin="10"></ComboBox>
+        </StackPanel>
+
+        <DataGrid Height="300" Margin="10" BorderBrush="#3FAFDF" Background="WhiteSmoke" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha"></DataGridTextColumn>
+                <DataGridTextColumn Header="Expediente"></DataGridTextColumn>
+                <DataGridTextColumn Header="Interno"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nueva Ubicación"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha"></DataGridTextColumn>
+                <DataGridTextColumn Header="Visitante"></DataGridTextColumn>
+                <DataGridTextColumn Header="Teléfono"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nuevo Día"></DataGridTextColumn>
+                <DataGridTextColumn Header="Revisado"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+    </StackPanel>
+</UserControl>

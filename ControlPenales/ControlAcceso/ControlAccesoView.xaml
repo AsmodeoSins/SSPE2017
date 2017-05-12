@@ -1,0 +1,307 @@
+﻿<UserControl x:Class="ControlPenales.ControlAccesoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1250">
+    <StackPanel>
+        <Label Margin="5" Content="Control de Acceso" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Visitante" HorizontalAlignment="Stretch" Height="auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="85"></ColumnDefinition>
+                        <ColumnDefinition Width="85"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0">Código</Label>
+                    <Label Grid.Row="0" Grid.Column="1">Nombre</Label>
+                    <Label Grid.Row="0" Grid.Column="2">Apellido Paterno</Label>
+                    <Label Grid.Row="0" Grid.Column="3">Apellido Materno</Label>
+                    <StackPanel Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Margin="0, 10, 0, 0">
+                        <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+                        <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Buscar">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    
+
+                    <Label Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3">Tipo Visitante</Label>
+
+                    <TextBox  Grid.Row="1" Grid.Column="0" Name="tbCodigo"></TextBox>
+                    <TextBox  Grid.Row="1" Grid.Column="1" Name="tbNombre"></TextBox>
+                    <TextBox  Grid.Row="1" Grid.Column="2" Name="tbApellidoPaterno"></TextBox>
+                    <TextBox  Grid.Row="1" Grid.Column="3" Name="tbApellidoMaterno"></TextBox>
+                    <TextBox  Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="3" Name="tbTipoVisitante"></TextBox>
+
+                    <Label Grid.Row="2" Grid.Column="0">Sexo</Label>
+                    <Label Grid.Row="2" Grid.Column="1">Fecha Nacimiento</Label>
+                    <Label Grid.Row="2" Grid.Column="2">Domicilio</Label>
+                    <Label Grid.Row="2" Grid.Column="3">Estado</Label>
+                    <Label Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2">Municipio</Label>
+                    <Label Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="3">Teléfono</Label>
+
+                    <ComboBox Grid.Row="3" Grid.Column="0" Name="cbSexo">
+                        <ComboBoxItem>Masculino</ComboBoxItem>
+                        <ComboBoxItem>Femenino</ComboBoxItem>
+                    </ComboBox>
+                    <DatePicker Grid.Row="3" Grid.Column="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+                    <TextBox  Grid.Row="3" Grid.Column="2" Name="tbDomicilio"></TextBox>
+                    <TextBox  Grid.Row="3" Grid.Column="3" Name="tbEstado"></TextBox>
+                    <TextBox  Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3" Name="tbMunicipio"></TextBox>
+                    <TextBox  Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="3" Name="tbTelefono"></TextBox>
+
+                    <Label Grid.Row="4" Grid.Column="0">Fecha alta</Label>
+                    <Label Grid.Row="4" Grid.Column="1">CURP</Label>
+                    <Label Grid.Row="4" Grid.Column="2">RFC</Label>
+                    <Label Grid.Row="4" Grid.Column="3">Situación</Label>
+                    <Label Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2">Discapacidad</Label>
+                    <Label Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="3">Tipo de discapacidad</Label>
+
+                    <DatePicker Grid.Row="5" Grid.Column="0" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+                    <TextBox  Grid.Row="5" Grid.Column="1" Name="tbCURP"></TextBox>
+                    <TextBox  Grid.Row="5" Grid.Column="2" Name="tbRFC"></TextBox>
+                    <TextBox  Grid.Row="5" Grid.Column="3" Name="tbSituacion"></TextBox>
+                    <RadioButton Grid.Row="5" Grid.Column="4" HorizontalAlignment="Center" Content="Si" GroupName="discapacidad" />
+                    <RadioButton Grid.Row="5" Grid.Column="5" HorizontalAlignment="center" Content="No" GroupName="discapacidad" />
+                    <TextBox  Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="3" Name="tbTipoDiscapacidad"></TextBox>
+
+                    <Label Grid.Row="6" Grid.Column="0">Acceso único</Label>
+                    <Label Grid.Row="6" Grid.Column="1">NIP</Label>
+                    <Label Grid.Row="6" Grid.Column="2">Observaciones</Label>
+
+                    <TextBox  Grid.Row="7" Grid.Column="0" Name="tbAccesoUnico"></TextBox>
+                    <TextBox  Grid.Row="7" Grid.Column="1" Name="tbNIP"></TextBox>
+                    <TextBox  Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="7" Name="tbObservaciones"></TextBox>
+
+                    <Image Grid.Row="0" Grid.Column="9" Grid.ColumnSpan="2" Grid.RowSpan="6" Margin="10" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+
+                    <StackPanel Grid.Row="6" Grid.Column="9" Grid.RowSpan="2" Margin="0, 10, 0, 0">
+                        <Label HorizontalAlignment="Center" Content="Cámara" Padding="0" />
+                        <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Cámara">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="6" Grid.Column="10" Grid.RowSpan="2" Margin="0, 10, 0, 0">
+                        <Label HorizontalAlignment="Center" Content="Huella" Padding="0"/>
+                        <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    
+
+
+                </Grid>
+            </GroupBox>
+
+            <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="10,20,10,0" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridComboBoxColumn Header="Últimas 3 visitas" Width="500"></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="Tipo Visita"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="Autorizado para visitar a los internos" HorizontalAlignment="Stretch" Height="auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="170"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TreeView Grid.Column="0" Grid.Row="0">
+                        <TreeViewItem>
+                            <TreeViewItem.Header>
+                                <CheckBox>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/ControlPenales;component/Imagen/folder32.png" Height="20"></Image>
+                                        <TextBlock VerticalAlignment="Center" Padding="5 0 0 0" Text="Internos a visitar"></TextBlock>
+                                    </StackPanel>
+                                </CheckBox>
+                            </TreeViewItem.Header>
+                            <TreeViewItem.Items>
+                                <TreeViewItem Name="Child1">
+                                    <TreeViewItem.Header>
+                                        <CheckBox>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="/ControlPenales;component/Imagen/person24.png" Height="24"></Image>
+                                                <TextBlock VerticalAlignment="Center" Padding="10 0 0 0" Text="2011/7420 JUAN PEREZ PEREZ E3-PC209-25 VISITA:PERMITIRO"></TextBlock>
+                                            </StackPanel>
+                                        </CheckBox>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                            </TreeViewItem.Items>
+                        </TreeViewItem>
+                    </TreeView>
+
+                    <Image Grid.Row="0" Grid.Column="6" Grid.RowSpan="6" Height="150" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="3" Grid.Column="0" Header="Visitante" HorizontalAlignment="Stretch" Height="auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Fecha y hora entrada</Label>
+                    <Label Grid.Row="0" Grid.Column="2">Tipo de visita</Label>
+                    <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">Área</Label>
+
+                    <DatePicker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+                    <ComboBox Grid.Row="1" Grid.Column="2" Name="cbTipoVisita"></ComboBox>
+                    <ComboBox Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Name="cbArea"></ComboBox>
+
+                    <Label Grid.Row="2" Grid.Column="0">Hora inicio</Label>
+                    <Label Grid.Row="2" Grid.Column="1">Hora termino</Label>
+                    <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3">Estancia íntima</Label>
+
+                    <TextBox Grid.Row="3" Grid.Column="0" Name="tbHoraInicio"></TextBox>
+                    <TextBox Grid.Row="3" Grid.Column="1" Name="tbHoraTermino"></TextBox>
+                    <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="tbEstanciaIntima"></TextBox>
+                    <StackPanel Grid.Row="2" Grid.Column="4" Grid.RowSpan="2" Margin="0, 10, 0, 0">
+                        <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_bed}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    
+
+                    <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">Menores que entran con la visita</Label>
+
+                    <ComboBox  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Name="cbMenoresVisita"></ComboBox>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="3" Grid.Column="1" Header="Autorizacion" HorizontalAlignment="Stretch" Height="auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="0, 10, 0, 0" VerticalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Content="Autorizar" Padding="0"/>
+                        <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_check}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"  Margin="0, 10, 0, 0" VerticalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Content="Cancelar" Padding="0"/>
+                        <Button Width="50" Height="50" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_close}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                  
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="Menores de edad y discapacitados" HorizontalAlignment="Stretch" Height="auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="170"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Column="0" Grid.Row="0" Margin="10,20,10,0" AutoGenerateColumns="False" Style="{StaticResource AzureDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="Acompaña" Width="100"></DataGridCheckBoxColumn>
+                            <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Estatus visita"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Relacion adulto"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Image Grid.Row="0" Grid.Column="1" Height="150" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+
+                </Grid>
+            </GroupBox>
+
+        </Grid>
+    </StackPanel>
+</UserControl>
+
+    

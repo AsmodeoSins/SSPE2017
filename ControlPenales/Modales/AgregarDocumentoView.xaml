@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="ControlPenales.AgregarDocumentoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_documento"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    MaxHeight="370" MinHeight="370" Padding="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="200" MaxWidth="200"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="200" MaxWidth="200"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Agregar Documento" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+                    <Label Grid.Column="0" Grid.Row="1" Content="Fecha"></Label>
+                    <DatePicker Grid.Column="0" Grid.Row="2" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FechaD,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+
+                    <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Content="Actividad"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding ActividadD,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxLength="100"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Formatos"></Label>
+                    <DataGrid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="true" MaxHeight="150" MinHeight="150" ItemsSource="{Binding TiposDocumentos}" SelectedItem="{Binding SelectedTipoDocumento}" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="No.Formato" Binding="{Binding ID_IM_TIPO_DOCTO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Descripción" Binding="{Binding DESCR}"></DataGridTextColumn>
+                        </DataGrid.Columns>    
+                    </DataGrid>
+ 
+                    <Button Grid.Column="0" Grid.Row="7" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_documento" Command="{Binding OnClick}">Guardar</Button>
+                    <Button Grid.Column="1" Grid.Row="7" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_documento" Command="{Binding OnClick}">Cancelar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+
+</UserControl>

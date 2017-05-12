@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ControlPenales.AgregarExcarcelacion_Cancelar_MotivoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_agregar_canc_motivo"
+                    PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border Background="#90000000">
+        <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="800" MaxWidth="800" MinHeight="350"
+                MaxHeight="350">
+            <StackPanel>
+                <Label Content="Agregar motivo de cancelación de excarcelación" Style="{DynamicResource DescriptionHeaderStyle}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Motivo" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Label>
+                    <ComboBox Grid.Column="1" Width="300" HorizontalAlignment="Left" ItemsSource="{Binding Cancelacion_Motivos}" SelectedValuePath="ID_EXCARCELACION_CANCELA" DisplayMemberPath="DESCR"
+                            SelectedValue="{Binding SelectedCancelacion_MotivoValue,ValidatesOnDataErrors=True}" VerticalAlignment="Top"></ComboBox>
+                </Grid>
+                <Label Content="Observaciones" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Label>
+                <TextBox Margin="5 0 5 0" Height="200" Width="790" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Cancelacion_Observacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10" CommandParameter="agregar_canc_motivo" Command="{Binding OnClick}">Agregar</Button>
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,10,10,0"
+                            CommandParameter="cancelar_agregar_canc_motivo" Command="{Binding OnClick}">Cancelar</Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Border>
+</UserControl>

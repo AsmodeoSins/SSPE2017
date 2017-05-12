@@ -1,0 +1,276 @@
+﻿<UserControl x:Class="ControlPenales.CausasPenalesRecursoView"
+             x:Name="RecursoWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding RecursoLoading}" CommandParameter="{Binding ElementName=RecursoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+
+    <UserControl.Resources>
+        <Views:SiNoConverter x:Key="ConvertirSiNo"/>
+    </UserControl.Resources>
+    
+    <AdornerDecorator>
+        <Grid VerticalAlignment="Top" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="5 5 5 0" HorizontalAlignment="Right">
+                <Label HorizontalAlignment="Center" Content="Digitalización Documentos" Padding="0" />
+                <Button Width="50" Height="50" 
+                ToolTip="Digitalización Documentos" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" 
+                CommandParameter="digitalizar_recurso" IsEnabled="{Binding DRecursos}" >
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_printer_text}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+
+            <GroupBox Grid.Column="0" Grid.Row="1" Header="Datos Generales">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Tipo Recurso"></Label>
+                        <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Content="Tribunal"></Label>
+                        <Label Grid.Column="3" Grid.Row="0" Content="Fuero"></Label>
+
+                        <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding LstTiposRecursos}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_RECURSO" SelectedValue="{Binding RTipoRecurso,ValidatesOnDataErrors=True}" SelectedItem="{Binding SelectedTipoRecurso}"></ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LstJuzgadoAmparo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_JUZGADO" SelectedValue="{Binding RTribunal,ValidatesOnDataErrors=True}"  SelectedItem="{Binding SelectedTribunal}"></ComboBox>
+                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding RFuero,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxLength="10" IsReadOnly="True">
+                        </TextBox>
+
+                        <Label Grid.Column="0" Grid.Row="2" Content="Resultado"></Label>
+                        <Label Grid.Column="1" Grid.Row="2" Content="Fecha Recurso"></Label>
+                        <Label Grid.Column="2" Grid.Row="2" Content="Toca Penal"></Label>
+                        <Label Grid.Column="3" Grid.Row="2" Content="No.Oficio"></Label>
+
+                        <ComboBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding LstRecursoResultado}" DisplayMemberPath="DESCR" SelectedValuePath="RESULTADO"  SelectedValue="{Binding RResultadoRecurso, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedItem="{Binding SelectedRecursoResultado}" ></ComboBox>
+                        <!--<DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FecR,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />-->
+                        <Border Grid.Column="1" Grid.Row="3" BorderBrush="Red" ToolTipService.IsEnabled="{Binding RFechaRecursoValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RFechaRecursoValid}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="FECHA DE RECURSO ES OBLIGATORIA!" Style="{StaticResource errorLabel}"/>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <DatePicker Controls:TextBoxHelper.Watermark ="Selecciona una fecha"  SelectedDate="{Binding RFechaRecurso}"></DatePicker>
+                        </Border>
+
+                        <TextBox Grid.Column="2" Grid.Row="3" MaxLength="20" Text="{Binding RTocaPenal, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="20" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="3" Grid.Row="3" Text="{Binding RNoOficio,ValidatesOnDataErrors=True}" CharacterCasing="Upper">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="20" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                        <Label Grid.Column="0" Grid.Row="4" Content="Resolución"></Label>
+                        <Label Grid.Column="3" Grid.Row="4" Content="Fecha de Resolución"></Label>
+
+                        <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Text="{Binding RResolucion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="2000" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <!--<DatePicker Grid.Column="3" Grid.Row="5" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FecResolucionR,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />-->
+                        <Border Grid.Column="3" Grid.Row="5" BorderBrush="Red" ToolTipService.IsEnabled="{Binding RFechaResolucionValid, Converter={Views:BoolToOppositeBoolConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RFechaResolucionValid}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="FECHA DE RESOLUCION ES OBLIGATORIA!" Style="{StaticResource errorLabel}"/>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <DatePicker Controls:TextBoxHelper.Watermark ="Selecciona una fecha"  SelectedDate="{Binding RFechaResolucion}"></DatePicker>
+                        </Border>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+
+
+            <GroupBox Grid.Column="0" Grid.Row="2" Header="Multas">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Multa"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding RMulta}" CharacterCasing="Upper" IsEnabled="{Binding HabilitaMulta}" MaxWidth="{Binding ElementName=multa,Path=ActualWidth}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior MaxLength="1000" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="2" Content="Reparación de Daño"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding RReparacionDanio,ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding HabilitaMulta}"
+                        MaxWidth="{Binding ElementName=multa,Path=ActualWidth}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior  MaxLength="1000" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="4" Content="Sustitución de la Pena"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="5" Text="{Binding RSustitucionPena,ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding HabilitaMulta}"
+                        MaxWidth="{Binding ElementName=multa,Path=ActualWidth}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior MaxLength="1000" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="6" Content="Multa Condicional" Name="multa"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="7" Text="{Binding RMultaCondicional,ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding HabilitaMulta}"
+                        MaxWidth="{Binding ElementName=multa,Path=ActualWidth}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior MaxLength="1000" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </Grid>
+            </GroupBox>
+
+
+            <GroupBox Grid.Column="0" Grid.Row="3" Header="Sentencia">
+                <AdornerDecorator>
+                    <Grid Width="375" HorizontalAlignment="Left">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Años"></Label>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Meses"></Label>
+                        <Label Grid.Column="4" Grid.Row="0" Content="Días"></Label>
+
+                        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding RAnio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding HabilitaSentencia}" >
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="3" Grid.Row="0" Text="{Binding RMeses,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding HabilitaSentencia}" >
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <TextBox Grid.Column="5" Grid.Row="0" Text="{Binding RDias,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding HabilitaSentencia}" >
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+
+            <GroupBox Grid.Column="0" Grid.Row="4" Header="Delitos">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Column="0" Grid.Row="0" Margin="0 10 0 0" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" ItemsSource="{Binding LstRecursoDelitos}"
+                        SelectedItem="{Binding SelectedRecursoDelito}" Style="{StaticResource MetroDataGrid}" MaxWidth="{Binding ElementName=multa,Path=ActualWidth}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Delito" Binding="{Binding MODALIDAD_DELITO.DELITO.DESCR}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Modalidad" Binding="{Binding DESCR_DELITO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Grave" Binding="{Binding MODALIDAD_DELITO.DELITO.GRAVE,Converter={StaticResource ConvertirSiNo}}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding TIPO_DELITO.DESCR}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Cantidad" Binding="{Binding CANTIDAD}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Objeto" Binding="{Binding OBJETO}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_delito_causa_penal" />
+                                <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_delito_causa_penal" />
+                                <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_delito_causa_penal" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                    <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding RecursoDelitoEmpty, Converter={StaticResource booleanToVisibilityConverter}}">No hay información.</Label>
+
+
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

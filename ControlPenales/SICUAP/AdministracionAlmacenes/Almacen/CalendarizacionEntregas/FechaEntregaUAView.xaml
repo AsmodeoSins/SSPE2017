@@ -1,0 +1,200 @@
+﻿<UserControl x:Class="ControlPenales.FechaEntregaUAView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <Grid>
+        <!--<telerik:RadScheduleView MinHeight="600">
+            <telerik:RadScheduleView.ViewDefinitions>
+                <telerik:MonthViewDefinition />
+            </telerik:RadScheduleView.ViewDefinitions>
+        </telerik:RadScheduleView>-->
+        <StackPanel>
+            <Grid Background="WhiteSmoke" HorizontalAlignment="Center" Margin="10">
+                <GroupBox Header="Fecha de Entrega 2015/03/21" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1"
+                  Visibility="{Binding Path=DetallesVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                    <Grid Background="WhiteSmoke">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                            <Label HorizontalAlignment="Center" Content="Cambiar" Padding="0"/>
+                            <Button  Width="50" Height="50" ToolTip="Cambiar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="catalogo_nuevo" Command="{Binding OnClick}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clipboard_edit}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Content="Cancelar" Padding="0"/>
+                            <Button  Width="50" Height="50"  ToolTip="Cancelar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="catalogo_nuevo" Command="{Binding OnClick}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cancel}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        
+
+                        <DataGrid Grid.Row="1" Grid.ColumnSpan="5" MinHeight="250" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Nombre">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Cantidad"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Unidad de Medida">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Orden de Compra">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Observaciones" MinWidth="200"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Orden de Compra">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button>
+                                                <Button.Template>
+                                                    <ControlTemplate>
+                                                        <!--<Image></Image>-->
+                                                        <TextBlock HorizontalAlignment="Center" >X</TextBlock>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="140" Margin="10"
+                                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_imprimir_productos_seleccionados" Command="{Binding OnClick}">Imprimir</Button>
+                        <Button Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="left" Width="140" Margin="10"
+                                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_cancelar_productos_seleccionados" Command="{Binding OnClick}">Cancelar</Button>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+            <Grid Background="WhiteSmoke" HorizontalAlignment="Center" Margin="10">
+                <GroupBox Header="Calendarizar Entrega: 2015/03/21" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1"
+                  Visibility="{Binding Path=NuevoVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                    <Grid Background="WhiteSmoke" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Proveedor</Label>
+                        <Label Grid.Row="1" Grid.Column="0">Orden de Compra</Label>
+                        <Label Grid.Row="2" Grid.Column="0">Producto</Label>
+                        <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" MinWidth="200"></ComboBox>
+                        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" MinWidth="100"></TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" MinWidth="150"></TextBox>
+                        <Button Grid.Column="5" Grid.Row="2" Width="140" Margin="10,0,0,0"
+                        Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_buscar_producto" Command="{Binding OnClick}">Buscar</Button>
+
+                        <DataGrid Grid.Row="3" Grid.ColumnSpan="5" MinHeight="100" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header=""></DataGridCheckBoxColumn>
+                                <DataGridTemplateColumn Header="Producto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Unidad de Medida">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Cantidad"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Button Grid.Column="0" Grid.Row="4" Width="140" Margin="10,0,0,0"
+                        Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_agregar_producto" Command="{Binding OnClick}">Agregar</Button>
+
+                        <Label Grid.Row="5" Grid.Column="0">Productos Agregados</Label>
+                        <DataGrid Grid.Row="6" Grid.ColumnSpan="5" MinHeight="100" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Producto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Cantidad">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Unidad de Medida">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Grid.Row="7" Orientation="Vertical" Grid.ColumnSpan="5" >
+                            <Rectangle HorizontalAlignment="Stretch" Margin="2" Stroke="LightGray" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="8" Orientation="Horizontal" Grid.ColumnSpan="5" HorizontalAlignment="Right" >
+                            <Button Grid.Column="0" Grid.Row="7" Width="140" Margin="10,0,0,0"
+                            Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_aceptar_producto" Command="{Binding OnClick}">Aceptar</Button>
+                            <Button Grid.Column="0" Grid.Row="7" Width="140" Margin="10,0,0,0"
+                            Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_cerrar_producto" Command="{Binding OnClick}">Cerrar</Button>
+                        </StackPanel>
+
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="GESAL.Views.Almacen_GrupoPopUpView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Views="clr-namespace:GESAL.Views">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding AccionCatalogoSinValidar }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border Background="#90000000">
+        <Border BorderBrush="Black" BorderThickness="1" Background="#fff" Width="888"
+					CornerRadius="10,0,10,0"  HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="620" MinHeight="320">
+            <StackPanel>
+                <Label Style="{StaticResource estiloTituloControl}" Content="Datos del Grupo de Almacen" Margin="5"></Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width=".7*"></ColumnDefinition>
+                        <ColumnDefinition Width=".3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Clave:" Grid.Column="0" HorizontalAlignment="Left" ></Label>
+                    <Label Content="Descripción:" Grid.Column="1" Grid.Row="0"></Label>
+                    <Label Content="Activo:" Grid.Column="2" HorizontalAlignment="Left"></Label>
+                    <TextBox Margin="5" Text="{Binding ID,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnDataErrors=True}" MaxLength="1" CharacterCasing="Upper" Grid.Row="1" Name="ID"></TextBox>
+                    <TextBox Margin="5" Text="{Binding Descripcion, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" MaxLength="60"  CharacterCasing="Upper" Grid.Column="1" Grid.Row="1" ></TextBox>
+                    <CheckBox Margin="5" IsChecked="{Binding Activo}" Grid.Column="2" Grid.Row="1"></CheckBox>
+                </Grid>
+                <Views:menuComandosBasicosCatalogosView Grid.Column="1" HorizontalAlignment="Left"></Views:menuComandosBasicosCatalogosView>
+            </StackPanel>
+        </Border>
+    </Border>
+</UserControl>

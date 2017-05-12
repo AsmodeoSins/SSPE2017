@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="ControlPenales.NotificacionFinalizaTraslado"
+             x:Name="NotificacionFinalizaTrasladoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             d:DesignHeight="200" d:DesignWidth="750">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height=".5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width=".25*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Este fue el último interno reconocido en el traslado:" FontSize="14"/>
+                <TextBlock Text="{Binding NombreUltimoInterno}" FontSize="20"/>
+                <TextBlock Text="Se necesita confirmar la siguiente operación." FontSize="14"/>
+                <TextBlock Text="Seleccione la operación deseada:" FontSize="14"/>
+            </StackPanel>
+            <Image Grid.Column="1" Margin="10" Source="{Binding FotoTrasladoUltimoImputado}"/>
+        </Grid>
+
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+            <Button BorderBrush="Black" Margin="0 0 10 0" Style="{StaticResource AccentedSquareButtonStyle}" Command="{Binding OnClick}" CommandParameter="FinalizarTraslado" Width="100" Height="30" Content="Finalizar"/>
+            <Button BorderBrush="Black" Margin="10 0 10 0" Style="{StaticResource AccentedSquareButtonStyle}" Command="{Binding OnClick}" CommandParameter="Revertir" Width="100"  Height="30" Content="Cancelar"/>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

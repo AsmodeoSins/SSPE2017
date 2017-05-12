@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="ControlPenales.ListadoDocumentosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_documento"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="260">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Listado de Documentos" Style="{DynamicResource DescriptionHeaderStyle}" />
+                    <!--FILTROS-->
+                    <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="145"></ColumnDefinition>
+                            <ColumnDefinition Width="65"></ColumnDefinition>
+                            <ColumnDefinition Width="145"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Buscar:"></Label>
+                        <TextBox Grid.Column="1" Grid.Row="0" CharacterCasing="Upper" MaxLength="20" Text="{Binding BuscarContenidoMensaje, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding CommandParameter="buscarMensaje" Command="{Binding OnClick}" Key="Enter" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Fecha Inicio:"></Label>
+                        <Border Grid.Column="3"  BorderBrush="Red" HorizontalAlignment="Left" ToolTipService.IsEnabled="{Binding IsFechaIniValida, Converter={Views:BoolToOppositeBoolConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsFechaIniValida,ValidatesOnDataErrors=True}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="LA FECHA DE INICIO TIENE QUE SER MENOR A LA FECHA FIN!" Style="{StaticResource errorLabel}"/>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <DatePicker Style="{StaticResource MetroDatePicker}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaInicioMensaje, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SourceUpdated">
+                                        <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_documentos">
+                                        </i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DatePicker>
+                        </Border>
+                        <Label Grid.Column="4" Grid.Row="0" Content="Fecha Fin:"></Label>
+                        <DatePicker Grid.Column="5" Grid.Row="0" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FechaFinalMensaje,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SourceUpdated">
+                                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_documentos">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DatePicker>
+                        <Button Grid.Column="6" Grid.Row="0" Width="95" HorizontalAlignment="Center" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscarMensaje" Command="{Binding OnClick}" Content="Buscar" IsEnabled="{Binding IsBuscarDocumentoEnabled}"></Button>
+                    </Grid>
+                    <DataGrid Grid.Column="0" Grid.Row="2" AutoGenerateColumns="False"  ItemsSource="{Binding LstDocumentos}" SelectedItem="{Binding SelectedDocumento, NotifyOnSourceUpdated=True}"  CanUserAddRows="False" MaxHeight="500" Padding="0 10 0 0" Style="{StaticResource MetroDataGrid}"  Name="dgDocumentos">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SourceUpdated">
+                                <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_selected_documento">
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Asunto" Width="350" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding MENSAJE}" TextWrapping="Wrap"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Documento">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_documento" ></Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding REGISTRO_FEC,StringFormat=dd/MM/yyyy}" MinWidth="200"  IsReadOnly="True"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"  Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10" IsEnabled="{Binding IsSeleccionarDocumentoEnabled}"
+                        CommandParameter="seleccionar_documento" Command="{Binding OnClick}">Seleccionar</Button>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,10,10,0"
+                        CommandParameter="cancelar_documento" Command="{Binding OnClick}">Cancelar</Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>
+

@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="ControlPenales.Enfermedades"
+             x:Name="EnfermedadesWindows"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             d:DesignHeight="380" d:DesignWidth="1250">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding EnfermedadesLoading}" CommandParameter="{Binding ElementName=EnfermedadesWindows}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding EnfermedadesUnloading}" CommandParameter="{Binding ElementName=EnfermedadesWindows}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Descripción de Enfermedades Crónicas, Degenerativas e Infecto Contagiosas (Requerido)" HorizontalAlignment="Stretch" Height="auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Row="0" Grid.Column="0" Header="Descripción en Caso de Presentarlas o Tener Antecedentes" HorizontalAlignment="Stretch" Height="auto">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Column="0" Grid.Row="1" Name="tbDescripcionEnfermedades" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="150" MaxHeight="105" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding DescripcionPresentarlasAntecedentes, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxLength="500"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="0" Grid.Column="1" Header="Apariencia Física" HorizontalAlignment="Stretch" Height="auto">
+                        <AdornerDecorator>
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0">Alineado</Label>
+                        <Label Grid.Column="0" Grid.Row="1">Conformado</Label>
+                        <Label Grid.Column="0" Grid.Row="2">Integro</Label>
+                        <Label Grid.Column="0" Grid.Row="3">Limpio</Label>
+
+                        <ComboBox Grid.Column="1" Grid.Row="0" Name="cbAlineado" SelectedValuePath="Tag" SelectedValue="{Binding AparienciaFisicaAlineado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Name="cbConformado" SelectedValuePath="Tag" SelectedValue="{Binding AparienciaFisicaConformado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="2" Name="cbIntegro" SelectedValuePath="Tag" SelectedValue="{Binding AparienciaFisicaIntegro,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Name="cbLimpio" SelectedValuePath="Tag" SelectedValue="{Binding AparienciaFisicaLimpio,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                    </Grid>
+                        </AdornerDecorator>
+                    </GroupBox>
+
+                <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Especifique" HorizontalAlignment="Stretch" Height="auto">
+                        <AdornerDecorator>
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <Label Grid.Column="0" Grid.Row="0">Discapacidades</Label>
+                        <ComboBox Grid.Column="1" Grid.Row="0" Name="cbDiscapacidad" SelectedValuePath="Tag" SelectedValue="{Binding Discapacidades,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <TextBox Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="4" Name="tbEspecifiqueDiscapacidad" Text="{Binding DiscapacidadesMotivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding DiscapacidadEnabled}" MaxLength="100"></TextBox>
+
+                        <Label Grid.Column="0" Grid.Row="1">Enfermo Mental</Label>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Name="cbEnfermoMental" SelectedValuePath="Tag" SelectedValue="{Binding EnfermoMental,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <TextBox Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="4" Name="tbEspecifiqueEnfermedadMental" Text="{Binding EnfermoMentalMotivo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnfermoMentalEnabled}" MaxLength="50"></TextBox>
+
+                        <Label Grid.Column="0" Grid.Row="2">VIH/Hepatitis</Label>
+                        <ComboBox Grid.Column="1" Grid.Row="2" Name="cbVIHHepatitis" SelectedValuePath="Tag" SelectedValue="{Binding VIHHepatitis,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S"/>
+                            <ComboBoxItem Content="NO" Tag="N"/>
+                        </ComboBox>
+                        <Label Grid.Column="2" Grid.Row="2">¿En Tratamiento Fármaco?</Label>
+                        <ComboBox Grid.Column="2" Grid.Row="2" Width="100" HorizontalAlignment="Right" Name="cbTratamientoFarmaco" SelectedValuePath="Tag" SelectedValue="{Binding VIHHepatitisTratamientoFarmaco,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnfermedadEnabled}" >
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S "/>
+                            <ComboBoxItem Content="NO" Tag="N "/>
+                            <ComboBoxItem Content="N/A" Tag="NA"/>
+                        </ComboBox>
+                        <Label Grid.Column="3" Grid.Row="2">¿Con Diagnóstico Formal?</Label>
+                        <ComboBox Grid.Column="3" Grid.Row="2" Width="100" HorizontalAlignment="Right" Name="cbDiagnosticoFormal" SelectedValuePath="Tag" SelectedValue="{Binding VIHHepatitisDiagnosticoFormal,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="{Binding EnfermedadEnabled}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""/>
+                            <ComboBoxItem Content="SI" Tag="S "/>
+                            <ComboBoxItem Content="NO" Tag="N "/>
+                            <ComboBoxItem Content="N/A" Tag="NA"/>
+                        </ComboBox>
+                    </Grid> 
+                        </AdornerDecorator>
+                    </GroupBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+    
+</UserControl>

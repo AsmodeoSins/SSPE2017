@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ControlPenales.RelacionesPersonalesPandillasView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <StackPanel>
+        <Views:MenuIconosView />
+        <Label Margin="5" Content="Relaciones Personales / Pandillas" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Header="Datos del Expediente" Visibility="{Binding Path=DatosVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Views:DatosExpedienteView />
+        </GroupBox>
+        <GroupBox Header="Pandilla(s)" Visibility="{Binding Path=DatosVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <DataGrid MinHeight="250" Margin="0,0,0,10" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Pandilla" Width="250" ></DataGridTextColumn>
+                    <DataGridComboBoxColumn Header="Pandilla" Width="250" Visibility="Hidden"  ></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="Notas" Width="500" ></DataGridTextColumn>
+                </DataGrid.Columns>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Insertar" />
+                        <MenuItem Header="Borrar" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </GroupBox>
+        <GroupBox Header="Relaciones Personales (Internos)" Visibility="{Binding Path=DatosVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <DataGrid MinHeight="250" Margin="0,0,0,10" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Paterno" MinWidth="150" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Materno" MinWidth="150" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Nombre" MinWidth="250" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Notas" MinWidth="350" ></DataGridTextColumn>
+                </DataGrid.Columns>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Insertar" />
+                        <MenuItem Header="Borrar" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </GroupBox>
+        <Views:BuscarView Visibility="{Binding Path=BuscarVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+    </StackPanel>
+</UserControl>

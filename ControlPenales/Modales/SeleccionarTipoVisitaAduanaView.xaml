@@ -1,0 +1,35 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.SeleccionarTipoVisitaAduanaView"
+             x:Name="SeleccionarTipoVisitaAduanaWindow" Title="TIPO DE VISITA"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight" ShowMinButton="False" ShowMaxRestoreButton="False" ShowInTaskbar="False"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="350" Width="550">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="85"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.ColumnSpan="2" Style="{DynamicResource TextBlockHeaderStyle}" Margin="10" VerticalAlignment="Center" TextWrapping="Wrap"
+                       Text="La persona seleccionada cuenta con mas de un tipo de registro. Seleccione el correcto."></TextBlock>
+            <Button Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Width="150" Margin="30" Style="{DynamicResource AccentedSquareButtonStyle}" Name="btnFamiliar"
+                    CommandParameter="visita_familiar" Command="{Binding ElementName=btnFamiliar}" HorizontalAlignment="Center" IsEnabled="{Binding VisitaFamiliarEnabled}">familiar</Button>
+            <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="150" Margin="30" Style="{DynamicResource AccentedSquareButtonStyle}" Name="btnEmpleado"
+                    CommandParameter="visita_empleado" Command="{Binding ElementName=btnEmpleado}" HorizontalAlignment="Center" IsEnabled="{Binding VisitaEmpleadoEnabled}">empleado</Button>
+            <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Width="150" Margin="30" Style="{DynamicResource AccentedSquareButtonStyle}" Name="btnLegal"
+                    CommandParameter="visita_legal" Command="{Binding ElementName=btnLegal}" HorizontalAlignment="Center" IsEnabled="{Binding VisitaLegalEnabled}">legal</Button>
+            <Button Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Width="150" Margin="30" Style="{DynamicResource AccentedSquareButtonStyle}" Name="btnExterna"
+                    CommandParameter="visita_externa" Command="{Binding ElementName=btnExterna}" HorizontalAlignment="Center" IsEnabled="{Binding VisitaExternaEnabled}">externa</Button>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

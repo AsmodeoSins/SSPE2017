@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="ControlPenales.DatosIngresoInternoDiscrecionalView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+    <StackPanel>
+        <GroupBox Header="Datos de ingreso">
+            <Views:DatosExpedienteView />
+        </GroupBox>
+        <GroupBox Header="Datos de Documento de Internacion">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" >Núm. Oficio</Label>
+                <Label Grid.Column="1" Grid.Row="0" >Queda a Disposición de</Label>
+                <Label Grid.Column="0" Grid.Row="2" Visibility="{Binding Path=DiscrecionalVisible, Converter={StaticResource booleanToVisibilityConverter}}">Tipo de Seguridad</Label>
+                <Label Grid.Column="1" Grid.Row="2" Visibility="{Binding Path=DiscrecionalVisible, Converter={StaticResource booleanToVisibilityConverter}}">Autoridad Que Esta Internando</Label>
+
+                <TextBox Grid.Column="0" Grid.Row="1"></TextBox>
+                <ComboBox Grid.Column="1" Grid.Row="1"></ComboBox>
+                <ComboBox Grid.Column="0" Grid.Row="3" Visibility="{Binding Path=DiscrecionalVisible, Converter={StaticResource booleanToVisibilityConverter}}"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="3" Visibility="{Binding Path=DiscrecionalVisible, Converter={StaticResource booleanToVisibilityConverter}}"></ComboBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Datos de Ubicacion" Visibility="{Binding Path=DiscrecionalVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0">Seleccion del Edificio</Label>
+                <Label Grid.Row="0" Grid.Column="1">Ubicación</Label>
+
+                <ComboBox Grid.Row="1" Grid.Column="0"></ComboBox>
+                <ComboBox Grid.Row="1" Grid.Column="1"></ComboBox>
+
+            </Grid>
+        </GroupBox>
+        <DockPanel HorizontalAlignment="Stretch" Visibility="{Binding Path=DiscrecionalVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Left" >
+                <GroupBox Header="Expediente">
+                    <Grid HorizontalAlignment="Center" Width="250" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Año</Label>
+                        <Label Grid.Row="0" Grid.Column="2">Folio</Label>
+                        <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"> / </Label>
+
+                        <TextBox Grid.Row="1" Grid.Column="0"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="2"></TextBox>
+
+                    </Grid>
+                </GroupBox>
+                <Label>No. de Control de Proceso</Label>
+                <TextBox MinWidth="300" Margin="10"></TextBox>
+                <Label>(Sistema Nacional de Seguridad Publica)</Label>
+            </StackPanel>
+            <GroupBox Header="Antecedentes" HorizontalAlignment="Stretch" >
+                <TextBox MinWidth="300" MinHeight="120" Margin="10"></TextBox>
+            </GroupBox>
+        </DockPanel>
+    </StackPanel>
+</UserControl>

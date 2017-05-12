@@ -1,0 +1,339 @@
+﻿<UserControl x:Class="ControlPenales.NewControlInternosEdificioView" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="NewControlInternosEdificioWindow" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdLoad}" CommandParameter="{Binding ElementName=NewControlInternosEdificioWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding CmdUnLoaded}" CommandParameter="{Binding ElementName=NewControlInternosEdificioWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <Views:ExpInterno x:Key="Exp"/>
+        <Views:IngresoUbicacion x:Key="Est"/>
+    </UserControl.Resources>
+
+
+    <Grid Name="contenedor">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuAutorizacion2View  Grid.Column="0" Grid.Row="0"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Control de Internos en Edificios" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Controls:ToggleSwitch Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Width="150" HorizontalAlignment="Left" OffLabel="Escoltar NO"  OnLabel="Escoltar SÍ" IsChecked="{Binding ModoAlternativo}" IsEnabled="{Binding ModoAlternativoHabilitado}" />
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition Width="170"></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition Width="170"></ColumnDefinition>
+                <ColumnDefinition Width="155"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" MaxHeight="45"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0">Edificio</Label>
+            <ComboBox IsEnabled="{Binding EdificioHablititado}" Height="25" Grid.Column="1" Grid.Row="0" DisplayMemberPath="DESCR" ItemsSource="{Binding LstEdificio}" SelectedItem="{Binding SelectedEdificio,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding FEdificio}" SelectedValuePath="ID_EDIFICIO"  />
+            <Label Grid.Column="2" Grid.Row="0">Sector</Label>
+            <ComboBox Grid.Column="3" Grid.Row="0"  Height="25"  DisplayMemberPath="DESCR" ItemsSource="{Binding LstSector}" SelectedValue="{Binding FSector}" SelectedValuePath="ID_SECTOR" />
+            <Label Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center">Del</Label>
+            <DatePicker Grid.Column="5"  Grid.Row="0"  Height="25" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FFechaInicio, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+            <Label Grid.Column="6" Grid.Row="0" HorizontalAlignment="Center">al</Label>
+            <DatePicker Grid.Column="7" Grid.Row="0"  Height="25" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FFechaFinal, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+            <Button Grid.Column="8" Grid.Row="0" Margin="5 0 0 0" Width="150" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Buscar" Style="{DynamicResource AccentedSquareButtonStyle}" Command="{Binding OnClick}" CommandParameter="buscar">
+            </Button>
+        </Grid>
+
+        <Label Grid.Row="4" Width="auto" HorizontalAlignment="Right" Content="{Binding Actualizacion}" Style="{DynamicResource DescriptionHeaderStyle}"/>
+
+        <Grid Grid.Row="5" HorizontalAlignment="Left"  MaxWidth="{Binding ElementName=contenedor,Path=ActualWidth}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition Width="500"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Width="auto" HorizontalAlignment="Left" Content="{Binding TotalInternos}" Style="{DynamicResource DescriptionHeaderStyle}"/>
+            <Label Grid.Column="1" Width="auto" HorizontalAlignment="Left" Content="{Binding TotalSeleccionados}" Style="{DynamicResource DescriptionHeaderStyle}"/>
+        </Grid>
+
+        <Grid Grid.Row="7"  MaxWidth="{Binding ElementName=contenedor,Path=ActualWidth}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition MaxWidth="275" MinWidth="275"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition MaxHeight="30"></RowDefinition>
+                <RowDefinition MaxHeight="120"></RowDefinition>
+                <RowDefinition MaxHeight="500"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="medida">
+                <TextBlock Text="NOTA: INTERNO PARA" 
+                           VerticalAlignment="Top"/>
+                <TextBlock Margin="125 0 0 0"
+                           VerticalAlignment="Top"
+                           Text="/ CITA MÉDICA" 
+                           Foreground="Orange"/>
+                <TextBlock Margin="210 0 0 0"
+                           VerticalAlignment="Top"
+                           Text="/ EXCARCELACIÓN"
+                           Foreground="Blue"/>
+                <TextBlock Margin="315 0 0 0"
+                           VerticalAlignment="Top"
+                           Text="/ TRASLADO"
+                           Foreground="Red"/>
+                <TextBlock Margin="385 0 0 0"
+                           VerticalAlignment="Top"
+                           Text="/ VISITA LEGAL" 
+                           Foreground="Green"/>
+                <TextBlock Margin="470 0 0 0"
+                           VerticalAlignment="Top"
+                           Text="/ CITAS TÉCNICAS" 
+                           Foreground="#9948FF"/>
+                <TextBlock Margin="570 0 0 0"
+                           VerticalAlignment="Top"
+                           Text="/ VISITA INTIMA"
+                           Foreground="Magenta"/>
+                <TextBlock Margin="660 0 0 0"
+                           VerticalAlignment="Top"
+                           Text="/ VISITA FAMILIAR"
+                           Foreground="Brown"/>
+                <TextBlock Margin="760 0 0 0"
+                           VerticalAlignment="Top"
+                           Text="/ ESTUDIOS DE PERSONALIDAD"
+                           Foreground="Gray"/>
+
+            </Grid >
+
+            <TabControl Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Controls:TabControlHelper.IsUnderlined="True" MaxWidth="{Binding medida,UpdateSourceTrigger=PropertyChanged}" TabIndex="{Binding IndiceTab,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                <TabItem Header="Internos Requeridos" 
+                         IsEnabled="{Binding TabRequeridoHabilitado}"
+                         IsSelected="{Binding SelectRequerido}"
+                         Controls:ControlsHelper.HeaderFontSize="18"
+                         Style="{StaticResource HeaderTabStyle}">
+                    <DataGrid Height="500" MaxWidth="{Binding medida,UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{StaticResource MetroDataGrid}" 
+                                  AutoGenerateColumns="False"
+                                  ItemsSource="{Binding LstInternosRequeridos, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                  SelectionMode="Single"
+                                  IsReadOnly="True">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <!--CITA MEDICA-->
+                                    <DataTrigger Binding="{Binding TIPO}"
+                                                     Value="1">
+                                        <Setter Property="Background"
+                                                    Value="Orange" />
+                                        <Setter Property="Foreground" 
+                                                    Value="White" />
+                                    </DataTrigger>
+                                    <!--EXCARCELACION-->
+                                    <DataTrigger Binding="{Binding TIPO}" 
+                                                     Value="2">
+                                        <Setter Property="Background" 
+                                                    Value="Blue" />
+                                        <Setter Property="Foreground"
+                                                    Value="White" />
+                                    </DataTrigger>
+                                    <!--TRASLADO-->
+                                    <DataTrigger Binding="{Binding TIPO}" 
+                                                     Value="3">
+                                        <Setter Property="Background" 
+                                                    Value="Red" />
+                                        <Setter Property="Foreground"
+                                                    Value="White" />
+                                    </DataTrigger>
+                                    <!--VISITA LEGAR-->
+                                    <DataTrigger Binding="{Binding TIPO}"
+                                                     Value="4">
+                                        <Setter Property="Background" 
+                                                    Value="Green" />
+                                        <Setter Property="Foreground" 
+                                                    Value="White" />
+                                    </DataTrigger>
+                                    <!--VISITA INTIMA-->
+                                    <DataTrigger Binding="{Binding TIPO}" 
+                                                     Value="5">
+                                        <Setter Property="Background" 
+                                                    Value="Magenta" />
+                                        <Setter Property="Foreground"
+                                                    Value="White" />
+                                    </DataTrigger>
+                                     <!--VISITA FAMILIAR-->
+                                    <DataTrigger Binding="{Binding TIPO}" 
+                                                     Value="6">
+                                        <Setter Property="Background" 
+                                                    Value="Brown" />
+                                        <Setter Property="Foreground" 
+                                                    Value="White" />
+                                    </DataTrigger>
+                                    <!--CITA TECNICA-->
+                                    <DataTrigger Binding="{Binding TIPO}"
+                                                     Value="7">
+                                        <Setter Property="Background" 
+                                                    Value="#9948FF" />
+                                        <Setter Property="Foreground" 
+                                                    Value="White" />
+                                    </DataTrigger>
+                                    <!--ESTUDIOS DE PERSONALIDAD-->
+                                    <DataTrigger Binding="{Binding TIPO}" 
+                                                     Value="8">
+                                        <Setter Property="Background" 
+                                                    Value="Gray" />
+                                        <Setter Property="Foreground"
+                                                    Value="White" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center"  
+                                                      IsChecked="{Binding SELECCIONE, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsEnabled="False">
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Expediente" 
+                                                    Binding="{Binding EXPEDIENTE}"/>
+                            <DataGridTextColumn Header="Apellido Paterno" 
+                                                    Binding="{Binding PATERNO}"/>
+                            <DataGridTextColumn Header="Apellido Materno" 
+                                                    Binding="{Binding MATERNO}"/>
+                            <DataGridTextColumn Header="Nombre" 
+                                                    Binding="{Binding NOMBRE}"/>
+                            <DataGridTextColumn Header="Ubicación actual" 
+                                                    Binding="{Binding UBICACION_ACTUAL}"/>
+                            <DataGridTextColumn Header="Estancia" 
+                                                    Binding="{Binding UBICACION_CENTRO}"/>
+                            <DataGridTextColumn Header="Fecha de Actividad" 
+                                                    Binding="{Binding FECHA_ACTIVIDAD, StringFormat=dd/MM/yyyy}"/>
+                            <DataGridTextColumn Header="Hora de Actividad" 
+                                                    Binding="{Binding HORA_ACTIVIDAD, StringFormat=hh:mm tt}"/>
+                            <DataGridTextColumn Header="Área" 
+                                                    Binding="{Binding AREA}"/>
+                            <DataGridTextColumn Header="Actividad" 
+                                                    Binding="{Binding ACTIVIDAD}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Style.Triggers>
+                                    <Trigger Property="DataGridCell.IsSelected"
+                                                 Value="True">
+                                        <Setter Property="Foreground"
+                                                    Value="Black" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Internos Ausentes" 
+                         IsEnabled="{Binding TabAusenteHabilitado}"
+                         IsSelected="{Binding SelectAusente}"
+                         Controls:ControlsHelper.HeaderFontSize="18" 
+                         Style="{StaticResource HeaderTabStyle}">
+                    <DataGrid Height="500" MaxWidth="{Binding medida,UpdateSourceTrigger=PropertyChanged}"
+                                  AutoGenerateColumns="False"
+                                  Style="{StaticResource MetroDataGrid}"
+                                  ItemsSource="{Binding LstInternosAusentes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                  SelectionMode="Single" 
+                                  IsReadOnly="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding DoubleClickCommand}" 
+                                                           CommandParameter="informacionInterno" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" 
+                                                      IsChecked="{Binding SELECCIONE,UpdateSourceTrigger=PropertyChanged}"
+                                                      IsEnabled="FALSE">
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Expediente" 
+                                                    Binding="{Binding EXPEDIENTE}"/>
+                            <DataGridTextColumn Header="Apellido Paterno" 
+                                                    Binding="{Binding PATERNO}"/>
+                            <DataGridTextColumn Header="Apellido Materno" 
+                                                    Binding="{Binding MATERNO}"/>
+                            <DataGridTextColumn Header="Nombre" 
+                                                    Binding="{Binding NOMBRE}"/>
+                            <DataGridTextColumn Header="Ubicación Actual" 
+                                                    Binding="{Binding AREA}"/>
+                            <DataGridTextColumn Header="Estancia" 
+                                                    Binding="{Binding UBICACION_CENTRO}"/>
+                            <DataGridTextColumn Header="Fecha de Actividad" 
+                                                    Binding="{Binding Path=FECHA_ACTIVIDAD,StringFormat=dd/MM/yyyy hh:mm tt}"/>
+                            <DataGridTextColumn Header="Área" 
+                                                    Binding="{Binding AREA}"/>
+                            <DataGridTextColumn Header="Nombre de la Actividad"
+                                                    Binding="{Binding ACTIVIDAD}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+
+            <Button Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="150" Content="Toma de asistencia" Style="{DynamicResource AccentedSquareButtonStyle}"
+                    Command="{Binding OnClick}" CommandParameter="registroSalida" IsEnabled="{Binding AsistenciaHabilitado}">
+            </Button>
+
+            <GroupBox Header="Tipo de registro" Grid.Column="2" Grid.Row="2" MaxWidth="275">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Stretch">
+                        <RadioButton Margin="20 0 0 0" 
+                                         Name="demo" 
+                                         IsChecked="true"
+                                         IsEnabled="{Binding TipoRegistroChecked}"
+                                         Visibility="{Binding VisibleTipoRegistro}"
+                                         Content="{Binding TipoTexto}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Button Margin="0 12 0 10" 
+                                    Width="150"
+                                    Content="Autorizar"
+                                    IsEnabled="{Binding AutorizarBtnEnabled}"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}" 
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="autorizar"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <Views:AsignacionCustodio Visibility="{Binding CustodioHuellasVisibles}" Grid.Column="2" Grid.Row="3" MaxWidth="275"/>
+        </Grid>
+    </Grid>
+</UserControl>

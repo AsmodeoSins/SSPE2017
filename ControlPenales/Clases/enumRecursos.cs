@@ -1,0 +1,26 @@
+﻿namespace ControlPenales
+{
+    public enum enumRecursosTipo
+    {
+        APELACION_DE_AUTO_DE_FORMAL_PRISION = -2,
+        AMPARO_INDIRECTO_CONTRA_AUTO_DE_FORMAL_PRISION = -1 ,
+        SENTENCIA_DE_PRIMERA_INSTANCIA = 1,
+        APELACION_O_DETERMINACION_SEGUNDA_INSTANCIA = 2,
+        AMPARO_CONTRA_APELACION_O_SEGUNDA_INSTANCIA = 3,
+        ADECUACION = 4,
+        ACUMULACION = 5,
+        LIBERTAD_COMPURGADA = 6,
+        INCOMPETENCIA = 7,
+        EXCLUSAS = 8,
+        SEPARACION_DE_EXPEDIENTES = 9
+    }
+
+
+    public enum enumResultado2Instancia
+    {
+        CONFIRMA = 1,
+        MODIFICA = 2,
+        REVOCA_CON_REPOSICION_DE_PROCEDIMIENTO = 3,
+        LIBERTAD_POR_REVOCACION_DE_SENTENCIA = 4
+    }
+}

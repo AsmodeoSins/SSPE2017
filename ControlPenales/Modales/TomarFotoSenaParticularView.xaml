@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="ControlPenales.TomarFotoSenaParticularView"
+             x:Name="TomarFotoSenaParticularWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick}" EventArgsConverter="{StaticResource EscapePopUpHelpper}" 
+                                EventArgsConverterParameter="cancelar_tomar_foto_senas"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="UnLoaded">
+            <i:InvokeCommandAction Command="{Binding OnUnLoaded}" CommandParameter="{Binding ElementName=TomarFotoSenaParticularWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center"  
+                    MaxHeight="925" MinHeight="225">
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="600" ></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Margin="10" Command="{Binding CaptureImage}" 
+                            CommandParameter="{Binding ElementName=ImgSenaParticular}" Width="600" Height="400" HorizontalAlignment="Center"
+                            ToolTip="Click para tomar foto!" >
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Propiedades" Command="{Binding CamSettings}"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                        <Canvas Width="600" Height="399" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image Name="ImgSenaParticular" Width="600" Height="398" Stretch="Fill"></Image>
+                            <Line X1="300" Y1="1" X2="300" Y2="399" Stroke="Blue" StrokeDashArray=".1,0" StrokeThickness="2" Visibility="{Binding LineasGuiaFoto}"/>
+                            <Line X1="175" Y1="1" X2="175" Y2="399" Stroke="Yellow" StrokeDashArray=".1,0" StrokeThickness="2" Visibility="{Binding LineasGuiaFoto}"/>
+                            <Line X1="425" Y1="1" X2="425" Y2="399" Stroke="Yellow" StrokeDashArray=".1,0" StrokeThickness="2" Visibility="{Binding LineasGuiaFoto}"/>
+                            <Line X1="140" Y1="1" X2="140" Y2="399" Stroke="Red" StrokeDashArray=".5,1" StrokeThickness="4" Visibility="{Binding LineasGuiaFoto}" />
+                            <Line X1="460" Y1="1" X2="460" Y2="399" Stroke="Red" StrokeDashArray=".5,1" StrokeThickness="4" Visibility="{Binding LineasGuiaFoto}"/>
+                            
+                            <Line X1="0" Y1="200" X2="599" Y2="200" Stroke="Blue" StrokeDashArray=".1,0" StrokeThickness="2" Visibility="{Binding LineasGuiaFoto}" />
+                            <Line X1="0" Y1="150" X2="599" Y2="150" Stroke="Green" StrokeDashArray=".5,1" StrokeThickness="2" Visibility="{Binding LineasGuiaFoto}" />
+                            <Line X1="0" Y1="250" X2="599" Y2="250" Stroke="Green" StrokeDashArray=".5,1" StrokeThickness="2" Visibility="{Binding LineasGuiaFoto}" />
+                        </Canvas>
+                    </Button>
+                    <ComboBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Width="150" VerticalAlignment="Bottom" Margin="10 0 10 150" SelectedValuePath="Tag" 
+                              Visibility="{Binding ComboFrontBackFotoVisible}" SelectedValue="{Binding SelectFrenteDetrasFoto,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="FRENTE" Tag="F" Selector.IsSelected="True"></ComboBoxItem>
+                        <ComboBoxItem Content="DETRAS" Tag="D"></ComboBoxItem>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding FrenteDetrasCommand}" CommandParameter="{Binding ElementName=TomarFotoSenaParticularWindow}"  />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                    <Button Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" 
+                            Margin="0 0 0 10" CommandParameter="cancelar_tomar_foto_senas" Command="{Binding OnClick}">Cancelar</Button>
+                    <Button Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" 
+                            Margin="0 0 0 75" CommandParameter="aceptar_tomar_foto_senas" Command="{Binding OnClick}" IsEnabled="{Binding BotonTomarFotoEnabled}">Aceptar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+
+</UserControl>

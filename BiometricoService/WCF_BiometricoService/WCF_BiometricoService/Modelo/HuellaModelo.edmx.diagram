@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fd101e37b6e34430aa0cf9ce820e9d5c" Name="Diagram1" ZoomLevel="89">
+        <EntityTypeShape EntityType="HuellasModel.PERSONA" Width="1.5" PointX="0.875" PointY="0.5" />
+        <EntityTypeShape EntityType="HuellasModel.PERSONA_BIOMETRICO" Width="2" PointX="3" PointY="0.5" />
+        <AssociationConnector Association="HuellasModel.FK_PERSONA__REFERENCE_PERSONA" />
+        <EntityTypeShape EntityType="HuellasModel.BIOMETRICO_FORMATO" Width="2" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="HuellasModel.BIOMETRICO_TIPO" Width="2" PointX="5.625" PointY="0.5" />
+        <AssociationConnector Association="HuellasModel.FK_PERSONA__REFERENCE_BIOMETRI" />
+        <EntityTypeShape EntityType="HuellasModel.IMPUTADO_BM" Width="1.5" PointX="0.875" PointY="9" />
+        <EntityTypeShape EntityType="HuellasModel.INGRESO_BM" Width="1.5" PointX="3.125" PointY="6.75" />
+        <AssociationConnector Association="HuellasModel.FK_INGRESO_REFERENCE_IMPUTADO" />
+        <AssociationConnector Association="HuellasModel.FK_INGRESO_REFERENCE_PERS765" />
+        <EntityTypeShape EntityType="HuellasModel.IMPUTADO_BIOMETRICO" Width="1.5" PointX="8.375" PointY="9.5" />
+        <AssociationConnector Association="HuellasModel.FK_IMPUTADO_REFERENCE_TIPO_BIO" />
+        <AssociationConnector Association="HuellasModel.FK_IMPUTADOBIO_IMPUTADO" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

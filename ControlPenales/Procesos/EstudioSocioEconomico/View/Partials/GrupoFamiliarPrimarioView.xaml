@@ -1,0 +1,211 @@
+﻿<UserControl x:Class="ControlPenales.GrupoFamiliarPrimarioView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto" mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="900">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Datos adicionales del imputado" Grid.Row="0">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Salario que percibía" Grid.Column="0"></Label>
+                        <TextBox Grid.Column="1" Text="{ Binding Salario, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="15" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
+                            <Label Content="Fecha de Estudio" Width="110"></Label>
+                            <DatePicker Controls:TextBoxHelper.Watermark="Seleccione una fecha" Width="170"
+                            SelectedDate="{Binding FechaEstudio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                        </StackPanel>
+
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+            <GroupBox Header="DATOS FAMILIARES DEL GRUPO PRIMARIO" Grid.Row="1">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Grupo Familiar" Grid.Column="0" Grid.Row="0"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{Binding GrupoFamiliarPrimario,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="FUNCIONAL" Tag="F"></ComboBoxItem>
+                            <ComboBoxItem Content="DISFUNCIONAL" Tag="D"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Relación Intrafamiliar" Grid.Column="1" Grid.Row="0"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{Binding RelacionIntroFamiliarPrimario,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="ADECUADA" Tag="A"></ComboBoxItem>
+                            <ComboBoxItem Content="INADECUADA" Tag="I"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Cuantas personas viven en el hogar" Grid.Column="2" Grid.Row="0"></Label>
+                        <TextBox Grid.Row="1" Grid.Column="2" Text="{ Binding NoPersonasVivenHogar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <Label Content="Cuantas Personas Laboran" Grid.Column="3" Grid.Row="0"></Label>
+                        <TextBox Grid.Column="3" Grid.Row="1" Name="TBPersonasTrabajanPrimario" Text="{ Binding NoPersonasTrabajanPrimario, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="2" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Ingreso Mensual Familiar"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="3" Text="{ Binding IngresoMensualPrimario, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="9" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <Label Grid.Column="1" Grid.Row="2" Content="Egreso Mensual Familiar"></Label>
+                        <TextBox Grid.Column="1" Grid.Row="3" Text="{ Binding EgresoMensualPrimario,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="9" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <Label Grid.Column="2" Grid.Row="2" Content="Algún integrante de la familia cuenta con antecedentes penales o adicción a alguna droga" Width="auto" Grid.ColumnSpan="1"></Label>
+                        <ComboBox Grid.Column="2" Grid.Row="3" Width="auto" SelectedValuePath="Tag"
+                        SelectedValue="{ Binding FamiliarAntecedentePrimario, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                            <ComboBoxItem Content="SI" Tag="0"></ComboBoxItem>
+                            <ComboBoxItem Content="NO" Tag="1"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Especifique" Width="auto" Grid.Column="3" Grid.Row="2"></Label>
+                        <TextBox Grid.Column="3" Grid.Row="3" MaxWidth="{ Binding ElementName=TBPersonasTrabajanPrimario, Path=ActualWidth }" Text="{Binding AntecedentePrimario,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True }" CharacterCasing="Upper"
+                        IsEnabled="{Binding IsEnabledAntecedentePrimario }" ></TextBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+            <GroupBox Header="Datos de la vivienda" Grid.Row="2">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Zona de Ubicación de la vivienda" Grid.Column="0" Grid.Row="0"></Label>
+                        <ComboBox Grid.Column="1" Grid.Row="0" SelectedValuePath="Tag" SelectedValue="{ Binding ViviendaZonaPrimario, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="URBANA" Tag="U"></ComboBoxItem>
+                            <ComboBoxItem Content="SEMI-URBANA" Tag="S"></ComboBoxItem>
+                            <ComboBoxItem Content="RURAL" Tag="R"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Condiciones de la Vivienda" Grid.Column="2" Grid.Row="0"></Label>
+                        <ComboBox Grid.Column="3" Grid.Row="0" SelectedValuePath="Tag" SelectedValue="{ Binding ViviendaCondicionesPrimario, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="PROPIA" Tag="P"></ComboBoxItem>
+                            <ComboBoxItem Content="RENTADA" Tag="R"></ComboBoxItem>
+                            <ComboBoxItem Content="OTRO" Tag="O"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Materiales de Construcción de la vivienda" Grid.Column="0" Grid.Row="1"></Label>
+                        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="3">
+                            <CheckBox Content="CARTÓN" Tag="M1" Margin="0,0,10,0" IsChecked="{Binding IsCartonPrimarioChecked}"  />
+                            <CheckBox Content="ADOBE" Tag="M2" Margin="0,0,10,0" IsChecked="{Binding IsAdobePrimarioChecked}" />
+                            <CheckBox Content="LADRILLO" Tag="M3" Margin="0,0,10,0" IsChecked="{Binding IsLadrilloPrimarioChecked}" />
+                            <CheckBox Content="BLOCK" Tag="M4" Margin="0,0,10,0" IsChecked="{Binding IsBlockPrimarioChecked}" />
+                            <CheckBox Content="MADERA" Tag="M5" Margin="0,0,10,0" IsChecked="{Binding IsMaderaPrimarioChecked}" />
+                            <CheckBox Content="OTRO" Tag="M6" Margin="0,0,10,0" IsChecked="{Binding IsMaterialesOtrosPrimarioChecked}" />
+                        </StackPanel>
+
+                        <Label Content="Distribución de la vivienda" Grid.Column="0" Grid.Row="2"></Label>
+                        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="3">
+                            <CheckBox Content="SALA" Tag="D1" Margin="0,0,10,0" IsChecked="{Binding IsSalaPrimarioChecked}" />
+                            <CheckBox Content="COCINA" Tag="D2" Margin="0,0,10,0" IsChecked="{Binding IsCocinaPrimarioChecked}" />
+                            <CheckBox Content="COMEDOR" Tag="D3" Margin="0,0,10,0" IsChecked="{Binding IsComedorPrimarioChecked}" />
+                            <CheckBox Content="RECAMARA" Tag="D4" Margin="0,0,10,0" IsChecked="{Binding IsRecamaraChecked}" />
+                            <CheckBox Content="BAÑO" Tag="D5" Margin="0,0,10,0" IsChecked="{Binding IsBanioChecked}" />
+                            <CheckBox Content="OTROS" Tag="D6" Margin="0,0,10,0" IsChecked="{Binding IsDistribucionPrimariaOtrosChecked}" />
+                        </StackPanel>
+                        <Label Content="Servicios" Grid.Column="0" Grid.Row="3"></Label>
+                        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="3">
+                            <CheckBox Content="ENERGÍA ELÉCTRICA" Tag="S1" Margin="0,0,10,0" IsChecked="{Binding IsEnergiaElectricaPrimariaChecked}" />
+                            <CheckBox Content="AGUA" Tag="S2" Margin="0,0,10,0" IsChecked="{Binding IsAguaPrimariaChecked}" />
+                            <CheckBox Content="DRENAJE" Tag="S3" Margin="0,0,10,0" IsChecked="{Binding IsDrenajePrimariaChecked}" />
+                            <CheckBox Content="PAVIMENTO" Tag="S4" Margin="0,0,10,0" IsChecked="{Binding IsPavimentoPrimarioChecked}" />
+                            <CheckBox Content="TELÉFONO" Tag="S5" Margin="0,0,10,0" IsChecked="{Binding IsTelefonoPrimarioChecked}" />
+                            <CheckBox Content="TV POR CABLE" Tag="S6" Margin="0,0,10,0" IsChecked="{Binding IsTVCableChecked}" />
+                        </StackPanel>
+                        <Label Content="Electrodomésticos" Grid.Column="0" Grid.Row="4"></Label>
+                        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" Grid.ColumnSpan="3">
+                            <CheckBox Content="ESTUFA" Tag="E1" Margin="0,0,10,0" IsChecked="{Binding IsEstufaPrimarioChecked}" />
+                            <CheckBox Content="REFRIGERADOR" Tag="E2" Margin="0,0,10,0" IsChecked="{Binding IsRefrigeradorPrimarioChecked}" />
+                            <CheckBox Content="HORNO MICROONDAS" Tag="E3" Margin="0,0,10,0" IsChecked="{Binding IsMicroOndasPrimarioChecked}" />
+                            <CheckBox Content="TELEVISIÓN" Tag="E4" Margin="0,0,10,0" IsChecked="{Binding IsTVPrimarioChecked}" />
+                            <CheckBox Content="LAVADORA" Tag="E5" Margin="0,0,10,0" IsChecked="{Binding IsLavadoraPrimarioChecked}" />
+                            <CheckBox Content="SECADORA" Tag="E6" Margin="0,0,10,0" IsChecked="{Binding IsSecadoraPrimarioChecked}" />
+                            <CheckBox Content="COMPUTADORA" Tag="E7" Margin="0,0,10,0" IsChecked="{Binding IsComputadoraPrimarioChecked}" />
+                            <CheckBox Content="OTROS" Tag="E8" Margin="0,0,10,0" IsChecked="{Binding IsOtrosElectrodomesticosPrimarioChecked}" />
+                        </StackPanel>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+            <GroupBox Grid.Row="3" Header="Datos Adicionales">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Medios de Transporte" Grid.Column="0" Grid.Row="0"></Label>
+                        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="4">
+                            <CheckBox Content="AUTOMÓVIL" Tag="T1" Margin="0,0,10,0" IsChecked="{Binding IsAutomovilPrimarioChecked}" />
+                            <CheckBox Content="AUTOBÚS" Tag="T2" Margin="0,0,10,0" IsChecked="{Binding IsAutobusPrimarioChecked}" />
+                            <CheckBox Content="OTROS" Tag="T3" Margin="0,0,10,0" IsChecked="{Binding IsOtrosMediosTransportePrimarioChecked}" />
+                        </StackPanel>
+                        <Label Content="Nivel Socio Económico y Cultural" Grid.Column="2" Grid.Row="0"></Label>
+                        <ComboBox Grid.Column="3" Grid.Row="0" SelectedValuePath="Tag" SelectedValue="{ Binding NivelSocioCulturalPrimario, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                            <ComboBoxItem Content="ALTO" Tag="A"></ComboBoxItem>
+                            <ComboBoxItem Content="MEDIO" Tag="M"></ComboBoxItem>
+                            <ComboBoxItem Content="BAJO" Tag="B"></ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

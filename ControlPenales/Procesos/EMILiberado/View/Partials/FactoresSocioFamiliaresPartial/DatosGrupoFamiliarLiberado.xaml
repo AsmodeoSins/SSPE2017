@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="ControlPenales.DatosGrupoFamiliarLiberado"
+             x:Name="DatosGrupoFamiliarLiberadoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             d:DesignHeight="300" d:DesignWidth="1250">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding DatosGrupoFamiliarLoading}" CommandParameter="{Binding ElementName=DatosGrupoFamiliarLiberadoWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding DatosGrupoFamiliarUnloading}" CommandParameter="{Binding ElementName=DatosGrupoFamiliarLiberadoWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Indique integrantes del grupo familiar primario, secundario y personas que viven con usted" HorizontalAlignment="Stretch" Height="auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!--<Button Grid.Column="0" Grid.Row="0" Style="{DynamicResource AccentedSquareButtonStyle}"  Width="148" Margin="3" HorizontalAlignment="Right" 
+                CommandParameter="buscar_gfpv" Command="{Binding OnClick}">Padrón Visita</Button>-->
+                <DataGrid Grid.Column="0" Grid.Row="1" Margin="10,5,10,0" ItemsSource="{Binding LstGrupoFamiliar}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" SelectedItem="{Binding SelectedGrupoFamiliar}" Style="{StaticResource MetroDataGrid}"> 
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Grupo">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock >
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" >
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GRUPO}" Value="1">
+                                                        <Setter Property="Text" Value="PRIMARIO"></Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GRUPO}" Value="2">
+                                                        <Setter Property="Text" Value="SECUNDARIO"></Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GRUPO}" Value="3">
+                                                        <Setter Property="Text" Value="NINGUNO"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Paterno" Binding="{Binding PATERNO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Materno" Binding="{Binding MATERNO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding NOMBRE}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Edad" Binding="{Binding EDAD}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="FECHA NACIMIENTO" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker IsEnabled="False" SelectedDate="{Binding NACIMIENTO_FEC,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Relación" Binding="{Binding TIPO_REFERENCIA.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Domicilio" Binding="{Binding DOMICILIO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ocupación" Binding="{Binding OCUPACION.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Estado Civil" Binding="{Binding ESTADO_CIVIL.DESCR}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Vive con el">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox HorizontalAlignment="Center">
+                                        <CheckBox.Style>
+                                            <Style TargetType="{x:Type CheckBox}" >
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding VIVE_C_EL}" Value="S">
+                                                        <Setter Property="IsChecked" Value="True"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </CheckBox.Style>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="addGpoFam"/>
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editGpoFam"/>
+                            <MenuItem Header="Eliminar" Visibility="{Binding EliminarItemMenu, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding OnClick}" CommandParameter="delGpoFam"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="No hay Información..." FontStyle="Italic" HorizontalAlignment="Center" Visibility="{Binding IsGrupoFamiliarEmpty, Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

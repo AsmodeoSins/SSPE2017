@@ -1,0 +1,354 @@
+﻿<UserControl x:Class="ControlPenales.ReporteKardexInternoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Name="ReporteKardexInternosWindow"
+             mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ReporteKardexInternoLoading}"
+                                   CommandParameter="{Binding ElementName=ReporteKardexInternosWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="280"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="1"
+               Content="Kardex Interno"
+               Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  Header="Buscar Interno"
+                  IsEnabled="{Binding GroupBoxGeneralesEnabled}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="320"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border BorderThickness="1"
+                        Grid.RowSpan="2"
+                        BorderBrush="#3F7096"
+                        Margin="0,0,10,0">
+                    <Grid Background="{Binding Planimetriacolor}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="160"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Width="150"
+                               Source="{Binding ImagenParticipante}"
+                               Margin="0,10,0,0" />
+                        <ProgressBar Grid.Row="1"
+                                     Grid.Column="0"
+                                     Maximum="{Binding MaxValueProBar}"
+                                     Minimum="0"
+                                     Value="{Binding CantidadActividadesAprovadas}"
+                                     Margin="25,0,35,0" />
+                        <Grid Grid.Row="2"
+                              HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Left">AVANCE</Label>
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding AvanceTratamiento}" />
+                            <Label Grid.Row="2"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Left">HORAS DE TRATAMIENTO</Label>
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding HorasTratamiento}" />
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Grid Grid.Column="1"
+                      Grid.RowSpan="3">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=AnioInterno, Path=Text.Length}"
+                                             Value="4">
+                                    <Setter Property="FocusManager.FocusedElement"
+                                            Value="{Binding ElementName=FolioInterno}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.25*"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0">AÑO</Label>
+                    <Label Grid.Row="0"
+                           Grid.Column="1">FOLIO</Label>
+                    <Label Grid.Row="0"
+                           Grid.Column="2">PATERNO</Label>
+                    <Label Grid.Row="0"
+                           Grid.Column="3">MATERNO</Label>
+                    <Label Grid.Row="0"
+                           Grid.Column="4">NOMBRE(S)</Label>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="0"
+                             x:Name="AnioInterno"
+                             Text="{Binding TextAnio,UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=AnioInterno}"
+                                        Command="{Binding InternoClick}"
+                                        Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$"
+                                                                      MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Text="{Binding TextFolio,UpdateSourceTrigger=PropertyChanged}"
+                             x:Name="FolioInterno">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=FolioInterno}"
+                                        Command="{Binding InternoClick}"
+                                        Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$"
+                                                                      MaxLength="5" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="2"
+                             Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}"
+                             CharacterCasing="Upper"
+                             x:Name="PaternoInterno">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=PaternoInterno}"
+                                        Command="{Binding InternoClick}"
+                                        Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$"
+                                                                      MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="3"
+                             Text="{Binding TextMaternoImputado,UpdateSourceTrigger=PropertyChanged}"
+                             CharacterCasing="Upper"
+                             x:Name="MaternoInterno">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=MaternoInterno}"
+                                        Command="{Binding InternoClick}"
+                                        Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$"
+                                                                      MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="4"
+                             Text="{Binding TextNombreImputado,UpdateSourceTrigger=PropertyChanged}"
+                             CharacterCasing="Upper"
+                             x:Name="NombreInterno">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=NombreInterno}"
+                                        Command="{Binding InternoClick}"
+                                        Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$"
+                                                                      MaxLength="40" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Button Grid.Column="5"
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Width="50"
+                            Height="50"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Center"
+                            ToolTip="Buscar"
+                            Style="{DynamicResource MetroCircleButtonStyle}"
+                            CommandParameter="buscar_imputado"
+                            Command="{Binding OnClick}">
+                        <Rectangle Width="20"
+                                   Height="20"
+                                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                                             Visual="{DynamicResource appbar_magnify_browse}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Grid.Column="6"
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Width="50"
+                            Height="50"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Center"
+                            ToolTip="Limpiar"
+                            Style="{DynamicResource MetroCircleButtonStyle}"
+                            CommandParameter="limpiar_Busqueda"
+                            Command="{Binding OnClick}">
+                        <Rectangle Width="20"
+                                   Height="20"
+                                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                                             Visual="{DynamicResource appbar_clean}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Label Grid.Row="2"
+                           Grid.Column="0">UBICACIÓN</Label>
+                    <Label Grid.Row="2"
+                           Grid.Column="2">PLANIMETRÍA</Label>
+                    <Label Grid.Row="2"
+                           Grid.Column="3">SENTENCIA</Label>
+                    <Label Grid.Row="2"
+                           Grid.Column="4">SENTENCIA RESTANTE</Label>
+                    <Label Grid.Row="2"
+                           Grid.Column="5">ESTATUS</Label>
+                    <TextBox Grid.Row="3"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             IsReadOnly="True"
+                             Text="{Binding TextUbicacion}" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="2"
+                             IsReadOnly="True"
+                             Text="{Binding TextPlanimetria}" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="3"
+                             IsReadOnly="True"
+                             Text="{Binding TextSentencia}" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="4"
+                             IsReadOnly="True"
+                             Text="{Binding TextSentenciaRes}" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="5"
+                             Grid.ColumnSpan="2"
+                             IsReadOnly="True"
+                             Text="{Binding TextEstatus}" />
+                    <GroupBox Grid.Row="6"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="7"
+                              Header="Reporte">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="KARDEX"
+                                    Height="28">KARDEX</Button>
+                            <Button Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="ACTIVIDADES"
+                                    Height="28">ACTIVIDADES</Button>
+                            <Button Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="HORARIO"
+                                    Height="28">HORARIO</Button>
+                            <Button Grid.Column="3"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="EMPALMES"
+                                    Height="28">EMPALMES</Button>
+                            <Button Grid.Column="4"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="SANCIONES"
+                                    Height="28">SANCIONES</Button>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <DockPanel Grid.Row="3"
+                       Margin=" 0 10 0 0"
+                       HorizontalAlignment="Center"
+                       MinHeight="600">
+                <WindowsFormsHost MinWidth="800"
+                                  Name="WFH"
+                                  Visibility="{Binding ReportViewerVisible}"
+                                  HorizontalAlignment="Center">
+                    <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+                </WindowsFormsHost>
+            </DockPanel>
+            <!--<Button  Grid.Row="3"
+                     Width="120"
+                     Style="{DynamicResource AccentedSquareButtonStyle}"
+                     HorizontalAlignment="Right"
+                     CommandParameter="Generar_Reporte"
+                     Command="{Binding OnClick}"
+                     Height="28"
+                     VerticalAlignment="Top"
+                     Margin="10,20,10,10">Generar Reporte</Button>-->
+        </StackPanel>
+    </Grid>
+</UserControl>

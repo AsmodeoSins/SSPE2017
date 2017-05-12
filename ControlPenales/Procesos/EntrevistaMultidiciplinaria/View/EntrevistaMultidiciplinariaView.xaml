@@ -1,0 +1,318 @@
+﻿<UserControl x:Class="ControlPenales.EntrevistaMultidiciplinariaView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             x:Name="EntrevistaWindow"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <!--<i:InvokeCommandAction Command="{Binding TabChange}" CommandParameter="{Binding ElementName=EntrevistaWindow}"  />-->
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=EntrevistaWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel Name="spGeneral">
+        <!--MENU-->
+        <Views:MenuIconosView/>
+
+        <Grid Name="gridGeneral" Visibility="{Binding Path=EmiVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="1" Content="Estudio Multidisciplinario Inicial" Style="{DynamicResource DescriptionHeaderStyle}" />
+            <Grid Grid.Column="0" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <!--<ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>-->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0">Cereso</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0">Clasificación Jurídica</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0">Ubicación</TextBlock>
+
+                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Cereso,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True" ></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding ClasificacionJuridica,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True" ></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding Ubicacion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="2">Expediente</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="2">Ingreso</TextBlock>
+                <TextBlock Grid.Column="2"  Grid.Row="2">Causa Penal</TextBlock>
+
+                <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding Expediente,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                <DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding Ingreso,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="False" />
+                <TextBox Grid.Column="2"  Grid.Row="3" Text="{Binding CausaPenal,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+            </Grid>
+
+            <Expander IsExpanded="True" Grid.Column="0" Grid.Row="3" Header="Ficha Identificacion" HorizontalAlignment="Stretch" Height="auto" Margin="0 5 0 5">
+                <Grid Visibility="{Binding FechaIdentificacionVisible, Converter={StaticResource booleanToVisibilityConverter}}" Height="{Binding GridHeight}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="282*"></ColumnDefinition>
+                        <ColumnDefinition Width="182*"></ColumnDefinition>
+                        <ColumnDefinition Width="99*"/>
+                        <ColumnDefinition Width="282*"></ColumnDefinition>
+                        <ColumnDefinition Width="281*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0">Apellido Paterno</Label>
+                    <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">Apellido Materno</Label>
+                    <Label Grid.Column="3" Grid.Row="0">Nombre</Label>
+                    <Label Grid.Column="4" Grid.Row="0">Estado Civil</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding ApellidoPaterno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True" ></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ApellidoMaterno,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Nombre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding EstadoCivil,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="2">Sexo</Label>
+                    <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">Fecha Nacimiento</Label>
+                    <Label Grid.Column="3" Grid.Row="2">Edad</Label>
+                    <Label Grid.Column="4" Grid.Row="2">Religión</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding Sexo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" Grid.ColumnSpan="2" SelectedDate="{Binding FechaNacimiento,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="false" />
+                    <TextBox Grid.Column="3" Grid.Row="3" Text="{Binding Edad,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="3" Text="{Binding Religion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="4">Etnia</Label>
+                    <Label Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="4">Apodo</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="5" Text="{Binding Etnia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="4" Text="{Binding Apodo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="6" FontWeight="Bold">Lugar de Nacimiento</Label>
+
+                    <Label Grid.Column="0" Grid.Row="7">Municipio</Label>
+                    <Label Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2">Estado</Label>
+                    <Label Grid.Column="3" Grid.Row="7">País</Label>
+                    <Label Grid.Column="4" Grid.Row="7">Nacionalidad</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="8" Text="{Binding LNMunicipio,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2" Text="{Binding LNEstado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="8" Text="{Binding LNPais,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="8" Text="{Binding Nacionalidad,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="9" FontWeight="Bold">Tiempo de residencia en Baja California</Label>
+
+                    <Label Grid.Column="0" Grid.Row="10">Fecha de Llegada</Label>
+                    <Label Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2">Años</Label>
+                    <Label Grid.Column="3" Grid.Row="10">Meses</Label>
+                    <!--<Label Grid.Column="4" Grid.Row="10">Dias</Label>-->
+
+                    <DatePicker Grid.Column="0" Grid.Row="11" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FechaLlegada,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="False"/>
+                    <TextBox Grid.Column="1" Grid.Row="11" Grid.ColumnSpan="2" Text="{Binding Años,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="11" Text="{Binding Meses,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <!--<TextBox Grid.Column="4" Grid.Row="11" Text="{Binding Dias,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></TextBox>-->
+
+                    <Label Grid.Column="0" Grid.Row="12" FontWeight="Bold">Domicilio</Label>
+
+                    <Label Grid.Column="0" Grid.Row="13">País</Label>
+                    <Label Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="2">Estado</Label>
+                    <Label Grid.Column="3" Grid.Row="13">Municipio</Label>
+                    <Label Grid.Column="4" Grid.Row="13">Colonia</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="14" Text="{Binding DPais,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="14" Grid.ColumnSpan="2" Text="{Binding DEstado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="14" Text="{Binding DMunicipio,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="14" Text="{Binding Colonia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="15">Calle</Label>
+                    <Label Grid.Column="1"
+                           Grid.Row="15"
+                           Grid.ColumnSpan="2">Número Exterior</Label>
+                    <Label Grid.Column="3" Grid.Row="15">Número Interior</Label>
+                    <Label Grid.Column="4" Grid.Row="15">Código Postal</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="16" Text="{Binding Calle,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="16" TextAlignment="Left" Grid.ColumnSpan="2" Text="{Binding NumeroExterior}" IsReadOnly="True">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="16" TextAlignment="Left" Text="{Binding NumeroInterior}" IsReadOnly="True" CharacterCasing="Upper"></TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="16" TextAlignment="Left" Text="{Binding CodigoPostal}" IsReadOnly="True">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="5" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </Grid>
+            </Expander>
+
+            <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="4" Controls:TabControlHelper.IsUnderlined="True" Name="TabGroup" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" TabStripPlacement="Top" SelectedIndex="{Binding IndexPadre}" >
+                <TabItem Header="Ficha de Identificación" Style="{StaticResource HeaderTabStyle}" IsSelected="{Binding TabFichaIdentificacion}">
+                    <Views:FichaIdentificacion Style="{StaticResource ViewTabStyle}" />
+                </TabItem>
+                <TabItem Header="Situación Juridica" Style="{StaticResource HeaderTabStyle}" IsSelected="{Binding TabSituacionJuridicaSelected}" IsEnabled="{Binding SituacionJuridicaEnabled }">
+                    <Views:SituacionJuridica Style="{StaticResource ViewTabStyle}" />
+                </TabItem>
+                <TabItem Header="Factores Socio Familiares" Style="{StaticResource HeaderTabStyle}" IsSelected="{Binding TabFactoresSocioFamiliaresSelected}" IsEnabled="{Binding FactoresSocioFamiliaresEnabled }">
+                    <Views:FactoresSocioFamiliares Style="{StaticResource ViewTabStyle}" />
+                </TabItem>
+                <TabItem Header="Conductas Parasociales" Style="{StaticResource HeaderTabStyle}" IsSelected="{Binding TabConductasParasocialesSelected}" IsEnabled="{Binding ConductasParasocialesEnabled }">
+                    <Views:ConductaParasocial Style="{StaticResource ViewTabStyle}" MaxWidth="{Binding ElementName=spGeneral,Path=ActualWidth}" />
+                </TabItem>
+                <!--<TabItem Header="Actividades" Style="{StaticResource HeaderTabStyle}" IsSelected="{Binding TabActividadesSelected}" IsEnabled="{Binding ActividadesEnabled}">
+                    <Views:Actividades Style="{StaticResource ViewTabStyle}" />
+                </TabItem>-->
+                <TabItem Header="Clasificación Criminológica" Style="{StaticResource HeaderTabStyle}" IsSelected="{Binding TabClasificacionCriminologicaPadreSelected}" IsEnabled="{Binding ClasCriminologicaEnabled }" >
+                    <Views:ClasCrim Style="{StaticResource ViewTabStyle}" MaxWidth="{Binding ElementName=spGeneral,Path=ActualWidth}" />
+                </TabItem>
+                <TabItem Header="Tratamiento" Style="{StaticResource HeaderTabStyle}" MaxWidth="{Binding ElementName=spGeneral,Path=ActualWidth}">
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Content="Agregar Eje" Padding="0" />
+                            <Button Command="{Binding AgregarEje}" CommandParameter="{Binding ElementName=DynamicGrid}" IsEnabled="{Binding IsEnabledTratamiento}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Agregar Eje" Width="50" Height="50">
+                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_column_one}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Center" Visibility="{Binding VisibleHistorial}" >
+                            <Label HorizontalAlignment="Center" Content="Ver Histórico" Padding="0" />
+                            <Button Command="{Binding OnClick}" CommandParameter="historial_tratamiento"  IsEnabled="{Binding IsEnabledTratamiento}"
+                                    Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Ver Histórico" Width="50" Height="50">
+                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cabinet_in}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Center" Visibility="{Binding VisibleCargarHistorico}" >
+                            <Label HorizontalAlignment="Center" Content="Cargar Histórico" Padding="0" />
+                            <Button Command="{Binding OnClick}" CommandParameter="cargar_historial"  IsEnabled="{Binding IsEnabledTratamiento}"
+                                    Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Cargar Histórico" Width="50" Height="50">
+                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list_add_below}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        <!--TODO REALMENTE SE USA???-->
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Center" Visibility="Collapsed">
+                            <Label HorizontalAlignment="Center" Content="Agregar Actividad" Padding="0" />
+                            <Button Command="{Binding AgregarActividad}" CommandParameter="{Binding ElementName=DynamicGrid}" IsEnabled="{Binding IsEnabledTratamiento}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Agregar Actividad" Width="50" Height="50">
+                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list_add_below}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        
+
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Content="Guardar" Padding="0" />
+                            <Button Command="{Binding GuardarActividad}" CommandParameter="{Binding ElementName=DynamicGrid}" IsEnabled="{Binding IsEnabledTratamiento}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Guardar" Width="50" Height="50">
+                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Center" Visibility="Collapsed">
+                            <Label HorizontalAlignment="Center" Content="Limpiar" Padding="0" />
+                            <Button Command="{Binding LimpiarGrid}" CommandParameter="{Binding ElementName=DynamicGrid}" IsEnabled="{Binding IsEnabledTratamiento}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Limpiar" Width="50" Height="50" >
+                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_list_create}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="4" HorizontalAlignment="Center" Visibility="Collapsed">
+                            <Label HorizontalAlignment="Center" Content="Cargar" Padding="0" />
+                            <Button Command="{Binding CargarGrid}" CommandParameter="{Binding ElementName=DynamicGrid}" IsEnabled="{Binding IsEnabledTratamiento}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" ToolTip="Cargar" Width="50" Height="50">
+                                <Rectangle Width="25" Height="25" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cell_up}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        
+                        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Text="{Binding ErrorText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                        <ScrollViewer Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" MaxHeight="700" Width="{Binding ElementName=EntrevistaWindow,Path=ActualWidth}" ScrollViewer.HorizontalScrollBarVisibility="Visible" >
+                            <Grid Name="DynamicGrid" HorizontalAlignment = "Stretch" VerticalAlignment="Stretch" ShowGridLines="True" Background="LightSteelBlue" />
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+            </Controls:MetroAnimatedSingleRowTabControl>
+
+        </Grid>
+        <Popup AllowsTransparency="True" IsEnabled="True" IsOpen="{Binding AgregarUsoDrogasVisible}"   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Placement="Center" PlacementTarget="{Binding ElementName=gridGeneral}">
+            <Views:AgregarUsoDrogasView  Visibility="{Binding AgregarUsoDrogasVisible, Converter={StaticResource booleanToVisibilityConverter}}"/>
+        </Popup>
+        <Views:TopografiaHumanaView Visibility="{Binding Path=TatuajesVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+
+        <!--MODALS-->
+
+
+
+    </StackPanel>
+</UserControl>

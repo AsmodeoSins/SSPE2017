@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="ControlPenales.MotivoView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:DataRangeSlider="clr-namespace:Andora.UserControlLibrary;assembly=Andora.UserControlLibrary" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight" xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_Motivo" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="260">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="725" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Text="MOTIVO" VerticalAlignment="Top" FontSize="20" Grid.Row="1" />
+                    <TextBox Grid.Column="1" Grid.Row="2" Height="250" TextWrapping="Wrap" MaxLength="1000" Text="{Binding MotivoText}" Margin="0,0,10,0" CharacterCasing="Upper" />
+                    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,15,0">
+                        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,10,10,10"
+                                CommandParameter="guardar_Motivo" Command="{Binding OnClick}">Guardar</Button>
+                        <Button Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,0,0,10" CommandParameter="cancelar_Motivo" Command="{Binding OnClick}" Height="28"
+                                VerticalAlignment="Bottom">Cancelar</Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

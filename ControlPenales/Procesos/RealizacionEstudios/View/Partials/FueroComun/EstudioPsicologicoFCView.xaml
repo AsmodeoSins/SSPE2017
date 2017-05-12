@@ -1,0 +1,210 @@
+﻿<UserControl x:Class="ControlPenales.EstudioPsicologicoFCView" x:Name="EstudioPsicologicoFCWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1200" d:DesignHeight="1200">
+    <UserControl.Resources>
+        <Views:SiNoConverter x:Key="ConvertirSiNo"/>
+    </UserControl.Resources>
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Condiciones generales del interno (condiciones de higiene y aliño personal, actitud ante la entrevista, respuesta emocional del entrevistado, impresión general sobre el interno)" Name="lblABC"></TextBlock>
+            <TextBox Grid.Column="0" Grid.Row="1" MinHeight="50" Grid.ColumnSpan="2" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" MaxLength="500" Text="{ Binding CondicionesGralesInterno, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblABC, Path=ActualWidth}" ></TextBox>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Examen mental (motricidad, conciencia, atención, pensamiento, ansiedad, comprensión, memoria, afecto, juicio, lenguaje y alteraciones de la sensopercepción)" Grid.ColumnSpan="2"></TextBlock>
+            <TextBox Grid.Column="0" MinHeight="50" Grid.ColumnSpan="2" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" MaxLength="500" Text="{ Binding ExamenMental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblABC, Path=ActualWidth}" ></TextBox>
+
+
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Descripción de los principales rasgos a su ingreso, relacionados con la comisión del delito (incluir factores predisponentes, preparantes y desencadenantes del delito)" Grid.ColumnSpan="2"></TextBlock>
+            <TextBox Grid.Column="0" MinHeight="50" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" MaxLength="500" Grid.ColumnSpan="2" Text="{ Binding DescripcionPrincipalesRazgosIngreso, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblABC, Path=ActualWidth}" ></TextBox>
+
+            <GroupBox Header="señalar las pruebas psicológicas aplicadas" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <CheckBox  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Content="TEST GUESTALTICO VISOMOTOR DE LAURETTA BENDER" Grid.Column="0" Grid.Row="1" IsChecked="{ Binding IsTestLaurettaBenderChecked, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                    <CheckBox  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Content="TEST DE MATRICES PROGRESIVAS DE RAVEN" Grid.Column="1" Grid.Row="1" IsChecked="{ Binding IsTestMatricesProgresivasRavenChecked, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                    <CheckBox  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Content="TEST (HTP) CASA, ARBOL, PERSONA" Grid.Column="0" Grid.Row="2" IsChecked="{ Binding IsTestCasaArbolPersonaChecked, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                    <CheckBox  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Content="INVENTARIO MULTIFÁSICO DE LA PERSONALIDAD MINESOTA (MMPI 1 o 2)" Grid.Column="1" Grid.Row="2" IsChecked="{ Binding IsTestMinesotaChecked, UpdateSourceTrigger=PropertyChanged}" Name="ChkUno"></CheckBox>
+                    <CheckBox  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Content="OTRA (S)" Grid.Column="0" Grid.Row="3" IsChecked="{ Binding IsTestOtrosChecked, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                    <TextBox Grid.Column="1" Grid.Row="3" MaxLength="500" Text="{ Binding EspecifiqueOtroTest, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=ChkUno, Path=ActualWidth}"
+                        IsEnabled="{ Binding IsEnabledOtroTest, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="interpretación de las pruebas psicológicas aplicadas" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Nivel intelectual"></TextBlock>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="Datos de disfunción neurológica"></TextBlock>
+                    <ComboBox Grid.Column="0"  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" ItemsSource="{ Binding LstNivelIntelectualComun}" DisplayMemberPath="DESCR" SelectedValuePath="ID_NIVEL"
+                SelectedValue="{ Binding IdNivelIntelectual, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" SelectedValuePath="ID_DISFUNCION" ItemsSource="{ Binding ListDisfuncionNComun}" DisplayMemberPath="DESCR"
+                SelectedValue="{ Binding IdDisfuncionNeurologica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+            <TextBlock Grid.Column="0" Grid.Row="9" Text="Integración de la dinámica de la personalidad actual (basada en los resultados de la batería de pruebas psicológicas aplicadas, entrevista, y examen mental)" Grid.ColumnSpan="2"></TextBlock>
+            <TextBox Grid.Column="0" MinHeight="50" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" Grid.Row="10" MaxLength="500" Grid.ColumnSpan="2" Text="{ Binding IntegracionDinamicaPersonalidadActual, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblABC, Path=ActualWidth}" ></TextBox>
+            <GroupBox MinHeight="300" Header="Tratamiento recibido durante su internamiento de conformidad con el modelo estratégico del sistema de reinserción social" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="11">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="PROGRAMAS DE DESHABITUAMIENTO" Grid.Column="0" Grid.Row="0">
+                        <DataGrid IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{ Binding LstProgramasPsicologico, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  CanUserAddRows="False" IsReadOnly="True"
+                        Style="{StaticResource MetroDataGrid}" AutoGenerateColumns="False" SelectedItem="{ Binding SelectedPsicologicoGrupo}">
+                            <DataGrid.Columns>
+                                <!--<DataGridTextColumn Header="Tipo de Programa" Binding="{Binding TIPO_PROGRAMA.NOMBRE}"></DataGridTextColumn>-->
+                                <DataGridTextColumn Header="Programa" Binding="{Binding ACTIVIDAD.DESCR}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Duración" Binding="{Binding DURACION , UpdateSourceTrigger=LostFocus, Mode=TwoWay}"></DataGridTextColumn>
+                                <!--<DataGridTextColumn Header="Concluyó (si/no)" Binding="{Binding CONCLUYO ,Converter={StaticResource ConvertirSiNo} , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></DataGridTextColumn>-->
+                                <DataGridTextColumn Header="Observaciones" Binding="{Binding OBSERVACION , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Agregar" CommandParameter="agregar_grupo_uno" Command="{Binding OnClick}" />
+                                    <MenuItem Header="Editar" CommandParameter="editar_grupo" Command="{Binding OnClick}" />
+                                    <MenuItem Header="Eliminar" CommandParameter="eliminar_grupo_uno" Command="{Binding OnClick}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Programas de modificación de la conducta" Grid.Column="0" Grid.Row="1">
+                        <DataGrid  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{ Binding LstProgModifConduc , UpdateSourceTrigger=PropertyChanged}"  CanUserAddRows="False" IsReadOnly="True"
+                        Style="{StaticResource MetroDataGrid}" AutoGenerateColumns="False" SelectedItem="{ Binding SelectedPsicologicoGrupo}">
+                            <DataGrid.Columns>
+                                <!--<DataGridTextColumn Header="Tipo de Programa" Binding="{Binding TIPO_PROGRAMA.NOMBRE}"></DataGridTextColumn>-->
+                                <DataGridTextColumn Header="Programa" Binding="{Binding ACTIVIDAD.DESCR}"></DataGridTextColumn>
+                                <!--<DataGridTextColumn Header="Duración" Binding="{Binding DURACION , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></DataGridTextColumn>-->
+                                <DataGridTextColumn Header="Concluyó (si/no)" Binding="{Binding CONCLUYO ,Converter={StaticResource ConvertirSiNo} , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Observaciones" Binding="{Binding OBSERVACION , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Agregar" CommandParameter="agregar_grupo_dos" Command="{Binding OnClick}" />
+                                    <MenuItem Header="Editar" CommandParameter="editar_grupo_dos" Command="{Binding OnClick}" />
+                                    <MenuItem Header="Eliminar" CommandParameter="eliminar_grupo_dos" Command="{Binding OnClick}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Programas complementarios de orientación y apoyo" Grid.Column="0" Grid.Row="2">
+                        <DataGrid  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{ Binding LstComplement , UpdateSourceTrigger=PropertyChanged}"  CanUserAddRows="False" IsReadOnly="True"
+                        Style="{StaticResource MetroDataGrid}" AutoGenerateColumns="False" SelectedItem="{ Binding SelectedPsicologicoGrupo}">
+                            <DataGrid.Columns>
+                                <!--<DataGridTextColumn Header="Tipo de Programa" Binding="{Binding TIPO_PROGRAMA.NOMBRE, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>-->
+                                <DataGridTextColumn Header="Programa" Binding="{Binding ACTIVIDAD.DESCR , UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                                <!--<DataGridTextColumn Header="Duración" Binding="{Binding DURACION , UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>-->
+                                <DataGridTextColumn Header="Concluyó (si/no)" Binding="{Binding CONCLUYO ,Converter={StaticResource ConvertirSiNo} , UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Observaciones" Binding="{Binding OBSERVACION , UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Agregar" CommandParameter="agregar_grupo_tres" Command="{Binding OnClick}" />
+                                    <MenuItem Header="Editar" CommandParameter="editar_grupo_tres" Command="{Binding OnClick}" />
+                                    <MenuItem Header="Eliminar" CommandParameter="eliminar_grupo_tres" Command="{Binding OnClick}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="Talleres de orientación" Grid.Column="0" Grid.Row="3">
+                        <DataGrid  IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{ Binding LstTalleresOrient , UpdateSourceTrigger=PropertyChanged}"  CanUserAddRows="False" IsReadOnly="True"
+                        Style="{StaticResource MetroDataGrid}" AutoGenerateColumns="False" SelectedItem="{ Binding SelectedPsicologicoGrupo}">
+                            <DataGrid.Columns>
+                                <!--<DataGridTextColumn Header="Tipo de Programa" Binding="{Binding TIPO_PROGRAMA.NOMBRE}"></DataGridTextColumn>-->
+                                <DataGridTextColumn Header="Nombre del Taller" Binding="{Binding ACTIVIDAD.DESCR}"></DataGridTextColumn>
+                                <!--<DataGridTextColumn Header="Duración" Binding="{Binding DURACION}"></DataGridTextColumn>-->
+                                <DataGridTextColumn Header="Concluyó (si/no)" Binding="{Binding CONCLUYO ,Converter={StaticResource ConvertirSiNo}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Observaciones" Binding="{Binding OBSERVACION}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Agregar" CommandParameter="agregar_grupo_cuatro" Command="{Binding OnClick}" />
+                                    <MenuItem Header="Editar" CommandParameter="editar_grupo_cuatro" Command="{Binding OnClick}" />
+                                    <MenuItem Header="Eliminar" CommandParameter="eliminar_grupo_cuatro" Command="{Binding OnClick}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+            <TextBlock Grid.Column="0" Grid.Row="12" Text="Rasgos de personalidad relacionados con la comisión del delito, que ha logrado modificar durante su internamiento" Grid.ColumnSpan="2"></TextBlock>
+            <TextBox Grid.Column="0" Grid.Row="13" MinHeight="50" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}"  MaxLength="500" Grid.ColumnSpan="2" Text="{ Binding RasgosPersonalidadRelaciondosComisionDelito, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblABC, Path=ActualWidth}" ></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="14" Text="Dictamen de reinserción social del interno"></TextBlock>
+            <ComboBox Grid.Column="0" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="15" SelectedValuePath="Tag"
+                SelectedValue="{ Binding IdDictamenPsicologicoComun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <ComboBoxItem Content="SELECCIONE" Tag="0"></ComboBoxItem>
+                <ComboBoxItem Content="FAVORABLE" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="DESFAVORABLE" Tag="2"></ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="2" Text="Motivación del dictamen (basada en los rasgos de personalidad relacionados con el delito, que logro modificar el interno, en razón del tratamiento recibido)"></TextBlock>
+            <TextBox Grid.Column="0" TextWrapping="Wrap" MinHeight="75" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="17" Grid.ColumnSpan="2" MaxLength="500" Text="{ Binding MotivacionDictamenPsicologicoComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"  MaxWidth="{ Binding ElementName=lblABC, Path=ActualWidth}"></TextBox>
+
+            <TextBlock Grid.Column="0" Grid.Row="18" Text="En caso negativo, es necesario se señale a que programas o actividades debe de remitirse al interno, de conformidad con el modelo estratégico del sistema de reinserción social" Grid.ColumnSpan="2" Name="lblReferencia"></TextBlock>
+            <TextBox Grid.Column="0" IsEnabled="{ Binding IsRequeridoCasoN, UpdateSourceTrigger=PropertyChanged}" Grid.Row="19" MinHeight="50" MaxLength="500" Grid.ColumnSpan="2" Text="{ Binding CasoNegativoEstudioPsicologicoComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}" TextWrapping="Wrap"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="20" Text="¿Requiere tratamiento extra muros?"></TextBlock>
+            <TextBlock Grid.Column="1" Grid.Row="20" Text="¿Cuál?" Name="lblCualTra"></TextBlock>
+            <ComboBox Grid.Column="0" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="21" SelectedValuePath="Tag"
+                SelectedValue="{ Binding IdReqExtraMurosPsicologicoComun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+            </ComboBox>
+            <TextBox Grid.Column="1" Grid.Row="21" MaxLength="500" Text="{ Binding CualTratamientoExtraMurosPsicologicoComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"
+                IsEnabled="{ Binding IsEnabledCualTratamExtraMurosPsicologicoComun, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblCualTra, Path=ActualWidth}"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="22" Text="Fecha de realización del estudio"></TextBlock>
+            <DatePicker Grid.Column="0" Grid.Row="23" IsEnabled="{ Binding IsEnabledDatosPsicologoComun, UpdateSourceTrigger=PropertyChanged}"  Controls:TextBoxHelper.Watermark="Seleccione una fecha"
+                SelectedDate="{Binding FechaDictamenPsicologicoComun,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}"></DatePicker>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

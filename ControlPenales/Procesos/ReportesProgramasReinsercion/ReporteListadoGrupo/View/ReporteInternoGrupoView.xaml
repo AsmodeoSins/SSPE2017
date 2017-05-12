@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="ControlPenales.ReporteInternoGrupoView"
+             x:Name="ReporteInternoGrupoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto"
+             Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoading}"
+                                   CommandParameter="{Binding ElementName=ReporteInternoGrupoWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="1"
+               Content="Grupos"
+               Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Grid.Row="2"
+                  Header="Seleccione Filtros"
+                  Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".02*"></ColumnDefinition>
+                    <ColumnDefinition Width=".12*"></ColumnDefinition>
+                    <ColumnDefinition Width=".05*"></ColumnDefinition>
+                    <ColumnDefinition Width=".12*"></ColumnDefinition>
+                    <ColumnDefinition Width=".05*"></ColumnDefinition>
+                    <ColumnDefinition Width=".12*"></ColumnDefinition>
+                    <ColumnDefinition Width=".04*"></ColumnDefinition>
+                    <ColumnDefinition Width=".12*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="EJE"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center" />
+                <ComboBox Grid.Column="1"
+                          Height="25"
+                          VerticalAlignment="Center"
+                          ItemsSource="{Binding LstEje}"
+                          SelectedValuePath="ID_EJE"
+                          DisplayMemberPath="DESCR"
+                          SelectedValue="{Binding SelectedEje}"
+                          IsEnabled="{Binding EjeEnabled}">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}"
+                               BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding COMPLEMENTARIO}"
+                                             Value="COMPLEMENTARIO">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                <StackPanel>
+                                                    <Separator HorizontalAlignment="Stretch"
+                                                               BorderBrush="#427399"
+                                                               IsEnabled="False" />
+                                                    <TextBlock Text="COMPLEMENTARIO"
+                                                               Foreground="#427399" />
+                                                    <Separator HorizontalAlignment="Stretch"
+                                                               BorderBrush="#427399"
+                                                               IsEnabled="False" />
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding COMPLEMENTARIO}"
+                                             Value="MODELO">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                <StackPanel>
+                                                    <Separator HorizontalAlignment="Stretch"
+                                                               BorderBrush="#427399"
+                                                               IsEnabled="False" />
+                                                    <TextBlock Text="MODELO"
+                                                               Foreground="#427399" />
+                                                    <Separator HorizontalAlignment="Stretch"
+                                                               BorderBrush="#427399"
+                                                               IsEnabled="False" />
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <TextBlock Grid.Column="2"
+                           Text="PROGRAMA"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center" />
+                <ComboBox Grid.Column="3"
+                          Height="25"
+                          VerticalAlignment="Center"
+                          ItemsSource="{Binding LstPrograma}"
+                          SelectedValuePath="ID_TIPO_PROGRAMA"
+                          DisplayMemberPath="NOMBRE"
+                          SelectedValue="{Binding SelectedPrograma}"
+                          IsEnabled="{Binding ProgramaEnabled}" />
+                <TextBlock Grid.Column="4"
+                           Text="ACTIVIDAD"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center" />
+                <ComboBox Grid.Column="5"
+                          Height="25"
+                          VerticalAlignment="Center"
+                          ItemsSource="{Binding LstActividad}"
+                          SelectedValuePath="ID_ACTIVIDAD"
+                          DisplayMemberPath="DESCR"
+                          SelectedValue="{Binding SelectedActividad}"
+                          IsEnabled="{Binding ActividadEnabled}" />
+                <TextBlock Grid.Column="6"
+                           Text="GRUPO"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center" />
+                <ComboBox Grid.Column="7"
+                          Height="25"
+                          VerticalAlignment="Center"
+                          ItemsSource="{Binding LstGrupo}"
+                          SelectedValuePath="ID_GRUPO"
+                          DisplayMemberPath="DESCR"
+                          SelectedValue="{Binding SelectedGrupo}"
+                          IsEnabled="{Binding EnabledEditGrupo}" />
+            </Grid>
+        </GroupBox>
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <DockPanel Grid.Row="3"
+                       Margin=" 0 10 0 0"
+                       HorizontalAlignment="Center"
+                       MinHeight="600">
+                <WindowsFormsHost MinWidth="800"
+                                  Name="WFH"
+                                  Visibility="{Binding ReportViewerVisible}"
+                                  HorizontalAlignment="Center">
+                    <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+                </WindowsFormsHost>
+            </DockPanel>
+            <Button  Grid.Row="3"
+                     Width="120"
+                     Style="{DynamicResource AccentedSquareButtonStyle}"
+                     HorizontalAlignment="Right"
+                     CommandParameter="Generar_Reporte"
+                     Command="{Binding OnClick}"
+                     Height="28"
+                     VerticalAlignment="Top"
+                     Margin="10,20,10,10">Generar Reporte</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

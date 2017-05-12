@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="ControlPenales.ActitudGeneralEntrevistado"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             Width="auto" Height="auto"
+             Name="ActitudGeneralWindow"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ActitudGeneralLoading}" CommandParameter="{Binding ElementName=ActitudGeneralWindow}"  />
+        </i:EventTrigger>
+        </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="ACTITUD GENERAL DEL ENTREVISTADO">
+            <Grid Name="actitud">
+                <TextBox Grid.Column="0" Grid.Row="1" AcceptsReturn="True" Height="200" MaxLength="1000" Text="{Binding ActitudGeneralEntrv,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{Binding ElementName=actitud,  Path=ActualWidth}" />
+            </Grid>
+        </GroupBox>
+       </Grid>
+</UserControl>

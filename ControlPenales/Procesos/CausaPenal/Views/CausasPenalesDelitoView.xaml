@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ControlPenales.CausasPenalesDelitoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid VerticalAlignment="Top" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Título"></Label>
+        <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding DTitulo}" IsEnabled="False"></TextBox>
+        
+        <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Content="Capítulo"></Label>
+        <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding DGrupo}" IsEnabled="False"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Delito"></Label>
+        <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding DDelito}" IsEnabled="False"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Descripción del Delito(Modalidad)"></Label>
+        <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding DModalidad}" IsEnabled="False"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Content="Detalle"></Label>
+        <TextBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding DDetalle}" IsEnabled="False"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="10" Content="Artículo"></Label>
+        <TextBox Grid.Column="0" Grid.Row="11" IsReadOnly="True" Text="{Binding DArticulo}" IsEnabled="False"></TextBox>
+        
+        <Label Grid.Column="1" Grid.Row="10" Content="Fuero" HorizontalAlignment="Left"></Label>
+        <TextBox Grid.Column="1" Grid.Row="11" Width="100" HorizontalAlignment="Left" IsReadOnly="True" Text="{Binding DFuero}" IsEnabled="False"></TextBox>
+    </Grid>
+</UserControl>

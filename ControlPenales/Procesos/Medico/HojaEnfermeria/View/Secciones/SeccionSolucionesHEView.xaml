@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="ControlPenales.SeccionSolucionesHEView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+             xmlns:Views="clr-namespace:ControlPenales" 
+             Name="SeccionSolucionesHEWindow"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:actb="clr-namespace:ControlPenales.Controls"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CapturaSolucionesHELoading}" CommandParameter="{Binding ElementName=SeccionSolucionesHEWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:MyDataTemplateSelector x:Key="TemplateSelector"/>
+        <Views:AutocompleteViewModel x:Key="vm" />
+        <Views:TrimStringConverter x:Key="Trimming" />
+        <CollectionViewSource x:Key="receta">
+            <CollectionViewSource.Source>
+                <PriorityBinding>
+                    <Binding Source="{StaticResource vm}" Path="QueryReceta" IsAsync="True"/>
+                    <Binding Source="{StaticResource vm}" Path="WaitMessage"/>
+                </PriorityBinding>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <DataTemplate x:Key="WaitTemplate">
+            <TextBlock Text="{Binding}" Background="SlateBlue"/>
+        </DataTemplate>
+        <DataTemplate x:Key="TheItemTemplateReceta">
+            <Border CornerRadius="5" BorderBrush="#427399" BorderThickness="3" Background="Transparent" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <Grid HorizontalAlignment="Left" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="CATEGORIA:  "/>
+                        <TextBlock Text="{Binding PRODUCTO.PRODUCTO_CATEGORIA.NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="PRODUCTO:  "/>
+                        <TextBlock Text="{Binding PRODUCTO.NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Medicamento" HorizontalAlignment="Stretch" Name="lbAnchoTratamiento" VerticalAlignment="Top"></Label>
+        <actb:AutoCompleteTextBox Grid.Row="1" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Text="{Binding Source={StaticResource vm}, Path=TextReceta, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"
+                                                  x:Name="AutoCompleteReceta" MaxCompletions="10000" Width="400" ItemsSource="{Binding Source={StaticResource receta}}" ItemTemplateSelector="{StaticResource TemplateSelector}" 
+                                                  Binding="{Binding XPath=suggestion/@data}" HorizontalAlignment="Left" />
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding ListRecetas}" Height="150" SelectionUnit="FullRow" IsReadOnly="True"
+                                  Grid.Row="2" Width="{Binding ActualWidth,ConverterParameter=x-1,Converter={Views:MathConverter},ElementName=lbAnchoTratamiento}" SelectedItem="{Binding SelectReceta}"
+                                  Name="dgRecetaMedica" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Descripción" Binding="{Binding PRODUCTO.NOMBRE}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="PRESENTACIÓN">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding PRODUCTO.PRODUCTO_PRESENTACION_MED}" DisplayMemberPath="PRESENTACION_MEDICAMENTO.DESCRIPCION" SelectedValuePath="ID_PRESENTACION_MEDICAMENTO" 
+                                                      SelectedValue="{Binding PRESENTACION,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}"></ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Terminó">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding HORA_NOCHE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_medicamento_hoja_enfermeria" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</UserControl>

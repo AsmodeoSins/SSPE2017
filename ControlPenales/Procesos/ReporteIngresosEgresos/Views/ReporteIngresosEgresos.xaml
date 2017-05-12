@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ControlPenales.ReporteIngresosEgresos"
+             x:Name="ReporteIngresosEgresosWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoading}" CommandParameter="{Binding ElementName=ReporteIngresosEgresosWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock  Text="Ingresos y Egresos" FontSize="20" Margin="50 10 10 10" HorizontalAlignment="Left"/>
+
+        <StackPanel  Margin="20 0 0 0" Grid.Row="1">
+            <TextBlock  Margin="20 0 0 0" Text="Tipo de búsqueda" FontWeight="Bold"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Margin="5 0 5 0" Content="Selección de Mes" IsChecked="{Binding SeleccionMesSelected}"/>
+                <RadioButton Margin="5 0 5 0" Content="Rango de fechas" IsChecked="{Binding RangoFechasSelected}"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="20 0 0 0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding SeleccionMesVisible}">
+                <TextBlock Margin="10 0 0 0" Text="Mes: " VerticalAlignment="Center"/>
+                <ComboBox Name="ListaMeses" Margin="0 0 10 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding RangoFechasVisible}">
+                <TextBlock Margin="10 0 0 0" Text="Fecha Inicial: " VerticalAlignment="Center"/>
+                <DatePicker Height="30" Controls:TextBoxHelper.Watermark="Selecciona una fecha" DisplayDate="{Binding SelectedFechaInicial}" SelectedDate="{Binding SelectedFechaInicial,NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Margin="10 0 0 0" Text="Fecha Final: " VerticalAlignment="Center"/>
+                <DatePicker Height="30" Controls:TextBoxHelper.Watermark="Selecciona una fecha" DisplayDate="{Binding SelectedFechaFinal}" SelectedDate="{Binding SelectedFechaFinal,NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}"/>
+
+            </StackPanel>
+            <Button Margin="10 0 0 0" Height="30"  Width="100" Content="Generar" Style="{StaticResource AccentedSquareButtonStyle}" Command="{Binding OnClick}" CommandParameter="GenerarReporte"/>
+        </StackPanel>
+        <WindowsFormsHost Grid.Row="3" Width="1100" Height="650" Name="WFH" Margin="20" Visibility="{Binding ReportViewerVisible}"  HorizontalAlignment="Center" >
+            <rv:ReportViewer x:Name="ReportIngresosEgresos"></rv:ReportViewer>
+        </WindowsFormsHost>
+    </Grid>
+</UserControl>

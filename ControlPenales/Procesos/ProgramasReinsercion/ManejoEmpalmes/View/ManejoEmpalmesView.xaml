@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="ControlPenales.ManejoEmpalmesView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Name="ManejoEmpalmeWindow" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:ControlPenales" mc:Ignorable="d" d:DesignHeight="550" d:DesignWidth="600" Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ManejoEmpalmeLoading}" CommandParameter="{Binding ElementName=ManejoEmpalmeWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid MaxWidth="{Binding ElementName=ManejoEmpalmeWindow,Path=ActualWidth}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <local:MenuCatalogosView Grid.ColumnSpan="3" />
+        <Label Grid.Row="1" Content="Manejo de Empalmes" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Grid.Column="2" Grid.Row="2" Header="Lista de Participantes Empalmados">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <DataGrid Style="{StaticResource MetroDataGrid}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        ItemsSource="{Binding ListEmpalmesParticipantes,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedParticipante}" CanUserAddRows="False"
+                        CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" AutoGenerateColumns="False" MinHeight="200" MaxHeight="450" IsEnabled="{Binding ListaEmpalmeEnabled}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="AÑo" Binding="{Binding ID_ANIO}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="FOLIO" Binding="{Binding ID_IMPUTADO}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="PATERNO" Binding="{Binding PATERNO}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="MATERNO" Binding="{Binding MATERNO}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="NOMBRE" Binding="{Binding NOMBRE}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="UBICACIÓN" Binding="{Binding UBICACION}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="DELITO" Binding="{Binding DELITO}" IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="3" Header="Manejo de Empalmes" Visibility="{Binding DecidirPorGrupo}" Grid.ColumnSpan="2">
+            <Grid Background="LightSteelBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding MSGINFO}" />
+                <Grid Grid.Row="1" Name="DynamicGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10" />
+                <ScrollViewer Grid.Row="2" MaxHeight="500" Width="{Binding ElementName=DynamicGrid,Path=ActualWidth}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <WrapPanel Name="DynamicWrapPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="{Binding ElementName=DynamicGrid,Path=ActualWidth}" />
+                </ScrollViewer>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Grid.RowSpan="1" Header="Información">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
+                </Grid.RowDefinitions>
+                <Border BorderThickness="1" BorderBrush="#3F7096">
+                    <Grid Background="{Binding SelectedParticipante.PLANIMETRIACOLOR}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="160"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Width="150" Source="{Binding ImagenParticipante}" Margin="0,10,0,0" />
+                        <ProgressBar Grid.Row="1" Grid.Column="0" Maximum="{Binding MaxValueProBar}" Minimum="0" Value="{Binding CantidadActividadesAprovadas}" Margin="25,0,35,0" />
+                        <Grid Grid.Row="2" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">AVANCE</Label>
+                            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding AvanceTratamiento}" />
+                            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">HORAS DE TRATAMIENTO</Label>
+                            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding HorasTratamiento}" />
+                        </Grid>
+                    </Grid>
+                </Border>
+                <TextBlock Grid.Row="1" Text="PLANIMETRIA" />
+                <TextBox Grid.Row="2" IsReadOnly="True" Text="{Binding SelectedParticipante.PLANIMETRIA}" />
+                <TextBlock Grid.Row="3" Text="SENTENCIA" />
+                <TextBox Grid.Row="4" IsReadOnly="True" Text="{Binding SelectedParticipante.SENTENCIA}" />
+                <TextBlock Grid.Row="5" Text="SENTENCIA RESTANTE" />
+                <TextBox Grid.Row="6" IsReadOnly="True" Text="{Binding SelectedParticipante.RESTANTE}" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9d65c002-2164-485a-8200-b423107f384f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BiometricoService36.xsd" MetadataType="Schema" ID="495a343e-2d9a-4d50-9c98-14ebd6298b81" SourceId="1" SourceUrl="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="BiometricoService8.disco" MetadataType="Disco" ID="e016ef3d-ea9b-458b-bc0e-71e04be9e46e" SourceId="1" SourceUrl="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc?disco" />
+    <MetadataFile FileName="BiometricoService37.xsd" MetadataType="Schema" ID="364a1123-b51b-4b2f-8006-10acfcddb182" SourceId="1" SourceUrl="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc?xsd=xsd3" />
+    <MetadataFile FileName="BiometricoService8.wsdl" MetadataType="Wsdl" ID="304f2424-3b7f-4164-9a07-541363c7da7c" SourceId="1" SourceUrl="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc?wsdl" />
+    <MetadataFile FileName="BiometricoService38.xsd" MetadataType="Schema" ID="e9eb3a39-b34b-4d24-b7ab-da1b0a8f9dae" SourceId="1" SourceUrl="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc?xsd=xsd4" />
+    <MetadataFile FileName="BiometricoService39.xsd" MetadataType="Schema" ID="a57c40d4-d786-4c08-a39b-7842ce90ec6a" SourceId="1" SourceUrl="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="BiometricoService40.xsd" MetadataType="Schema" ID="099a1b29-1844-4669-a1a6-e5429ce5b6d9" SourceId="1" SourceUrl="http://10.3.205.69/WCF_BiometricoService/BiometricoService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

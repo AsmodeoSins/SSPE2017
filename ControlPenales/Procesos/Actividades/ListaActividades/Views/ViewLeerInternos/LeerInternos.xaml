@@ -1,0 +1,186 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.LeerInternos"
+        x:Name="LeerInternosWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Views="clr-namespace:ControlPenales"
+        xmlns:local="clr-namespace:ControlPenales"
+        xmlns:Dedo="clr-namespace:ControlPenales.BiometricoServiceReference"
+        Title="Lista de Asistencia" Height="500" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" IsWindowDraggable="False">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoading}" CommandParameter="{Binding ElementName=LeerInternosWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Width="300" BorderBrush="Black" Position="Right" IsOpen="{Binding CapturaNIPVisible}" Header="Identificación por NIP" IsModal="True" Theme="Light">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height=".2*"/>
+                    </Grid.RowDefinitions>
+
+                    <local:CapturaNIP />
+                    <TextBlock HorizontalAlignment="Center" Grid.Row="1" FontSize="14" FontWeight="Bold" Text="{Binding MensajeAprobacionNIP}" Foreground="{Binding ColorAprobacion}" />
+                </Grid>
+            </Controls:Flyout>
+            <Controls:Flyout IsModal="True" CloseButtonVisibility="Collapsed" Theme="Light"  Position="Right" Width="800" Height="280" IsOpen="{Binding CapturaIncidenciaVisible}">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition Height=".4*"/>
+                        <RowDefinition Height=".2*"/>
+                        <RowDefinition />
+                        <RowDefinition Height=".4*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Ha removido una asistencia, por lo cuál, debe capturar una incidencia de falso positivo." FontSize="12" FontWeight="Bold" />
+                    <TextBlock Grid.Row="1" Text="Si ha removido la asistencia por accidente, haga clic en Cancelar." FontSize="12" FontWeight="Bold" />
+                    <TextBlock Grid.Row="2" Text="Capture NIP:" FontSize="12" FontWeight="Bold" />
+
+                    <TextBox Grid.Row="3" Text="{Binding IncidenciaNIP,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Width="400" Height="20" Foreground="Black" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" >
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="13" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock Grid.Row="4" Text="Capture observación:" FontSize="12" FontWeight="Bold" />
+                    <TextBox Grid.Row="5" CharacterCasing="Upper" Text="{Binding TextoIncidencia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" Width="400" Height="150" Foreground="Black" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left"/>
+                    <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button  Width="150" Height="30" Style="{StaticResource AccentedSquareButtonStyle}" Margin="0 0 5 0" Content="Capturar Incidencia" Foreground="WhiteSmoke" BorderBrush="Black" Command="{Binding OnClick}" CommandParameter="CapturarIncidencia"/>
+                        <Button Width="150" Height="30" Content="Cancelar" Style="{StaticResource AccentedSquareButtonStyle}" Margin="5 0 0 0" Command="{Binding OnClick}" CommandParameter="CerrarIncidenciaFlyout"/>
+                    </StackPanel>
+
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".25*"/>
+            <RowDefinition Height=".10*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Toma de asistencia" VerticalAlignment="Center" Margin="10" FontSize="20"/>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width=".12*"/>
+                    <ColumnDefinition Width=".3*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding ScannerMessage}" FontWeight="Bold" FontSize="14" Foreground="{Binding ColorAprobacion}" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ScannerMessageVisible,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <Image Margin="10 0 0 10" Source="{Binding ImagenEvaluacion}" Width="40" Height="40" Visibility="{Binding ImagenEvaluacionVisible}"/>
+                    <Controls:ProgressRing Margin="10 0 0 10" Width="30" Height="30" Visibility="{Binding ProgressRingVisible,Converter={StaticResource BooleanToVisibilityConverter}}"></Controls:ProgressRing>
+                </StackPanel>
+
+                <Label Grid.Column="1" Content="/" VerticalAlignment="Center" FontSize="30" Visibility="{Binding ScannerMessageVisible,Converter={StaticResource BooleanToVisibilityConverter}}"></Label>
+                <StackPanel Margin="0 0 10 0" Width="80" Grid.Column="2">
+                    <Label HorizontalAlignment="Center" Content="Captura NIP"/>
+                    <Button  Width="50" Height="50"  ToolTip="Identificar por huellas" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="OpenCloseFlyout">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_layout_expand_left}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+
+        <ComboBox Grid.Row="1" HorizontalAlignment="Right" Margin="10 4 10 0" Width="200" VerticalAlignment="Top"  SelectedValuePath="Tag" SelectedValue="{Binding SelectedFinger,Mode=TwoWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding BusquedaHuellas}" CommandParameter="{Binding SelectedFinger}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Separator Height="25" >
+                <Separator.Template>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Separator Background="#3373F2"/>
+                            <TextBlock Text="Mano Derecha" Foreground="#3373F2"/>
+                            <Separator Background="#3373F2"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Separator.Template>
+            </Separator>
+            <ComboBoxItem Content="Pulgar Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.PULGAR_DERECHO }" />
+            <ComboBoxItem Content="Indice Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.INDICE_DERECHO }" />
+            <ComboBoxItem Content="Medio Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.MEDIO_DERECHO }" />
+            <ComboBoxItem Content="Anular Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.ANULAR_DERECHO }" />
+            <ComboBoxItem Content="Meñique Derecho" Tag="{x:Static Dedo:enumTipoBiometrico.MENIQUE_DERECHO }" />
+            <Separator Height="25" >
+                <Separator.Template>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Separator Background="#3373F2"/>
+                            <TextBlock Text="Mano Izquierda" Foreground="#3373F2"/>
+                            <Separator Background="#3373F2"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Separator.Template>
+            </Separator>
+            <ComboBoxItem Content="Pulgar Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.PULGAR_IZQUIERDO }" />
+            <ComboBoxItem Content="Indice Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.INDICE_IZQUIERDO }" />
+            <ComboBoxItem Content="Medio Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.MEDIO_IZQUIERDO }" />
+            <ComboBoxItem Content="Anular Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.ANULAR_IZQUIERDO }" />
+            <ComboBoxItem Content="Meñique Izquierdo" Tag="{x:Static Dedo:enumTipoBiometrico.MENIQUE_IZQUIERDO }" />
+        </ComboBox>
+
+        <Grid Grid.Row="2" Grid.RowSpan="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width=".60*"/>
+            </Grid.ColumnDefinitions>
+
+
+
+            <DataGrid Name="ListaAsistencia" Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding ListaAsistencias}" SelectedItem="{Binding SelectedAsistencia}" CanUserAddRows="False" Margin="10" ScrollViewer.VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" Background="WhiteSmoke">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Año" Binding="{Binding GRUPO_PARTICIPANTE.INGRESO.ID_ANIO}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Folio" Binding="{Binding GRUPO_PARTICIPANTE.INGRESO.ID_IMPUTADO}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Paterno" Binding="{Binding GRUPO_PARTICIPANTE.INGRESO.IMPUTADO.PATERNO}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Materno" Binding="{Binding GRUPO_PARTICIPANTE.INGRESO.IMPUTADO.MATERNO}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding GRUPO_PARTICIPANTE.INGRESO.IMPUTADO.NOMBRE}" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="Asistencia">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox HorizontalAlignment="Center" Command="{Binding Path=DataContext.OnClick,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}},UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}" CommandParameter="CambiarAsistencia"  IsChecked="{Binding Path=DataContext.AsistenciaChecked,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                    </Style>
+                </DataGrid.CellStyle>
+            </DataGrid>
+
+            <GroupBox Grid.Column="1" Margin="10" Header="Identificación">
+                <Image Source="{Binding FotoLectura}" Width="200" />
+            </GroupBox>
+        </Grid>
+
+        <!--<Grid Grid.Column="1" Margin="0 20 0 -5">
+            <Image Name="ImagenHuella" Source="{Binding PropertyImage}"  Visibility="{Binding ShowPropertyImage}" />
+            <Image Margin="0 25 0 0" Name="ImagenInterno" Source="{Binding FotoLectura}"  Width="264" Height="256"  Visibility="{Binding FotoLecturaVisible}"/>
+            <GroupBox Header="Verificación">
+                <Canvas>
+                    <Line Visibility="{Binding ShowLine}"  Name="Ln" X1="-5" Y1="8" X2="262" Y2="8"  StrokeThickness="20"  Stroke="#CC0050EF" Width="{Binding ElementName=ImagenHuella,Path=ActualWidth}" Height="{Binding ElementName=ImagenHuella,Path=ActualHeight}"/>
+                </Canvas>
+            </GroupBox>
+        </Grid>-->
+
+
+    </Grid>
+</Controls:MetroWindow>

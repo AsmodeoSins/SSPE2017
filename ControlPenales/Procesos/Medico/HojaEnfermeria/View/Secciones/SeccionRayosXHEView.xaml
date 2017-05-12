@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="ControlPenales.SeccionRayosXHEView"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             d:DesignHeight="550" d:DesignWidth="1200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuRayosXHEView Grid.Column="0" Grid.Row="0"></Views:MenuRayosXHEView>
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Rayos X">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                    <ColumnDefinition Width="6.25*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="1" Grid.ColumnSpan="14" Name="lblReferencia" Grid.Row="0"></Label>
+                <Label Grid.Column="0" Grid.Row="1" Content="Rayos X"></Label>
+                <TextBox Grid.Column="1" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="14" MaxWidth="{Binding ElementName=lblReferencia, Path=ActualWidth}" Grid.Row="1" Text="{Binding NuevoRayosXAgregarHEView, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                <Button Grid.Column="15" Grid.Row="1" Name="BT_Aceptar" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" Content="Agregar rayos x" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding OnClick}" 
+                CommandParameter="agregar_rayos_hoja_enfermeria" Style="{DynamicResource AccentedSquareButtonStyle}" 
+                Height="28" Focusable="True" />
+                <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="16" Header="rayos x">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Name="lblXX"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="1" MaxWidth="{ Binding ElementName=lblXX, Path=ActualWidth}" MinHeight="70" Text="{Binding RayosXExistenteHE, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap" IsReadOnly="True"></TextBox>
+                    </Grid>
+                </GroupBox>
+                <Label Grid.Column="1" Grid.ColumnSpan="8" Grid.Row="3" Content="" Name="lblRe"></Label>
+                <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="16" Header="rayos x del turno anterior">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Column="0" Grid.Row="0" MinHeight="50" Text="{ Binding TextoAntiguaRayosX, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"></TextBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+    </UserControl>

@@ -1,0 +1,453 @@
+﻿<UserControl x:Class="ControlPenales.RequerimientoInternosView"
+             x:Name="RequerimientoInternosWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" d:DesignWidth="1000"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=RequerimientoInternosWindow}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="UnLoaded">
+            <i:InvokeCommandAction Command="{Binding OnUnLoaded}" CommandParameter="{Binding ElementName=RequerimientoInternosWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <Views:NombreConverter x:Key="GetNombre"/>
+        <Views:TrimStringConverter x:Key="Trimming"/>
+        <Views:MultiValueConverter x:Key="MultiParamConverter"></Views:MultiValueConverter>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Guardar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Guardar" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="guardar_menu"
+                        IsEnabled="{Binding MenuGuardarEnabled}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Limpiar" Padding="0" />
+                <Button Width="50" Height="50" VerticalAlignment="Center" ToolTip="Limpiar" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}"
+                        CommandParameter="limpiar_menu">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clean}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="3" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="buscar_menu"
+                        IsEnabled="{Binding MenuBuscarEnabled}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="4" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Salir" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Salir" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="salir_menu"
+                        IsEnabled="{Binding SalidaEnabled}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_door_lock_closed}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Label Grid.Row="1" Content="Requerimiento de Internos de Actuarios" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <StackPanel Grid.Row="2">
+            <GroupBox Header="Datos Generales">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.75*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="175"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="1">Código</Label>
+                    <Label Grid.Column="1" Grid.Row="1">Apellido Paterno</Label>
+                    <Label Grid.Column="2" Grid.Row="1">Apellido Materno</Label>
+                    <Label Grid.Column="3" Grid.Row="1">Nombre</Label>
+
+                    <StackPanel Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                        <StackPanel VerticalAlignment="Top" Margin="0 2 0 0">
+                            <Label HorizontalAlignment="Center" Content="Abogado" Padding="0" />
+                            <Button Width="50" Height="50" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" 
+                            CommandParameter="buscar_abogado" Command="{Binding OnClick}" IsEnabled="{Binding BuscarAbogadoEnabled}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                        <StackPanel VerticalAlignment="Top" Margin="0 2 0 0">
+                            <Label HorizontalAlignment="Center" Content="Huella" Padding="0"/>
+                            <Button Width="50" Height="50" ToolTip="Buscar por Huella" Style="{DynamicResource MetroCircleButtonStyle}" 
+                    Command="{Binding BuscarHuella}" >
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding TextCodigoAbogado,UpdateSourceTrigger=PropertyChanged}" x:Name="Codigo" >
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=Codigo}" Command="{Binding CapturaClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="10" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding TextPaternoAbogado,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                             x:Name="Paterno" CharacterCasing="Upper">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=Paterno}" Command="{Binding CapturaClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding TextMaternoAbogado,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                             x:Name="Materno" CharacterCasing="Upper">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=Materno}" Command="{Binding CapturaClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding TextNombreAbogado,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                             CharacterCasing="Upper" x:Name="Nombre">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=Nombre}" Command="{Binding CapturaClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="3">Sexo</Label>
+                    <Label Grid.Column="1" Grid.Row="3">Fecha Nacimiento</Label>
+                    <Label Grid.Column="2" Grid.Row="3">CURP</Label>
+                    <Label Grid.Column="3" Grid.Row="3">RFC</Label>
+                    <!--<Label Grid.Column="4" Grid.Row="3">NIP</Label>-->
+
+                    <ComboBox Grid.Column="0" Grid.Row="4" SelectedValuePath="Tag" IsEnabled="False" VerticalAlignment="Center"
+                              SelectedValue="{Binding SelectSexo,UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="MASCULINO" Tag="M" IsSelected="True"></ComboBoxItem>
+                        <ComboBoxItem Content="FEMENINO" Tag="F"></ComboBoxItem>
+                    </ComboBox>
+                    <DatePicker Grid.Column="1" Grid.Row="4" Controls:TextBoxHelper.Watermark="Selecciona una fecha" VerticalAlignment="Center" IsEnabled="False"
+                                SelectedDate="{Binding SelectFechaNacimiento,UpdateSourceTrigger=PropertyChanged}" ></DatePicker>
+                    <TextBox Grid.Column="2" Grid.Row="4" IsReadOnly="True" CharacterCasing="Upper"
+                             Text="{Binding TextCurp,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ0-9]*$" MaxLength="18" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="4" CharacterCasing="Upper" IsReadOnly="True"
+                             Text="{Binding TextRfc,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ0-9]*$" MaxLength="13" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <!--<TextBox Grid.Column="4" Grid.Row="4" IsReadOnly="True" Text="{Binding TextNip}" VerticalAlignment="Center"></TextBox>-->
+
+                    <Label Grid.Column="0" Grid.Row="5">Credencial INE</Label>
+                    <Label Grid.Column="1" Grid.Row="5" Content="CJF"></Label>
+                    <Label Grid.Column="2" Grid.Row="5">Correo Electrónico</Label>
+                    <Label Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2">Estatus Visita</Label>
+                    <Label Grid.Column="4" Grid.Row="5">Fecha de Alta</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="1" IsReadOnly="True" CharacterCasing="Upper"
+                             Text="{Binding TextIne,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-Z0-9]*$" MaxLength="13" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="6" IsReadOnly="True" CharacterCasing="Upper"
+                             Text="{Binding TextCedulaCJF,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="7" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="6" IsReadOnly="True" CharacterCasing="Upper"
+                             Text="{Binding TextCorreo,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <ComboBox Grid.Column="3" Grid.Row="6" ItemsSource="{Binding ListEstatus}" SelectedValuePath="ID_ESTATUS_VISITA" DisplayMemberPath="DESCR" 
+                              VerticalAlignment="Center" SelectedValue="{Binding SelectEstatusVisita,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"></ComboBox>
+                    <TextBox Grid.Column="4" Grid.Row="6" VerticalAlignment="Center" Text="{Binding SelectFechaAlta}" IsReadOnly="True"/>
+
+                    <Label Grid.Column="0" Grid.Row="7">Teléfono Fijo</Label>
+                    <Label Grid.Column="1" Grid.Row="7">Teléfono Móvil</Label>
+                    <Label Grid.Column="2" Grid.Row="7" HorizontalAlignment="Center">Credencializado</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="8" IsReadOnly="True" Text="{Binding TextTelefonoFijo,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="14" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="8" IsReadOnly="True" Text="{Binding TextTelefonoMovil,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="14" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <CheckBox Grid.Column="2" Grid.Row="8" IsChecked="{Binding Credencializado}" HorizontalAlignment="Center" IsEnabled="False"
+                          VerticalAlignment="Center"></CheckBox>
+
+                    <Label Grid.Column="0" Grid.Row="9" Visibility="{Binding JuzgadoVisible}">Juzgado</Label>
+                    <ComboBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="6" ItemsSource="{Binding ListJuzgado}" SelectedValuePath="ID_JUZGADO" 
+                              HorizontalAlignment="Left" Width="750" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectJuzgado}" IsEnabled="False"></ComboBox>
+
+                    <Image Grid.Row="0" Grid.Column="5" Grid.RowSpan="9" Width="170" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                           Source="{Binding ImagenAbogado}"></Image>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Asignación de Internos">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="65"></ColumnDefinition>
+                        <ColumnDefinition Width="65"></ColumnDefinition>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=AnioInterno, Path=Text.Length}" Value="4">
+                                    <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioInterno}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Label Grid.Column="0" Grid.Row="0">Año</Label>
+                    <Label Grid.Column="1" Grid.Row="0">Folio</Label>
+                    <Label Grid.Column="2" Grid.Row="0">Apellido Paterno</Label>
+                    <Label Grid.Column="3" Grid.Row="0">Apellido Materno</Label>
+                    <Label Grid.Column="4" Grid.Row="0">Nombre</Label>
+                    <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">/</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextAnioImputado,UpdateSourceTrigger=PropertyChanged}" x:Name="AnioInterno" 
+                             IsReadOnly="{Binding AnioEnabled}" Margin="0 0 10 0">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=AnioInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextFolioImputado,UpdateSourceTrigger=PropertyChanged}" x:Name="FolioInterno" 
+                             IsReadOnly="{Binding FolioEnabled}" Margin="10 0 0 0">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=FolioInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="5" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                             x:Name="PaternoInterno" IsReadOnly="{Binding PaternoEnabled}">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=PaternoInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextMaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                             x:Name="MaternoInterno" IsReadOnly="{Binding MaternoEnabled}">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=MaternoInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding TextNombreImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                             x:Name="NombreInterno" IsReadOnly="{Binding NombreEnabled}">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=NombreInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <Label Grid.Column="5" Content="Fecha"></Label>
+                    <DatePicker Grid.Column="5" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" VerticalAlignment="Center"
+                                SelectedDate="{Binding SelectFechaAsignacion,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" />
+
+                    <DataGrid Grid.Row="2" Grid.ColumnSpan="6" IsReadOnly="True" CanUserAddRows="False" Height="200" Margin="1" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              AutoGenerateColumns="False" ItemsSource="{Binding ListInternosSeleccionadosPorNotificar}" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Año" Binding="{Binding INGRESO.ID_ANIO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Folio" Binding="{Binding INGRESO.ID_IMPUTADO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Name="CKB_ALL_INTERNOS_ACTUARIOS" HorizontalAlignment="Center" Style="{DynamicResource DescriptionHeaderStyleCheckBox}"
+                                                IsChecked="{Binding DataContext.SeleccionarTodoInternos,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                IsEnabled="{Binding DataContext.SeleccionarTodosEnable,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                        <i:InvokeCommandAction.CommandParameter>
+                                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                <Binding ElementName="CKB_ALL_INTERNOS_ACTUARIOS" />
+                                                            </MultiBinding>
+                                                        </i:InvokeCommandAction.CommandParameter>
+                                                    </i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                        <i:InvokeCommandAction.CommandParameter>
+                                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                <Binding ElementName="CKB_ALL_INTERNOS_ACTUARIOS" />
+                                                            </MultiBinding>
+                                                        </i:InvokeCommandAction.CommandParameter>
+                                                    </i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding ELEGIDO, UpdateSourceTrigger=PropertyChanged}" Name="CKB_NOTIFICA" HorizontalAlignment="Center" Command="{Binding DataContext.Checked, RelativeSource={RelativeSource
+                                            AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                        <i:InvokeCommandAction.CommandParameter>
+                                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                <Binding />
+                                                                <Binding ElementName="CKB_NOTIFICA" />
+                                                            </MultiBinding>
+                                                        </i:InvokeCommandAction.CommandParameter>
+                                                    </i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                        <i:InvokeCommandAction.CommandParameter>
+                                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                <Binding />
+                                                                <Binding ElementName="CKB_NOTIFICA" />
+                                                            </MultiBinding>
+                                                        </i:InvokeCommandAction.CommandParameter>
+                                                    </i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Internos a Notificar">
+                <StackPanel>
+                    <Label Content="Fecha"></Label>
+                    <ComboBox ItemsSource="{Binding ListFechasGuardadas, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectFechaGuardada}" Width="250" HorizontalAlignment="Left"></ComboBox>
+                    <DataGrid Grid.Row="2" Grid.ColumnSpan="5" IsReadOnly="True" CanUserAddRows="False" Height="200"
+                          AutoGenerateColumns="False" ItemsSource="{Binding ListInternosPorNotificar}" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nombre de Interno" Binding="{Binding INGRESO.IMPUTADO, Converter={StaticResource GetNombre}}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Fecha Asignación" Binding="{Binding ACTUARIO_LISTA.CAPTURA_FEC}"></DataGridTextColumn>
+                            <!--<DataGridTemplateColumn Header="Nombre de Interno">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}" Margin="0"></Label>
+                                            <Label Content=" "></Label>
+                                            <Label Content="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}" Margin="0"></Label>
+                                            <Label Content=" "></Label>
+                                            <Label Content="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}" Margin="0"></Label>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+                        </DataGrid.Columns>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MetroDataGridColumnHeader}">
+                                <Setter Property="Command" Value="{Binding DataContext.HeaderClick, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                <Setter Property="CommandParameter" Value="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                    </DataGrid>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

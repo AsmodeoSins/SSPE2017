@@ -1,0 +1,874 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HuellasModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BIOMETRICO_FORMATO">
+          <Key>
+            <PropertyRef Name="ID_FORMATO" />
+          </Key>
+          <Property Name="ID_FORMATO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="DESCR" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="BIOMETRICO_TIPO">
+          <Key>
+            <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+          </Key>
+          <Property Name="ID_TIPO_BIOMETRICO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="TIPO_BIOMETRICO" Type="varchar2" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="IMPUTADO">
+          <Key>
+            <PropertyRef Name="ID_CENTRO" />
+            <PropertyRef Name="ID_ANIO" />
+            <PropertyRef Name="ID_IMPUTADO" />
+          </Key>
+          <Property Name="ID_CENTRO" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="ID_ANIO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="ID_IMPUTADO" Type="number" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="PATERNO" Type="char" MaxLength="30" />
+          <Property Name="MATERNO" Type="char" MaxLength="30" />
+          <Property Name="NOMBRE" Type="char" MaxLength="40" />
+          <Property Name="SEXO" Type="char" MaxLength="1" />
+          <Property Name="ID_ESTADO_CIVIL" Type="number" Precision="2" Scale="0" />
+          <Property Name="ID_OCUPACION" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_ESCOLARIDAD" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_RELIGION" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_ETNIA" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_NACIONALIDAD" Type="number" Precision="4" Scale="0" />
+          <Property Name="DOMICILIO_CALLE" Type="varchar2" MaxLength="200" />
+          <Property Name="DOMICILIO_NUM_EXT" Type="number" Precision="6" Scale="0" />
+          <Property Name="DOMICILIO_NUM_INT" Type="char" MaxLength="6" />
+          <Property Name="ID_COLONIA" Type="number" Precision="6" Scale="0" />
+          <Property Name="ID_MUNICIPIO" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_ENTIDAD" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_PAIS" Type="number" Precision="4" Scale="0" />
+          <Property Name="DOMICILIO_CODIGO_POSTAL" Type="number" Precision="6" Scale="0" />
+          <Property Name="RESIDENCIA_ANIOS" Type="number" Precision="2" Scale="0" />
+          <Property Name="RESIDENCIA_MESES" Type="number" Precision="2" Scale="0" />
+          <Property Name="TELEFONO" Type="number" Precision="16" Scale="0" />
+          <Property Name="DOMICILIO_TRABAJO" Type="varchar2" MaxLength="200" />
+          <Property Name="NACIMIENTO_PAIS" Type="number" Precision="4" Scale="0" />
+          <Property Name="NACIMIENTO_ESTADO" Type="number" Precision="4" Scale="0" />
+          <Property Name="NACIMIENTO_MUNICIPIO" Type="number" Precision="4" Scale="0" />
+          <Property Name="NACIMIENTO_FECHA" Type="date" />
+          <Property Name="NACIMIENTO_LUGAR" Type="varchar2" MaxLength="100" />
+          <Property Name="PATERNO_MADRE" Type="char" MaxLength="30" />
+          <Property Name="MATERNO_MADRE" Type="char" MaxLength="30" />
+          <Property Name="NOMBRE_MADRE" Type="char" MaxLength="40" />
+          <Property Name="MADRE_FINADO" Type="char" MaxLength="1" />
+          <Property Name="PATERNO_PADRE" Type="char" MaxLength="30" />
+          <Property Name="MATERNO_PADRE" Type="char" MaxLength="30" />
+          <Property Name="NOMBRE_PADRE" Type="char" MaxLength="40" />
+          <Property Name="PADRE_FINADO" Type="char" MaxLength="1" />
+          <Property Name="TABAJADOR_CERESO" Type="char" MaxLength="10" />
+          <Property Name="RFC" Type="char" MaxLength="13" />
+          <Property Name="CURP" Type="char" MaxLength="18" />
+          <Property Name="IFE" Type="char" MaxLength="13" />
+          <Property Name="NIP" Type="char" MaxLength="14" />
+          <Property Name="LUGAR_RESIDENCIA" Type="varchar2" MaxLength="100" />
+          <Property Name="NUMERO_IDENTIFICACION" Type="char" MaxLength="20" />
+          <Property Name="ID_TIPO_DISCAPACIDAD" Type="number" Precision="4" Scale="0" />
+          <Property Name="ESTATURA" Type="number" Precision="4" Scale="0" />
+          <Property Name="PESO" Type="number" Precision="4" Scale="0" />
+          <Property Name="BI_FECALTA" Type="date" />
+          <Property Name="BI_USER" Type="char" MaxLength="10" />
+          <Property Name="TELORIGINAL" Type="varchar2" MaxLength="20" />
+          <Property Name="SPATERNO" Type="char" MaxLength="4" />
+          <Property Name="SMATERNO" Type="char" MaxLength="4" />
+          <Property Name="SNOMBRE" Type="char" MaxLength="4" />
+          <Property Name="ID_IDIOMA" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_DIALECTO" Type="number" Precision="4" Scale="0" />
+          <Property Name="TRADUCTOR" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="IMPUTADO_BIOMETRICO">
+          <Key>
+            <PropertyRef Name="ID_CENTRO" />
+            <PropertyRef Name="ID_ANIO" />
+            <PropertyRef Name="ID_IMPUTADO" />
+            <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            <PropertyRef Name="ID_FORMATO" />
+          </Key>
+          <Property Name="ID_CENTRO" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="ID_ANIO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="ID_IMPUTADO" Type="number" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="ID_TIPO_BIOMETRICO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="BIOMETRICO" Type="blob" />
+          <Property Name="CALIDAD" Type="number" Precision="1" Scale="0" />
+          <Property Name="ID_FORMATO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="TOMA" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="INGRESO">
+          <Key>
+            <PropertyRef Name="ID_CENTRO" />
+            <PropertyRef Name="ID_ANIO" />
+            <PropertyRef Name="ID_IMPUTADO" />
+            <PropertyRef Name="ID_INGRESO" />
+          </Key>
+          <Property Name="ID_CENTRO" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="ID_ANIO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="ID_IMPUTADO" Type="number" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="ID_INGRESO" Type="number" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="FEC_REGISTRO" Type="date" />
+          <Property Name="FEC_INGRESO_CERESO" Type="date" />
+          <Property Name="ID_TIPO_INGRESO" Type="number" Precision="2" Scale="0" />
+          <Property Name="ID_CLASIFICACION_JURIDICA" Type="char" MaxLength="1" />
+          <Property Name="ID_ESTATUS_ADMINISTRATIVO" Type="number" Precision="2" Scale="0" />
+          <Property Name="DOCINTERNACION_NUM_OFICIO" Type="char" MaxLength="10" />
+          <Property Name="ID_AUTORIDAD_INTERNA" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_TIPO_SEGURIDAD" Type="char" MaxLength="1" />
+          <Property Name="ID_DISPOSICION" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_TIPO_DOCUMENTO_INTERNACION" Type="number" Precision="4" Scale="0" />
+          <Property Name="DOCUMENTO_INTERNACION" Type="char" MaxLength="10" />
+          <Property Name="NUC" Type="char" MaxLength="16" />
+          <Property Name="AV_PREVIA" Type="char" MaxLength="10" />
+          <Property Name="ID_IMPUTADO_EXPEDIENTE" Type="char" MaxLength="10" />
+          <Property Name="ID_UB_CENTRO" Type="number" Precision="2" Scale="0" />
+          <Property Name="ID_UB_EDIFICIO" Type="number" Precision="2" Scale="0" />
+          <Property Name="ID_UB_SECTOR" Type="number" Precision="2" Scale="0" />
+          <Property Name="ID_UB_CELDA" Type="char" MaxLength="5" />
+          <Property Name="ID_UB_CAMA" Type="number" Precision="4" Scale="0" />
+          <Property Name="A_DISPOSICION" Type="varchar2" MaxLength="100" />
+          <Property Name="ANIO_GOBIERNO" Type="number" Precision="4" Scale="0" />
+          <Property Name="FOLIO_GOBIERNO" Type="char" MaxLength="10" />
+          <Property Name="ID_INGRESO_DELITO" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_PERSONA_PG" Type="number" Precision="10" Scale="0" />
+          <Property Name="ID_ESTADO_CIVIL" Type="number" Precision="2" Scale="0" />
+          <Property Name="ID_OCUPACION" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_ESCOLARIDAD" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_RELIGION" Type="number" Precision="4" Scale="0" />
+          <Property Name="DOMICILIO_CALLE" Type="varchar2" MaxLength="200" />
+          <Property Name="DOMICILIO_NUM_EXT" Type="number" Precision="6" Scale="0" />
+          <Property Name="DOMICILIO_NUM_INT" Type="char" MaxLength="6" />
+          <Property Name="ID_COLONIA" Type="number" Precision="6" Scale="0" />
+          <Property Name="ID_MUNICIPIO" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_ENTIDAD" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_PAIS" Type="number" Precision="4" Scale="0" />
+          <Property Name="DOMICILIO_CP" Type="number" Precision="6" Scale="0" />
+          <Property Name="RESIDENCIA_ANIOS" Type="number" Precision="2" Scale="0" />
+          <Property Name="RESIDENCIAS_MESES" Type="number" Precision="2" Scale="0" />
+          <Property Name="TELEFONO" Type="number" Precision="16" Scale="0" />
+          <Property Name="DOMICILIO_TRABAJO" Type="varchar2" MaxLength="200" />
+          <Property Name="MADRE_FINADO" Type="char" MaxLength="1" />
+          <Property Name="PADRE_FINADO" Type="char" MaxLength="1" />
+          <Property Name="LUGAR_RESIDENCIA" Type="varchar2" MaxLength="100" />
+          <Property Name="NUMERO_IDENTIFICACION" Type="varchar2" MaxLength="20" />
+          <Property Name="ID_TIPO_DISCAPACIDAD" Type="number" Precision="2" Scale="0" />
+          <Property Name="ESTATURA" Type="number" Precision="4" Scale="0" />
+          <Property Name="PESO" Type="number" Precision="4" Scale="0" />
+          <Property Name="FEC_SALIDA_CERESO" Type="date" />
+          <Property Name="USUARIO_SALIDA" Type="char" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PERSONA">
+          <Key>
+            <PropertyRef Name="ID_PERSONA" />
+          </Key>
+          <Property Name="ID_PERSONA" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ID_TIPO_PERSONA" Type="number" Precision="2" Scale="0" />
+          <Property Name="PATERNO" Type="char" MaxLength="30" />
+          <Property Name="MATERNO" Type="char" MaxLength="30" />
+          <Property Name="NOMBRE" Type="char" MaxLength="40" />
+          <Property Name="SEXO" Type="char" MaxLength="1" />
+          <Property Name="DOMICILIO_CALLE" Type="varchar2" MaxLength="500" />
+          <Property Name="DOMICILIO_NUM_EXT" Type="number" Precision="6" Scale="0" />
+          <Property Name="DOMICILIO_NUM_INT" Type="char" MaxLength="6" />
+          <Property Name="ID_COLONIA" Type="number" Precision="6" Scale="0" />
+          <Property Name="ID_MUNICIPIO" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_ENTIDAD" Type="number" Precision="4" Scale="0" />
+          <Property Name="ID_PAIS" Type="number" Precision="4" Scale="0" />
+          <Property Name="DOMICILIO_CODIGO_POSTAL" Type="number" Precision="6" Scale="0" />
+          <Property Name="CURP" Type="char" MaxLength="18" />
+          <Property Name="RFC" Type="char" MaxLength="13" />
+          <Property Name="FEC_NACIMIENTO" Type="date" />
+          <Property Name="LUGAR_NACIMIENTO" Type="varchar2" MaxLength="100" />
+          <Property Name="NACIONALIDAD" Type="number" Precision="4" Scale="0" />
+          <Property Name="ESTADO_CIVIL" Type="number" Precision="2" Scale="0" />
+          <Property Name="TELEFONO" Type="char" MaxLength="20" />
+          <Property Name="TELEFONO_MOVIL" Type="char" MaxLength="20" />
+          <Property Name="CORREO_ELECTRONICO" Type="varchar2" MaxLength="50" />
+          <Property Name="ID_ETNIA" Type="number" Precision="4" Scale="0" />
+          <Property Name="IFE" Type="char" MaxLength="13" />
+          <Property Name="ID_TIPO_DISCAPACIDAD" Type="number" Precision="2" Scale="0" />
+          <Property Name="NORIGINAL" Type="number" Precision="10" Scale="0" />
+          <Property Name="CORIGINAL" Type="varchar2" MaxLength="15" />
+          <Property Name="SPATERNO" Type="char" MaxLength="4" />
+          <Property Name="SMATERNO" Type="char" MaxLength="4" />
+          <Property Name="SNOMBRE" Type="char" MaxLength="4" />
+          <Property Name="NOTA_TECNICA" Type="varchar2" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="PERSONA_BIOMETRICO">
+          <Key>
+            <PropertyRef Name="ID_PERSONA" />
+            <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            <PropertyRef Name="ID_FORMATO" />
+          </Key>
+          <Property Name="ID_PERSONA" Type="number" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ID_TIPO_BIOMETRICO" Type="number" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="BIOMETRICO" Type="blob" />
+          <Property Name="NORIGINAL" Type="number" Precision="10" Scale="0" />
+          <Property Name="ID_FORMATO" Type="number" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_IMPUTADO_REFERENCE_TIPO_BIO">
+          <End Role="BIOMETRICO_TIPO" Type="Self.BIOMETRICO_TIPO" Multiplicity="1" />
+          <End Role="IMPUTADO_BIOMETRICO" Type="Self.IMPUTADO_BIOMETRICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BIOMETRICO_TIPO">
+              <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            </Principal>
+            <Dependent Role="IMPUTADO_BIOMETRICO">
+              <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IMPUTADOBIO_IMPUTADO">
+          <End Role="IMPUTADO" Type="Self.IMPUTADO" Multiplicity="1" />
+          <End Role="IMPUTADO_BIOMETRICO" Type="Self.IMPUTADO_BIOMETRICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IMPUTADO">
+              <PropertyRef Name="ID_CENTRO" />
+              <PropertyRef Name="ID_ANIO" />
+              <PropertyRef Name="ID_IMPUTADO" />
+            </Principal>
+            <Dependent Role="IMPUTADO_BIOMETRICO">
+              <PropertyRef Name="ID_CENTRO" />
+              <PropertyRef Name="ID_ANIO" />
+              <PropertyRef Name="ID_IMPUTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INGRESO_REFERENCE_IMPUTADO">
+          <End Role="IMPUTADO" Type="Self.IMPUTADO" Multiplicity="1" />
+          <End Role="INGRESO" Type="Self.INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IMPUTADO">
+              <PropertyRef Name="ID_CENTRO" />
+              <PropertyRef Name="ID_ANIO" />
+              <PropertyRef Name="ID_IMPUTADO" />
+            </Principal>
+            <Dependent Role="INGRESO">
+              <PropertyRef Name="ID_CENTRO" />
+              <PropertyRef Name="ID_ANIO" />
+              <PropertyRef Name="ID_IMPUTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA__REFERENCE_BIOMETRI">
+          <End Role="BIOMETRICO_TIPO" Type="Self.BIOMETRICO_TIPO" Multiplicity="1" />
+          <End Role="PERSONA_BIOMETRICO" Type="Self.PERSONA_BIOMETRICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BIOMETRICO_TIPO">
+              <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            </Principal>
+            <Dependent Role="PERSONA_BIOMETRICO">
+              <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERSONA__REFERENCE_PERSONA">
+          <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+          <End Role="PERSONA_BIOMETRICO" Type="Self.PERSONA_BIOMETRICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="PERSONA_BIOMETRICO">
+              <PropertyRef Name="ID_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HuellasModelStoreContainer">
+          <EntitySet Name="BIOMETRICO_FORMATO" EntityType="Self.BIOMETRICO_FORMATO" Schema="SSP" store:Type="Tables" />
+          <EntitySet Name="BIOMETRICO_TIPO" EntityType="Self.BIOMETRICO_TIPO" Schema="SSP" store:Type="Tables" />
+          <EntitySet Name="IMPUTADO" EntityType="Self.IMPUTADO" Schema="SSP" store:Type="Tables" />
+          <EntitySet Name="IMPUTADO_BIOMETRICO" EntityType="Self.IMPUTADO_BIOMETRICO" Schema="SSP" store:Type="Tables" />
+          <EntitySet Name="INGRESO" EntityType="Self.INGRESO" Schema="SSP" store:Type="Tables" />
+          <EntitySet Name="PERSONA" EntityType="Self.PERSONA" Schema="SSP" store:Type="Tables" />
+          <EntitySet Name="PERSONA_BIOMETRICO" EntityType="Self.PERSONA_BIOMETRICO" Schema="SSP" store:Type="Tables" />
+          <AssociationSet Name="FK_IMPUTADO_REFERENCE_TIPO_BIO" Association="Self.FK_IMPUTADO_REFERENCE_TIPO_BIO">
+            <End Role="BIOMETRICO_TIPO" EntitySet="BIOMETRICO_TIPO" />
+            <End Role="IMPUTADO_BIOMETRICO" EntitySet="IMPUTADO_BIOMETRICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IMPUTADOBIO_IMPUTADO" Association="Self.FK_IMPUTADOBIO_IMPUTADO">
+            <End Role="IMPUTADO" EntitySet="IMPUTADO" />
+            <End Role="IMPUTADO_BIOMETRICO" EntitySet="IMPUTADO_BIOMETRICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INGRESO_REFERENCE_IMPUTADO" Association="Self.FK_INGRESO_REFERENCE_IMPUTADO">
+            <End Role="IMPUTADO" EntitySet="IMPUTADO" />
+            <End Role="INGRESO" EntitySet="INGRESO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA__REFERENCE_BIOMETRI" Association="Self.FK_PERSONA__REFERENCE_BIOMETRI">
+            <End Role="BIOMETRICO_TIPO" EntitySet="BIOMETRICO_TIPO" />
+            <End Role="PERSONA_BIOMETRICO" EntitySet="PERSONA_BIOMETRICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERSONA__REFERENCE_PERSONA" Association="Self.FK_PERSONA__REFERENCE_PERSONA">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="PERSONA_BIOMETRICO" EntitySet="PERSONA_BIOMETRICO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HuellasModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="HuellasEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="PERSONA" EntityType="HuellasModel.PERSONA" />
+          <EntitySet Name="PERSONA_BIOMETRICO" EntityType="HuellasModel.PERSONA_BIOMETRICO" />
+          <AssociationSet Name="FK_PERSONA__REFERENCE_PERSONA" Association="HuellasModel.FK_PERSONA__REFERENCE_PERSONA">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="PERSONA_BIOMETRICO" EntitySet="PERSONA_BIOMETRICO" />
+          </AssociationSet>
+          <EntitySet Name="BIOMETRICO_FORMATO" EntityType="HuellasModel.BIOMETRICO_FORMATO" />
+          <EntitySet Name="BIOMETRICO_TIPO" EntityType="HuellasModel.BIOMETRICO_TIPO" />
+          <AssociationSet Name="FK_PERSONA__REFERENCE_BIOMETRI" Association="HuellasModel.FK_PERSONA__REFERENCE_BIOMETRI">
+            <End Role="BIOMETRICO_TIPO" EntitySet="BIOMETRICO_TIPO" />
+            <End Role="PERSONA_BIOMETRICO" EntitySet="PERSONA_BIOMETRICO" />
+          </AssociationSet>
+          <EntitySet Name="IMPUTADO" EntityType="HuellasModel.IMPUTADO_BM" />
+          <EntitySet Name="INGRESO" EntityType="HuellasModel.INGRESO_BM" />
+          <AssociationSet Name="FK_INGRESO_REFERENCE_IMPUTADO" Association="HuellasModel.FK_INGRESO_REFERENCE_IMPUTADO">
+            <End Role="IMPUTADO" EntitySet="IMPUTADO" />
+            <End Role="INGRESO" EntitySet="INGRESO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INGRESO_REFERENCE_PERS765" Association="HuellasModel.FK_INGRESO_REFERENCE_PERS765">
+            <End Role="PERSONA" EntitySet="PERSONA" />
+            <End Role="INGRESO" EntitySet="INGRESO" />
+          </AssociationSet>
+          <EntitySet Name="IMPUTADO_BIOMETRICO" EntityType="HuellasModel.IMPUTADO_BIOMETRICO" />
+          <AssociationSet Name="FK_IMPUTADO_REFERENCE_TIPO_BIO" Association="HuellasModel.FK_IMPUTADO_REFERENCE_TIPO_BIO">
+            <End Role="BIOMETRICO_TIPO" EntitySet="BIOMETRICO_TIPO" />
+            <End Role="IMPUTADO_BIOMETRICO" EntitySet="IMPUTADO_BIOMETRICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IMPUTADOBIO_IMPUTADO" Association="HuellasModel.FK_IMPUTADOBIO_IMPUTADO">
+            <End Role="IMPUTADO_BM" EntitySet="IMPUTADO" />
+            <End Role="IMPUTADO_BIOMETRICO" EntitySet="IMPUTADO_BIOMETRICO" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="PERSONA">
+          <Key>
+            <PropertyRef Name="ID_PERSONA" />
+          </Key>
+          <Property Name="ID_PERSONA" Type="Int32" Nullable="false" />
+          <Property Name="ID_TIPO_PERSONA" Type="Int16" />
+          <Property Name="PATERNO" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="MATERNO" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="SEXO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DOMICILIO_CALLE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DOMICILIO_NUM_EXT" Type="Int32" />
+          <Property Name="DOMICILIO_NUM_INT" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="ID_COLONIA" Type="Int32" />
+          <Property Name="ID_MUNICIPIO" Type="Int16" />
+          <Property Name="ID_ENTIDAD" Type="Int16" />
+          <Property Name="ID_PAIS" Type="Int16" />
+          <Property Name="DOMICILIO_CODIGO_POSTAL" Type="Int32" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="FEC_NACIMIENTO" Type="DateTime" />
+          <Property Name="LUGAR_NACIMIENTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NACIONALIDAD" Type="Int16" />
+          <Property Name="ESTADO_CIVIL" Type="Int16" />
+          <Property Name="TELEFONO" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="TELEFONO_MOVIL" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="CORREO_ELECTRONICO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_ETNIA" Type="Int16" />
+          <Property Name="IFE" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="ID_TIPO_DISCAPACIDAD" Type="Int16" />
+          <Property Name="NORIGINAL" Type="Int32" />
+          <Property Name="CORIGINAL" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SPATERNO" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="SMATERNO" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="SNOMBRE" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="PERSONA_BIOMETRICO" Relationship="HuellasModel.FK_PERSONA__REFERENCE_PERSONA" FromRole="PERSONA" ToRole="PERSONA_BIOMETRICO" />
+          <NavigationProperty Name="INGRESO" Relationship="HuellasModel.FK_INGRESO_REFERENCE_PERS765" FromRole="PERSONA" ToRole="INGRESO" />
+          <Property Name="NOTA_TECNICA" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PERSONA_BIOMETRICO">
+          <Key>
+            <PropertyRef Name="ID_PERSONA" />
+            <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            <PropertyRef Name="ID_FORMATO" />
+          </Key>
+          <Property Name="ID_PERSONA" Type="Int32" Nullable="false" />
+          <Property Name="ID_TIPO_BIOMETRICO" Type="Int16" Nullable="false" />
+          <Property Name="BIOMETRICO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="NORIGINAL" Type="Int32" />
+          <Property Name="ID_FORMATO" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="PERSONA" Relationship="HuellasModel.FK_PERSONA__REFERENCE_PERSONA" FromRole="PERSONA_BIOMETRICO" ToRole="PERSONA" />
+          <NavigationProperty Name="BIOMETRICO_TIPO" Relationship="HuellasModel.FK_PERSONA__REFERENCE_BIOMETRI" FromRole="PERSONA_BIOMETRICO" ToRole="BIOMETRICO_TIPO" />
+        </EntityType>
+        <Association Name="FK_PERSONA__REFERENCE_PERSONA">
+          <End Type="HuellasModel.PERSONA" Role="PERSONA" Multiplicity="1" />
+          <End Type="HuellasModel.PERSONA_BIOMETRICO" Role="PERSONA_BIOMETRICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="PERSONA_BIOMETRICO">
+              <PropertyRef Name="ID_PERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BIOMETRICO_FORMATO">
+          <Key>
+            <PropertyRef Name="ID_FORMATO" />
+          </Key>
+          <Property Name="ID_FORMATO" Type="Int16" Nullable="false" />
+          <Property Name="DESCR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BIOMETRICO_TIPO">
+          <Key>
+            <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+          </Key>
+          <Property Name="ID_TIPO_BIOMETRICO" Type="Int16" Nullable="false" />
+          <Property Name="TIPO_BIOMETRICO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PERSONA_BIOMETRICO" Relationship="HuellasModel.FK_PERSONA__REFERENCE_BIOMETRI" FromRole="BIOMETRICO_TIPO" ToRole="PERSONA_BIOMETRICO" />
+          <NavigationProperty Name="IMPUTADO_BIOMETRICO" Relationship="HuellasModel.FK_IMPUTADO_REFERENCE_TIPO_BIO" FromRole="BIOMETRICO_TIPO" ToRole="IMPUTADO_BIOMETRICO" />
+        </EntityType>
+        <Association Name="FK_PERSONA__REFERENCE_BIOMETRI">
+          <End Type="HuellasModel.BIOMETRICO_TIPO" Role="BIOMETRICO_TIPO" Multiplicity="1" />
+          <End Type="HuellasModel.PERSONA_BIOMETRICO" Role="PERSONA_BIOMETRICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BIOMETRICO_TIPO">
+              <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            </Principal>
+            <Dependent Role="PERSONA_BIOMETRICO">
+              <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="IMPUTADO_BM">
+          <Key>
+            <PropertyRef Name="ID_CENTRO" />
+            <PropertyRef Name="ID_ANIO" />
+            <PropertyRef Name="ID_IMPUTADO" />
+          </Key>
+          <Property Name="ID_CENTRO" Type="Int16" Nullable="false" />
+          <Property Name="ID_ANIO" Type="Int16" Nullable="false" />
+          <Property Name="ID_IMPUTADO" Type="Int32" Nullable="false" />
+          <Property Name="PATERNO" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="MATERNO" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="SEXO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ID_ESTADO_CIVIL" Type="Int16" />
+          <Property Name="ID_OCUPACION" Type="Int16" />
+          <Property Name="ID_ESCOLARIDAD" Type="Int16" />
+          <Property Name="ID_RELIGION" Type="Int16" />
+          <Property Name="ID_ETNIA" Type="Int16" />
+          <Property Name="ID_NACIONALIDAD" Type="Int16" />
+          <Property Name="DOMICILIO_CALLE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DOMICILIO_NUM_EXT" Type="Int32" />
+          <Property Name="DOMICILIO_NUM_INT" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="ID_COLONIA" Type="Int32" />
+          <Property Name="ID_MUNICIPIO" Type="Int16" />
+          <Property Name="ID_ENTIDAD" Type="Int16" />
+          <Property Name="ID_PAIS" Type="Int16" />
+          <Property Name="DOMICILIO_CODIGO_POSTAL" Type="Int32" />
+          <Property Name="RESIDENCIA_ANIOS" Type="Int16" />
+          <Property Name="RESIDENCIA_MESES" Type="Int16" />
+          <Property Name="TELEFONO" Type="Int64" />
+          <Property Name="DOMICILIO_TRABAJO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NACIMIENTO_PAIS" Type="Int16" />
+          <Property Name="NACIMIENTO_ESTADO" Type="Int16" />
+          <Property Name="NACIMIENTO_MUNICIPIO" Type="Int16" />
+          <Property Name="NACIMIENTO_FECHA" Type="DateTime" />
+          <Property Name="NACIMIENTO_LUGAR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PATERNO_MADRE" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="MATERNO_MADRE" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="NOMBRE_MADRE" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="MADRE_FINADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PATERNO_PADRE" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="MATERNO_PADRE" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="NOMBRE_PADRE" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
+          <Property Name="PADRE_FINADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="TABAJADOR_CERESO" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+          <Property Name="IFE" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+          <Property Name="NIP" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="LUGAR_RESIDENCIA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO_IDENTIFICACION" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="ID_TIPO_DISCAPACIDAD" Type="Int16" />
+          <Property Name="ESTATURA" Type="Int16" />
+          <Property Name="PESO" Type="Int16" />
+          <Property Name="BI_FECALTA" Type="DateTime" />
+          <Property Name="BI_USER" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="TELORIGINAL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SPATERNO" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="SMATERNO" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="SNOMBRE" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ID_IDIOMA" Type="Int16" />
+          <Property Name="ID_DIALECTO" Type="Int16" />
+          <Property Name="TRADUCTOR" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="INGRESO" Relationship="HuellasModel.FK_INGRESO_REFERENCE_IMPUTADO" FromRole="IMPUTADO" ToRole="INGRESO" />
+          <NavigationProperty Name="IMPUTADO_BIOMETRICO" Relationship="HuellasModel.FK_IMPUTADOBIO_IMPUTADO" FromRole="IMPUTADO_BM" ToRole="IMPUTADO_BIOMETRICO" />
+        </EntityType>
+        <EntityType Name="INGRESO_BM">
+          <Key>
+            <PropertyRef Name="ID_CENTRO" />
+            <PropertyRef Name="ID_ANIO" />
+            <PropertyRef Name="ID_IMPUTADO" />
+            <PropertyRef Name="ID_INGRESO" />
+          </Key>
+          <Property Name="ID_CENTRO" Type="Int16" Nullable="false" />
+          <Property Name="ID_ANIO" Type="Int16" Nullable="false" />
+          <Property Name="ID_IMPUTADO" Type="Int32" Nullable="false" />
+          <Property Name="ID_INGRESO" Type="Int16" Nullable="false" />
+          <Property Name="FEC_REGISTRO" Type="DateTime" />
+          <Property Name="FEC_INGRESO_CERESO" Type="DateTime" />
+          <Property Name="ID_TIPO_INGRESO" Type="Int16" />
+          <Property Name="ID_CLASIFICACION_JURIDICA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ID_ESTATUS_ADMINISTRATIVO" Type="Int16" />
+          <Property Name="DOCINTERNACION_NUM_OFICIO" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ID_AUTORIDAD_INTERNA" Type="Int16" />
+          <Property Name="ID_TIPO_SEGURIDAD" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ID_DISPOSICION" Type="Int16" />
+          <Property Name="ID_TIPO_DOCUMENTO_INTERNACION" Type="Int16" />
+          <Property Name="DOCUMENTO_INTERNACION" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="NUC" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+          <Property Name="AV_PREVIA" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ID_IMPUTADO_EXPEDIENTE" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ID_UB_CENTRO" Type="Int16" />
+          <Property Name="ID_UB_EDIFICIO" Type="Int16" />
+          <Property Name="ID_UB_SECTOR" Type="Int16" />
+          <Property Name="ID_UB_CELDA" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ID_UB_CAMA" Type="Int16" />
+          <Property Name="A_DISPOSICION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ANIO_GOBIERNO" Type="Int16" />
+          <Property Name="FOLIO_GOBIERNO" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ID_INGRESO_DELITO" Type="Int16" />
+          <Property Name="ID_PERSONA_PG" Type="Int32" />
+          <NavigationProperty Name="IMPUTADO" Relationship="HuellasModel.FK_INGRESO_REFERENCE_IMPUTADO" FromRole="INGRESO" ToRole="IMPUTADO" />
+          <NavigationProperty Name="PERSONA" Relationship="HuellasModel.FK_INGRESO_REFERENCE_PERS765" FromRole="INGRESO" ToRole="PERSONA" />
+          <Property Name="ID_ESTADO_CIVIL" Type="Int16" />
+          <Property Name="ID_OCUPACION" Type="Int16" />
+          <Property Name="ID_ESCOLARIDAD" Type="Int16" />
+          <Property Name="ID_RELIGION" Type="Int16" />
+          <Property Name="DOMICILIO_CALLE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DOMICILIO_NUM_EXT" Type="Int32" />
+          <Property Name="DOMICILIO_NUM_INT" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="ID_COLONIA" Type="Int32" />
+          <Property Name="ID_MUNICIPIO" Type="Int16" />
+          <Property Name="ID_ENTIDAD" Type="Int16" />
+          <Property Name="ID_PAIS" Type="Int16" />
+          <Property Name="DOMICILIO_CP" Type="Int32" />
+          <Property Name="RESIDENCIA_ANIOS" Type="Int16" />
+          <Property Name="RESIDENCIAS_MESES" Type="Int16" />
+          <Property Name="TELEFONO" Type="Int64" />
+          <Property Name="DOMICILIO_TRABAJO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MADRE_FINADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PADRE_FINADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="LUGAR_RESIDENCIA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO_IDENTIFICACION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TIPO_DISCAPACIDAD" Type="Int16" />
+          <Property Name="ESTATURA" Type="Int16" />
+          <Property Name="PESO" Type="Int16" />
+          <Property Name="FEC_SALIDA_CERESO" Type="DateTime" />
+          <Property Name="USUARIO_SALIDA" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_INGRESO_REFERENCE_IMPUTADO">
+          <End Type="HuellasModel.IMPUTADO_BM" Role="IMPUTADO" Multiplicity="1" />
+          <End Type="HuellasModel.INGRESO_BM" Role="INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IMPUTADO">
+              <PropertyRef Name="ID_CENTRO" />
+              <PropertyRef Name="ID_ANIO" />
+              <PropertyRef Name="ID_IMPUTADO" />
+            </Principal>
+            <Dependent Role="INGRESO">
+              <PropertyRef Name="ID_CENTRO" />
+              <PropertyRef Name="ID_ANIO" />
+              <PropertyRef Name="ID_IMPUTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INGRESO_REFERENCE_PERS765">
+          <End Type="HuellasModel.PERSONA" Role="PERSONA" Multiplicity="0..1" />
+          <End Type="HuellasModel.INGRESO_BM" Role="INGRESO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSONA">
+              <PropertyRef Name="ID_PERSONA" />
+            </Principal>
+            <Dependent Role="INGRESO">
+              <PropertyRef Name="ID_PERSONA_PG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="IMPUTADO_BIOMETRICO">
+          <Key>
+            <PropertyRef Name="ID_CENTRO" />
+            <PropertyRef Name="ID_ANIO" />
+            <PropertyRef Name="ID_IMPUTADO" />
+            <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            <PropertyRef Name="ID_FORMATO" />
+          </Key>
+          <Property Name="ID_CENTRO" Type="Int16" Nullable="false" />
+          <Property Name="ID_ANIO" Type="Int16" Nullable="false" />
+          <Property Name="ID_IMPUTADO" Type="Int32" Nullable="false" />
+          <Property Name="ID_TIPO_BIOMETRICO" Type="Int16" Nullable="false" />
+          <Property Name="BIOMETRICO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CALIDAD" Type="Int16" />
+          <Property Name="ID_FORMATO" Type="Int16" Nullable="false" />
+          <Property Name="TOMA" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="BIOMETRICO_TIPO" Relationship="HuellasModel.FK_IMPUTADO_REFERENCE_TIPO_BIO" FromRole="IMPUTADO_BIOMETRICO" ToRole="BIOMETRICO_TIPO" />
+          <NavigationProperty Name="IMPUTADO" Relationship="HuellasModel.FK_IMPUTADOBIO_IMPUTADO" FromRole="IMPUTADO_BIOMETRICO" ToRole="IMPUTADO_BM" />
+        </EntityType>
+        <Association Name="FK_IMPUTADO_REFERENCE_TIPO_BIO">
+          <End Type="HuellasModel.BIOMETRICO_TIPO" Role="BIOMETRICO_TIPO" Multiplicity="1" />
+          <End Type="HuellasModel.IMPUTADO_BIOMETRICO" Role="IMPUTADO_BIOMETRICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BIOMETRICO_TIPO">
+              <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            </Principal>
+            <Dependent Role="IMPUTADO_BIOMETRICO">
+              <PropertyRef Name="ID_TIPO_BIOMETRICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IMPUTADOBIO_IMPUTADO">
+          <End Type="HuellasModel.IMPUTADO_BM" Role="IMPUTADO_BM" Multiplicity="1" />
+          <End Type="HuellasModel.IMPUTADO_BIOMETRICO" Role="IMPUTADO_BIOMETRICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IMPUTADO_BM">
+              <PropertyRef Name="ID_CENTRO" />
+              <PropertyRef Name="ID_ANIO" />
+              <PropertyRef Name="ID_IMPUTADO" />
+            </Principal>
+            <Dependent Role="IMPUTADO_BIOMETRICO">
+              <PropertyRef Name="ID_CENTRO" />
+              <PropertyRef Name="ID_ANIO" />
+              <PropertyRef Name="ID_IMPUTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HuellasModelStoreContainer" CdmEntityContainer="HuellasEntities">
+          <EntitySetMapping Name="PERSONA">
+            <EntityTypeMapping TypeName="HuellasModel.PERSONA">
+              <MappingFragment StoreEntitySet="PERSONA">
+                <ScalarProperty Name="NOTA_TECNICA" ColumnName="NOTA_TECNICA" />
+                <ScalarProperty Name="SNOMBRE" ColumnName="SNOMBRE" />
+                <ScalarProperty Name="SMATERNO" ColumnName="SMATERNO" />
+                <ScalarProperty Name="SPATERNO" ColumnName="SPATERNO" />
+                <ScalarProperty Name="CORIGINAL" ColumnName="CORIGINAL" />
+                <ScalarProperty Name="NORIGINAL" ColumnName="NORIGINAL" />
+                <ScalarProperty Name="ID_TIPO_DISCAPACIDAD" ColumnName="ID_TIPO_DISCAPACIDAD" />
+                <ScalarProperty Name="IFE" ColumnName="IFE" />
+                <ScalarProperty Name="ID_ETNIA" ColumnName="ID_ETNIA" />
+                <ScalarProperty Name="CORREO_ELECTRONICO" ColumnName="CORREO_ELECTRONICO" />
+                <ScalarProperty Name="TELEFONO_MOVIL" ColumnName="TELEFONO_MOVIL" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ESTADO_CIVIL" ColumnName="ESTADO_CIVIL" />
+                <ScalarProperty Name="NACIONALIDAD" ColumnName="NACIONALIDAD" />
+                <ScalarProperty Name="LUGAR_NACIMIENTO" ColumnName="LUGAR_NACIMIENTO" />
+                <ScalarProperty Name="FEC_NACIMIENTO" ColumnName="FEC_NACIMIENTO" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="DOMICILIO_CODIGO_POSTAL" ColumnName="DOMICILIO_CODIGO_POSTAL" />
+                <ScalarProperty Name="ID_PAIS" ColumnName="ID_PAIS" />
+                <ScalarProperty Name="ID_ENTIDAD" ColumnName="ID_ENTIDAD" />
+                <ScalarProperty Name="ID_MUNICIPIO" ColumnName="ID_MUNICIPIO" />
+                <ScalarProperty Name="ID_COLONIA" ColumnName="ID_COLONIA" />
+                <ScalarProperty Name="DOMICILIO_NUM_INT" ColumnName="DOMICILIO_NUM_INT" />
+                <ScalarProperty Name="DOMICILIO_NUM_EXT" ColumnName="DOMICILIO_NUM_EXT" />
+                <ScalarProperty Name="DOMICILIO_CALLE" ColumnName="DOMICILIO_CALLE" />
+                <ScalarProperty Name="SEXO" ColumnName="SEXO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="MATERNO" ColumnName="MATERNO" />
+                <ScalarProperty Name="PATERNO" ColumnName="PATERNO" />
+                <ScalarProperty Name="ID_TIPO_PERSONA" ColumnName="ID_TIPO_PERSONA" />
+                <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSONA_BIOMETRICO">
+            <EntityTypeMapping TypeName="HuellasModel.PERSONA_BIOMETRICO">
+              <MappingFragment StoreEntitySet="PERSONA_BIOMETRICO">
+                <ScalarProperty Name="ID_FORMATO" ColumnName="ID_FORMATO" />
+                <ScalarProperty Name="NORIGINAL" ColumnName="NORIGINAL" />
+                <ScalarProperty Name="BIOMETRICO" ColumnName="BIOMETRICO" />
+                <ScalarProperty Name="ID_TIPO_BIOMETRICO" ColumnName="ID_TIPO_BIOMETRICO" />
+                <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BIOMETRICO_FORMATO">
+            <EntityTypeMapping TypeName="HuellasModel.BIOMETRICO_FORMATO">
+              <MappingFragment StoreEntitySet="BIOMETRICO_FORMATO">
+                <ScalarProperty Name="DESCR" ColumnName="DESCR" />
+                <ScalarProperty Name="ID_FORMATO" ColumnName="ID_FORMATO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BIOMETRICO_TIPO">
+            <EntityTypeMapping TypeName="HuellasModel.BIOMETRICO_TIPO">
+              <MappingFragment StoreEntitySet="BIOMETRICO_TIPO">
+                <ScalarProperty Name="TIPO_BIOMETRICO" ColumnName="TIPO_BIOMETRICO" />
+                <ScalarProperty Name="ID_TIPO_BIOMETRICO" ColumnName="ID_TIPO_BIOMETRICO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IMPUTADO">
+            <EntityTypeMapping TypeName="HuellasModel.IMPUTADO_BM">
+              <MappingFragment StoreEntitySet="IMPUTADO">
+                <ScalarProperty Name="TRADUCTOR" ColumnName="TRADUCTOR" />
+                <ScalarProperty Name="ID_DIALECTO" ColumnName="ID_DIALECTO" />
+                <ScalarProperty Name="ID_IDIOMA" ColumnName="ID_IDIOMA" />
+                <ScalarProperty Name="SNOMBRE" ColumnName="SNOMBRE" />
+                <ScalarProperty Name="SMATERNO" ColumnName="SMATERNO" />
+                <ScalarProperty Name="SPATERNO" ColumnName="SPATERNO" />
+                <ScalarProperty Name="TELORIGINAL" ColumnName="TELORIGINAL" />
+                <ScalarProperty Name="BI_USER" ColumnName="BI_USER" />
+                <ScalarProperty Name="BI_FECALTA" ColumnName="BI_FECALTA" />
+                <ScalarProperty Name="PESO" ColumnName="PESO" />
+                <ScalarProperty Name="ESTATURA" ColumnName="ESTATURA" />
+                <ScalarProperty Name="ID_TIPO_DISCAPACIDAD" ColumnName="ID_TIPO_DISCAPACIDAD" />
+                <ScalarProperty Name="NUMERO_IDENTIFICACION" ColumnName="NUMERO_IDENTIFICACION" />
+                <ScalarProperty Name="LUGAR_RESIDENCIA" ColumnName="LUGAR_RESIDENCIA" />
+                <ScalarProperty Name="NIP" ColumnName="NIP" />
+                <ScalarProperty Name="IFE" ColumnName="IFE" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="TABAJADOR_CERESO" ColumnName="TABAJADOR_CERESO" />
+                <ScalarProperty Name="PADRE_FINADO" ColumnName="PADRE_FINADO" />
+                <ScalarProperty Name="NOMBRE_PADRE" ColumnName="NOMBRE_PADRE" />
+                <ScalarProperty Name="MATERNO_PADRE" ColumnName="MATERNO_PADRE" />
+                <ScalarProperty Name="PATERNO_PADRE" ColumnName="PATERNO_PADRE" />
+                <ScalarProperty Name="MADRE_FINADO" ColumnName="MADRE_FINADO" />
+                <ScalarProperty Name="NOMBRE_MADRE" ColumnName="NOMBRE_MADRE" />
+                <ScalarProperty Name="MATERNO_MADRE" ColumnName="MATERNO_MADRE" />
+                <ScalarProperty Name="PATERNO_MADRE" ColumnName="PATERNO_MADRE" />
+                <ScalarProperty Name="NACIMIENTO_LUGAR" ColumnName="NACIMIENTO_LUGAR" />
+                <ScalarProperty Name="NACIMIENTO_FECHA" ColumnName="NACIMIENTO_FECHA" />
+                <ScalarProperty Name="NACIMIENTO_MUNICIPIO" ColumnName="NACIMIENTO_MUNICIPIO" />
+                <ScalarProperty Name="NACIMIENTO_ESTADO" ColumnName="NACIMIENTO_ESTADO" />
+                <ScalarProperty Name="NACIMIENTO_PAIS" ColumnName="NACIMIENTO_PAIS" />
+                <ScalarProperty Name="DOMICILIO_TRABAJO" ColumnName="DOMICILIO_TRABAJO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="RESIDENCIA_MESES" ColumnName="RESIDENCIA_MESES" />
+                <ScalarProperty Name="RESIDENCIA_ANIOS" ColumnName="RESIDENCIA_ANIOS" />
+                <ScalarProperty Name="DOMICILIO_CODIGO_POSTAL" ColumnName="DOMICILIO_CODIGO_POSTAL" />
+                <ScalarProperty Name="ID_PAIS" ColumnName="ID_PAIS" />
+                <ScalarProperty Name="ID_ENTIDAD" ColumnName="ID_ENTIDAD" />
+                <ScalarProperty Name="ID_MUNICIPIO" ColumnName="ID_MUNICIPIO" />
+                <ScalarProperty Name="ID_COLONIA" ColumnName="ID_COLONIA" />
+                <ScalarProperty Name="DOMICILIO_NUM_INT" ColumnName="DOMICILIO_NUM_INT" />
+                <ScalarProperty Name="DOMICILIO_NUM_EXT" ColumnName="DOMICILIO_NUM_EXT" />
+                <ScalarProperty Name="DOMICILIO_CALLE" ColumnName="DOMICILIO_CALLE" />
+                <ScalarProperty Name="ID_NACIONALIDAD" ColumnName="ID_NACIONALIDAD" />
+                <ScalarProperty Name="ID_ETNIA" ColumnName="ID_ETNIA" />
+                <ScalarProperty Name="ID_RELIGION" ColumnName="ID_RELIGION" />
+                <ScalarProperty Name="ID_ESCOLARIDAD" ColumnName="ID_ESCOLARIDAD" />
+                <ScalarProperty Name="ID_OCUPACION" ColumnName="ID_OCUPACION" />
+                <ScalarProperty Name="ID_ESTADO_CIVIL" ColumnName="ID_ESTADO_CIVIL" />
+                <ScalarProperty Name="SEXO" ColumnName="SEXO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="MATERNO" ColumnName="MATERNO" />
+                <ScalarProperty Name="PATERNO" ColumnName="PATERNO" />
+                <ScalarProperty Name="ID_IMPUTADO" ColumnName="ID_IMPUTADO" />
+                <ScalarProperty Name="ID_ANIO" ColumnName="ID_ANIO" />
+                <ScalarProperty Name="ID_CENTRO" ColumnName="ID_CENTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INGRESO">
+            <EntityTypeMapping TypeName="HuellasModel.INGRESO_BM">
+              <MappingFragment StoreEntitySet="INGRESO">
+                <ScalarProperty Name="USUARIO_SALIDA" ColumnName="USUARIO_SALIDA" />
+                <ScalarProperty Name="FEC_SALIDA_CERESO" ColumnName="FEC_SALIDA_CERESO" />
+                <ScalarProperty Name="PESO" ColumnName="PESO" />
+                <ScalarProperty Name="ESTATURA" ColumnName="ESTATURA" />
+                <ScalarProperty Name="ID_TIPO_DISCAPACIDAD" ColumnName="ID_TIPO_DISCAPACIDAD" />
+                <ScalarProperty Name="NUMERO_IDENTIFICACION" ColumnName="NUMERO_IDENTIFICACION" />
+                <ScalarProperty Name="LUGAR_RESIDENCIA" ColumnName="LUGAR_RESIDENCIA" />
+                <ScalarProperty Name="PADRE_FINADO" ColumnName="PADRE_FINADO" />
+                <ScalarProperty Name="MADRE_FINADO" ColumnName="MADRE_FINADO" />
+                <ScalarProperty Name="DOMICILIO_TRABAJO" ColumnName="DOMICILIO_TRABAJO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="RESIDENCIAS_MESES" ColumnName="RESIDENCIAS_MESES" />
+                <ScalarProperty Name="RESIDENCIA_ANIOS" ColumnName="RESIDENCIA_ANIOS" />
+                <ScalarProperty Name="DOMICILIO_CP" ColumnName="DOMICILIO_CP" />
+                <ScalarProperty Name="ID_PAIS" ColumnName="ID_PAIS" />
+                <ScalarProperty Name="ID_ENTIDAD" ColumnName="ID_ENTIDAD" />
+                <ScalarProperty Name="ID_MUNICIPIO" ColumnName="ID_MUNICIPIO" />
+                <ScalarProperty Name="ID_COLONIA" ColumnName="ID_COLONIA" />
+                <ScalarProperty Name="DOMICILIO_NUM_INT" ColumnName="DOMICILIO_NUM_INT" />
+                <ScalarProperty Name="DOMICILIO_NUM_EXT" ColumnName="DOMICILIO_NUM_EXT" />
+                <ScalarProperty Name="DOMICILIO_CALLE" ColumnName="DOMICILIO_CALLE" />
+                <ScalarProperty Name="ID_RELIGION" ColumnName="ID_RELIGION" />
+                <ScalarProperty Name="ID_ESCOLARIDAD" ColumnName="ID_ESCOLARIDAD" />
+                <ScalarProperty Name="ID_OCUPACION" ColumnName="ID_OCUPACION" />
+                <ScalarProperty Name="ID_ESTADO_CIVIL" ColumnName="ID_ESTADO_CIVIL" />
+                <ScalarProperty Name="ID_PERSONA_PG" ColumnName="ID_PERSONA_PG" />
+                <ScalarProperty Name="ID_INGRESO_DELITO" ColumnName="ID_INGRESO_DELITO" />
+                <ScalarProperty Name="FOLIO_GOBIERNO" ColumnName="FOLIO_GOBIERNO" />
+                <ScalarProperty Name="ANIO_GOBIERNO" ColumnName="ANIO_GOBIERNO" />
+                <ScalarProperty Name="A_DISPOSICION" ColumnName="A_DISPOSICION" />
+                <ScalarProperty Name="ID_UB_CAMA" ColumnName="ID_UB_CAMA" />
+                <ScalarProperty Name="ID_UB_CELDA" ColumnName="ID_UB_CELDA" />
+                <ScalarProperty Name="ID_UB_SECTOR" ColumnName="ID_UB_SECTOR" />
+                <ScalarProperty Name="ID_UB_EDIFICIO" ColumnName="ID_UB_EDIFICIO" />
+                <ScalarProperty Name="ID_UB_CENTRO" ColumnName="ID_UB_CENTRO" />
+                <ScalarProperty Name="ID_IMPUTADO_EXPEDIENTE" ColumnName="ID_IMPUTADO_EXPEDIENTE" />
+                <ScalarProperty Name="AV_PREVIA" ColumnName="AV_PREVIA" />
+                <ScalarProperty Name="NUC" ColumnName="NUC" />
+                <ScalarProperty Name="DOCUMENTO_INTERNACION" ColumnName="DOCUMENTO_INTERNACION" />
+                <ScalarProperty Name="ID_TIPO_DOCUMENTO_INTERNACION" ColumnName="ID_TIPO_DOCUMENTO_INTERNACION" />
+                <ScalarProperty Name="ID_DISPOSICION" ColumnName="ID_DISPOSICION" />
+                <ScalarProperty Name="ID_TIPO_SEGURIDAD" ColumnName="ID_TIPO_SEGURIDAD" />
+                <ScalarProperty Name="ID_AUTORIDAD_INTERNA" ColumnName="ID_AUTORIDAD_INTERNA" />
+                <ScalarProperty Name="DOCINTERNACION_NUM_OFICIO" ColumnName="DOCINTERNACION_NUM_OFICIO" />
+                <ScalarProperty Name="ID_ESTATUS_ADMINISTRATIVO" ColumnName="ID_ESTATUS_ADMINISTRATIVO" />
+                <ScalarProperty Name="ID_CLASIFICACION_JURIDICA" ColumnName="ID_CLASIFICACION_JURIDICA" />
+                <ScalarProperty Name="ID_TIPO_INGRESO" ColumnName="ID_TIPO_INGRESO" />
+                <ScalarProperty Name="FEC_INGRESO_CERESO" ColumnName="FEC_INGRESO_CERESO" />
+                <ScalarProperty Name="FEC_REGISTRO" ColumnName="FEC_REGISTRO" />
+                <ScalarProperty Name="ID_INGRESO" ColumnName="ID_INGRESO" />
+                <ScalarProperty Name="ID_IMPUTADO" ColumnName="ID_IMPUTADO" />
+                <ScalarProperty Name="ID_ANIO" ColumnName="ID_ANIO" />
+                <ScalarProperty Name="ID_CENTRO" ColumnName="ID_CENTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IMPUTADO_BIOMETRICO">
+            <EntityTypeMapping TypeName="HuellasModel.IMPUTADO_BIOMETRICO">
+              <MappingFragment StoreEntitySet="IMPUTADO_BIOMETRICO">
+                <ScalarProperty Name="TOMA" ColumnName="TOMA" />
+                <ScalarProperty Name="ID_FORMATO" ColumnName="ID_FORMATO" />
+                <ScalarProperty Name="CALIDAD" ColumnName="CALIDAD" />
+                <ScalarProperty Name="BIOMETRICO" ColumnName="BIOMETRICO" />
+                <ScalarProperty Name="ID_TIPO_BIOMETRICO" ColumnName="ID_TIPO_BIOMETRICO" />
+                <ScalarProperty Name="ID_IMPUTADO" ColumnName="ID_IMPUTADO" />
+                <ScalarProperty Name="ID_ANIO" ColumnName="ID_ANIO" />
+                <ScalarProperty Name="ID_CENTRO" ColumnName="ID_CENTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="false" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams />
+  </edmx:Designer>
+</edmx:Edmx>

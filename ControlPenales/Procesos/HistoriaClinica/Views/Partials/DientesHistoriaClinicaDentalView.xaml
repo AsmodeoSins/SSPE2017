@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="ControlPenales.DientesHistoriaClinicaDentalView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Dientes" Grid.Column="0" Grid.Row="0">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0" SelectedIndex="{Binding SelectExploracionFisica,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.ColumnSpan="4">
+                            <TabItem Header="Caries y Fluorosis" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Caries"></Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Fluorosis"></Label>
+                                        <ComboBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding CariesDental, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox Grid.Column="1" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding FluoroDental, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Anomalías de forma" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Anomalías de forma"></Label>
+                                        <ComboBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding AnomForma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+
+                                        <Label Grid.Column="0" Grid.Row="2" Content="Especifique" Grid.ColumnSpan="2" Name="lblRef1"></Label>
+                                        <TextBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" MaxLength="500" Grid.ColumnSpan="2" MinHeight="50" MaxWidth="{ Binding ElementName=lblRef1, Path=ActualWidth}" TextWrapping="Wrap" CharacterCasing="Upper" Text="{ Binding EspecifiqueAnomaliadForma, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Anomalías de tamaño" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Anomalías de tamaño"></Label>
+                                        <ComboBox Grid.Column="0" Grid.Row="1" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Tag" SelectedValue="{ Binding AnomTamanio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+
+                                        <Label Grid.Column="0" Grid.Row="2" Content="Especifique" Grid.ColumnSpan="2" Name="lblRef2"></Label>
+                                        <TextBox Grid.Column="0" Grid.Row="3" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="500" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblRef2, Path=ActualWidth}" MinHeight="50" TextWrapping="Wrap" CharacterCasing="Upper" Text="{ Binding EspecifiqueAnomaliadTamanio, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Hipoplasias" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Hipoplasias"></Label>
+                                        <ComboBox Grid.Column="0" Grid.Row="1" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Tag" SelectedValue="{ Binding HipoPlastDental, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+
+                                        <Label Grid.Column="0" Grid.Row="2" Content="Especifique" Grid.ColumnSpan="2" Name="lblRef3"></Label>
+                                        <TextBox Grid.Column="0" Grid.Row="3" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="500" Grid.ColumnSpan="2" MinHeight="50" MaxWidth="{ Binding ElementName=lblRef3, Path=ActualWidth}" TextWrapping="Wrap" CharacterCasing="Upper" Text="{ Binding EspecifiqueHipoplas, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Otros" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Otros"></Label>
+                                        <TextBox Grid.Column="0" Grid.Row="1" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="500"  MinHeight="50" CharacterCasing="Upper" TextWrapping="Wrap" Text="{ Binding OtrosHipoDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                        </Controls:MetroAnimatedSingleRowTabControl>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

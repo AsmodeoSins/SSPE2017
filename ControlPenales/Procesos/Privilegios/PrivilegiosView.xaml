@@ -1,0 +1,413 @@
+﻿<UserControl x:Class="ControlPenales.PrivilegiosView"
+             xmlns:Name="PrivilegiosWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=ProgramacionEventosWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:BoolConverter x:Key="ConvertirBool"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--MENU-->
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+        <!--TITULO-->
+        <Label Grid.Column="0" Grid.Row="1"  Content="Privilegios" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Controls:MetroAnimatedSingleRowTabControl TabStripPlacement="Top" Height="auto" Grid.Column="0" Grid.Row="3" Controls:TabControlHelper.IsUnderlined="True" SelectedItem="{Binding TabSelected}" >
+            <TabItem Header="Usuarios" Style="{StaticResource HeaderTabStyle}" Selector.IsSelected="False" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Content="Usuario"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" CharacterCasing="Upper" MaxLength="20" Text="{Binding BUsuario}" Name="Usuario">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=Usuario}" Command="{Binding BuscarClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10">
+                        <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                        <Button  Width="50" Height="50"  ToolTip="Buscar" 
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_usuario" Command="{Binding OnClick}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" FontSize="11.5"  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="True" ItemsSource="{Binding LstUsuario}" SelectedItem="{Binding SelectedUsuario}" Style="{StaticResource MetroDataGrid}" Margin="0 15 0 0" MaxHeight="250">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Usuario" Binding="{Binding ID_USUARIO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding EMPLEADO.PERSONA.PATERNO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Apellido Materno" Binding="{Binding EMPLEADO.PERSONA.MATERNO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding EMPLEADO.PERSONA.NOMBRE}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="add_usuario"/>
+                                <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="edit_usuario"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                    <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Content="No hay información..." FontSize="11.5" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding UsuariosVisible}"></Label>
+
+                    <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Centro" Padding="0 1 0 0"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding LstCentros}" SelectedValue="{Binding SelectedCentro}" SelectedValuePath="ID_CENTRO" DisplayMemberPath="DESCR" Width="250" HorizontalAlignment="Left"></ComboBox>
+                    </Grid>
+                    
+                    <Label Grid.Column="0" Grid.Row="5" Content="Rol" FontWeight="Bold"></Label>
+                    <DataGrid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3" FontSize="11.5"  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="True" ItemsSource="{Binding LstUsuarioRol}" SelectedItem="{Binding SelectedUsuarioRol}" Style="{StaticResource MetroDataGrid}" Margin="0 5 0 0" MaxHeight="200">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Seleccione">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Seleccion,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.BEditar, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Command="{Binding DataContext.CheckedUR, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}">
+                                        </CheckBox>
+                                        <!--<CheckBox HorizontalAlignment="Center" IsChecked="{Binding Seleccion,UpdateSourceTrigger=PropertyChanged}">
+                                                <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedUR, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.UncheckedUR, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>-->
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Rol" Binding="{Binding UsuarioRol.SISTEMA_ROL.DESCR}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="3" Content="No hay información..." FontSize="11.5" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding UsuarioRolVisible}"></Label>
+                    <Label Grid.Column="0" Grid.Row="8" Content="Proceso" FontWeight="Bold"></Label>
+                    <DataGrid Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="3" FontSize="11.5"  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="True" ItemsSource="{Binding LstProcesoUsuario}" SelectedItem="{Binding SelectedProcesoUsuario}" Style="{StaticResource MetroDataGrid}" Margin="0 5 0 0" MaxHeight="200">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Seleccione">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Seleccion,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.BEditar, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Command="{Binding DataContext.CheckedPR, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}">
+                                        </CheckBox>
+                                        <!--<CheckBox HorizontalAlignment="Center" IsChecked="{Binding Seleccion,UpdateSourceTrigger=PropertyChanged}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPR, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPR, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>-->
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Rol" Binding="{Binding Rol}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Proceso" Binding="{Binding Proceso}"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Insertar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding ProcesoUsuario.INSERTAR,Converter={StaticResource ConvertirBool},UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding PermisosEnabled}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPRP, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPRP, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Editar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding ProcesoUsuario.EDITAR,Converter={StaticResource ConvertirBool},UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding PermisosEnabled}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPRP, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPRP, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Consultar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding ProcesoUsuario.CONSULTAR,Converter={StaticResource ConvertirBool},UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding PermisosEnabled}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPRP, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPRP, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Imprimir">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding ProcesoUsuario.IMPRIMIR,Converter={StaticResource ConvertirBool},UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding PermisosEnabled}">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPRP, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPRP, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="add_proceso_usuario"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                    <Label Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3" Content="No hay información..." FontSize="11.5" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding UsuarioProcesoVisible}"></Label>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Roles" Style="{StaticResource HeaderTabStyle}" Selector.IsSelected="False" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Rol" VerticalAlignment="Bottom"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" CharacterCasing="Upper" MaxLength="100" Text="{Binding BRDescripcion}" Name="Rol">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=Rol}" Command="{Binding BuscarClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10">
+                        <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                        <Button  Width="50" Height="50"  ToolTip="Buscar" 
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_rol" Command="{Binding OnClick}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" FontSize="11.5"  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="True" ItemsSource="{Binding LstRoles}" SelectedItem="{Binding SelectedRol}" Style="{StaticResource MetroDataGrid}" Margin="0 15 0 0" MaxHeight="300">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Roles" Binding="{Binding DESCR}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="add_rol"/>
+                                <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="edit_rol"/>
+                                <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="del_rol"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                    <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Content="No hay información..." FontSize="11.5" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding RolesVisible}"></Label>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Procesos" FontWeight="Bold"></Label>
+                    <DataGrid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" FontSize="11.5"  AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding LstPermisosRol}" SelectedItem="{Binding SelectedPermisoRol}" Style="{StaticResource MetroDataGrid}" Margin="0 5 0 0" MaxHeight="300">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Seleccione">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Seleccion,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.BEditar, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.Unchecked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Proceso" Binding="{Binding ProcesoRol.PROCESO.DESCR}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Insertar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsEnabled="{Binding DataContext.BEditar, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsChecked="{Binding ProcesoRol.INSERTAR,Converter={StaticResource ConvertirBool},UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                Command="{Binding DataContext.CheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.UncheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Editar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsEnabled="{Binding DataContext.BEditar, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsChecked="{Binding ProcesoRol.EDITAR,Converter={StaticResource ConvertirBool},UpdateSourceTrigger=PropertyChanged}"
+                                                Command="{Binding DataContext.CheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.UncheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Consultar">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsEnabled="{Binding DataContext.BEditar, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsChecked="{Binding ProcesoRol.CONSULTAR,Converter={StaticResource ConvertirBool},UpdateSourceTrigger=PropertyChanged}"
+                                                Command="{Binding DataContext.CheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.UncheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Imprimir">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsEnabled="{Binding DataContext.BEditar, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsChecked="{Binding ProcesoRol.IMPRIMIR,Converter={StaticResource ConvertirBool},UpdateSourceTrigger=PropertyChanged}"
+                                                Command="{Binding DataContext.CheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.CheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked" >
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.UncheckedPermisos, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3" Content="No hay información..." FontSize="11.5" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding PermisoRolVisible}"></Label>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Procesos" Style="{StaticResource HeaderTabStyle}" Selector.IsSelected="False" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35"></ColumnDefinition>
+                        <ColumnDefinition Width="215"/>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Proceso" VerticalAlignment="Bottom" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" CharacterCasing="Upper" MaxLength="100" Text="{Binding BPDescripcion}" Name="Proceso" Grid.ColumnSpan="2" Margin="0,1">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=Proceso}" Command="{Binding BuscarClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Margin="12,0,13,10" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                        <Button  Width="50" Height="50"  ToolTip="Buscar" 
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_proceso" Command="{Binding OnClick}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" FontSize="11.5"  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="True" ItemsSource="{Binding LstProcesos}" SelectedItem="{Binding SelectedProceso}" Style="{StaticResource MetroDataGrid}" Margin="0 15 0 0" MaxHeight="500">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID_PROCESO}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Proceso" Binding="{Binding DESCR}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Ventana" Binding="{Binding VENTANA}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="add_proceso"/>
+                                <!--<MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="edit_proceso"/>
+                                <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="del_proceso"/>-->
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                    <Label Grid.Column="3" Grid.Row="3" Content="No hay información..." FontSize="11.5" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding ProcesosVisible}" Margin="44,0,369,0"/>
+                </Grid>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

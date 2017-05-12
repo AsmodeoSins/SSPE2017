@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ControlPenales.Controls.Calendario.DayBoxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             BorderBrush="LightSlateGray" BorderThickness="1">
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="BlueGradientBrush" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+            <GradientStop Color="#FFC4DDFF" Offset="0.987"/>
+            <GradientStop Color="#FFDEECFF" Offset="0.535"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+    <Button Background="Transparent"  MinWidth="100" MinHeight="100" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Name="DayBox">
+        <Button.Content>
+            <Grid Margin="-10 -5 -10 -5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border x:Name="DayLabelRowBorder" CornerRadius="2" Grid.Row="0" BorderBrush="{x:Null}" 
+                        Background="{DynamicResource BlueGradientBrush}" >
+                    <Label x:Name="DayNumberLabel" Content="1" FontWeight="Bold" FontFamily="Arial"/>
+                </Border>
+                <StackPanel Grid.Row="1" x:Name="DayAppointmentsStack" HorizontalAlignment="Stretch" Background="White" 
+                    VerticalAlignment="Stretch">
+                    <TextBlock x:Name="TimeAppointmentsLabel"></TextBlock>
+                    <TextBlock x:Name="AreaAppointmentsLabel" TextWrapping="Wrap" MaxWidth="150" HorizontalAlignment="Left" ></TextBlock>
+                    <TextBlock x:Name="EstatusAppointmentsLabel"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </Button.Content>
+    </Button>
+</UserControl>

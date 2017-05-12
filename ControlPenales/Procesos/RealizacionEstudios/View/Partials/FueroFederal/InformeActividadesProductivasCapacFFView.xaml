@@ -1,0 +1,218 @@
+﻿<UserControl x:Class="ControlPenales.InformeActividadesProductivasCapacFFView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:Views="clr-namespace:ControlPenales" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1200" d:DesignHeight="1000">
+    <UserControl.Resources>
+        <Views:GetNombreMes x:Key="NombreMesConverter" />
+    </UserControl.Resources>
+    <AdornerDecorator>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Nombre" Name="lblRe1"></Label>
+        <TextBox Grid.Column="0" Grid.Row="1" Text="{ Binding NombreInternoCpaFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe1, Path=ActualWidth}" MaxLength="100"></TextBox>
+        <Label Grid.Column="1" Grid.Row="0" Content="Sección"></Label>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{ Binding SeccionInterno, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="100" MaxWidth="{ Binding ElementName=lblRe1, Path=ActualWidth}"></TextBox>
+        <Label Grid.Column="2" Grid.Row="0" Content="Oficio u actividad desempeñada antes de su reclusión"></Label>
+        <ComboBox Grid.Column="2" Grid.Row="1" SelectedValuePath="ID_OCUPACION" ItemsSource="{ Binding LstOcupaciones}" DisplayMemberPath="DESCR" 
+                  SelectedValue="{ Binding OficioActivDesempenadaAntesR, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+        <Label Grid.Column="0" Grid.Row="2" Content="Salario que devengaba al momento de su detencion"></Label>
+        <TextBox Grid.Column="0" Grid.Row="3" Text="{ Binding SalarioPercib, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe1, Path=ActualWidth}">
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="6" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Name="lblRe2">
+            <StackPanel>
+                <TextBlock Text="Actividad productiva actual que desempeña en el centro de reinserción"></TextBlock>
+                <TextBlock Text="(Especificar oficios o si realiza servicio, asimismo, señale si ha sido trasladado de otro Centro)"></TextBlock>
+            </StackPanel>
+        </Label>
+        <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" MaxLength="700" Text="{ Binding ActivEnCentroActual, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblRe2, Path=ActualWidth}"></TextBox>
+        <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Header="Responsabilidad y disciplina">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="¿Atiende a las indicaciones de sus superiores?" Name="lblRe3"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" MaxWidth="{ Binding ElementName=lblRe3, Path=ActualWidth}" SelectedValue="{ Binding IdAtiendeIndicacionesSup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="1" Grid.Row="0" Content="¿Le satisface su actividad?"></Label>
+                <ComboBox Grid.Column="1" Grid.Row="1"  SelectedValuePath="Tag" MaxWidth="{ Binding ElementName=lblRe3, Path=ActualWidth}" SelectedValue="{ Binding IdSatisfaceActiv, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="2" Grid.Row="0" Content="¿Es descuidado en el cumplimiento de sus labores?"></Label>
+                <ComboBox Grid.Column="2" Grid.Row="1" SelectedValuePath="Tag" MaxWidth="{ Binding ElementName=lblRe3, Path=ActualWidth}" SelectedValue="{ Binding IdDescuidadoCumplimientoLab, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Content="Motivos y tiempo de las interrupciones en la actividad" Name="lblRe4"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="3" MaxLength="500" TextWrapping="Wrap" Grid.ColumnSpan="3" MinHeight="40" MaxWidth="{ Binding ElementName=lblRe4, Path=ActualWidth}" Text="{ Binding MotivosTiempoInterrupcionesActividad, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Header="Cursos de capacitación">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Content="¿Durante la reclusión ha asistido a cursos de capacitación para el aprendizaje de algún oficio? En caso afirmativo:"></Label>
+                <DataGrid  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{ Binding LstCursosCapacitacionFederal, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" AutoGenerateColumns="False" Height="auto" CanUserAddRows="False"
+                        Style="{StaticResource MetroDataGrid}" SelectedItem="{ Binding SelectedCursoCapacitacionFederal}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Curso"  Binding="{ Binding CURSO }" />
+                        <DataGridTextColumn Header="Fecha de inicio" Binding="{Binding FECHA_INICIO,StringFormat={}{0:dd/MM/yyyy}}" />
+                        <DataGridTextColumn Header="Fecha de fin" Binding="{Binding FECHA_TERMINO,StringFormat={}{0:dd/MM/yyyy}}" />
+                    </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="agregar_curso_cap" />
+                                <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_curso_cap" />
+                                <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_curso_cap" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="¿Recibió constancia?"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="3" SelectedValuePath="Tag" SelectedValue="{ Binding IdRecibioConstancia, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Content="En caso de no haber asistido a cursos, especifique el motivo" Name="lblRe5"></Label>
+                <TextBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" MaxLength="500" Text="{ Binding EspecifiqueNoCursos, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe5, Path=ActualWidth}" CharacterCasing="Upper" ></TextBox>
+            </Grid>
+        </GroupBox>
+        <Label Grid.Column="0" Grid.Row="6" Content="¿Ha cambiado de actividad?"></Label>
+        <ComboBox Grid.Column="0" Grid.Row="7" SelectedValuePath="Tag" SelectedValue="{ Binding IdCambiadoActiv, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+        </ComboBox>
+        <Label Grid.Column="1" Grid.Row="6" Content="¿Porque?" Grid.ColumnSpan="2" Name="lblRe6"></Label>
+        <TextBox Grid.Column="1" Grid.Row="7" MaxLength="500" MaxWidth="{ Binding ElementName=lblRe6, Path=ActualWidth}" TextWrapping="Wrap" Grid.ColumnSpan="2" Text="{ Binding ExpecifiqueCambioAct, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+        <Label Grid.Column="0" Grid.Row="8" Content="¿Ha progresado en su oficio?"></Label>
+        <ComboBox Grid.Column="0" Grid.Row="9" SelectedValuePath="Tag" SelectedValue="{ Binding IdProgresoOficio, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+        </ComboBox>
+        <Label Grid.Column="1" Grid.Row="8" Content="Actitudes hacia actividades productivas"></Label>
+        <TextBox Grid.Column="1" MaxLength="500" MaxWidth="{ Binding ElementName=lblRe6, Path=ActualWidth}" TextWrapping="Wrap" Grid.Row="9" Grid.ColumnSpan="2" Text="{ Binding ActitudesHaciaDesempenioActivProd, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+        <Label Grid.Column="0" Grid.Row="10" Content="¿Cuenta con fondo de ahorro?"></Label>
+        <ComboBox Grid.Column="0" Grid.Row="11" SelectedValuePath="Tag" SelectedValue="{ Binding IdCuentaFondoA, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+        </ComboBox>
+        <Label Grid.Column="1" Grid.Row="10" Name="lblRe7" Content="En caso afirmativo ¿Que compensación recibe actualmente?" Grid.ColumnSpan="2"></Label>
+            <TextBox Grid.Column="1" Grid.Row="11" IsEnabled="{ Binding EnabledEspecifiqueCompensacionFederal, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRe7, Path=ActualWidth}" Grid.ColumnSpan="2" MaxLength="500" Text="{ Binding EspecifiqueCompensacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+        <GroupBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" Header="*Días laborados durante tiempo en reclusión (especifique dia, mes y año)">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Expander Header="Dias laborados durante el tiempo en reclusion (Especifique dia, mes y año)" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+                    <DataGrid ItemsSource="{ Binding LstDiasLaborados}" IsReadOnly="True" AutoGenerateColumns="False" Height="auto" CanUserAddRows="False"
+                        Style="{StaticResource MetroDataGrid}" SelectedItem="{ Binding SelectedDiaLab}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Año"  Binding="{ Binding ANIO }" />
+                            <DataGridTextColumn Header="Mes" Binding="{ Binding MES, Converter={ StaticResource NombreMesConverter} }" />
+                            <DataGridTextColumn Header="Dias Laborados" Binding="{ Binding DIAS_TRABAJADOS }" />
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="agregar_dias_lab" Visibility="{Binding MostrarOpcion}" />
+                                <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_dias_lab" Visibility="{Binding MostrarOpcion}" />
+                                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_dias_lab" Visibility="{Binding MostrarOpcion}" />
+                                </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Expander>
+                <Label Grid.Column="0" Grid.Row="1" Content="Total de días laborados efectivos" Name="lblRe8"></Label>
+                <TextBox Grid.Column="0" IsReadOnly="True" Grid.Row="2" MaxWidth="{ Binding ElementName=lblRe8, Path=ActualWidth}" Text="{ Binding DiasLaboradosEfectivos, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <Label Grid.Column="1" Grid.Row="1" Content="**En otros ceresos"></Label>
+                <TextBox Grid.Column="1" Grid.Row="2" MaxWidth="{ Binding ElementName=lblRe8, Path=ActualWidth}" Text="{ Binding DiasOtrosCentros, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <Label Grid.Column="2" Grid.Row="1" Content="Total"></Label>
+                <TextBox Grid.Column="2" Grid.Row="2" IsReadOnly="True" MaxWidth="{ Binding ElementName=lblRe8, Path=ActualWidth}" Text="{ Binding DiasTotalAB, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <Label Grid.Column="0" Grid.Row="3" FontWeight="Bold" Content="**Anexar constancias de acreditacion" ></Label>
+            </Grid>
+        </GroupBox>
+        <Label Grid.Column="0" Grid.Row="13" Content="Conclusiones (Opinion sobre la dedicacion ala actividad productiva del interno)" Grid.ColumnSpan="3" Name="lblRe9"></Label>
+        <TextBox Grid.Column="0" MaxLength="500" Grid.Row="14" Grid.ColumnSpan="3" MinHeight="40" Text="{ Binding ConclusionesActivProdCapac, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblRe9, Path=ActualWidth}"></TextBox>
+        <TextBlock TextWrapping="WrapWithOverflow" Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="2" Text="*Los dias laborados son computados por jornada laboral, sin considerar los dias de descanso o bien por incapacidad medica, en el caso de registrar dias trabajados sin interrupcion, es importante especificarlo en las conclusiones, asi como, si existe incapacidad para realizar las actividades productivas."></TextBlock>
+        <TextBlock TextWrapping="WrapWithOverflow"  Grid.Column="0" Grid.Row="16" Text="**En el caso de traslado solicitar el informe de las actividades productivas de capacitacion al centro de reclusion de donde es trasladado y anexarlo" Grid.ColumnSpan="2"></TextBlock>
+        <TextBlock TextWrapping="WrapWithOverflow"  Grid.Column="0" Grid.Row="17" Text="Se entiende como actividad productiva, aquella que el interno cubre por dia con un horario detrminado"></TextBlock>
+        <Label Grid.Column="0" Grid.Row="18" Content="Fecha de estudio"></Label>
+            <DatePicker Grid.Column="0" Grid.Row="19" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{ Binding FecCapacitFF, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+        <Label Grid.Column="1" Grid.Row="18" Content="Lugar" Name="lblRe10" Grid.ColumnSpan="2"></Label>
+            <TextBox Grid.Column="1" Grid.Row="19" Grid.ColumnSpan="2" MaxLength="100" MaxWidth="{ Binding ElementName=lblRe10, Path=ActualWidth}" CharacterCasing="Upper" Text="{ Binding LugarProd, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

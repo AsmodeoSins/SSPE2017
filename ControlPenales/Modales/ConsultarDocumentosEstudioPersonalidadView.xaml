@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="ControlPenales.ConsultarDocumentosEstudioPersonalidadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_documento"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="260">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"  Content="Consultar documentación del estudio de personalidad" Style="{DynamicResource DescriptionHeaderStyle}" />
+                    <DataGrid Grid.ColumnSpan="5" Grid.Column="0" Grid.Row="1" AutoGenerateColumns="False"  ItemsSource="{Binding LstDocumentos}" SelectedItem="{Binding SelectedDocumento, NotifyOnSourceUpdated=True}"  CanUserAddRows="False" Padding="0 10 0 0" Style="{StaticResource MetroDataGrid}"  Name="dgDocumentos">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SourceUpdated">
+                                <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_selected_documento">
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nombre del documento"  IsReadOnly="True" Binding="{ Binding NombreArchivo}"> </DataGridTextColumn>
+                            <DataGridTextColumn Header="Disponible" Binding="{Binding Disponible }" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Documento">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_documento_personalidad" Visibility="{ Binding VisibleVerDocumentoArchivero, UpdateSourceTrigger=PropertyChanged, Converter={ StaticResource booleanToVisibilityConverter}}" ></Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="5">
+                        <Button  VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,7,0,0"
+                        CommandParameter="cancelar_documento" Command="{Binding OnClick}" Content="Cerrar"></Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

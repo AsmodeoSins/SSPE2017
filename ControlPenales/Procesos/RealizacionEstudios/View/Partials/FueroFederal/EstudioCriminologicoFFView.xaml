@@ -1,0 +1,173 @@
+﻿<UserControl x:Class="ControlPenales.EstudioCriminologicoFFView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1000" d:DesignHeight="1300">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre" Name="lblReferencia"></TextBlock>
+            <TextBox Grid.Column="0" Grid.Row="1" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}" MaxLength="100" Text="{ Binding NombreImpCriminFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="Sobrenombre" Name="lblRef1"></TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{ Binding SobreN, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="100" MaxWidth="{ Binding ElementName=lblRef1, Path=ActualWidth}"></TextBox>
+            <TextBlock Grid.Column="0" Name="lblRe" Grid.Row="2" Text="Anote brevemente la versión del interno sobre el delito cometido, su opinión respecto a su responsabilidad y la pena impuesta" Grid.ColumnSpan="2" ></TextBlock>
+            <TextBox Grid.Column="0" Grid.Row="3" MaxLength="1000" MaxWidth="{ Binding ElementName=lblRe, Path=ActualWidth }" MinHeight="50" Grid.ColumnSpan="2" Text="{ Binding VersionDelitoCriminFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Características de personalidad relacionadas con el delito (que se consideran relevantes para influir en su proceso para la reincorporación social)" Grid.ColumnSpan="2"></TextBlock>
+            <TextBox Grid.Column="0" Grid.Row="5" TextWrapping="Wrap" MaxLength="1000" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRe, Path=ActualWidth }" Grid.ColumnSpan="2" MinHeight="50" Text="{ Binding CaractPersonalesRelacionadasDelito, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock Grid.Column="0" Grid.Row="6" Text="Mencione si requiere valoración victimo lógica"></TextBlock>
+            <ComboBox SelectedValuePath="Tag" Grid.Column="0" Grid.Row="7" SelectedValue="{ Binding IdRequiereValoracionCrimin, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+            </ComboBox>
+            <GroupBox Grid.Column="0" Grid.Row="8" Header="Dictamen Criminologico" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Antecedentes para sociales o antisociales" Name="lblRe3" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" MinHeight="50" TextWrapping="Wrap" MaxLength="500" MaxWidth="{ Binding ElementName=lblRe3, Path=ActualWidth}" Text="{ Binding AntecedentesParaSocialesAntisociales, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Clasificación criminológica"></Label>
+                    <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="2">
+                        <RadioButton GroupName="ClasificacionCriminologica" Content="PRIMODELINCUENTE" IsChecked="{ Binding PrimoCheckedFederal, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 10"></RadioButton>
+                        <RadioButton GroupName="ClasificacionCriminologica" Content="REINCIDENTE ESPECIFICO" IsChecked="{ Binding EspecificoCheckedFederal, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 10"></RadioButton>
+                        <RadioButton GroupName="ClasificacionCriminologica" Content="REINCIDENTE GENÉRICO" IsChecked="{ Binding GenericoCheckedFederal, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 10"></RadioButton>
+                        <RadioButton GroupName="ClasificacionCriminologica" Content="HABITUAL" IsChecked="{ Binding HabitualCheckedFederal, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 10"></RadioButton>
+                        <RadioButton GroupName="ClasificacionCriminologica" Content="PROFESIONAL" IsChecked="{ Binding ProfesionalCheckedFederal, UpdateSourceTrigger=PropertyChanged}" Margin="10 10 10 10"></RadioButton>
+                    </StackPanel>
+                    <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Criminogénesis (Factores biológicos, psicológicos y sociales que  favorecieron la comisión del delito)" Name="lblRe4"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" TextWrapping="Wrap" MinHeight="50" MaxLength="500" MaxWidth="{ Binding ElementName=lblRe4, Path=ActualWidth }" Text="{ Binding CriminogenesisCrimFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Header="Diagnóstico">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Actualmente su" FontWeight="Bold"></Label>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Egocentrismo"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding Egocentrismo, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="ALTO" Tag="A"></ComboBoxItem>
+                        <ComboBoxItem Content="MEDIO" Tag="M"></ComboBoxItem>
+                        <ComboBoxItem Content="BAJO" Tag="B"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="1" Grid.Row="1" Content="Labilidad afectiva"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding LabAfectiva, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="ALTO" Tag="A"></ComboBoxItem>
+                        <ComboBoxItem Content="MEDIO" Tag="M"></ComboBoxItem>
+                        <ComboBoxItem Content="BAJO" Tag="B"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="2" Grid.Row="1" Content="Agresividad"></Label>
+                    <ComboBox Grid.Column="2" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding Agresividad, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="ALTO" Tag="A"></ComboBoxItem>
+                        <ComboBoxItem Content="MEDIO" Tag="M"></ComboBoxItem>
+                        <ComboBoxItem Content="BAJO" Tag="B"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="3" Grid.Row="1" Content="Indiferencia afectiva"></Label>
+                    <ComboBox Grid.Column="3" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{ Binding IndAfectiva, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="ALTO" Tag="A"></ComboBoxItem>
+                        <ComboBoxItem Content="MEDIO" Tag="M"></ComboBoxItem>
+                        <ComboBoxItem Content="BAJO" Tag="B"></ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+
+            <Label Grid.Column="0" Grid.Row="10" Content="Escriba el resultado del tratamiento institucional" Name="lblRefRes" Grid.ColumnSpan="2"></Label>
+            <TextBox Grid.Column="0" CharacterCasing="Upper" Grid.Row="11" MaxLength="500" MinHeight="50" MaxWidth="{ Binding ElementName=lblRefRes, Path=ActualWidth}" TextWrapping="Wrap" Grid.ColumnSpan="2" Text="{ Binding ResultadoTratamientoInst, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Grid.Column="0" Grid.Row="12" Content="Estado de peligrosidad actual"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="13"  SelectedValuePath="Tag" SelectedValue="{ Binding IdEstadoPeligrosidad, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="MINIMO" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="MINIMO MEDIO" Tag="2"></ComboBoxItem>
+                <ComboBoxItem Content="MEDIO" Tag="3"></ComboBoxItem>
+                <ComboBoxItem Content="MEDIO ALTO" Tag="4"></ComboBoxItem>
+                <ComboBoxItem Content="ALTO" Tag="5"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="1" Grid.Row="12" Content="Pronostico de reincidencia : probabilidad"></Label>
+            <ComboBox Grid.Column="1" Grid.Row="13" SelectedValuePath="Tag" SelectedValue="{ Binding IdPronReinciFF, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                <ComboBoxItem Content="ALTO" Tag="A"></ComboBoxItem>
+                <ComboBoxItem Content="MEDIO" Tag="M"></ComboBoxItem>
+                <ComboBoxItem Content="BAJO" Tag="B"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Column="0" Grid.Row="14" Content="Anote su opinión sobre la concesión del beneficio"></Label>
+            <TextBox Grid.Column="0" MaxLength="500" CharacterCasing="Upper" Grid.Row="15" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblRe, Path=ActualWidth }" MinHeight="50" Grid.ColumnSpan="2" Text="{ Binding OpinionSobreConBeneficio, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <GroupBox Header="Observaciones y Sugerencias" Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Requiere continuar con tratamiento intramuros"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding ReqTrataExtraMurosCriminFF, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="2" Content="En caso afirmativo especificar" Name="lblref2" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" CharacterCasing="Upper" Grid.Row="3" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblref2, Path=ActualWidth }" Text="{ Binding AfirmaEspecifFF, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                         Grid.ColumnSpan="2" MinHeight="50" IsEnabled="{ Binding IsEnabledEspecificaReqTrataExtra, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="4" Content="En caso negativo especificar" Name="lblreeee" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="5" MaxLength="500" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblreeee, Path=ActualWidth}" TextWrapping="Wrap" Grid.ColumnSpan="2" MinHeight="50" Text="{ Binding NegatEspecifFF, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         IsEnabled="{ Binding IsEnabledEspecificaReqTrataExtra2, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                </Grid>
+            </GroupBox>
+
+            <Label Grid.Column="0" Grid.Row="17" Content="Fecha de estudio"></Label>
+            <DatePicker Grid.Column="0" Grid.Row="18" Controls:TextBoxHelper.Watermark="Seleccione una fecha" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}" SelectedDate="{ Binding FecCriminFF, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+            <Label Grid.Column="1" Grid.Row="17" Content="Lugar" Name="lblrefLu"></Label>
+            <TextBox Grid.Column="1" Grid.Row="18" MaxLength="100" MaxWidth="{ Binding ElementName=lblrefLu, Path=ActualWidth}" Text="{ Binding LugarCrimi, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" ></TextBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

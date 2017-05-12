@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ControlPenales.BitacoraIngresosVisitaLegalIndView" x:Name="BitacoraIngresosVisitaLegalIndWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoading}" CommandParameter="{Binding ElementName=BitacoraIngresosVisitaLegalIndWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="800"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="666"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        
+        <Label Grid.Column="0" Grid.Row="0" Margin="50 10 0 0"  Content="Bitácora de Ingresos por Visita Legal(x interno)" Style="{DynamicResource DescriptionHeaderStyle}" />
+        
+        <Button Grid.Column="0" Grid.Row="1" Width="95" HorizontalAlignment="Left" Margin="50 0 0 0" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar" Command="{Binding OnClick}"
+                Content="Buscar"></Button>
+        <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="0 10 0 0" HorizontalAlignment="Center">
+            <WindowsFormsHost Width="800" Name="WFH" Visibility="{Binding ReportViewerVisible}" HorizontalAlignment="Center">
+                <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+            </WindowsFormsHost>
+        </DockPanel>
+        
+    </Grid>
+</UserControl>

@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="ControlPenales.Mayores65PartialView"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto">
+    <AdornerDecorator>
+        <GroupBox Header="Mayores de 65 años">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Anote si presenta disminución y/o alteración visual"></Label>
+                    <ComboBox Grid.Row="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" SelectedValue="{ Binding IdDisminucionVisua, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" SelectedValuePath="Tag">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                    <ComboBoxItem Content="PRESBICIA" Tag="0"></ComboBoxItem>
+                    <ComboBoxItem Content="CATARATAS" Tag="1"></ComboBoxItem>
+                    <ComboBoxItem Content="PTERIGIÓN" Tag="2"></ComboBoxItem>
+                    <ComboBoxItem Content="OTROS" Tag="3"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="0" Grid.Row="2" Content="Especifique"></Label>
+                <TextBox Grid.Row="3" MinHeight="80" Grid.ColumnSpan="3" Grid.Column="0" Text="{Binding TextOtroDisminucionVisual, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextWrapping="Wrap" IsEnabled="{Binding OtroDisminucionVisualEnabled, UpdateSourceTrigger=PropertyChanged}" 
+                             CharacterCasing="Upper" MaxLength="500"></TextBox>
+                <Label Grid.Row="4" Grid.Column="0"  Content="¿Presenta alteraciones en la agudeza auditiva?"></Label>
+                    <ComboBox Grid.Row="5" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True}" Grid.Column="0" SelectedValue="{Binding CheckAgudezaAuditiva, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" SelectedValuePath="Tag" >
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+                <Label  Grid.Row="4" Grid.Column="1"  Content="¿Presenta alteraciones en la olfación, masticación, digestión?"></Label>
+                    <ComboBox Grid.Row="5" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True}" Grid.Column="1" SelectedValue="{Binding CheckOlfacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" SelectedValuePath="Tag">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Row="4" Grid.Column="2"  Content="¿Presenta alteraciones en la capacidad visomotriz?" Grid.ColumnSpan="2"></Label>
+                    <ComboBox Grid.Row="5" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True}" Grid.Column="2" SelectedValue="{Binding CheckCapacidadVisomotriz, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectedValuePath="Tag">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Row="6" Grid.Column="0"  Content="¿Presenta trastornos en la memoria?"></Label>
+                    <ComboBox Grid.Row="7" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" Grid.Column="0" SelectedValuePath="Tag" SelectedValue="{ Binding IdTranstornosMemoria, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                    <ComboBoxItem Content="NINGUNO" Tag="0"></ComboBoxItem>
+                    <ComboBoxItem Content="SUPERFICIALES" Tag="1"></ComboBoxItem>
+                    <ComboBoxItem Content="MODERADO" Tag="2"></ComboBoxItem>
+                    <ComboBoxItem Content="GRAVES" Tag="3"></ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Row="6" Grid.Column="1" Content="¿Presenta trastornos de la atención?"></Label>
+                    <ComboBox Grid.Column="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" Grid.Row="7" SelectedValue="{ Binding IdTranstornosAtencion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectedValuePath="Tag">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                    <ComboBoxItem Content="NINGUNO" Tag="0"></ComboBoxItem>
+                    <ComboBoxItem Content="SUPERFICIALES" Tag="1"></ComboBoxItem>
+                    <ComboBoxItem Content="MODERADO" Tag="2"></ComboBoxItem>
+                    <ComboBoxItem Content="GRAVES" Tag="3"></ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Row="6" Grid.Column="2" Content="¿Presenta trastornos de la comprensión?"></Label>
+                    <ComboBox Grid.Column="2" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True}" Grid.Row="7" SelectedValuePath="Tag" SelectedValue="{ Binding IdTranstornosComprension, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                    <ComboBoxItem Content="NINGUNO" Tag="0"></ComboBoxItem>
+                    <ComboBoxItem Content="SUPERFICIALES" Tag="1"></ComboBoxItem>
+                    <ComboBoxItem Content="MODERADO" Tag="2"></ComboBoxItem>
+                    <ComboBoxItem Content="GRAVES" Tag="3"></ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Row="8" Grid.Column="0" Content="¿Presenta trastornos en la orientación?"></Label>
+                    <ComboBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True}" Grid.Row="9" SelectedValue="{ Binding IdTranstornosOrientacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" SelectedValuePath="Tag">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                    <ComboBoxItem Content="NINGUNO" Tag="0"></ComboBoxItem>
+                    <ComboBoxItem Content="SUPERFICIALES" Tag="1"></ComboBoxItem>
+                    <ComboBoxItem Content="MODERADO" Tag="2"></ComboBoxItem>
+                    <ComboBoxItem Content="GRAVES" Tag="3"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Row="8" Grid.Column="1"  Content="¿Existen trastornos caracterizados como deterioro y/o demenciales?"></Label>
+                <ComboBox  Grid.Column="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Row="9" SelectedValue="{Binding CheckDemencial, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" SelectedValuePath="Tag">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Row="8" Grid.Column="2" Content="¿Existen trastornos del estado de ánimo?"></Label>
+                    <ComboBox Grid.Column="2" Grid.Row="9"  IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True}" SelectedValue="{ Binding IdEstadoAnimo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" SelectedValuePath="Tag">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                    <ComboBoxItem Content="DISFORIA" Tag="0"></ComboBoxItem>
+                    <ComboBoxItem Content="INCONTINENCIA AFECTIVA" Tag="1"></ComboBoxItem>
+                    <ComboBoxItem Content="DEPRESIÓN" Tag="2"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" Content="Su capacidad para la participación en las actividades pro re adaptativas del centro de reclusión se encuentra:"></Label>
+                <ComboBox Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }"  Grid.Row="11" SelectedValue="{ Binding IdCapacidadParticipacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" SelectedValuePath="Tag">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                    <ComboBoxItem Content="INTEGRA, YA QUE PUEDE PARTICIPAR EN TODAS LAS ACTIVIDADES" Tag="0"></ComboBoxItem>
+                    <ComboBoxItem Content="LIMITADA, SOLO ES POSIBLE QUE PUEDA PARTICIPAR EN ALGUNAS" Tag="1"></ComboBoxItem>
+                    <ComboBoxItem Content="NULA, A PESAR DE SU VOLUNTAD DE PARTICIPAR, NO CUENTA CON LAS HABILIDADES PARA BENEFICIARSE DE ELLAS " Tag="2"></ComboBoxItem>
+                </ComboBox>
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+    </AdornerDecorator>
+</UserControl>

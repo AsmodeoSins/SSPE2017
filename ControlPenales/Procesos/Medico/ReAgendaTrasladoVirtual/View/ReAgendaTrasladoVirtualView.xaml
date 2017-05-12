@@ -1,0 +1,303 @@
+﻿<UserControl x:Class="ControlPenales.ReAgendaTrasladoVirtualView"
+             x:Name="ReagendaTrasladoVirtualWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:actb="clr-namespace:ControlPenales.Controls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdReAgendaTrasladoVirtualOnLoading}" CommandParameter="{Binding ElementName=ReagendaTrasladoVirtualWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuTrasladoVirtualView Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1"  Content="Reagenda de Traslado Virtual de Citas Médicas" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Grid.Row="2" Header="Datos del Imputado">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Folio"></Label>
+                        <TextBox Grid.Row="1" Text="{Binding TextAnioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}"  CharacterCasing="Upper" MaxLength="4" 
+                         IsReadOnly="True" Margin="0 0 10 0" Width="50">
+                        </TextBox>
+                        <Label Grid.Column="1" Grid.Row="1" Margin="-7.5,0,0,0" >/</Label>
+                        <Label Content="Año" Grid.Column="1"></Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextFolioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" CharacterCasing="Upper" MaxLength="5" 
+                         IsReadOnly="True" Margin="10 0 0 0" Width="50">
+                        </TextBox>
+                        <Label Content="Apellido Paterno" Grid.Column="2"></Label>
+                        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" 
+                         MaxLength="30" IsReadOnly="True">
+                        </TextBox>
+                        <Label Content="Apellido Materno" Grid.Column="3"></Label>
+                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextMaternoImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  
+                         MaxLength="30" IsReadOnly="True">
+                        </TextBox>
+                        <Label Content="Nombre" Grid.Column="4"></Label>
+                        <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding TextNombreImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="40" 
+                         IsReadOnly="True">
+                        </TextBox>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Sexo"></Label>
+                        <Label Content="Edad" Grid.Column="1"></Label>
+                        <Label Content="Fecha de Nacimiento" Grid.Column="2"></Label>
+                        <TextBox Grid.Row="1" IsReadOnly="True" 
+                         Text="{ Binding TextSexoImputado, UpdateSourceTrigger=PropertyChanged }"></TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="1" IsReadOnly="True" Text="{Binding TextEdadImputado}"></TextBox>
+                        <TextBox Grid.Column="2" Grid.Row="1" IsReadOnly="True" Text="{Binding TextFechaNacImputado}"></TextBox>
+                    </Grid>
+                </Grid>
+                <Image Grid.Column="1" Height="150" Source="{Binding ImagenIngreso}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" ></Image>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Pendientes" Grid.Row="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".4*"></ColumnDefinition>
+                    <ColumnDefinition Width=".2*"></ColumnDefinition>
+                    <ColumnDefinition Width=".4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid Style="{StaticResource MetroDataGrid}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" ItemsSource="{Binding LstPendientesTV}"
+                          AutoGenerateColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="grdPendientes" HeadersVisibility="None" SelectedItem="{Binding SelectedPendienteTV, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                          SelectionMode="Single">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Reagendar" Command="{Binding OnClick}" CommandParameter="reagendar" />
+                            <MenuItem Header="Cancelar" Command="{Binding OnClick}" CommandParameter="cancelar_reagenda"></MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn MinWidth="800">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                    <GroupBox  Header="Cita Médica" MinWidth="800">
+                                        <GroupBox.Style>
+                                            <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}" >
+                                                <Setter Property="Visibility" Value="Collapsed">
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TIPO}" Value="CITA_MEDICA">
+                                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </GroupBox.Style>
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                    <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                        <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                        <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Label Content="Tipo de Atención"></Label>
+                                                <Label Content="Servicio" Grid.Column="1"></Label>
+                                                <Label Content="{Binding TV_CITA_MEDICA.ATENCION_SERVICIO.ATENCION_TIPO.DESCR}" Grid.Row="1"></Label>
+                                                <Label Content="{Binding TV_CITA_MEDICA.ATENCION_SERVICIO.DESCR}" Grid.Row="1" Grid.Column="1"></Label>
+                                                <Label Content="Fecha de inicio original" Grid.Column="2"></Label>
+                                                <Label Content="Fecha final original" Grid.Column="3"></Label>
+                                                <Label Content="{Binding TV_CITA_MEDICA.CITA_FECHA_HORA}" Grid.Row="1" Grid.Column="2"></Label>
+                                                <Label Content="{Binding TV_CITA_MEDICA.CITA_HORA_TERMINA}" Grid.Row="1" Grid.Column="3"></Label>
+                                            </Grid>
+                                            <DataGrid Style="{StaticResource MetroDataGrid}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" ItemsSource="{Binding TV_CITA_MEDICA.TV_PROC_ATENCION_MEDICA_PROG}" 
+                                                      Visibility="{Binding TV_CITA_PROC_MED_VISIBLE}" AutoGenerateColumns="False" IsReadOnly="True" IsEnabled="False">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Binding="{Binding PROC_MED.DESCR}" Header="PROCEDIMIENTO MEDICO PROGRAMADO"></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </GroupBox>
+                                        <GroupBox Header="Solicitud de canalización">
+                                            <GroupBox.Style>
+                                                <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}" >
+                                                    <Setter Property="Visibility" Value="Collapsed">
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding TIPO}" Value="CANALIZACION">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </GroupBox.Style>
+                                            <StackPanel>
+                                                <DataGrid IsEnabled="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
+                                                          AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding TV_CANALIZACION_ESPECIALIDAD_FILTRADOS}"
+                                                          Visibility="{Binding TV_CANALIZACION_ESPECIALIDAD_VISIBLE}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Binding="{Binding ESPECIALIDAD.DESCR}" Header="ESPECIALIDAD SOLICITADA"></DataGridTextColumn>
+                                                        <DataGridTextColumn Binding="{Binding INTERCONSULTA_TIPO.DESCR}" Header="Tipo"></DataGridTextColumn>
+                                                        <DataGridTextColumn Binding="{Binding INTERCONSULTA_NIVEL_PRIORIDAD.DESCR}" Header="Nivel de prioridad"></DataGridTextColumn>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                                <DataGrid IsEnabled="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
+                                                          AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding TV_CANALIZACION_SERV_AUX_FILTRADOS}"
+                                                          Visibility="{Binding TV_CANALIZACION_SERV_AUX_VISIBLE}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Binding="{Binding SERVICIO_AUX_DIAG_TRAT.DESCR}" Header="SERVICIO AUXILIAR SOLICITADO"></DataGridTextColumn>
+                                                        <DataGridTextColumn Binding="{Binding INTERCONSULTA_TIPO.DESCR}" Header="Tipo"></DataGridTextColumn>
+                                                        <DataGridTextColumn Binding="{Binding INTERCONSULTA_NIVEL_PRIORIDAD.DESCR}" Header="Nivel de prioridad"></DataGridTextColumn>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </StackPanel>
+                                        </GroupBox>
+                                        <GroupBox Header="Interconsulta">
+                                            <GroupBox.Style>
+                                                <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}" >
+                                                    <Setter Property="Visibility" Value="Collapsed">
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding TIPO}" Value="INTERCONSULTA_SOLICITUD">
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </GroupBox.Style>
+                                            <Grid>
+                                                <Grid Visibility="{Binding IS_INTERCONSULTA_INTERNA_VISIBILITY}">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition></RowDefinition>
+                                                            <RowDefinition></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Content="Tipo"></Label>
+                                                        <Label Content="Nivel de Prioridad" Grid.Column="1"></Label>
+                                                        <Label Content="Centro" Grid.Column="2"></Label>
+                                                        <Label Content="Motivo" Grid.Column="3"></Label>
+                                                        <Label Content="{Binding TV_INTERCONSULTA_SOLICITUD.INTERCONSULTA_TIPO.DESCR }" Grid.Row="1"></Label>
+                                                        <Label Content="{Binding TV_INTERCONSULTA_SOLICITUD.INTERCONSULTA_NIVEL_PRIORIDAD.DESCR }" Grid.Column="1" Grid.Row="1"></Label>
+                                                        <Label Content="{Binding TV_SOL_INTERCONSULTA_INTERNA_REG.CENTRO.DESCR }" Grid.Column="2" Grid.Row="1"></Label>
+                                                        <TextBlock Text="{Binding TV_SOL_INTERCONSULTA_INTERNA_REG.MOTIVO_INTERCONSULTA}" TextWrapping="Wrap" Grid.Row="1" Grid.Column="3"></TextBlock>
+                                                    </Grid>
+                                                    <Label Content="{Binding ESPECIALIDAD_LABEL}" Grid.Row="1" Visibility="{Binding IS_ESPECIALIDAD_VISIBLE}"></Label>
+                                                    <DataGrid Grid.Row="1" IsEnabled="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                                                              AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding TV_INTERCONSULTA_SOLICITUD.TV_SERVICIO_AUX_INTERCONSULTA}" Visibility="{Binding IS_SERV_AUX_INT_VISIBILITY}">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn Header="Servicios Auxiliares" Binding="{Binding SERVICIO_AUX_DIAG_TRAT.DESCR}"></DataGridTextColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                                <Grid Visibility="{Binding IS_INTERCONSULTA_EXTERNA_VISIBILITY}">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition></RowDefinition>
+                                                            <RowDefinition></RowDefinition>
+                                                            <RowDefinition></RowDefinition>
+                                                            <RowDefinition></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Content="Tipo"></Label>
+                                                        <Label Content="Nivel de Prioridad" Grid.Column="1"></Label>
+                                                        <Label Content="Institución Médica" Grid.Column="2"></Label>
+                                                        <Label Content="Otra institución" Grid.Column="3"></Label>
+                                                        <Label Content="{Binding TV_INTERCONSULTA_SOLICITUD.INTERCONSULTA_TIPO.DESCR}" Grid.Row="1"></Label>
+                                                        <Label Content="{Binding TV_INTERCONSULTA_SOLICITUD.INTERCONSULTA_NIVEL_PRIORIDAD.DESCR }" Grid.Column="1" Grid.Row="1"></Label>
+                                                        <Label Content="{Binding TV_HOJA_REFERENCIA_MEDICA_REG.HOSPITAL.DESCR}" Grid.Row="1" Grid.Column="2"></Label>
+                                                        <Label Content="{Binding TV_HOJA_REFERENCIA_MEDICA_REG.HOSPITAL_OTRO}" Grid.Row="1" Grid.Column="3"></Label>
+                                                        <Label Content="No. Exp. H.G.T." Grid.Row="2"></Label>
+                                                        <Label Content="Atención al paciente" Grid.Row="2" Grid.Column="1"></Label>
+                                                        <Label Content="Fecha" Grid.Row="2" Grid.Column="2"></Label>
+                                                        <Label Content="{Binding TV_HOJA_REFERENCIA_MEDICA_REG.EXP_HGT}" Grid.Row="3"></Label>
+                                                        <Label Content="{Binding TV_HOJA_REFERENCIA_MEDICA_REG.CITA_TIPO.DESCR}" Grid.Row="3" Grid.Column="1"></Label>
+                                                        <Label Content="{Binding TV_HOJA_REFERENCIA_MEDICA_REG.FECHA_CITA}" Grid.Row="3" Grid.Column="2"></Label>
+                                                    </Grid>
+                                                    <Label Content="Motivo" Grid.Row="1"></Label>
+                                                    <TextBlock Text="{Binding TV_HOJA_REFERENCIA_MEDICA_REG.MOTIVO}" Grid.Row="2" TextWrapping="Wrap"></TextBlock>
+                                                    <Label Content="Observación" Grid.Row="3"></Label>
+                                                    <TextBlock Text="{Binding TV_HOJA_REFERENCIA_MEDICA_REG.OBSERV}" Grid.Row="4" TextWrapping="Wrap"></TextBlock>
+                                                    <Label Content="{Binding ESPECIALIDAD_LABEL}" Grid.Row="5" Visibility="{Binding IS_ESPECIALIDAD_VISIBLE}"></Label>
+                                                    <DataGrid Grid.Row="5" IsEnabled="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                                                              AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding TV_INTERCONSULTA_SOLICITUD.TV_SERVICIO_AUX_INTERCONSULTA}" Visibility="{Binding IS_SERV_AUX_INT_VISIBILITY}">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTextColumn Header="Servicios Auxiliares" Binding="{Binding SERVICIO_AUX_DIAG_TRAT.DESCR}"></DataGridTextColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                            </Grid>
+                                        </GroupBox>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                        
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

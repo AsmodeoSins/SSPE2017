@@ -1,0 +1,143 @@
+﻿<UserControl x:Class="ControlPenales.BuscarNUCsPorImputadoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Views:CausaPenalFolio x:Key="CausaPenalFolio" />
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_documento" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="260">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Búsqueda de Documentos NUC" Style="{DynamicResource DescriptionHeaderStyle}" />
+                    <!--FILTROS-->
+                    <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="75"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="NUC:"></Label>
+                        <TextBox Grid.Column="1" Grid.Row="0" CharacterCasing="Upper" MaxLength="20" Text="{Binding BuscarNUCMensaje, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding CommandParameter="buscarNUC" Command="{Binding OnClick}" Key="Enter" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Causa Penal:"></Label>
+                        <TextBox Grid.Column="3" Grid.Row="0" CharacterCasing="Upper" MaxLength="10" Text="{Binding BuscarCausaPenalMensaje, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding CommandParameter="buscarNUC" Command="{Binding OnClick}" Key="Enter" />
+                            </TextBox.InputBindings>
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <Label Grid.Row="1" Content="Fecha Inicio:"></Label>
+                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="Red" ToolTipService.IsEnabled="{Binding IsFechaIniValida, Converter={Views:BoolToOppositeBoolConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsFechaIniValida,ValidatesOnDataErrors=True}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="LA FECHA DE INICIO TIENE QUE SER MENOR A LA FECHA FIN!" Style="{StaticResource errorLabel}" />
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <DatePicker Style="{StaticResource MetroDatePicker}" Controls:TextBoxHelper.Watermark="Seleccione una fecha"
+                                    SelectedDate="{Binding FechaInicioMensaje, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SourceUpdated">
+                                        <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_documentos"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </DatePicker>
+                        </Border>
+                        <Label Grid.Column="2" Grid.Row="1" Content="Fecha Fin:"></Label>
+                        <DatePicker Grid.Column="3" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha"
+                                SelectedDate="{Binding FechaFinalMensaje,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,NotifyOnSourceUpdated=True}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SourceUpdated">
+                                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_inicio_documentos"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DatePicker>
+                        <Button Grid.Column="5" Grid.Row="1" Width="95" HorizontalAlignment="Center" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscarNUC"
+                                Command="{Binding OnClick}" Content="Buscar" IsEnabled="{Binding IsBuscarDocumentoEnabled}"></Button>
+                    </Grid>
+                    <ListView Grid.Row="2" MaxHeight="500" Padding="0 10 0 0" SelectionMode="Single" ItemsSource="{Binding LstDocumentos}"
+                            SelectedItem="{Binding SelectedDocumento, NotifyOnSourceUpdated=True}"  Name="dgDocumentosNUC">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SourceUpdated">
+                                <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_selected_documento"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Header="NUC" DisplayMemberBinding="{Binding NUC}"></GridViewColumn>
+                                <GridViewColumn Header="CAUSA PENAL" DisplayMemberBinding="{Binding CAUSA_PENAL,Converter={StaticResource CausaPenalFolio}}" Width="90"></GridViewColumn>
+                                <GridViewColumn Header="Asunto" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding MENSAJE}" TextWrapping="Wrap"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Documento">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver"
+                                                    Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="ver_documento"></Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Fecha" DisplayMemberBinding="{Binding REGISTRO_FEC,StringFormat=dd/MM/yyyy}" Width="100"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                                IsEnabled="{Binding IsSeleccionarDocumentoEnabled}" CommandParameter="seleccionar_documento" Command="{Binding OnClick}">Seleccionar</Button>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,10,10,0"
+                                CommandParameter="cancelar_documento" Command="{Binding OnClick}">Cancelar</Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

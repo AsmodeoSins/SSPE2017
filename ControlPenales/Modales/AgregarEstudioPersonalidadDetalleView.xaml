@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="ControlPenales.AgregarEstudioPersonalidadDetalleView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" Width="auto" x:Name="AregarDetallePersonalidadWindow" Height="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="666" MinWidth="666">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Agregar Desarrollo de Estudio de Personalidad" Style="{DynamicResource DescriptionHeaderStyle}" />
+                    <Label Content="Tipo de Estudio" Grid.Column="0" Grid.Row="1"></Label>
+                    <Label Content="Estatus" Grid.Column="1" Grid.Row="1"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="2" ItemsSource="{ Binding ListTipoEstudio }" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO"
+                            SelectedValue="{ Binding TipoEstudioSelectedDetalle, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"></ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{ Binding ListEstatusEstudio }" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTATUS"
+                            SelectedValue="{ Binding EstatusEstudioSelectedDetalle, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}"></ComboBox>
+                    <Label Content="Fecha de Solicitud" Grid.Column="0" Grid.Row="3"></Label>
+                    <!--<Label Content="Tipo de Medida" Grid.Column="1" Grid.Row="3"></Label>-->
+                    <DatePicker Grid.Column="0" Grid.Row="4" SelectedDate="{ Binding FechaSolicitudEstudioSelectedDetalle, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.Watermark="Selecciona una fecha"></DatePicker>
+                    <!--<TextBox Grid.Column="1" Grid.Row="4" Text="{ Binding TipoMedidaSolicitudEstudioSelectedDetalle, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                            CharacterCasing="Upper"></TextBox>-->
+                    <Label Content="Fecha de Inicio" Grid.Column="1" Grid.Row="3"></Label>
+                    <Label Content="Fecha de Fin" Grid.Column="0" Grid.Row="5"></Label>
+                    <DatePicker Grid.Column="1" Grid.Row="4" Controls:TextBoxHelper.Watermark="Selecciona una fecha" DisplayDateStart="{ Binding FechaServer}"
+                            SelectedDate="{ Binding FechaInicioSolicitudEstudioSelectedDetalle, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged }"></DatePicker>
+                    <DatePicker Grid.Column="0" Grid.Row="6" Controls:TextBoxHelper.Watermark="Selecciona una fecha" DisplayDateStart="{ Binding FechaServer}" 
+                            SelectedDate="{ Binding FechaFinSolicitudEstudioSelectedDetalle, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    <Label Content="Resultado" Grid.Column="1" Grid.Row="5"></Label>
+                    <Label Content="Días Bonificados" Grid.Column="0" Grid.Row="7"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="6" SelectedValuePath="Tag" SelectedValue="{ Binding ResultadoSolicitudEstudioSelectedDetalle, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="SELECCIONE" Tag="" />
+                        <ComboBoxItem Content="SI" Tag="S" />
+                        <ComboBoxItem Content="NO" Tag="N" />
+                    </ComboBox>
+                    
+                    <TextBox Grid.Column="0" Grid.Row="8" Text="{ Binding DiasBonificadosSolicitudEstudioSelectedDetalle, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <!--<Label Content="Estudio" Grid.Column="0" Grid.Row="9"></Label>-->
+                    <!--<TextBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"></TextBox>-->
+                    <Button Grid.Column="0" Grid.Row="11" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                            CommandParameter="guardar_estudio_personalidad_detalle" Command="{Binding OnClick}" Content="Guardar"></Button>
+                    <Button Grid.Column="1" Grid.Row="11" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                            CommandParameter="cancel_guardar_estudio_personalidad_detalle" Command="{Binding OnClick}" Content="Cancelar"></Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

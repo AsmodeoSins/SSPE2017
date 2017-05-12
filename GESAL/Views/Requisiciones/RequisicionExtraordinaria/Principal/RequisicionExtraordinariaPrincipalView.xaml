@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="GESAL.Views.RequisicionExtraordinariaPrincipalView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:GESAL.Views"
+             xmlns:Behaviours="clr-namespace:GESAL.Clases.Behaviours"
+             Name="RequisicionExtraordinariaPrincipal"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             Dialog:DialogParticipation.Register="{Binding}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdLoad}" CommandParameter="{Binding ElementName=RequisicionExtraordinariaPrincipal}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel>
+        <Label Style="{StaticResource estiloTituloControl}" Content="Requisiciones Extraordinarias"/>
+        <Views:menuComandosView2></Views:menuComandosView2>
+        <TabControl SelectedIndex="{Binding SelectedTabIndexTipoOperacion}">
+            <TabItem Header="Requisición Extraordinaria" Style="{StaticResource HeaderTabStyle}">
+                <Views:RequisicionExtraordinariaView x:Name="VW_RequisicionExtraordinaria" Style="{StaticResource ViewTabStyle}"></Views:RequisicionExtraordinariaView>
+            </TabItem>
+            <TabItem Header="Traspaso Externo" Style="{StaticResource HeaderTabStyle}" IsEnabled="{Binding IsTraspasoExternoHabilitado}">
+                <Views:RegistroTraspasosExternosView x:Name="VW_TraspasosExternos" Style="{StaticResource ViewTabStyle}"></Views:RegistroTraspasosExternosView>
+            </TabItem>
+            <TabItem Header="Orden Compra Extraordinaria" Style="{StaticResource HeaderTabStyle}" IsEnabled="{Binding IsOCExtraordinariaHabilitado}">
+            </TabItem>
+        </TabControl>
+    </StackPanel>
+</UserControl>

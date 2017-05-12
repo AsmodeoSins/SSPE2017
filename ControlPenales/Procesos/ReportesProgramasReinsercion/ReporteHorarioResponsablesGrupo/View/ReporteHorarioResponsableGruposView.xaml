@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="ControlPenales.ReporteHorarioResponsableGruposView"
+             x:Name="ReporteHorarioResponsableGruposWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoading}"
+                                   CommandParameter="{Binding ElementName=ReporteHorarioResponsableGruposWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="1"
+               Content="Horario de Responsable de Grupo"
+               Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Grid.Row="2"
+                  Header="Seleccione Filtros"
+                  Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".02*"></ColumnDefinition>
+                    <ColumnDefinition Width=".12*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="RESPONSABLE"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center" />
+                <ComboBox Grid.Column="1"
+                          Height="25"
+                          VerticalAlignment="Center"
+                          ItemsSource="{Binding LstResponsable}"
+                          SelectedValuePath="ID_PERSONA"
+                          DisplayMemberPath="NOMBRE_COMPLETO"
+                          SelectedValue="{Binding SelectedResponsable}"
+                          IsEnabled="{Binding ResponsableEnabled}">
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <DockPanel Grid.Row="3"
+                       Margin=" 0 10 0 0"
+                       HorizontalAlignment="Center"
+                       MinHeight="600">
+                <WindowsFormsHost MinWidth="800"
+                                  Name="WFH"
+                                  Visibility="{Binding ReportViewerVisible}"
+                                  HorizontalAlignment="Center">
+                    <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+                </WindowsFormsHost>
+            </DockPanel>
+            <Button  Grid.Row="3"
+                     Width="120"
+                     Style="{DynamicResource AccentedSquareButtonStyle}"
+                     HorizontalAlignment="Right"
+                     CommandParameter="Generar_Reporte"
+                     Command="{Binding OnClick}"
+                     Height="28"
+                     VerticalAlignment="Top"
+                     Margin="10,20,10,10">Generar Reporte</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

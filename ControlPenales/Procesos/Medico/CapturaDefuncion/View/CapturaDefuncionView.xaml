@@ -1,0 +1,295 @@
+﻿<UserControl x:Class="ControlPenales.CapturaDefuncionView"
+             x:Name="CapturaDefuncionWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:actb="clr-namespace:ControlPenales.Controls">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdCapturaDefuncionOnLoading}" CommandParameter="{Binding ElementName=CapturaDefuncionWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:TrimStringConverter x:Key="Trimming" />
+        <Views:AutocompleteViewModel x:Key="vm" />
+        <CollectionViewSource x:Key="xml">
+            <CollectionViewSource.Source>
+                <PriorityBinding>
+                    <Binding Source="{StaticResource vm}" Path="QueryCollection" IsAsync="True"/>
+                    <Binding Source="{StaticResource vm}" Path="WaitMessage"/>
+                </PriorityBinding>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+        <Views:MyDataTemplateSelector x:Key="TemplateSelector"/>
+        <DataTemplate x:Key="TheItemTemplate">
+            <Border CornerRadius="5" BorderBrush="#427399" BorderThickness="3" Background="Transparent" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <Grid HorizontalAlignment="Left" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="2" HorizontalAlignment="Left">
+                        <TextBlock Text="CLAVE:  "/>
+                        <TextBlock Text="{Binding CLAVE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left" Margin="2">
+                        <TextBlock Text="NOMBRE:  "/>
+                        <TextBlock Text="{Binding NOMBRE, Converter={StaticResource Trimming}}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="WaitTemplate">
+            <TextBlock Text="{Binding}" Background="SlateBlue"/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuSolicitudInterconsultaView Margin="50 0 0 0" IsEnabled="{Binding IsMenuEnabled}"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Tarjeta Informativa de Deceso" Style="{DynamicResource DescriptionHeaderStyle}" />
+            <Button Grid.Column="1" Style="{DynamicResource AccentedSquareButtonStyle}" Width="198" HorizontalAlignment="Right" VerticalAlignment="Center" CommandParameter="regresar_pantalla" 
+                        Command="{Binding OnClick}" Visibility="{Binding BotonRegresarVisible}">Regresar a pantalla anterior</Button>
+        </Grid>
+        <GroupBox Grid.Row="2" Header="Datos del imputado">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Año"></Label>
+                        <TextBox Grid.Row="1" Text="{Binding TextAnioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}"  CharacterCasing="Upper" MaxLength="4" 
+                         IsReadOnly="True" Margin="0 0 10 0" Width="50">
+                        </TextBox>
+                        <Label Grid.Column="1" Grid.Row="1" Margin="-7.5,0,0,0" >/</Label>
+                        <Label Content="Folio" Grid.Column="1"></Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextFolioImputado,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" CharacterCasing="Upper" MaxLength="5" 
+                         IsReadOnly="True" Margin="10 0 0 0" Width="50">
+                        </TextBox>
+                        <Label Content="Apellido Paterno" Grid.Column="2"></Label>
+                        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" 
+                         MaxLength="30" IsReadOnly="True">
+                        </TextBox>
+                        <Label Content="Apellido Materno" Grid.Column="3"></Label>
+                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextMaternoImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  
+                         MaxLength="30" IsReadOnly="True">
+                        </TextBox>
+                        <Label Content="Nombre" Grid.Column="4"></Label>
+                        <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding TextNombreImputado, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxLength="40" 
+                         IsReadOnly="True">
+                        </TextBox>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Alias"></Label>
+                        <TextBox Grid.Row="1" Height="60" IsReadOnly="True" Text="{Binding TextAliasImputado}"></TextBox>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Content="Edad"></Label>
+                        <Label Content="Sexo" Grid.Column="1"></Label>
+                        <Label Content="Originario" Grid.Column="2"></Label>
+                        <TextBox Text="{Binding TextEdadImputado}" Grid.Row="1" IsReadOnly="True"></TextBox>
+                        <TextBox Text="{Binding TextSexoImputado}" Grid.Row="1" Grid.Column="1" IsReadOnly="True"></TextBox>
+                        <TextBox Text="{Binding TextOriginarioImputado}" Grid.Row="1" Grid.Column="2" IsReadOnly="True"></TextBox>
+                    </Grid>
+                </Grid>
+                <Image Grid.Column="1" Height="150" Source="{Binding ImagenIngresoDeceso}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" ></Image>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="3" Header="Datos legales">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".3*"></ColumnDefinition>
+                        <ColumnDefinition Width=".4*"></ColumnDefinition>
+                        <ColumnDefinition Width=".3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Ingreso al cereso"></Label>
+                    <TextBox  Text="{Binding TextFechaIngreso}" IsReadOnly="True" Grid.Row="1"></TextBox>
+                    <Label Content="Ultima visita" Grid.Column="1"></Label>
+                    <TextBox  Text="{Binding TextUltimaVisita}" IsReadOnly="True" Grid.Row="1" Grid.Column="1"></TextBox>
+                    <Label Content="Fecha de ultima visita" Grid.Column="2"></Label>
+                    <TextBox  Text="{Binding TextUltimaVisitaFecha}" IsReadOnly="True" Grid.Row="1" Grid.Column="2"></TextBox>
+                </Grid>
+                <DataGrid Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding LstCausasPenales}" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.Row="1">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="DELITOS" Width="450">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding DELITOS_DESCR}"></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="CAUSA PENAL" Binding="{Binding CAUSA_PENAL}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="4" Header="Datos del Deceso" IsEnabled="{Binding IsCapturaDefuncionEnabled}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Content="Diagnostico del Certificado Médico de Nuevo Ingreso"></Label>
+                <TextBox IsReadOnly="True" Text="{Binding TextCertMedDiagnostico}" Height="50" Grid.Row="1"></TextBox>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="400"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Fecha del deceso"></Label>
+                    <Label Content="Lugar del deceso" Grid.Column="1"></Label>
+                    <Border Grid.Row="1" BorderBrush="Red"  ToolTipService.IsEnabled="{Binding IsFechaDecesoValida, Converter={Views:BoolToOppositeBoolConverter}}"  
+                                    Width="200" HorizontalAlignment="Left">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsFechaDecesoValida,ValidatesOnDataErrors=True}" Value="False">
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                <ToolTip.Content>
+                                    <TextBlock Text="FECHA DE DECESO ES REQUERIDA" Style="{StaticResource errorLabel}"/>
+                                </ToolTip.Content>
+                            </ToolTip>
+                        </ToolTipService.ToolTip>
+                        <xctk:DateTimePicker Format="Custom" FormatString="dd/MM/yyyy hh:mm tt" Watermark="Seleccione una fecha" 
+                                        Text="{Binding FechaDeceso,StringFormat=dd/MM/yyyy hh:mm tt,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                                         MinHeight="26" Maximum="{Binding FechaMaximaDeceso}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SourceUpdated">
+                                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_fecha_defuncion">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </xctk:DateTimePicker>
+                    </Border>
+                    <TextBox Grid.Column="1" Grid.Row="1" MaxLength="100" Text="{Binding TextLugarDeceso, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                </Grid>
+                <StackPanel Grid.Row="3" Orientation="Horizontal"  Margin="1 5 3 0">
+                    <Label Content="Causa aparente del deceso"></Label>
+                    <actb:AutoCompleteTextBox CharacterCasing="Upper" Text="{Binding Source={StaticResource vm}, Path=QueryText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"
+                                                  x:Name="AutoCompleteTB" MaxCompletions="10" Width="350" ItemsSource="{Binding Source={StaticResource xml}}" ItemTemplateSelector="{StaticResource TemplateSelector}" 
+                                                  Binding="{Binding XPath=suggestion/@data}"/>
+                </StackPanel>
+                <Border Grid.Row="5" BorderBrush="Red"  ToolTipService.IsEnabled="{Binding IsEnfermedadValida, Converter={Views:BoolToOppositeBoolConverter}}"  
+                                    HorizontalAlignment="Left">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                            <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEnfermedadValida,ValidatesOnDataErrors=True}" Value="False">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <ToolTipService.ToolTip>
+                        <ToolTip Template="{StaticResource ToolTipTemplate}">
+                            <ToolTip.Content>
+                                <TextBlock Text="CAUSA APARENTE ES REQUERIDA" Style="{StaticResource errorLabel}"/>
+                            </ToolTip.Content>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    <DataGrid Style="{StaticResource MetroDataGrid}" ItemsSource="{Binding ListEnfermedades}" SelectedItem="{Binding SelectEnfermedad}" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Command="{Binding OnClick}" Header="Eliminar" CommandParameter="eliminar_enfermedad"></MenuItem>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Clave" Binding="{Binding CLAVE}"></DataGridTextColumn>
+                            <DataGridTemplateColumn Width="400" Header="Nombre">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding NOMBRE}"></TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+                
+                <Label Content="Hechos" Grid.Row="6" x:Name="lblHechos"></Label>
+                <TextBox Grid.Row="7" Height="200" MaxLength="2000" Text="{Binding TextHechosDeceso, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" AcceptsReturn="True" MaxWidth="{ Binding ElementName=lblHechos, Path=ActualWidth}" ></TextBox>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>
+

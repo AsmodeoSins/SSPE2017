@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="ControlPenales.ConsultaBasicaView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+             xmlns:dic="clr-namespace:Resources.ControlPenales.Buscar;assembly=Resources"
+             Height="auto" Width="auto">
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuInternoBusquedaView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"></Views:MenuInternoBusquedaView>
+            
+        <Label Grid.Column="0" Grid.Row="1"  Content="Consulta Basica" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <DataGrid Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}" />
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.apellido_pat}" />
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.apellido_mat}" />
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.nombre}" />
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.numero_control}" />
+                <DataGridTextColumn Header="{x:Static dicGeneral:General.ingresos}" />
+                <DataGridTextColumn Header="Año Gobierno" />
+                <DataGridTextColumn Header="{x:Static dic:ConsultaBasicaView.folio_gobierno}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Column="1" Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            
+            <Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+            
+            <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="{x:Static dicGeneral:General.ubicacion}" />
+            <TextBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Content="{x:Static dic:ConsultaBasicaView.ultima_esclusa}" />
+            <TextBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="{x:Static dicGeneral:General.estatus}" />
+            <TextBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Content="{x:Static dic:ConsultaBasicaView.motivo_liberacion}" />
+            <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" MinLines="2"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Content="{x:Static dicGeneral:General.fecha}" />
+            <DatePicker Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+
+            <Button Grid.Column="0" Grid.Row="11" HorizontalAlignment="Center" VerticalAlignment="Top" Width="110" Margin="0 10 0 0" 
+                    Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="definir_busqueda" Command="{Binding OnClick}" Content="{x:Static dic:ConsultaBasicaView.definir_busqueda}" 
+                    ToolTip="{x:Static dic:ConsultaBasicaView.definir_busqueda}"/>
+
+            <Button Grid.Column="1" Grid.Row="11" HorizontalAlignment="Center" VerticalAlignment="Top" Width="110" Margin="0 10 0 0" 
+                    Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="salir" Command="{Binding OnClick}" Content="{x:Static dicGeneral:General.salir}"
+                    ToolTip="{x:Static dicGeneral:General.salir}"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="ControlPenales.ListadoMedidasDocumentoView"
+             x:Name="ListadoMedidasDocumentoWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+               xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding PandillasUnloading}" CommandParameter="{Binding ElementName=MedidasJudicialesWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+    <AdornerDecorator>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Documento" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="0 0 20 0">
+                <Label HorizontalAlignment="Center" Padding="0">Documento</Label>
+                <Button  Width="50" Height="50" ToolTip="Documento"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="documento" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <!--<Button Grid.Row="1" Content="+ Documento" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top" Width="auto" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="documento" Command="{Binding OnClick}"></Button>-->
+
+            <ListView Grid.Row="2" MaxHeight="700" Margin="10" ItemsSource="{Binding LstMedidaDocumento}" SelectedItem="{Binding SelectedMedidaDocumento,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Visto" DisplayMemberBinding="{Binding VISTO}"  />
+                        <GridViewColumn Header="Fecha" DisplayMemberBinding="{Binding FECHA,StringFormat=dd/MM/yyyy}"  />
+                        <GridViewColumn Header="Documento" DisplayMemberBinding="{Binding TITULO}"  />
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Ver Documento" Command="{Binding OnClick}" CommandParameter="ver_documento"/>
+                        <MenuItem Header="Editar Documento" Command="{Binding OnClick}" CommandParameter="editar_documento"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

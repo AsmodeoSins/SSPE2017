@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="ControlPenales.ReporteDecomisoObjetoView"
+             x:Name="ReporteDecomisoObjetoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Dedo="clr-namespace:ControlPenales.BiometricoServiceReference"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+              Height="1200" Width="1000">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoading}" CommandParameter="{Binding ElementName=ReporteDecomisoObjetoWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="10 50 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Búsqueda" FontSize="20"/>
+            <Grid Grid.Row="1" Margin="40 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width=".200*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <RadioButton Margin="5" Content="Todos los objetos" IsChecked="{Binding TodosLosObjetos}"/>
+                    <RadioButton Margin="5" Content="Objeto Específico" IsChecked="{Binding ObjetoEspecifico}"/>
+                    <StackPanel Margin="30 10 10 10" Orientation="Horizontal">
+                        <TextBlock  Text="Objeto:" FontWeight="Bold"/>
+                        <ComboBox Margin="10 0 0 0" Width="300" IsEnabled="{Binding ObjetoEspecifico}" ItemsSource="{Binding ObjetoTipos}" DisplayMemberPath="DESCR" SelectedItem="{Binding SelectedTipo}"></ComboBox>
+                    </StackPanel>
+
+                </StackPanel>
+                <GroupBox Grid.Column="1" Header="Búsqueda" Height="100" Margin="-70 0 70 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Padding="0" Content="Buscar"/>
+                            <Button  Width="50" Height="50" ToolTip="Buscar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="Busqueda" Command="{Binding OnClick}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Padding="0" Content="Limpiar"/>
+                            <Button  Width="50" Height="50" ToolTip="Limpiar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_guardar" Command="{Binding OnClick}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clean}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+
+
+                </GroupBox>
+            </Grid>
+
+        </Grid>
+
+        <WindowsFormsHost Grid.Row="1" Width="900" Height="900" Name="WFH" Margin="20" Visibility="{Binding ReportViewerVisible}"  HorizontalAlignment="Center" >
+            <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+        </WindowsFormsHost>
+    </Grid>
+</UserControl>

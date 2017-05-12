@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="ControlPenales.ReporteAltoImpactoView" x:Name="ReporteAltoImpatcoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+               xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+              mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Views="clr-namespace:ControlPenales"
+            Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoading}" CommandParameter="{Binding ElementName=ReporteAltoImpatcoWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="800"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="666"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Label Grid.Column="0" Grid.Row="0" Margin="50 10 0 0"  Content="Alto Impacto" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Fecha Inicio:" FontWeight="Bold"></Label>
+
+            <DatePicker Grid.Column="1"  Controls:TextBoxHelper.Watermark="Selecciona una fecha"
+                            SelectedDate="{Binding TextFechaInicio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+            <Label Grid.Column="2"  Content="Fecha Fin:" FontWeight="Bold"></Label>
+
+            <DatePicker Grid.Column="3"  Controls:TextBoxHelper.Watermark="Selecciona una fecha"
+                            SelectedDate="{Binding TextFechaFin,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+
+            <Label Grid.Column="4"  Content="Fuero:" FontWeight="Bold"></Label>
+            <ComboBox Grid.Column="5"  ItemsSource="{Binding ListFueros}" DisplayMemberPath="DESCR" SelectedValuePath="ID_FUERO"
+                          SelectedValue="{Binding SelectFuero,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></ComboBox>
+            <Label Grid.Column="6"  Content="Titulo:" FontWeight="Bold"></Label>
+            <ComboBox Grid.Column="7"  ItemsSource="{Binding ListTitulos}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TITULO"
+                          SelectedValue="{Binding SelectTitulo,UpdateSourceTrigger=PropertyChanged}" ></ComboBox>
+            <Label Grid.Column="8"  Content="Grupo delito:" FontWeight="Bold"></Label>
+          
+            <ComboBox Grid.Column="9"  ItemsSource="{Binding ListGrupoDelito}" DisplayMemberPath="DESCR" SelectedValuePath="ID_GRUPO_DELITO"
+                          SelectedValue="{Binding SelectGrupoDelito,UpdateSourceTrigger=PropertyChanged}" ></ComboBox>
+            <Button Grid.Column="10"  Width="95" VerticalContentAlignment="Center" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="generar" Command="{Binding OnClick}"
+                    Content="Generar"></Button>
+        </Grid>
+
+        <DockPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin=" 0 10 0 0" HorizontalAlignment="Center">
+            <WindowsFormsHost Width="900" Name="WFH" Visibility="{ Binding ReportViewerVisible, Converter={StaticResource booleanToVisibilityConverter}}" HorizontalAlignment="Center">
+                <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+            </WindowsFormsHost>
+        </DockPanel>
+
+    </Grid>
+</UserControl>

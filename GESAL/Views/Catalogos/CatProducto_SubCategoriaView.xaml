@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="GESAL.Views.CatProducto_SubCategoriaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Converters="clr-namespace:MVVMShared.Converters;assembly=MVVMShared"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             Dialog:DialogParticipation.Register="{Binding}"
+             xmlns:Views="clr-namespace:GESAL.Views">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdLoad}" CommandParameter="" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Converters:MultiValueConverter x:Key="MultiParamConverter"></Converters:MultiValueConverter>
+    </UserControl.Resources>
+    <StackPanel>
+        <Views:menuComandosCatalagosView></Views:menuComandosCatalagosView>
+        <Label Content="Catalogo de Subcategoria de Producto" Style="{StaticResource estiloTituloControl}">
+        </Label>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="5">Estatus:</TextBlock>
+            <ComboBox Margin="5" Width="150" ItemsSource="{Binding Lista_Estatus.LISTA_ESTATUS}" DisplayMemberPath="DESCRIPCION"  SelectedItem="{Binding SelectedEstatus}"></ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="5">Categoria del Producto:</TextBlock>
+            <ComboBox Margin="5" ItemsSource="{Binding Producto_Categorias}" SelectedItem="{Binding SelectedProducto_Categoria}" DisplayMemberPath="NOMBRE" Width="200"></ComboBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBox Width="200" Margin="5" Controls:TextBoxHelper.Watermark="Subcategoria de Producto" Text="{Binding BusquedaParametro, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" CharacterCasing="Upper">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" CommandParameter="{Binding BusquedaParametro}" Command="{Binding Buscar}"></KeyBinding>
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Content="Buscar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding Buscar}" CommandParameter="empty"></Button>
+        </StackPanel>
+        <DataGrid Margin="5 10 0 0" MaxHeight="200" ItemsSource="{Binding Producto_SubCategorias}" SelectedItem="{Binding SelectedProducto_SubCategoria}" AutoGenerateColumns="False"  Style="{StaticResource MetroDataGrid}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False" CanUserResizeColumns="False"  Name="dgCatalogo" SelectionMode="Single">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Insertar" Name="InsertarTipo"  CommandParameter="agregar" Command="{Binding AccionCatalogoSinValidar}" />
+                    <MenuItem Header="Editar" Name="EditarTipo" CommandParameter="editar" Command="{Binding AccionCatalogoSinValidar}"  IsEnabled="{Binding EditarHabilitado}" />
+                    <MenuItem Header="Borrar" Name="BorrarTipo" CommandParameter="eliminar" Command="{Binding AccionCatalogoSinValidar}"  IsEnabled="{Binding EliminarHabilitado}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="CLAVE" MinWidth="100" Binding="{Binding ID_SUBCATEGORIA}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="CATEGORÍA" MinWidth="200" Binding="{Binding PRODUCTO_CATEGORIA.NOMBRE}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="DESCRIPCIÓN" MinWidth="200" Binding="{Binding DESCR}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="ESTATUS" MinWidth="200" Binding="{Binding ACTIVO}" IsReadOnly="True"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <!--<DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Style.Triggers>
+                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>-->
+        </DataGrid>
+    </StackPanel>
+</UserControl>

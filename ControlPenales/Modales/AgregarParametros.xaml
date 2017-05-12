@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="ControlPenales.AgregarParametros"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Width="auto" Height="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="rollbackActividad"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Border Background="#4C000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Width="450">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                   <Label Grid.Column="0" Grid.Row="0" Content="Registro Parametro" Style="{DynamicResource DescriptionHeaderStyle}" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="Centro:" Name="lblCentro" FontWeight="Bold"></Label>
+                    <ComboBox  Grid.Column="1" Grid.Row="2" ItemsSource="{Binding LstCentros}" DisplayMemberPath="DESCR" SelectedValuePath="ID_CENTRO" SelectedItem="{Binding SelectedCentro,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  SelectedValue="{Binding SelectCentro,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnableCentro}" Width="250" HorizontalAlignment="Left" Margin="10,0,0,0"></ComboBox>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Clave:" Name="lblClave" FontWeight="Bold"></Label>
+                <!--<ComboBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LstProgramasActiv}" DisplayMemberPath="DESCR" SelectedValuePath="ID_PROGRAMA" 
+                              SelectedValue="{Binding SelectedPrograma, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>-->
+                <TextBox  Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Text="{ Binding Clave, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding ClaveEnable}" MaxWidth="{Binding ElementName=lblClave,Path=ActualWidth}" MaxLength="{Binding Clave_Max}"></TextBox>
+                    <!--<Label Grid.Column="0" Grid.Row="5" Content="Tipo de Parametro:" Name="lblTipoParam" FontWeight="Bold"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="6" SelectedValuePath="Tag" Width="150" HorizontalAlignment="Left"
+                          SelectedValue="{Binding SelectTipoParametro,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="10,0,0,0" >
+                        <ComboBoxItem Content="SELECCIONE" Tag="SELECCIONE"></ComboBoxItem>
+                        <ComboBoxItem Content="VALOR" Tag="VALOR"></ComboBoxItem>
+                        <ComboBoxItem Content="VALOR NUMÉRICO" Tag="VALOR NUMÉRICO"></ComboBoxItem>
+                        <ComboBoxItem Content="CONTENIDO" Tag="CONTENIDO"></ComboBoxItem>
+                        
+                    </ComboBox>-->
+                    <Label Grid.Column="0" Grid.Row="7" Content="Valor:" Name="lblValor" FontWeight="Bold"></Label>
+                <TextBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Text="{ Binding Valor, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{Binding ElementName=lblValor,Path=ActualWidth}" MaxLength="{Binding Valor_MAX}"></TextBox> 
+                <Label Grid.Column="0" Grid.Row="9" Content="Contenido:" FontWeight="Bold"></Label>
+                <DockPanel Grid.Column="0" Grid.Row="10">
+                   
+                    <Button  VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10" 
+                    CommandParameter="seleccionar_archivo" Command="{Binding OnClick}">Seleccione Contenido ...</Button>
+                    <Image Source="{Binding ArchSelect,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Height="120" Width="170"></Image>
+                    </DockPanel>
+
+
+                <Label Grid.Column="0" Grid.Row="11" Content="Valor Numérico:" Name="lblvalorNumerico" FontWeight="Bold"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="12"  Grid.ColumnSpan="2" Text="{ Binding ValorNumerico, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,Mode=TwoWay,TargetNullValue=''}" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{Binding ElementName=lblvalorNumerico,Path=ActualWidth}" MaxLength="{Binding ValorNumerico_MAX}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                    </i:Interaction.Behaviors>
+
+                </TextBox>
+
+                <Label Grid.Column="0" Grid.Row="13" Content="Descripción:" Name="Descr" FontWeight="Bold"></Label>
+                   
+                    <TextBox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" Height="70" TextWrapping="Wrap" AcceptsReturn="True" Text="{ Binding DESCR, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{Binding ElementName=Descr,Path=ActualWidth}" MaxLength="{Binding Descr_Max}"></TextBox>
+                <DockPanel Grid.Column="0" Grid.Row="15" HorizontalAlignment="Center">
+                    <Button  VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_parametro" Command="{Binding OnClick}">Guardar</Button>
+                    <Button  VerticalAlignment="Top" Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_parametro" Command="{Binding OnClick}">Cancelar</Button>
+
+                </DockPanel>
+                
+            </Grid>
+        </Border>
+    </Border>
+        </AdornerDecorator>
+</UserControl>

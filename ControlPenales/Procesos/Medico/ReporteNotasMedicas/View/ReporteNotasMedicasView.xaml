@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="ControlPenales.ReporteNotasMedicasView"
+             x:Name="ReporteNuevoIngresoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ControlPenales"             
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             Height="auto" Width="auto" d:DesignHeight="1000" d:DesignWidth="1060" >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=ReporteNuevoIngresoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <local:DateConverter x:Key="ConvertirEdad"/>
+        <local:GetPersonaNombreReporteNotasMedicas x:Key="NombrePersona"/>
+        <local:TrimStringConverter x:Key="Trimming"/>
+    </UserControl.Resources>
+
+    <AdornerDecorator>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <local:MenuIconosView Grid.Row="0" />
+            <Label Grid.Row="1" Content="Reporte de Notas Medicas" Style="{DynamicResource DescriptionHeaderStyle}" />
+            <GroupBox Grid.Row="2" Header="Datos del expediente">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <local:DatosExpedienteView Grid.ColumnSpan="3" />
+                    <Label Content="Tipo de Atencion" Grid.Row="1"></Label>
+                    <Label Content="Tipo de Servicio" Grid.Row="1" Grid.Column="1"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ListTipoAtencion}" SelectedItem="{Binding SelectTipoAtencion}" VerticalAlignment="Center" SelectedValuePath="ID_TIPO_ATENCION" DisplayMemberPath="DESCR"
+                              IsEnabled="{Binding FiltrarEnabled}"></ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding ListTipoServicio}" SelectedItem="{Binding SelectTipoServicio}" VerticalAlignment="Center" SelectedValuePath="ID_TIPO_SERVICIO" DisplayMemberPath="DESCR"
+                              IsEnabled="{Binding FiltrarEnabled}"></ComboBox>
+                    <Button Grid.Row="2" Grid.Column="2" Style="{DynamicResource AccentedSquareButtonStyle}" Width="130" HorizontalAlignment="Right" VerticalAlignment="Center" CommandParameter="cargar_listado" 
+                        Command="{Binding OnClick}" Visibility="{Binding BotonRegresarVisible}" Margin="5" IsEnabled="{Binding FiltrarEnabled}">Buscar Notas</Button>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Row="3" Header="Listado de notas medicas">
+                <Grid>
+                    <Label VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 35 0 0" Panel.ZIndex="100" Visibility="{Binding EmptyVisible}">No hay información</Label>
+                    <DataGrid ItemsSource="{Binding ListNotasMedicas}" SelectedItem="{Binding SelectNotaMedica}" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" 
+                              Style="{StaticResource MetroDataGrid}" MinHeight="150" MaxHeight="250" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Servicio" Binding="{Binding ATENCION_SERVICIO.DESCR}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Responsable" Binding="{Binding Converter={StaticResource NombrePersona}}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding ATENCION_FEC}"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Seleccione" IsReadOnly="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Ver reporte" HorizontalAlignment="Right" VerticalAlignment="Center" Width="93" Margin="5" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                            CommandParameter="{Binding}" Style="{DynamicResource AccentedSquareButtonStyle}" Focusable="True" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </GroupBox>
+            <DockPanel Grid.Row="4" Margin=" 0 10 0 10" HorizontalAlignment="Center" Height="666" Visibility="{Binding ReporteVisible}">
+                <WindowsFormsHost Width="800" Name="WFH" Visibility="{Binding ReportViewerVisible}"  HorizontalAlignment="Center">
+                    <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+                </WindowsFormsHost>
+            </DockPanel>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

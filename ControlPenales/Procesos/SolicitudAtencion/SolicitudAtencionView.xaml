@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="ControlPenales.SolicitudAtencionView"
+             xmlns:Name="SolicitudAtencionWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=SolicitudAtencionWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--MENU-->
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+        <!--TITULO-->
+        <Label Grid.Column="0" Grid.Row="1"  Content="Solicitud de Atención" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <Grid Grid.Column="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*"></ColumnDefinition>
+                <ColumnDefinition Width=".5*"></ColumnDefinition>
+                
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Content="Para trasladarse al área"></Label>
+            <Label Grid.Column="1" Content="Motivo o causa" Name="actividad"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding LstArea}" SelectedValuePath="ID_AREA" DisplayMemberPath="DESCR" SelectedValue="{Binding SArea,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+            <TextBox Grid.Column="1" Grid.Row="1" CharacterCasing="Upper" MaxLength="500" Text="{Binding SActividad ,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+            <Label Grid.Column="0" Grid.Row="2" Content="Área que solicita" Name="area"></Label>
+            <ComboBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding LstAreaTecnica}" SelectedValuePath="ID_TECNICA" DisplayMemberPath="DESCR"
+                    SelectedValue="{Binding SAreaTecnica,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, NotifyOnSourceUpdated=True}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SourceUpdated">
+                        <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_area_tecnica">
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+
+            <Label Grid.Column="1" Grid.Row="2" Content="Tipo de atención" Visibility="{Binding IsTipoAtencionVisible}"></Label>
+            <ComboBox Grid.Column="1" Grid.Row="3" Visibility="{Binding IsTipoAtencionVisible}" ItemsSource="{Binding LstAtencionTipos}" SelectedValuePath="ID_TIPO_ATENCION" DisplayMemberPath="DESCR"
+                      SelectedValue="{Binding SelectedAtencion_Tipo,ValidatesOnDataErrors=True}">
+            </ComboBox>
+
+            <!--<Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Autorización" Name="Autorizacion"></Label>
+            <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" CharacterCasing="Upper" MaxLength="100" Text="{Binding SAutorizacion ,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Oficial que traslada" Name="OficialTraslada"></Label>
+            <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" CharacterCasing="Upper" MaxLength="100"
+                    Text="{Binding SOficialTraslada ,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>-->
+            
+        </Grid>
+
+        <DataGrid Grid.Column="0" Grid.Row="3" AutoGenerateColumns="False"  ItemsSource="{Binding LstInternos}" SelectedItem="{Binding SelectIngresoLista}" SelectionMode="Single"  CanUserAddRows="False" MaxHeight="500" Padding="0 10 0 0" Style="{StaticResource MetroDataGrid}" IsReadOnly="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Folio" Binding="{Binding ID_IMPUTADO}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding IMPUTADO.NOMBRE}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding IMPUTADO.PATERNO}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido Materno" Binding="{Binding IMPUTADO.MATERNO}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="add_interno"/>
+                    <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="del_interno"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" FontStyle="Italic"  Content="No hay información" Visibility="{Binding EmptyInternos}" />
+    </Grid>
+</UserControl>

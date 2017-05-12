@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="ControlPenales.ClasCrim"
+             x:Name="ClasCrimWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             d:DesignHeight="300" d:DesignWidth="1250">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ClasCrimLoading}" CommandParameter="{Binding ElementName=ClasCrimWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="TabGroup" Margin="0 5 0 0" SelectedIndex="{Binding IndexHijo4}">
+            <TabItem Header="Clasificación Criminológica" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabClasificacionCriminologicaSelected}" IsEnabled="{Binding ClasificacionCriminologicaEnabled}">
+                <Views:ClasificacionCriminologicaView Style="{StaticResource ViewTabStyle}"></Views:ClasificacionCriminologicaView>
+            </TabItem>
+            <TabItem Header="Factores Criminodiagnóstico" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabFactorCriminodiagnosticoSelected}" IsEnabled="{Binding ClasificacionCrimidiagnosticoEnabled}">
+                <Views:FactoresCriminodiagnosticoView Style="{StaticResource ViewTabStyle}"></Views:FactoresCriminodiagnosticoView>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+        <!--<GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="Clasificación Criminologica por Antecedentes(Requerido)" HorizontalAlignment="Stretch" Height="auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0">Clasificación Criminologica</Label>
+                <ComboBox Grid.Column="1" Grid.Row="0" Name="cbClasificacionCriminologica" DisplayMemberPath="DESCR" SelectedValuePath="ID_CLAS"  SelectedValue="{Binding ClasificacionCriminologica,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ItemsSource="{Binding LstClasCrim}"/>
+                <Label Grid.Column="2" Grid.Row="0">Pertenencia al Crimen Organizado</Label>
+                <ComboBox Grid.Column="3" Grid.Row="0" Name="cbPertenenciaCrimenOrganizado" DisplayMemberPath="DESCR" SelectedValuePath="ID_CRIMENO" SelectedValue="{Binding PertenenciaCrimenOrganizado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ItemsSource="{Binding LstPertCrimenOrg}" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Sanciones Diciplinarias y/o Nuevos Procesos" HorizontalAlignment="Stretch" Height="auto" Grid.ColumnSpan="2" Margin="5,5,10,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <DataGrid Margin="10,20,10,0" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" SelectedItem="{Binding SelectedSancion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding LstSanciones}">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="addSancion"/>
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editSancion"/>
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" Visibility="{Binding EliminarItemMenu,Converter={StaticResource booleanToVisibilityConverter}}" CommandParameter="delSancion"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Motivo ó Proceso" Binding="{Binding MOTIVO_PROCESO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cantidad" Binding="{Binding CANTIDAD_PARTICIPACION}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tiempo Sancion ó Proceso" Binding="{Binding TIEMPO_CASTIGO_SANCION_PROCESO}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Nuevo Proceso" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox>
+                                        <CheckBox.Style>
+                                            <Style TargetType="{x:Type CheckBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding NUEVO_PROCESO}" Value="S">
+                                                        <Setter Property="IsChecked" Value="True"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding NUEVO_PROCESO}" Value="N">
+                                                        <Setter Property="IsChecked" Value="False"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </CheckBox.Style>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>-->
+    </Grid>
+    
+</UserControl>

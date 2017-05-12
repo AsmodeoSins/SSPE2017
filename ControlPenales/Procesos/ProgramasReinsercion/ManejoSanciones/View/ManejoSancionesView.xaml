@@ -1,0 +1,365 @@
+﻿<UserControl x:Class="ControlPenales.ManejoSancionesView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:cmd="http://www.galasoft.ch/mvvmlight" xmlns:local="clr-namespace:ControlPenales" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d" d:DesignHeight="700" d:DesignWidth="550" Name="ControlCalificacionesWindow">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ControlCalificacionesLoading}" CommandParameter="{Binding ElementName=ControlCalificacionesWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid MaxWidth="{Binding ElementName=ControlCalificacionesWindow,Path=ActualWidth}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <local:MenuCatalogosView Grid.ColumnSpan="3" />
+        <Label Grid.Row="1" Content="Manejo de Cancelados/Suspendidos" Style="{DynamicResource DescriptionHeaderStyle}" Grid.ColumnSpan="2" />
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Row="2" HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Name="TabManejoSanciones">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <cmd:EventToCommand Command="{Binding TabChange }" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TabItem Header="Bandeja" Style="{StaticResource HeaderTabStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="2" Header="Seleccione Filtros" Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".02*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".05*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".05*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".04*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Text="EJE" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="1" Height="25" VerticalAlignment="Center" ItemsSource="{Binding ListEjes}" SelectedValuePath="ID_EJE" DisplayMemberPath="DESCR"
+                                    SelectedValue="{Binding SelectedEje}" IsEnabled="{Binding EjeEnabled}">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding COMPLEMENTARIO}" Value="COMPLEMENTARIO">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                            <StackPanel>
+                                                                <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                                <TextBlock Text="COMPLEMENTARIO" Foreground="#427399" />
+                                                                <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                            </StackPanel>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding COMPLEMENTARIO}" Value="MODELO">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                            <StackPanel>
+                                                                <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                                <TextBlock Text="MODELO" Foreground="#427399" />
+                                                                <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                            </StackPanel>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                            <TextBlock Grid.Column="2" Text="PROGRAMA" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="3" Height="25" VerticalAlignment="Center" ItemsSource="{Binding ListProgramas}" SelectedValuePath="ID_TIPO_PROGRAMA" DisplayMemberPath="NOMBRE"
+                                    SelectedValue="{Binding SelectedPrograma}" IsEnabled="{Binding ProgramaEnabled}"/>
+                            <TextBlock Grid.Column="4" Text="ACTIVIDAD" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="5" Height="25" VerticalAlignment="Center" ItemsSource="{Binding ListActividades}" SelectedValuePath="ID_ACTIVIDAD" DisplayMemberPath="DESCR"
+                                    SelectedValue="{Binding SelectedActividad}" IsEnabled="{Binding ProgramaEnabled}"/>
+                            <TextBlock Grid.Column="6" Text="GRUPO" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="7" Height="25" VerticalAlignment="Center" ItemsSource="{Binding ListGrupo}" SelectedValuePath="ID_GRUPO" DisplayMemberPath="DESCR"
+                                    SelectedValue="{Binding SelectedGrupo}" IsEnabled="{Binding GrupoEnabled}"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="3" Grid.RowSpan="1" Header="Información">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="10*" />
+                            </Grid.RowDefinitions>
+                            <Border BorderThickness="1" BorderBrush="#3F7096">
+                                <Grid Background="{Binding SelectedParticipante.PLANIMETRIACOLOR}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="160"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Image Width="150" Source="{Binding ImagenParticipante}" Margin="0,10,0,0" />
+                                    <ProgressBar Grid.Row="1" Grid.Column="0" Maximum="{Binding MaxValueProBar}" Minimum="0" Value="{Binding CantidadActividadesAprovadas}" Margin="25,0,35,0" />
+                                    <Grid Grid.Row="2" HorizontalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">AVANCE</Label>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding AvanceTratamiento}" />
+                                        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">HORAS DE TRATAMIENTO</Label>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding HorasTratamiento}" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <TextBlock Grid.Row="1" Text="PLANIMETRIA" />
+                            <TextBox Grid.Row="2" IsReadOnly="True" Text="{Binding SelectedParticipante.PLANIMETRIA}" />
+                            <TextBlock Grid.Row="3" Text="SENTENCIA" />
+                            <TextBox Grid.Row="4" IsReadOnly="True" Text="{Binding SelectedParticipante.SENTENCIA}" />
+                            <TextBlock Grid.Row="5" Text="SENTENCIA RESTANTE" />
+                            <TextBox Grid.Row="64" IsReadOnly="True" Text="{Binding SelectedParticipante.RESTANTE}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="2" Grid.Row="3" Header="Lista de Participantes">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <DataGrid Style="{StaticResource MetroDataGrid}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                    ItemsSource="{Binding ListParticipantes,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedParticipante}" CanUserAddRows="False"
+                                    CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" AutoGenerateColumns="False" MinHeight="200" MaxHeight="450">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="AÑo" Binding="{Binding ID_ANIO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="FOLIO" Binding="{Binding ID_IMPUTADO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="PATERNO" Binding="{Binding PATERNO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="MATERNO" Binding="{Binding MATERNO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="NOMBRE" Binding="{Binding NOMBRE}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="UBICACIÓN" Binding="{Binding UBICACION}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="MOTIVO" Binding="{Binding MOTIVO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="MOVIMIENTO" Binding="{Binding MOVIMIENTO}" IsReadOnly="True" />
+                                    <DataGridTemplateColumn Header="APROBADO" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding APROBADO,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" IsEnabled="False" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="4" Header="Respuesta" Grid.ColumnSpan="2" IsEnabled="{Binding EnabledNota}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="125" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="% Asistencia" />
+                            <TextBox Grid.Row="1" VerticalAlignment="Top" IsReadOnly="True" Text="{Binding SelectedParticipante.ASISTENCIA}" />
+                            <TextBlock Grid.Column="1" Text="Respuesta" />
+                            <TextBox Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Grid.RowSpan="2" Height="70" MaxLength="1000" Text="{Binding SelectedParticipante.RESPUESTA_TECNICA}"
+                                    CharacterCasing="Upper" />
+                            <TextBlock Grid.Column="2" Text="Aprobado" />
+                            <Controls:ToggleSwitch Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" IsChecked="{Binding SelectedParticipante.APROBADO,UpdateSourceTrigger=PropertyChanged}"
+                                    OnLabel="SI" OffLabel="NO" Margin="10,0,10,0" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Suspendidos" Style="{DynamicResource HeaderTabStyle}" IsSelected="{Binding SelectedTabSuspendidos}" IsEnabled="{Binding TabSuspendidoEnabled}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="2" Header="Seleccione Filtros" Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".02*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".05*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".05*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".04*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Text="EJE" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="1" Height="25" VerticalAlignment="Center" ItemsSource="{Binding SuspenListEjes}" SelectedValuePath="ID_EJE" DisplayMemberPath="DESCR"
+                                    SelectedValue="{Binding SuspenSelectedEje}">
+                                <ComboBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource {x:Type ComboBoxItem}}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding COMPLEMENTARIO}" Value="COMPLEMENTARIO">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                            <StackPanel>
+                                                                <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                                <TextBlock Text="COMPLEMENTARIO" Foreground="#427399" />
+                                                                <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                            </StackPanel>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding COMPLEMENTARIO}" Value="MODELO">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                                            <StackPanel>
+                                                                <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                                <TextBlock Text="MODELO" Foreground="#427399" />
+                                                                <Separator HorizontalAlignment="Stretch" BorderBrush="#427399" IsEnabled="False" />
+                                                            </StackPanel>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.ItemContainerStyle>
+                            </ComboBox>
+                            <TextBlock Grid.Column="2" Text="PROGRAMA" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="3" Height="25" VerticalAlignment="Center" ItemsSource="{Binding SuspenListProgramas}" SelectedValuePath="ID_TIPO_PROGRAMA" DisplayMemberPath="NOMBRE"
+                                    SelectedValue="{Binding SuspenSelectedPrograma}" />
+                            <TextBlock Grid.Column="4" Text="ACTIVIDAD" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="5" Height="25" VerticalAlignment="Center" ItemsSource="{Binding SuspenListActividades}" SelectedValuePath="ID_ACTIVIDAD" DisplayMemberPath="DESCR"
+                                    SelectedValue="{Binding SuspenSelectedActividad}" />
+                            <TextBlock Grid.Column="6" Text="GRUPO" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="7" Height="25" VerticalAlignment="Center" ItemsSource="{Binding SuspenListGrupo}" SelectedValuePath="ID_GRUPO" DisplayMemberPath="DESCR"
+                                    SelectedValue="{Binding SuspenSelectedGrupo}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="3" Grid.RowSpan="1" Header="Información">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="10*" />
+                            </Grid.RowDefinitions>
+                            <Border BorderThickness="1" BorderBrush="#3F7096">
+                                <Grid Background="{Binding SuspenSelectedParticipante.PLANIMETRIACOLOR}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="160"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Image Width="150" Source="{Binding SuspenImagenParticipante}" Margin="0,10,0,0" />
+                                    <ProgressBar Grid.Row="1" Grid.Column="0" Maximum="{Binding SuspenMaxValueProBar}" Minimum="0" Value="{Binding SuspenCantidadActividadesAprovadas}" Margin="25,0,35,0" />
+                                    <Grid Grid.Row="2" HorizontalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">AVANCE</Label>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding SuspenAvanceTratamiento}" />
+                                        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">HORAS DE TRATAMIENTO</Label>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding SuspenHorasTratamiento}" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <TextBlock Grid.Row="1" Text="PLANIMETRIA" />
+                            <TextBox Grid.Row="2" IsReadOnly="True" Text="{Binding SuspenSelectedParticipante.PLANIMETRIA}" />
+                            <TextBlock Grid.Row="3" Text="SENTENCIA RESTANTE" />
+                            <TextBox Grid.Row="4" IsReadOnly="True" Text="{Binding SuspenSelectedParticipante.RESTANTE}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="2" Grid.Row="3" Header="Lista de Suspendidos">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <DataGrid Style="{StaticResource MetroDataGrid}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                    ItemsSource="{Binding SuspenListParticipantes,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SuspenSelectedParticipante}" CanUserAddRows="False"
+                                    CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" AutoGenerateColumns="False" MinHeight="200" MaxHeight="450">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="AÑo" Binding="{Binding ID_ANIO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="FOLIO" Binding="{Binding ID_IMPUTADO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="PATERNO" Binding="{Binding PATERNO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="MATERNO" Binding="{Binding MATERNO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="NOMBRE" Binding="{Binding NOMBRE}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="UBICACIÓN" Binding="{Binding UBICACION}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="FECHA RESPUESTA" Binding="{Binding RESPUESTA_FECHA}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="MOTIVO" Binding="{Binding MOTIVO}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="RESPUESTA" Binding="{Binding RESPUESTA_TECNICA}" IsReadOnly="True" />
+                                    <DataGridTemplateColumn Header="REACTIVAR" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding REACTIVAR,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,987 @@
+﻿<UserControl x:Class="ControlPenales.RecepcionAduanaView" x:Name="RecepcionAduanaWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:ControlPenales" xmlns:sys="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" Height="auto"
+        Width="auto" d:DesignWidth="1060">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=RecepcionAduanaWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <local:DateConverter x:Key="ConvertirEdad" />
+        <local:MultiValueConverter x:Key="MultiParamConverter"></local:MultiValueConverter>
+        <local:GetFuero x:Key="GetFuero" />
+        <local:GetEstatusAbogadoCausaPenal x:Key="getEstatusAbogadoCausaPenal" />
+        <local:TrimStringConverter x:Key="Trimming" />
+        <local:BoolConverter x:Key="BoolConverter" />
+        <local:VisitanteForaneo x:Key="VisitanteForaneoConverter" />
+        <local:GetTipoAduana x:Key="GetTipoAduana" />
+        <local:IngresoUbicacion x:Key="GetUbicacion" />
+        <local:IngresoUbicacionAduana x:Key="GetUbicacionAduana" />
+    </UserControl.Resources>
+    <StackPanel>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Entrada" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Entrada" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="entrada_ingreso"
+                        IsEnabled="{Binding EntradaEnabled}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_checkmark}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Limpiar" Padding="0" />
+                <Button Width="50" Height="50" VerticalAlignment="Center" ToolTip="Limpiar" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}"
+                        CommandParameter="limpiar_campos">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_clean}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="3" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Pertenencia" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Pertenencia" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="abrir_pertenencia"
+                        IsEnabled="{Binding PertenenciasEnabled}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_man_suitcase}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="4" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Content="Salida" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Salida" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="salida_ingreso"
+                        IsEnabled="{Binding SalidaEnabled}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_door_leave}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="5" Grid.Row="0" HorizontalAlignment="Center" Margin="20 0 20 0">
+                <Label HorizontalAlignment="Center" Padding="0" Content="Salir"></Label>
+                <Button Width="50" Height="50" ToolTip="Salir" IsEnabled="{Binding MenuSalirEnabled}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="salir_menu" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_door_lock_closed}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Label Content="Recepción Visitas" Style="{DynamicResource DescriptionHeaderStyle}" Margin="0 -10 0 0" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Datos Generales" VerticalAlignment="Top">
+                <Grid Name="GridGeneral" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="3.6*" Name="Container"></ColumnDefinition>
+                        <ColumnDefinition Width="2.4*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.4*"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="80"></ColumnDefinition>
+                        <ColumnDefinition Width="80"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom">Código</Label>
+                    <Label Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom">Nombre</Label>
+                    <Label Grid.Column="2" Grid.Row="0" VerticalAlignment="Bottom">Apellido Paterno</Label>
+                    <Label Grid.Column="3" Grid.Row="0" VerticalAlignment="Bottom">Apellido Materno</Label>
+                    <!--<Label Grid.Column="6" Grid.Row="0">Tipo Visitante</Label>-->
+                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextCodigo,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" MaxLength="10"
+                             Name="CodigoBuscar" VerticalAlignment="Center">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=CodigoBuscar}" Command="{Binding AduanaClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextNombre,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" Name="NombreBuscar"
+                             VerticalAlignment="Center">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding AduanaClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextPaterno,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"
+                            Name="ApellidoPaternoBuscar"  VerticalAlignment="Center">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=ApellidoPaternoBuscar}" Command="{Binding AduanaClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextMaterno,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"
+                            Name="ApellidoMaternoBuscar"  VerticalAlignment="Center">
+                        <TextBox.InputBindings>
+                            <KeyBinding CommandParameter="{Binding ElementName=ApellidoMaternoBuscar}" Command="{Binding AduanaClick}" Key="Enter" />
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <!--<ComboBox Grid.Column="6" Grid.Row="1" ItemsSource="{Binding ListTipoVisitante}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_VISITANTE" 
+                  Height="25" SelectedValue="{Binding SelectTipoVisitante, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                  IsEnabled="{Binding GeneralEnabled}" ></ComboBox>-->
+                    <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+                        <Button Width="50" Height="50" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_visita" Command="{Binding OnClick}"
+                                IsEnabled="{Binding MenuBuscarEnabled}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Content="Huella" Padding="0" />
+                        <Button Width="50" Height="50" ToolTip="Buscar por Huellas" Style="{DynamicResource MetroCircleButtonStyle}" Grid.RowSpan="2" Command="{Binding BuscarHuella}"
+                                IsEnabled="{Binding MenuBuscarEnabled}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <Label Grid.Column="0" Grid.Row="2">Sexo</Label>
+                    <Label Grid.Column="1" Grid.Row="2">Fecha Nacimiento</Label>
+                    <Label Grid.Column="2" Grid.Row="2">Edad</Label>
+                    <Label Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">CURP</Label>
+                    <Label Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2">RFC</Label>
+                    <ComboBox Grid.Column="0" Grid.Row="3" SelectedValuePath="Tag" IsEnabled="False" Height="25"
+                            SelectedValue="{Binding SelectSexo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="SELECCIONE" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="MASCULINO" Tag="M"></ComboBoxItem>
+                        <ComboBoxItem Content="FEMENINO" Tag="F"></ComboBoxItem>
+                    </ComboBox>
+                    <DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" IsEnabled="False"
+                            SelectedDate="{Binding FechaNacimiento,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" VerticalAlignment="Center"></DatePicker>
+                    <TextBox Grid.Column="2" Grid.Row="3" IsReadOnly="True" CharacterCasing="Upper" Text="{Binding TextEdad,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="1" IsReadOnly="True" CharacterCasing="Upper" MaxLength="18"
+                            Text="{Binding TextCurp,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ0-9]*$" MaxLength="18" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="2" IsReadOnly="True" CharacterCasing="Upper" MaxLength="13"
+                            Text="{Binding TextRfc,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ0-9]*$" MaxLength="13" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <!--<Label Grid.Column="0" Grid.Row="4">NIP</Label>-->
+                    <Label Grid.Column="2" Grid.Row="4">Teléfono</Label>
+                    <Label Grid.Column="3" Grid.Row="4">Correo Electrónico</Label>
+                    <!--<Label Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center">Acceso Unico</Label>-->
+                    <Label Grid.Column="4" Grid.Row="4" Grid.ColumnSpan="2">Última Modificación</Label>
+                    <!--<TextBox Grid.Column="0" Grid.Row="5" IsReadOnly="True" CharacterCasing="Upper" Text="{Binding TextNip,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>-->
+                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0">Situación</Label>
+                        <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListSituacion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTATUS_VISITA" IsEnabled="False" Height="25"
+                                SelectedValue="{Binding SelectSituacion,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                        <Label Grid.Column="1" Grid.Row="0">No. Locker</Label>
+                        <TextBox Grid.Column="2" Grid.Row="1" Height="25" IsEnabled="{Binding LockerEnabled}" Text="{Binding TextIDLocker,UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Behaviors>
+                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </Grid>
+                    <TextBox Grid.Column="2" Grid.Row="5" IsReadOnly="True" CharacterCasing="Upper" Text="{Binding TextTelefono,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="14" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="1" IsReadOnly="True" CharacterCasing="Upper" MaxLength="45"
+                            Text="{Binding TextCorreo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding TextFechaUltimaModificacion,UpdateSourceTrigger=PropertyChanged}" />
+                    <Image Grid.Column="6" Grid.Row="0" Grid.RowSpan="7" Grid.ColumnSpan="2" Margin="5 5 0 5" Source="{Binding FotoVisita}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            MaxWidth="150" />
+                </Grid>
+            </GroupBox>
+            <Expander Grid.Row="1" Header="Domicilio" Margin="5 2 5 2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0">País</Label>
+                    <Label Grid.Column="1" Grid.Row="0">Estado</Label>
+                    <Label Grid.Column="2" Grid.Row="0">Municipio</Label>
+                    <Label Grid.Column="3" Grid.Row="0">Colonia</Label>
+                    <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListPais}" SelectedValue="{Binding SelectPais,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                            SelectedValuePath="ID_PAIS_NAC" DisplayMemberPath="PAIS" IsEnabled="False">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListEntidad}" SelectedValue="{Binding SelectEntidad,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                            SelectedValuePath="ID_ENTIDAD" DisplayMemberPath="DESCR" IsEnabled="False">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ListMunicipio}"
+                            SelectedValue="{Binding SelectMunicipio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="ID_MUNICIPIO" DisplayMemberPath="MUNICIPIO1"
+                            IsEnabled="False">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding ListColonia}" SelectedValue="{Binding SelectColonia,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                            SelectedValuePath="ID_COLONIA" DisplayMemberPath="DESCR" IsEnabled="False">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="2">Calle</Label>
+                    <Label Grid.Column="1" Grid.Row="2">Número Exterior</Label>
+                    <Label Grid.Column="2" Grid.Row="2">Número Interior</Label>
+                    <Label Grid.Column="3" Grid.Row="2">Código Postal</Label>
+                    <TextBox Grid.Column="0" Grid.Row="3" IsReadOnly="True" CharacterCasing="Upper" Text="{Binding TextCalle,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="3" IsReadOnly="True" Text="{Binding TextNumExt,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="3" IsReadOnly="True" CharacterCasing="Upper" MaxLength="6"
+                            Text="{Binding TextNumInt,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                    <TextBox Grid.Column="3" Grid.Row="3" IsReadOnly="True" Text="{Binding TextCodigoPostal,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="5" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                </Grid>
+            </Expander>
+            <Expander Grid.Row="2" Header="Discapacitado" Margin="5 2 5 2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.25*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0">Discapacidad</Label>
+                    <Label Grid.Column="1" Grid.Row="0">Tipo Discapacidad</Label>
+                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" IsEnabled="False"
+                            SelectedValue="{Binding SelectDiscapacitado,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5" ItemsSource="{Binding ListDiscapacidades}" SelectedValuePath="ID_TIPO_DISCAPACIDAD" DisplayMemberPath="DESCR"
+                            SelectedValue="{Binding SelectTipoDiscapacidad,ValidatesOnDataErrors=True}" IsEnabled="False"></ComboBox>
+                </Grid>
+            </Expander>
+            <StackPanel Grid.Row="3" Grid.Column="0">
+                <GroupBox Header="{Binding HeaderTextDatosAbogados}" Visibility="{Binding DatosAbogadosVisible}">
+                    <StackPanel>
+                        <Grid Name="GridAbogado" Visibility="{Binding GridAbogadoVisible}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="{Binding CedulaCJF}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></Label>
+                            <Label Content="Credencializado" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                            <!--<Label Content="Estatus" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"></Label>-->
+                            <Label Content="Observaciones" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"></Label>
+                            <TextBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="{Binding TextCedulaCJF,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                                    IsReadOnly="True" MaxLength="7"></TextBox>
+                            <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding CredencializadoAbogado}"></CheckBox>
+                            <!--<ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding ListEstatusVisita}" DisplayMemberPath="DESCR" IsEnabled="False" SelectedValuePath="ID_ESTATUS_VISITA"
+                                    SelectedValue="{Binding SelectEstatusAbogado}" VerticalAlignment="Center"></ComboBox>-->
+                            <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" CharacterCasing="Upper" IsReadOnly="True"
+                                    Text="{Binding TextObservacionesAbogado,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <Grid Name="GridActuario" Visibility="{Binding JuzgadoActuarioVisible}" Grid.Row="4" Grid.ColumnSpan="6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Content="Juzgado" VerticalAlignment="Center"></Label>
+                                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Text="{Binding TextJuzgadoActuario,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                                        CharacterCasing="Upper" IsReadOnly="True"></TextBox>
+                                <GroupBox Grid.Row="2" Header="Asignación de Internos" Margin="5 10 0 5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="6*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=AnioInterno, Path=Text.Length}" Value="4">
+                                                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioInterno}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Label Grid.Row="0" Grid.Column="0" Content="Año"></Label>
+                                        <Label Grid.Row="0" Grid.Column="1" Content="Folio"></Label>
+                                        <Label Grid.Row="0" Grid.Column="2" Content="Paterno"></Label>
+                                        <Label Grid.Row="0" Grid.Column="3" Content="Materno"></Label>
+                                        <Label Grid.Row="0" Grid.Column="4" Content="Nombre(s)"></Label>
+                                        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content=" / " HorizontalAlignment="Center"></Label>
+                                        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding TextAnioImputado,UpdateSourceTrigger=PropertyChanged}" Margin="0 0 10 10" x:Name="AnioInterno">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=AnioInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="4" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextFolioImputado,UpdateSourceTrigger=PropertyChanged}" Margin="10 0 0 10" x:Name="FolioInterno">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=FolioInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="5" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding TextPaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Margin="0 0 0 10">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=PaternoInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding TextMaternoImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Margin="0 0 0 10">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=MaternoInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding TextNombreImputado,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Margin="0 0 0 10">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=NombreInterno}" Command="{Binding InternoClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <DataGrid Grid.Row="2" Grid.ColumnSpan="5" IsReadOnly="True" CanUserAddRows="False" Height="200" AutoGenerateColumns="False"
+                                                ItemsSource="{Binding ListInternosSeleccionadosPorNotificar}" Style="{StaticResource MetroDataGrid}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Año" Binding="{Binding ACTUARIO_INGRESO.INGRESO.ID_ANIO}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Folio" Binding="{Binding ACTUARIO_INGRESO.INGRESO.ID_IMPUTADO}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Paterno" Binding="{Binding ACTUARIO_INGRESO.INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Materno" Binding="{Binding ACTUARIO_INGRESO.INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Nombre" Binding="{Binding ACTUARIO_INGRESO.INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn.HeaderTemplate>
+                                                        <DataTemplate>
+                                                            <CheckBox Name="CKB_ALL_INTERNOS_ACTUARIOS" HorizontalAlignment="Center" Style="{DynamicResource DescriptionHeaderStyleCheckBox}"
+                                                                    IsChecked="{Binding DataContext.SeleccionarTodoActuarios,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                    IsEnabled="{Binding DataContext.SeleccionarTodosActuariosEnable,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="Unchecked">
+                                                                        <i:InvokeCommandAction
+                                                                                Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                                    <Binding ElementName="CKB_ALL_INTERNOS_ACTUARIOS" />
+                                                                                </MultiBinding>
+                                                                            </i:InvokeCommandAction.CommandParameter>
+                                                                        </i:InvokeCommandAction>
+                                                                    </i:EventTrigger>
+                                                                    <i:EventTrigger EventName="Checked">
+                                                                        <i:InvokeCommandAction
+                                                                                Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                                    <Binding ElementName="CKB_ALL_INTERNOS_ACTUARIOS" />
+                                                                                </MultiBinding>
+                                                                            </i:InvokeCommandAction.CommandParameter>
+                                                                        </i:InvokeCommandAction>
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+                                                            </CheckBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.HeaderTemplate>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <CheckBox IsChecked="{Binding ELIGE}" Name="CKB_NOTIFICA" HorizontalAlignment="Center">
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="Unchecked">
+                                                                        <i:InvokeCommandAction
+                                                                                Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                                    <Binding />
+                                                                                    <Binding ElementName="CKB_NOTIFICA" />
+                                                                                </MultiBinding>
+                                                                            </i:InvokeCommandAction.CommandParameter>
+                                                                        </i:InvokeCommandAction>
+                                                                    </i:EventTrigger>
+                                                                    <i:EventTrigger EventName="Checked">
+                                                                        <i:InvokeCommandAction
+                                                                                Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                                    <Binding />
+                                                                                    <Binding ElementName="CKB_NOTIFICA" />
+                                                                                </MultiBinding>
+                                                                            </i:InvokeCommandAction.CommandParameter>
+                                                                        </i:InvokeCommandAction>
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+                                                            </CheckBox>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </Grid>
+                        <Grid Name="GridColaborador" Visibility="{Binding ColaboradorVisible}" Grid.Row="2" Grid.ColumnSpan="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <!--<Label Content="Estatus" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></Label>-->
+                            <Label Content="Credencializado" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+                            <!--<ComboBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding ListEstatusVisita}" DisplayMemberPath="DESCR" IsEnabled="False" SelectedValuePath="ID_ESTATUS_VISITA"
+                                    SelectedValue="{Binding SelectEstatusColaborador}" VerticalAlignment="Center"></ComboBox>-->
+                            <CheckBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding CredencializadoColaborador}"></CheckBox>
+                            <Label Content="Observaciones" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></Label>
+                            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center" CharacterCasing="Upper" IsReadOnly="True"
+                                    Text="{Binding TextObservacionesColaborador,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <Label Grid.Row="2" Content="Abogado Titular" Grid.ColumnSpan="2" FontWeight="Bold" VerticalAlignment="Center"></Label>
+                            <Label Grid.Row="3" Content="Núm. Abogado" VerticalAlignment="Center"></Label>
+                            <TextBox Grid.Row="4" Text="{Binding TextNumeroAbogadoTitular}" Grid.Column="0" VerticalAlignment="Center" CharacterCasing="Upper" IsReadOnly="True"></TextBox>
+                            <Label Grid.Row="3" Content="Nombre" Grid.Column="1" VerticalAlignment="Center"></Label>
+                            <TextBox Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding TextNombreAbogadoTitular}" Grid.Column="1" VerticalAlignment="Center" CharacterCasing="Upper" IsReadOnly="True"></TextBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Internos Asignados" Visibility="{Binding InternosAsignadosVisible}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4.5*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <DataGrid Grid.Column="0" AutoGenerateColumns="False" Height="200" ItemsSource="{Binding ListIngresosAsignados, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding SelectAbogadoIngreso}" CanUserAddRows="False" IsReadOnly="True" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Año" Binding="{Binding ABOGADO_INGRESO.ID_ANIO}" />
+                                <DataGridTextColumn Header="Folio" Binding="{Binding ABOGADO_INGRESO.ID_IMPUTADO}" />
+                                <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding ABOGADO_INGRESO.INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}" />
+                                <DataGridTextColumn Header="Apellido Materno" Binding="{Binding ABOGADO_INGRESO.INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}" />
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding ABOGADO_INGRESO.INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}" />
+                                <DataGridTextColumn Header="Estatus Visita" Binding="{Binding ABOGADO_INGRESO.ESTATUS_VISITA.DESCR, Converter={StaticResource Trimming}}" />
+                                <DataGridTemplateColumn Header="Elige">
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Name="CKB_ALL_INTERNOS_ABOGADOS" HorizontalAlignment="Center" Style="{DynamicResource DescriptionHeaderStyleCheckBox}"
+                                                    IsChecked="{Binding DataContext.SeleccionarTodoAbogados,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                    IsEnabled="{Binding DataContext.SeleccionarTodosAbogadosEnable,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Unchecked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                    <Binding ElementName="CKB_ALL_INTERNOS_ABOGADOS" />
+                                                                </MultiBinding>
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="Checked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                    <Binding ElementName="CKB_ALL_INTERNOS_ABOGADOS" />
+                                                                </MultiBinding>
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding ELIGE,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Name="CKB_INTERNOS" HorizontalAlignment="Center">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Unchecked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                    <Binding />
+                                                                    <Binding ElementName="CKB_INTERNOS" />
+                                                                </MultiBinding>
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="Checked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                    <Binding />
+                                                                    <Binding ElementName="CKB_INTERNOS" />
+                                                                </MultiBinding>
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Image Grid.Column="1" Width="140" Margin="5 0 5 0" Source="{Binding ImagenInterno}"></Image>
+                        <GroupBox Grid.Column="2" Header="Causa Asignada" VerticalAlignment="Top" Height="200">
+                            <DataGrid AutoGenerateColumns="False" VerticalAlignment="Top" Height="165" CanUserAddRows="False" ItemsSource="{Binding ListCausasAsignadas}"
+                                    SelectedItem="{Binding SelectCausaAsignada}" Style="{StaticResource MetroDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Causa Penal">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding ABOGADO_CAUSA_PENAL.CAUSA_PENAL.CP_ANIO}"></TextBlock>
+                                                    <TextBlock Text="/"></TextBlock>
+                                                    <TextBlock Text="{Binding ABOGADO_CAUSA_PENAL.CAUSA_PENAL.CP_FOLIO}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Estatus" Binding="{Binding ABOGADO_CAUSA_PENAL, Converter={StaticResource getEstatusAbogadoCausaPenal}}"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="Elige">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding ELEGIDO}" Name="CKB_CAUSA" HorizontalAlignment="Center" IsEnabled="{Binding DESHABILITA}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Unchecked">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                <i:InvokeCommandAction.CommandParameter>
+                                                                    <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                        <Binding />
+                                                                        <Binding ElementName="CKB_CAUSA" />
+                                                                    </MultiBinding>
+                                                                </i:InvokeCommandAction.CommandParameter>
+                                                            </i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                <i:InvokeCommandAction.CommandParameter>
+                                                                    <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                        <Binding />
+                                                                        <Binding ElementName="CKB_CAUSA" />
+                                                                    </MultiBinding>
+                                                                </i:InvokeCommandAction.CommandParameter>
+                                                            </i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Visita Familiar" Visibility="{Binding VisitaFamiliarVisible}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Margin="7 0 0 0">Area</Label>
+                        <ComboBox Margin="7 0 7 0" Grid.Row="1" ItemsSource="{Binding ListAreasDestinos}" DisplayMemberPath="DESCR" SelectedValuePath="ID_AREA" Width="450" HorizontalAlignment="Left"
+                                  SelectedItem="{Binding SelectAreaDestino,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                        <GroupBox Grid.Column="0" Grid.Row="2" Header="Internos que puede visitar" VerticalAlignment="Stretch" Name="gb1" ScrollViewer.CanContentScroll="True"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Name="dgImputados" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectInternoFamiliar}" 
+                                          VerticalAlignment="Stretch" ItemsSource="{Binding ListadoInternos}" Style="{StaticResource MetroDataGrid}" Height="200">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Año" Binding="{Binding VISITANTE_INGRESO.INGRESO.ID_ANIO}" />
+                                        <DataGridTextColumn Header="Folio" Binding="{Binding VISITANTE_INGRESO.INGRESO.ID_IMPUTADO}" />
+                                        <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding VISITANTE_INGRESO.INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}" />
+                                        <DataGridTextColumn Header="Apellido Materno" Binding="{Binding VISITANTE_INGRESO.INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}" />
+                                        <DataGridTextColumn Header="Nombre" Binding="{Binding VISITANTE_INGRESO.INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}" />
+                                        <DataGridTemplateColumn Header="Ubicación">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding VISITANTE_INGRESO.INGRESO.CAMA.CELDA.SECTOR.EDIFICIO.DESCR, Converter={StaticResource Trimming}}"></TextBlock>
+                                                        <TextBlock Text="-"></TextBlock>
+                                                        <TextBlock Text="{Binding VISITANTE_INGRESO.INGRESO.CAMA.CELDA.SECTOR.DESCR, Converter={StaticResource Trimming}}"></TextBlock>
+                                                        <TextBlock Text="{Binding VISITANTE_INGRESO.INGRESO.CAMA.CELDA.ID_CELDA, Converter={StaticResource Trimming}}"></TextBlock>
+                                                        <TextBlock Text="-"></TextBlock>
+                                                        <TextBlock Text="{Binding VISITANTE_INGRESO.INGRESO.CAMA.ID_CAMA, Converter={StaticResource Trimming}}"></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Header="Situación" Binding="{Binding VISITANTE_INGRESO, Converter={StaticResource VisitanteForaneoConverter}}" />
+                                        <DataGridTextColumn Header="Relación" Binding="{Binding VISITANTE_INGRESO.TIPO_REFERENCIA.DESCR}"></DataGridTextColumn>
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox Name="CKB_ALL_INTERNOS_VISITA" HorizontalAlignment="Center" Style="{DynamicResource DescriptionHeaderStyleCheckBox}"
+                                                            IsChecked="{Binding DataContext.SeleccionarTodoInternos,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                            IsEnabled="{Binding DataContext.SeleccionarTodosEnable,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Unchecked">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                    <i:InvokeCommandAction.CommandParameter>
+                                                                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                            <Binding ElementName="CKB_ALL_INTERNOS_VISITA" />
+                                                                        </MultiBinding>
+                                                                    </i:InvokeCommandAction.CommandParameter>
+                                                                </i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                            <i:EventTrigger EventName="Checked">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                    <i:InvokeCommandAction.CommandParameter>
+                                                                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                            <Binding ElementName="CKB_ALL_INTERNOS_VISITA" />
+                                                                        </MultiBinding>
+                                                                    </i:InvokeCommandAction.CommandParameter>
+                                                                </i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </CheckBox>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding ELEGIDO}" Name="CKB_IMPUTADO" HorizontalAlignment="Center">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Unchecked">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                    <i:InvokeCommandAction.CommandParameter>
+                                                                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                            <Binding />
+                                                                            <Binding ElementName="CKB_IMPUTADO" />
+                                                                        </MultiBinding>
+                                                                    </i:InvokeCommandAction.CommandParameter>
+                                                                </i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                            <i:EventTrigger EventName="Checked">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                    <i:InvokeCommandAction.CommandParameter>
+                                                                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                            <Binding />
+                                                                            <Binding ElementName="CKB_IMPUTADO" />
+                                                                        </MultiBinding>
+                                                                    </i:InvokeCommandAction.CommandParameter>
+                                                                </i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </CheckBox>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Image Grid.Column="1" Width="140" Margin="5 0 5 0" Source="{Binding ImagenInternoFamiliar}"></Image>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="3" Header="Acompañantes" HorizontalAlignment="Stretch" Visibility="{Binding AcompanantesVisibles}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListAcompanantes}" SelectedItem="{Binding SelectAcompanante}" CanUserAddRows="False" IsReadOnly="True"
+                                        Style="{StaticResource MetroDataGrid}" Height="200">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="No. Visita" Binding="{Binding ACOMPANANTE.VISITANTE_INGRESO1.VISITANTE.PERSONA.ID_PERSONA}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding ACOMPANANTE.VISITANTE_INGRESO1.VISITANTE.PERSONA.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Apellido Materno" Binding="{Binding ACOMPANANTE.VISITANTE_INGRESO1.VISITANTE.PERSONA.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Nombre" Binding="{Binding ACOMPANANTE.VISITANTE_INGRESO1.VISITANTE.PERSONA.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Relación" Binding="{Binding ACOMPANANTE.TIPO_REFERENCIA.DESCR}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Estatus Visita" Binding="{Binding ACOMPANANTE.VISITANTE_INGRESO1.ESTATUS_VISITA.DESCR}"></DataGridTextColumn>
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox Name="CKB_ALL_ACOMPANANTES" HorizontalAlignment="Center" Style="{DynamicResource DescriptionHeaderStyleCheckBox}"
+                                                            IsChecked="{Binding DataContext.SeleccionarTodoAcompanantes,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                            IsEnabled="{Binding DataContext.SeleccionarTodoAcompanantesEnabled,UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Unchecked">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                    <i:InvokeCommandAction.CommandParameter>
+                                                                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                            <Binding ElementName="CKB_ALL_ACOMPANANTES" />
+                                                                        </MultiBinding>
+                                                                    </i:InvokeCommandAction.CommandParameter>
+                                                                </i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                            <i:EventTrigger EventName="Checked">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                    <i:InvokeCommandAction.CommandParameter>
+                                                                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                            <Binding ElementName="CKB_ALL_ACOMPANANTES" />
+                                                                        </MultiBinding>
+                                                                    </i:InvokeCommandAction.CommandParameter>
+                                                                </i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </CheckBox>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox IsChecked="{Binding ELEGIDO}" Name="CKB_ACOMPANANTE" HorizontalAlignment="Center">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="Unchecked">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                    <i:InvokeCommandAction.CommandParameter>
+                                                                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                            <Binding />
+                                                                            <Binding ElementName="CKB_ACOMPANANTE" />
+                                                                        </MultiBinding>
+                                                                    </i:InvokeCommandAction.CommandParameter>
+                                                                </i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                            <i:EventTrigger EventName="Checked">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                    <i:InvokeCommandAction.CommandParameter>
+                                                                        <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                            <Binding />
+                                                                            <Binding ElementName="CKB_ACOMPANANTE" />
+                                                                        </MultiBinding>
+                                                                    </i:InvokeCommandAction.CommandParameter>
+                                                                </i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </CheckBox>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Image Grid.Column="1" Width="140" Margin="5 0 5 0" Source="{Binding ImagenAcompanante}"></Image>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Externos" Visibility="{Binding ExternosVisible}">
+                    <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="1.25*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Institución que nos Visita"></Label>
+                        <Label Grid.Row="0" Grid.Column="1" Content="Área a la que se dirige"></Label>
+                        <Label Grid.Row="0" Grid.Column="2" Content="Fecha"></Label>
+                        <Label Grid.Row="0" Grid.Column="3" Content="Hora"></Label>
+                        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding TextInstitucionExterno, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxLength="200"
+                                CharacterCasing="Upper"></TextBox>
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListAreaExterno}" SelectedValue="{Binding SelectAreaExterno,ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR"
+                                SelectedValuePath="ID_AREA"></ComboBox>
+                        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding TextFechaExterno}" CharacterCasing="Upper" IsReadOnly="True"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding TextHoraExterno}" CharacterCasing="Upper" IsReadOnly="True"></TextBox>
+                        <Label Grid.Row="2" Grid.Column="0" Content="Asunto"></Label>
+                        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding TextAsuntoExterno, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                 CharacterCasing="Upper"></TextBox>
+                        <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Departamento" Name="lbExternoCol2"></Label>
+                        <Label Grid.Row="4" Grid.Column="2" Content="Puesto"></Label>
+                        <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TextDepartamentoExterno,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                                Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={local:MathConverter}, ElementName=lbExternoCol2}" MaxLength="100"></TextBox>
+                        <ComboBox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding ListPuestos}" SelectedValue="{Binding SelectPuestoExterno, ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR"
+                                SelectedValuePath="ID_PUESTO"></ComboBox>
+                        <Label Grid.Row="6" Grid.Column="0" Content="Observaciones"></Label>
+                        <TextBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding TextObservacionExterno,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                    </Grid>
+                    </AdornerDecorator>
+                </GroupBox>
+                <GroupBox Header="Empleados" Visibility="{Binding EmpleadosVisible}">
+                    <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.25*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Departamento" Name="lbDeptoAncho"></Label>
+                        <Label Grid.Row="0" Grid.Column="1" Content="Puesto"></Label>
+                        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding TextDepartamentoExterno,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"
+                                Width="{Binding ActualWidth, ConverterParameter=x-0, Converter={local:MathConverter}, ElementName=lbDeptoAncho}" MaxLength="100" Margin="0 0 0 2"></TextBox>
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListPuestos}" SelectedValue="{Binding SelectPuestoExterno, ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR"
+                                SelectedValuePath="ID_PUESTO" Margin="0 0 0 2" VerticalAlignment="Center"></ComboBox>
+                    </Grid>
+                    </AdornerDecorator>
+                </GroupBox>
+                <GroupBox Header="Bitácora de Accesos">
+                    <StackPanel>
+                        <Button Width="35" Height="35" ToolTip="Actualizar Bitácora" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="actualizar_bitacora"
+                                HorizontalAlignment="Right" Margin="0 -38.25 10 0">
+                            <Rectangle Width="17.5" Height="17.5" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_refresh}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <DataGrid ItemsSource="{Binding ListBitacoraAcceso}" CanUserAddRows="False" AutoGenerateColumns="False" Height="250" SelectedItem="{Binding SelectBitacoraAcceso}"
+                                IsReadOnly="True" Visibility="{Binding BitacoraAccesoEnabled}" x:Name="dgBitacora" Style="{StaticResource MetroDataGrid}" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Núm. Visita" Binding="{Binding ADUANA.ID_PERSONA}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paterno" Binding="{Binding ADUANA.PERSONA.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Materno" Binding="{Binding ADUANA.PERSONA.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding ADUANA.PERSONA.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Ubicación" Binding="{Binding Converter={StaticResource GetUbicacionAduana}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Entrada" Binding="{Binding ADUANA.ENTRADA_FEC}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tipo Visitante" Binding="{Binding Converter={StaticResource GetTipoAduana}}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Observaciones" Binding="{Binding ADUANA.OBSERV}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow" BasedOn="{StaticResource MetroDataGridRow}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding PARAMETRO}" Value="true">
+                                            <Setter Property="Background" Value="#FF9298"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MetroDataGridColumnHeader}">
+                                    <Setter Property="Command" Value="{Binding DataContext.HeaderClick, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                    <Setter Property="CommandParameter" Value="{Binding Path=Content, RelativeSource={RelativeSource Self}}" />
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction CommandParameter="{Binding ElementName=dgBitacora}" Command="{Binding dgImputadoCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </DataGrid>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>

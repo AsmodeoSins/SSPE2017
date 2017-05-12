@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="ControlPenales.AgregarMedidaEstatusView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_alias"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff"
+					CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="350" MinHeight="350" MinWidth="500" MaxWidth="500" Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Actualizar Estatus" Style="{DynamicResource DescriptionHeaderStyle}" />
+                    
+                    
+                        <Label Grid.Column="0" Grid.Row="3" Content="Fecha" Grid.ColumnSpan="2"></Label>
+                        <DatePicker Grid.Column="0" Grid.Row="4" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding MLFecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+
+                        <Label Grid.Column="0" Grid.Row="5" Content="Estatus" Grid.ColumnSpan="2"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="2" ItemsSource="{Binding LstMedidaEstatus}" SelectedItem="{Binding SelectedMedidaEstatus}" SelectedValue="{Binding MLEstatus,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTATUS"></ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="7" Content="Motivo" Grid.ColumnSpan="2"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Margin="2" ItemsSource="{Binding LstMotivo}" SelectedValue="{Binding MLMotivo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_MOTIVO"></ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="9" Content="Observaciones" Grid.ColumnSpan="2" Name="observaciones"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" TextWrapping="Wrap" CharacterCasing="Upper" MinHeight="75" MaxLength="250" Text="{Binding MLComentario}" MaxWidth="{Binding ElementName=observaciones,Path=ActualWidth}"></TextBox>
+
+                        <Button Grid.Column="0" Grid.Row="11" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_medida_estatus" Command="{Binding OnClick}">Guardar</Button>
+                    <Button Grid.Column="1" Grid.Row="11" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_medida_estatus" Command="{Binding OnClick}">Cancelar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

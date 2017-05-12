@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="ControlPenales.ConsultaGeneralView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+             xmlns:dic="clr-namespace:Resources.ControlPenales.Buscar;assembly=Resources"
+             Height="auto" Width="auto">
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuConsultaView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Loaded="MenuConsultaView_Loaded"></Views:MenuConsultaView>
+            
+        <Label Grid.Column="0" Grid.Row="1"  Content="{x:Static dic:ConsultaGeneralView.titulo}" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="2" Controls:TabControlHelper.IsUnderlined="True">
+            <TabItem Header="{x:Static dicGeneral:General.expediente}" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.apellido_pat}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.apellido_mat}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.nombre}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.numero_ingresos}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.ncp}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{x:Static dicGeneral:General.ingreso}" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.numero_ingreso}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.activo}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Año Gobierno"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.folio_gobierno}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.estatus_administrativo}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.clasificacion_juridica}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.tipo_seguridad}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.tipo_ingreso}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.numero_oficio_internacion}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{x:Static dicGeneral:General.causa_penal}" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.numero_ingreso}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.consecutivo_causa}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.estatus_causa}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.mp_agencia}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Año-MP"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.foto_mp}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.averiguacion_previa_foranea}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{x:Static dicGeneral:General.identificacion}" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.numero_ingreso}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.fecha_nacimiento}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.rfc}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.curp}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.edad}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.sexo}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.nacionalidad}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.pais_nacimiento}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{x:Static dicGeneral:General.alias}" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.apellido_pat}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.apellido_mat}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.nombre}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{x:Static dicGeneral:General.apodo}" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.apodo}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{x:Static dicGeneral:General.pandilla}" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.numero_ingreso}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.pandilla}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.notas}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{x:Static dic:ConsultaGeneralView.relacion_otras_personas}" Style="{StaticResource HeaderTabStyle}">
+                <DataGrid AutoGenerateColumns="False" FontSize="11.5" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Año"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.folio}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.expediente_pat}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.expediente_mat}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dic:ConsultaGeneralView.expediente_nombre}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="{x:Static dicGeneral:General.notas}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+            
+        <Image Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+        
+
+    </Grid>
+</UserControl>

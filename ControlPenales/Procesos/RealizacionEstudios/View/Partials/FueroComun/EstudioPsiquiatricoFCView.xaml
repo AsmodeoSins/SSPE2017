@@ -1,0 +1,174 @@
+﻿<UserControl x:Class="ControlPenales.EstudioPsiquiatricoFCView" x:Name="EstudioPsiquiatricoWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1200" d:DesignHeight="1470">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Column="0" Grid.Row="0" Header="Descripción General (retrato de la persona)" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Aspecto físico" Name="lblReferencia"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Conducta motora"></Label>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Habla"></Label>
+                    <Label Grid.Column="1" Grid.Row="2" Content="Actitud"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" MaxLength="500" MinHeight="50" TextWrapping="Wrap" Text="{ Binding AspectoFisico, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" MaxLength="500" MinHeight="50" TextWrapping="Wrap" Text="{ Binding ConductaMotora, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="0" Grid.Row="3" MaxLength="500" MinHeight="50" TextWrapping="Wrap" Text="{ Binding Habla, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="3" MaxLength="500" MinHeight="50" TextWrapping="Wrap" Text="{ Binding Actitud, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}"></TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="1" Header="Emociones" Grid.ColumnSpan="2" Name="GpEmociones">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Estado de ánimo" Name="lblRefB"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Expresión afectiva"></Label>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Adecuación" Grid.ColumnSpan="2" Name="lblA"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding EstadoAnimo, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRefB, Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" MaxLength="500" MinHeight="50" TextWrapping="Wrap" Text="{ Binding ExpresionAfectiva, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblRefB, Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="0" Grid.Row="3" MaxLength="500" MinHeight="40" TextWrapping="Wrap" Grid.ColumnSpan="2" Text="{ Binding Adecuacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblA, Path=ActualWidth}"></TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="2" Header="Alteraciones perceptivas" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Alucinaciones" Name="lblC"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Ilusiones"></Label>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Despersonalización"></Label>
+                    <Label Grid.Column="1" Grid.Row="2" Content="Des realización"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding Alucinaciones, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblC, Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding Ilusiones, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblC, Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="0" Grid.Row="3" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding Despersonalizacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblC, Path=ActualWidth}"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="3" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding Desrealizacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblC, Path=ActualWidth}"></TextBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="0" Grid.Row="3" Header="Proceso del pensamiento (coherente)" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Curso del pensamiento" Name="lblPensamiento"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Continuidad del pensamiento"></Label>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Contenido del pensamiento"></Label>
+                    <Label Grid.Column="1" Grid.Row="2" Content="Pensamiento abstracto escolarización e inteligencia uso de vocabulario"></Label>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Concentración" Grid.ColumnSpan="2" Name="lblCon"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding CursoPensamiento, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblPensamiento, Path=ActualWidth}" ></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding ContinuidadPensamiento, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblPensamiento, Path=ActualWidth}" ></TextBox>
+                    <TextBox Grid.Column="0" Grid.Row="3" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding ContenidoPensamiento, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblPensamiento, Path=ActualWidth}" ></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="3" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Text="{ Binding PensamientoAbstracto, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblPensamiento, Path=ActualWidth}" ></TextBox>
+                    <TextBox Grid.Column="0" Grid.Row="5" MinHeight="40" Grid.ColumnSpan="2" TextWrapping="Wrap" MaxLength="500" Text="{ Binding Concentracion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblCon, Path=ActualWidth}" ></TextBox>
+                </Grid>
+            </GroupBox>
+            <Label Grid.Column="0" Grid.Row="4" Content="Orientación (tiempo, espacio persona y situación)" Name="lblOrient"></Label>
+            <TextBox MaxWidth="{ Binding ElementName=lblOrient, Path=ActualWidth}" Grid.Column="0" Grid.Row="5" MinHeight="50" TextWrapping="Wrap" MaxLength="500"  Text="{ Binding Orientacion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" CharacterCasing="Upper"></TextBox>
+            <Label Grid.Column="1" Grid.Row="4" Content="Memoria (remota, reciente e inmediata)" Name="lblMem"></Label>
+            <TextBox MaxWidth="{ Binding ElementName=lblMem, Path=ActualWidth}" Grid.Column="1" Grid.Row="5" MinHeight="50" TextWrapping="Wrap" MaxLength="500"   Text="{ Binding Memoria, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" ></TextBox>
+
+            <GroupBox Grid.Column="0" Grid.Row="6" Header="Control de los impulsos" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Baja tolerancia a la frustración" Name="lblImpulsos"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Expresión des adaptativa"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" MinHeight="50" TextWrapping="Wrap"   MaxLength="500" Text="{ Binding BajaToleranciaFrustr, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblImpulsos, Path=ActualWidth}" ></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" MaxLength="500" MinHeight="50"   TextWrapping="Wrap" Text="{ Binding ExpresionDesadaptativa, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblImpulsos, Path=ActualWidth}" ></TextBox>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Adecuada" Name="lblAdec" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" MinHeight="40" Grid.ColumnSpan="2"   TextWrapping="Wrap" Grid.Row="3" MaxLength="500" Text="{ Binding Adecuada, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblAdec, Path=ActualWidth}" ></TextBox>
+                </Grid>
+            </GroupBox>
+            <Label Grid.Column="0" Grid.Row="7" Content="Capacidad de juicio (capacidad del paciente para resolver problemas)" Name="lblXX"></Label>
+            <TextBox Grid.Column="0" Grid.Row="8" MinHeight="50" TextWrapping="Wrap" MaxLength="500"  Text="{ Binding CapacidadJuicio, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblXX, Path=ActualWidth}" ></TextBox>
+            <Label Grid.Column="1" Grid.Row="7" Content="Introspección (conciencia de enfermedad)" Name="lblAlgoPrueba"></Label>
+            <TextBox Grid.Column="1" Grid.Row="8" MinHeight="50" TextWrapping="Wrap" MaxLength="500"   Text="{ Binding Introspeccion, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblAlgoPrueba, Path=ActualWidth}" ></TextBox>
+            <Label Grid.Column="0" Grid.Row="9" Content="Fiabilidad (capacidad intelectual, su sinceridad y motivaciones)" Name="lblX" Grid.ColumnSpan="2"></Label>
+            <TextBox Grid.Column="0" Grid.Row="10" MinHeight="50" TextWrapping="Wrap" MaxLength="500" Grid.ColumnSpan="2"   Text="{ Binding Fiabilidad, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblX, Path=ActualWidth}" ></TextBox>
+            <Label Grid.Column="0" Grid.Row="11" Content="Impresión diagnostica EJES-(DSM-IV)" Grid.ColumnSpan="2" Name="lblImpresionDiagn"></Label>
+            <TextBox Grid.Column="0" Grid.Row="12" MinHeight="60" Grid.ColumnSpan="2" TextWrapping="Wrap" MaxLength="500"   Text="{ Binding ImpresionDiagnosticaPsiquiatricoComun, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblImpresionDiagn, Path=ActualWidth}" ></TextBox>
+            <GroupBox Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Header="Dictamen">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Dictamen psiquiátrico del interno"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Fecha de realización del estudio"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag"  
+                        SelectedValue="{ Binding DictamenPsiqComun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="SELECCIONE" Tag="0"></ComboBoxItem>
+                        <ComboBoxItem Content="FAVORABLE" Tag="1"></ComboBoxItem>
+                        <ComboBoxItem Content="DESFAVORABLE" Tag="2"></ComboBoxItem>
+                    </ComboBox>
+                    <DatePicker Grid.Column="1" Grid.Row="1" Controls:TextBoxHelper.Watermark="Seleccione una fecha"  
+                        SelectedDate="{Binding FecDictamenPsiqComun,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}"></DatePicker>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

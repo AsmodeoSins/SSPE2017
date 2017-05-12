@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="ControlPenales.AgregarMedidaLugarView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_alias"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff"
+					CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="600" MinHeight="600" MinWidth="500" MaxWidth="500" Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Agregar Lugar" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+                    <Label Grid.Column="0" Grid.Row="1" Content="Pertenece a" Grid.ColumnSpan="2" Name="pertenece"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="2" SelectedValuePath="Tag" SelectedValue="{Binding MLPertenece,ValidatesOnDataErrors=True}">
+                            <ComboBoxItem Content="SELECCIONE" Tag="" IsSelected="True"></ComboBoxItem>
+                            <ComboBoxItem Content="IMPUTADO" Tag="I"></ComboBoxItem>
+                            <ComboBoxItem Content="VÍCTIMA" Tag="V"></ComboBoxItem>
+                            <ComboBoxItem Content="TESTIGO" Tag="T"></ComboBoxItem>
+                        </ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="3" Content="Calle" Grid.ColumnSpan="2" Name="calle"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="2" CharacterCasing="Upper" MaxLength="50" Text="{Binding MLCalle,ValidatesOnDataErrors=True}" MaxWidth="{Binding ElementName=calle,Path=ActualWidth}"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="5" Content="Numero Externo" Grid.ColumnSpan="2"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="6" Margin="2" MaxLength="5" Text="{Binding MLNoExterior,ValidatesOnDataErrors=True}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="5" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="7" Content="Numero Interior" Grid.ColumnSpan="2"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="8" Margin="2" CharacterCasing="Upper" MaxLength="5" Text="{Binding MLNoInterior}"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="9" Content="Teléfono" Grid.ColumnSpan="2"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" CharacterCasing="Upper" MaxLength="10" Text="{Binding MLTelefono}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="11" Content="Giro" Grid.ColumnSpan="2"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" ItemsSource="{Binding LstGiro}" SelectedValue="{Binding MLGiro,ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_GIRO"></ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="13" Content="Estado" Grid.ColumnSpan="2"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" ItemsSource="{Binding LstEntidadML}" SelectedItem="{Binding SelectedEntidadML}" SelectedValue="{Binding MLEntidad,ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ENTIDAD"></ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="15" Content="Municipio" Grid.ColumnSpan="2"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="2" ItemsSource="{Binding LstMunicipioML}" SelectedValue="{Binding MLMunicipio,ValidatesOnDataErrors=True}" DisplayMemberPath="MUNICIPIO1" SelectedValuePath="ID_MUNICIPIO"></ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="17" Content="Colonia" Grid.ColumnSpan="2" Name="colonia"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="18" Grid.ColumnSpan="2" CharacterCasing="Upper" MaxLength="150" Text="{Binding MLColonia,ValidatesOnDataErrors=True}" MaxWidth="{Binding ElementName=colonia,Path=ActualWidth}"></TextBox>
+
+                        <Button Grid.Column="0" Grid.Row="19" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_medida_lugar" Command="{Binding OnClick}">Guardar</Button>
+                    <Button Grid.Column="1" Grid.Row="19" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_medida_lugar" Command="{Binding OnClick}">Cancelar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="ControlPenales.EstudioPsicologicoFFView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:Views="clr-namespace:ControlPenales" Height="auto" mc:Ignorable="d" Width="auto" d:DesignWidth="1200" d:DesignHeight="900">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Nombre completo" Name="lblReferenciaNombre"></Label>
+            <Label Grid.Column="1" Grid.Row="0" Content="Sobrenombre" Name="sName"></Label>
+            <Label Grid.Column="2" Grid.Row="0" Content="Edad" Name="lblRefEdad"></Label>
+            <Label Grid.Column="3" Grid.Row="0" Content="Delito" Name="lblDelitos"></Label>
+
+            <TextBox Grid.Column="0" MaxLength="100" Grid.Row="1" Text="{ Binding NombreImpFF, UpdateSourceTrigger=PropertyChanged }" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferenciaNombre, Path=ActualWidth}"></TextBox>
+            <TextBox Grid.Column="1" MaxLength="100" Grid.Row="1" Text="{ Binding SobreNombFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=sName, Path=ActualWidth}"></TextBox>
+            <TextBox Grid.Column="2" Grid.Row="1" Text="{ Binding EdadImpFF, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblRefEdad, Path=ActualWidth}">
+                <i:Interaction.Behaviors>
+                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Column="3" Grid.Row="1" MaxLength="500" Text="{ Binding DelifoFFl, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblDelitos, Path=ActualWidth}"></TextBox>
+
+            <Label Grid.Column="0" Grid.Row="2" Content="Actitud tomada ante la entrevista" Grid.ColumnSpan="2" Name="lblReX1"></Label>
+            <TextBox Grid.Column="0" MinHeight="60" MaxLength="500" Grid.Row="3" Grid.ColumnSpan="2" Text="{ Binding ActitudTomadaEntrev, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
+                 MaxWidth="{ Binding ElementName=lblReX1, Path=ActualWidth}"></TextBox>
+
+            <Label Grid.Column="2" Grid.Row="2" Content="Examen mental" Name="lblRx2" Grid.ColumnSpan="2"></Label>
+            <TextBox Grid.Column="2" MinHeight="60" Grid.Row="3" MaxLength="500" Grid.ColumnSpan="2" MaxWidth="{ Binding ElementName=lblReX1, Path=ActualWidth}" Text="{ Binding ExMentFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"></TextBox>
+            <Label Grid.Column="0" Grid.Row="4" Content="Pruebas aplicadas" Grid.ColumnSpan="4" Name="lblReX2"></Label>
+            <TextBox Grid.Column="0" MaxLength="500" Grid.Row="5" Grid.ColumnSpan="4" MinHeight="50" MaxWidth="{ Binding ElementName=lblReX2, Path=ActualWidth}" Text="{ Binding PruebasAplic, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"></TextBox>
+            <GroupBox Header="área intelectual" Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="6">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Nivel Intelectual" Name="lblGRx1"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="1" MaxLength="100" MaxWidth="{ Binding ElementName=lblGRx1, Path=ActualWidth}" Text="{ Binding NivelIntelec, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="1" Grid.Row="0" Content="C.I (Coeficiente Intelectual)"></Label>
+                    <TextBox Grid.Column="1" MaxLength="20" Grid.Row="1" MaxWidth="{ Binding ElementName=lblGRx1, Path=ActualWidth}" Text="{ Binding CoeficienteInt, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Índice de lesión orgánica" ></Label>
+                    <TextBox Grid.Column="2" MaxLength="100" Grid.Row="1" MaxWidth="{ Binding ElementName=lblGRx1, Path=ActualWidth}" Text="{ Binding IndiceLesionOrg, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Name="lblRx1">
+                        <StackPanel>
+                            <TextBlock  Text="Dinámica de la personalidad a su ingreso (Considerar rasgos de egocentrismo, labilidad afectiva, agresividad e indiferencia afectiva y en que proporción existe: alto, medio , bajo,"></TextBlock>
+                            <TextBlock Text="control de impulsos, tolerancia a la frustración , capacidad de demora, de insight, introyección de normas y valores, relaciones interpersonales, área sexual, mecanismos de defensa, etc.)."></TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <TextBox Grid.Column="0" MaxLength="500" MaxWidth="{ Binding ElementName=lblXYZ, Path=ActualWidth}" Grid.Row="3" Grid.ColumnSpan="3" MinHeight="50" Text="{ Binding DinamicaPersonIngreso, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3">
+                        <StackPanel>
+                            <TextBlock Text="Dinámica de la personalidad actual (En qué medida se han modificado los rasgos de egocentrismo, labilidad afectiva, agresividad e indiferencia afectiva y en que proporción existe: alto, medio, bajo, "></TextBlock>
+                            <TextBlock Text="control de impulsos, tolerancia a la frustración , capacidad de demora, de insight, introyección de normas y valores, relaciones interpersonales, área sexual, mecanismos de defensa, etc.)."></TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <TextBox Grid.Column="0" MaxLength="500" MaxWidth="{ Binding ElementName=lblXYZ, Path=ActualWidth}" Grid.Row="5" Grid.ColumnSpan="3" MinHeight="50" Text="{ Binding DinamicaPersActual, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3">
+                        <StackPanel>
+                            <TextBlock Text="Resultados del tratamiento proporcionado por el área (Señale si asistió a psicoterapia individual, grupal y/o asesoría,"></TextBlock>
+                            <TextBlock Text=" socio terapia, platicas etc. especificando diagnóstico, tiempos y resultados)"></TextBlock>
+                        </StackPanel>
+                    </Label>
+                    <TextBox Grid.Column="0" MaxLength="500" MaxWidth="{ Binding ElementName=lblXYZ, Path=ActualWidth}" Grid.Row="7" Grid.ColumnSpan="3" MinHeight="50" Text="{ Binding ResultTratPropArea, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="8" Content="Requerimiento de continuación de tratamiento"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="9" SelectedValuePath="Tag" SelectedValue="{ Binding IdRequiereContTratam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="1" Grid.Row="8" Content="Interno" Name="lblGRx2"></Label>
+                    <TextBox Grid.Column="1" MaxLength="100" Grid.Row="9" MaxWidth="{ Binding ElementName=lblGRx2, Path=ActualWidth}" Text="{ Binding InternoFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" VerticalScrollBarVisibility="Auto"></TextBox>
+                    <Label Grid.Column="2" Grid.Row="8" Content="Externo" Name="lblABCD"></Label>
+                    <TextBox Grid.Column="2" Grid.Row="9" MaxLength="100" MaxWidth="{ Binding ElementName=lblABCD, Path=ActualWidth}" Text="{ Binding ExternoFF, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" VerticalScrollBarVisibility="Auto"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="10" Content="Especifique" Grid.ColumnSpan="4" Name="lblXYZ"></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" MaxWidth="{ Binding ElementName=lblXYZ, Path=ActualWidth}" Grid.Row="11" TextWrapping="Wrap" 
+                         Text="{ Binding EspecifiqueContTrat, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" Grid.ColumnSpan="3" MinHeight="50"
+                         IsEnabled="{ Binding IsEnabledEspecifiCont, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" Content="Pronóstico de reintegración social"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="13" MaxWidth="{ Binding ElementName=lblXYZ, Path=ActualWidth}" MaxLength="500" Grid.ColumnSpan="3" MinHeight="50" Text="{ Binding PronosticoReinsercionSocial, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                    <Label Grid.Column="0" Grid.Row="14" Content="Opinión sobre el otorgamiento del beneficio" Name="lblGRx3" ></Label>
+                    <TextBox Grid.Column="0" MaxLength="500" Grid.Row="15" MaxWidth="{ Binding ElementName=lblGRx3, Path=ActualWidth }" Text="{ Binding OpinionSobreBeneficio, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"></TextBox>
+                    <Label Grid.Column="1" Grid.Row="14" Content="Fecha de Estudio"></Label>
+                    <DatePicker Grid.Column="1" Grid.Row="15" DisplayDateEnd="{ Binding MaximaFechaRealizacionEstudios}" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{ Binding FecEstudioPsicoFF, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                    <Label Grid.Column="2" Grid.Row="14" Content="Lugar"></Label>
+                    <TextBox Grid.Column="2" Grid.Row="15" MaxLength="100" Text="{ Binding LugarPsico, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblGRx3, Path=ActualWidth }" CharacterCasing="Upper"></TextBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

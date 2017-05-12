@@ -1,0 +1,893 @@
+﻿<UserControl x:Class="ControlPenales.PadronVisitasView"
+             x:Name="PadronVisitasWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ControlPenales"             
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             Height="auto" Width="auto" d:DesignHeight="1000" d:DesignWidth="1060" >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=PadronVisitasWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <local:DateConverter x:Key="ConvertirEdad"/>
+        <local:TrimStringConverter x:Key="Trimming"/>
+    </UserControl.Resources>
+
+    <AdornerDecorator>
+        <StackPanel>
+            <local:MenuIconosView />
+            <Label Content="Padrón Visitas" Style="{DynamicResource DescriptionHeaderStyle}" />
+            <Grid Visibility="{Binding TabsGeneralesVisible}">
+
+                <Controls:MetroAnimatedSingleRowTabControl x:Name="TabControl_PadronVisitas" HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto">
+                    <TabItem Header="Asignación de Visitas" IsSelected="{Binding AsignacionVisitasTab}" Style="{StaticResource HeaderTabStyle}">
+                        <StackPanel x:Name="TabAsignacion" >
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Header="Datos del Expediente">
+                                    <Grid>
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=AnioBuscar2, Path=Text.Length}" Value="4">
+                                                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscar2}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            <ColumnDefinition Width="4.25*"></ColumnDefinition>
+                                            <ColumnDefinition Width="4.25*"></ColumnDefinition>
+                                            <ColumnDefinition Width="5.5*"></ColumnDefinition>
+                                            <ColumnDefinition ></ColumnDefinition>
+                                            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Column="0" Grid.Row="0" Margin="0,10,0,0">Año</Label>
+                                        <Label Grid.Column="1" Grid.Row="1" Margin="-7.5,0,0,0">/</Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Margin="10,10,0,0">Folio</Label>
+                                        <Label Grid.Column="2" Grid.Row="0" Margin="0,10,0,0">Apellido Paterno</Label>
+                                        <Label Grid.Column="3" Grid.Row="0" Margin="0,10,0,0">Apellido Materno</Label>
+                                        <Label Grid.Column="4" Grid.Row="0" Margin="0,10,0,0">Nombre</Label>
+
+                                        <TextBox Grid.Column="0" Grid.Row="1" Margin="0,0,5,0" Text="{Binding AnioD,UpdateSourceTrigger=PropertyChanged}" Name="AnioBuscar2"  CharacterCasing="Upper" MaxLength="4">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar2}" Command="{Binding ModelClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="1" Grid.Row="1" Margin="5,0,0,0" Text="{Binding FolioD,UpdateSourceTrigger=PropertyChanged}" Name="FolioBuscar2" CharacterCasing="Upper" MaxLength="5">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=FolioBuscar2}" Command="{Binding ModelClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <!--Los textbox antes no tenian UpdateSourceTrigger=PropertyChanged, se puso el 11/30/2015-->
+                                        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding PaternoD, Converter={StaticResource Trimming},UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoPaternoBuscar2" MaxLength="30">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=ApellidoPaternoBuscar2}" Command="{Binding ModelClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding MaternoD, Converter={StaticResource Trimming}, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  Name="ApellidoMaternoBuscar2" MaxLength="30">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=ApellidoMaternoBuscar2}" Command="{Binding ModelClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding NombreD, Converter={StaticResource Trimming}, UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper"  Name="NombreBuscar2" MaxLength="40">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=NombreBuscar2}" Command="{Binding ModelClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+
+                                        <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="6" Margin="0,10,0,0">
+                                            <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                                            <Button Width="50" Height="50" VerticalAlignment="Top" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_visible" Command="{Binding ModelClick}" >
+                                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+
+
+                                        <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">Ingresos</Label>
+                                        <Label Grid.Column="2" Grid.Row="2">Número de Control</Label>
+                                        <Label Grid.Column="3" Grid.Row="2">Ubicación</Label>
+                                        <Label Grid.Column="4" Grid.Row="2">Tipo de Seguridad</Label>
+
+                                        <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding IngresosD}" IsReadOnly="True"></TextBox>
+                                        <TextBox Grid.Column="2" Grid.Row="3" Text="{Binding NoControlD}" IsReadOnly="True"></TextBox>
+                                        <TextBox Grid.Column="3" Grid.Row="3" Text="{Binding UbicacionD}" IsReadOnly="True"></TextBox>
+                                        <TextBox Grid.Column="4" Grid.Row="3" Text="{Binding TipoSeguridadD}" IsReadOnly="True"></TextBox>
+
+                                        <Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">Fecha de Ingreso</Label>
+                                        <Label Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="1">Clasificación Jurídica</Label>
+                                        <Label Grid.Column="3" Grid.Row="4">Estatus</Label>
+                                        <Label Grid.Column="4" Grid.Row="4">Visita De Termino</Label>
+
+                                        <DatePicker Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding FecIngresoD}" Controls:TextBoxHelper.Watermark="Selecciona una fecha" Margin="0,0,0,10" IsEnabled="False" Height="26" />
+                                        <TextBox Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="1" Text="{Binding ClasificacionJuridicaD}" Margin="0,0,0,10" IsReadOnly="True"></TextBox>
+                                        <TextBox Grid.Column="3" Grid.Row="5" IsReadOnly="True" Text="{Binding EstatusD}" Margin="0,0,0,10" ></TextBox>
+                                        <TextBox Grid.Column="4" Grid.Row="5" IsReadOnly="True" Text="{Binding TextVisitaDeTermino}" Margin="0,0,0,10" ></TextBox>
+                                        
+                                        <Image Grid.Column="6" Grid.Row="0" Grid.RowSpan="6" Height="150" Source="{Binding ImagenIngreso}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" ></Image>
+                                    </Grid>
+                                </GroupBox>
+
+                                <GroupBox Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Header="Visitantes del Interno" Height="450" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                    <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Name="dgVisitantes" HorizontalAlignment="Stretch" MaxWidth="420" 
+                                          FontSize="11" SelectedItem="{Binding SelectVisitanteInterno}" ItemsSource="{Binding ListVisitantesImputado}" VerticalAlignment="Stretch" 
+                                          Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                                        <DataGrid.RowStyle>
+                                            <Style TargetType="DataGridRow" BasedOn="{StaticResource MetroDataGridRow}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding DE_TERMINO}" Value="True">
+                                                        <Setter Property="Background" Value="#407197"></Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGrid.RowStyle>
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="No." Binding="{Binding ID_PERSONA}"/>
+                                            <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Apellido Materno" Binding="{Binding MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Nombre" Binding="{Binding NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Relación" Binding="{Binding TIPO_REFERENCIA.DESCR, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="ESTATUS" Binding="{Binding ESTATUS_VISITA.DESCR, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu >
+                                                <MenuItem Header="Cargar En Padron" CommandParameter="cargar_padron_visitante" Command="{Binding OnClick}" IsEnabled="{Binding ContextMenuNuevoVisitanteEnabled}" />
+                                                <MenuItem Header="Insertar..." CommandParameter="insertar_nuevo_visitante_imputado" Command="{Binding OnClick}" IsEnabled="{Binding ContextMenuNuevoVisitanteEnabled}" />
+                                                <MenuItem Header="{Binding DeshabilitarVisitaAutorizada}" CommandParameter="borrar_visitante_imputado" Command="{Binding OnClick}" IsEnabled="{Binding ContextMenuBorrarVisitanteEnabled}" />
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                        <!--<i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick" >
+                                            <i:InvokeCommandAction CommandParameter="{Binding ElementName=dgVisitantes}" Command="{Binding dgImputadoCommand}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>-->
+                                        <DataGrid.InputBindings>
+                                            <MouseBinding Gesture="LeftDoubleClick" CommandParameter="{Binding ElementName=dgVisitantes}" Command="{Binding dgImputadoCommand}" ></MouseBinding>
+                                        </DataGrid.InputBindings>
+                                    </DataGrid>
+                                </GroupBox>
+
+                                <!--REGISTRAR VISITANTE-->
+                                <GroupBox Grid.Column="1" Grid.Row="1" Header="Capturar un Nuevo Visitante" IsEnabled="{Binding CapturarVisitanteEnabled}" >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Column="0" Grid.Row="0">Código</Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">Nombre</Label>
+                                        <Label Grid.Column="3" Grid.Row="0">Apellido Paterno</Label>
+                                        <Label Grid.Column="4" Grid.Row="0">Apellido Materno</Label>
+
+                                        <!--<Label Grid.Column="5" Grid.Row="0">Tipo Visitante</Label>
+                                    <ComboBox Grid.Column="5" Grid.Row="1" ItemsSource="{Binding ListTipoVisitante}" DisplayMemberPath="DESCR" 
+                                          SelectedValuePath="ID_TIPO_VISITANTE" IsEnabled="{Binding GeneralEnabled}"
+                                          SelectedValue="{Binding SelectTipoVisitante, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></ComboBox>-->
+
+                                        <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextCodigo,UpdateSourceTrigger=PropertyChanged}" 
+                                             IsEnabled="{Binding CodigoEnabled}" Name="CodigoBuscar">
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" CharacterCasing="Upper" Name="NombreBuscar"
+                                             Text="{Binding TextNombre,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextPaterno,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                             CharacterCasing="Upper" Name="ApellidoPaternoBuscar">
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding TextMaterno,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                             CharacterCasing="Upper" Name="ApellidoMaternoBuscar">
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+
+                                        <Label Grid.Column="0" Grid.Row="2">Sexo</Label>
+                                        <Label Grid.Column="1" Grid.Row="2">Edad</Label>
+                                        <Label Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2">Parentesco</Label>
+                                        <Label Grid.Column="4" Grid.Row="2">Fecha Última Modificación</Label>
+
+                                        <ComboBox Grid.Column="0" Grid.Row="3" SelectedValuePath="Tag" IsEnabled="{Binding GeneralEnabled}" Height="26"
+                                    SelectedValue="{Binding SelectSexo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="MASCULINO" Tag="M"></ComboBoxItem>
+                                            <ComboBoxItem Content="FEMENINO" Tag="F"></ComboBoxItem>
+                                        </ComboBox>
+                                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TextEdad,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                                             IsEnabled="{Binding GeneralEnabled}">
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <ComboBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding ListTipoRelacion}" DisplayMemberPath="DESCR" 
+                                              SelectedValuePath="ID_TIPO_REFERENCIA" Height="26"
+                                              SelectedValue="{Binding SelectParentesco,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                                        <TextBox Grid.Column="4" Grid.Row="3" Text="{Binding TextFechaUltimaModificacion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+
+                                        <Label Grid.Column="0" Grid.Row="4">Estatus</Label>
+                                        <Label Grid.Column="2" Grid.Row="4">Teléfono</Label>
+                                        <Label Grid.Column="4" Grid.Row="4">Fecha de Alta</Label>
+                                        <ComboBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource="{Binding ListSituacion}" DisplayMemberPath="DESCR" Height="26"
+                                          SelectedValuePath="ID_ESTATUS_VISITA" SelectedValue="{Binding SelectSituacion}" IsEnabled="{Binding SituacionEnabled}">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ComboBoxItem}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="0">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="1">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="4">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="5">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="6">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="7">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="8">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="11">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="12">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="13">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <TextBox Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" IsEnabled="{Binding ValidarEnabled}"
+                                             Text="{Binding TextTelefono,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="14" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="4" Grid.Row="5" Text="{Binding TextFechaAlta,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsReadOnly="True"></TextBox>
+
+                                        <!--<Label Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">CURP</Label>
+                                    <Label Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2">RFC</Label>
+                                    <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" IsEnabled="{Binding GeneralEnabled}" CharacterCasing="Upper" 
+                                             Text="{Binding TextCurp,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></TextBox>
+                                    <TextBox Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2" IsEnabled="{Binding GeneralEnabled}" CharacterCasing="Upper"
+                                             Text="{Binding TextRfc,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></TextBox>-->
+
+                                        <Grid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="6">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Grid.Column="0" Grid.Row="0">País</Label>
+                                            <Label Grid.Column="1" Grid.Row="0">Estado</Label>
+                                            <Label Grid.Column="2" Grid.Row="0">Municipio</Label>
+                                            <Label Grid.Column="3" Grid.Row="0">Colonia</Label>
+
+                                            <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ListPais}" SelectedValuePath="ID_PAIS_NAC" DisplayMemberPath="PAIS" IsEnabled="{Binding ValidarEnabled}"
+                                              SelectedValue="{Binding SelectPais,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                                <ComboBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel />
+                                                    </ItemsPanelTemplate>
+                                                </ComboBox.ItemsPanel>
+                                                <!--<ComboBox.Style>
+                                                <Style TargetType="ComboBox">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="MinWidth" Value="100"></Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.Style>-->
+                                            </ComboBox>
+                                            <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ListEntidad}" SelectedValuePath="ID_ENTIDAD" DisplayMemberPath="DESCR" IsEnabled="{Binding EntidadEnabled}"
+                                              SelectedValue="{Binding SelectEntidad,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                                <ComboBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel />
+                                                    </ItemsPanelTemplate>
+                                                </ComboBox.ItemsPanel>
+                                                <!--<ComboBox.Style>
+                                                <Style TargetType="ComboBox">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="MinWidth" Value="100"></Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.Style>-->
+                                            </ComboBox>
+                                            <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ListMunicipio}" SelectedValuePath="ID_MUNICIPIO" DisplayMemberPath="MUNICIPIO1" IsEnabled="{Binding MunicipioEnabled}"
+                                              SelectedValue="{Binding SelectMunicipio,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                                <ComboBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel />
+                                                    </ItemsPanelTemplate>
+                                                </ComboBox.ItemsPanel>
+                                                <!--<ComboBox.Style>
+                                                <Style TargetType="ComboBox">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="MinWidth" Value="100"></Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.Style>-->
+                                            </ComboBox>
+                                            <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding ListColonia}" SelectedValuePath="ID_COLONIA" DisplayMemberPath="DESCR" IsEnabled="{Binding ColoniaEnabled}"
+                                              SelectedValue="{Binding SelectColonia,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                                <ComboBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VirtualizingStackPanel />
+                                                    </ItemsPanelTemplate>
+                                                </ComboBox.ItemsPanel>
+                                                <!--<ComboBox.Style>
+                                                <Style TargetType="ComboBox">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="MinWidth" Value="100"></Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.Style>-->
+                                            </ComboBox>
+
+                                            <Label Grid.Column="0" Grid.Row="2">Calle</Label>
+                                            <Label Grid.Column="1" Grid.Row="2">Número Exterior</Label>
+                                            <Label Grid.Column="2" Grid.Row="2">Número Interior</Label>
+                                            <Label Grid.Column="3" Grid.Row="2">Código Postal</Label>
+
+                                            <TextBox Grid.Column="0" Grid.Row="3" IsEnabled="{Binding ValidarEnabled}" MaxLength="50"
+                                             Text="{Binding TextCalle,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                                            <TextBox Grid.Column="1" Grid.Row="3" IsEnabled="{Binding ValidarEnabled}" TextAlignment="Left" CharacterCasing="Upper"
+                                             Text="{Binding TextNumExt,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                                                <i:Interaction.Behaviors>
+                                                    <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="5" />
+                                                </i:Interaction.Behaviors>
+                                            </TextBox>
+                                            <TextBox Grid.Column="2" Grid.Row="3" IsEnabled="{Binding ValidarEnabled}" TextAlignment="Left" CharacterCasing="Upper"
+                                             Text="{Binding TextNumInt,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="6" />
+                                            <TextBox Grid.Column="3" Grid.Row="3" IsEnabled="{Binding ValidarEnabled}" TextAlignment="Left" CharacterCasing="Upper"
+                                             Text="{Binding TextCodigoPostal,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                                                <i:Interaction.Behaviors>
+                                                    <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="5" />
+                                                </i:Interaction.Behaviors>
+                                            </TextBox>
+
+                                        </Grid>
+
+                                        <Image Grid.Column="5" Grid.Row="0" Grid.RowSpan="6" Width="150" Margin="0 0 10 0" Source="{Binding ImagenVisitante}" />
+
+                                    </Grid>
+                                </GroupBox>
+
+                                <GroupBox Grid.Column="1" Grid.Row="2" Header="ProgramaciÓn Visitas" Height="141" VerticalAlignment="Top">
+                                    <DataGrid AutoGenerateColumns="False" Height="auto" IsReadOnly="True" CanUserAddRows="False" x:Name="dgProgramacionVisita" Style="{StaticResource MetroDataGrid}"
+                                          ItemsSource="{Binding ListProgramacionVisita}" FontSize="11" SelectionMode="Single" SelectedItem="{Binding SelectVisitaProgramada}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Día" Binding="{Binding DIA}"/>
+                                            <DataGridTextColumn Header="Hora Entrada" Binding="{Binding HORA_ENTRADA }"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Hora Salida" Binding="{Binding HORA_SALIDA}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Tipo de Visita" Binding="{Binding TIPO_VISITA}"></DataGridTextColumn>
+                                            <DataGridTextColumn Header="Área" Binding="{Binding AREA}"></DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                        <!--<DataGrid.ContextMenu>
+                                            <ContextMenu IsEnabled="{Binding ProgramacionVisitasMenuEnabled}">
+                                                <MenuItem Header="Insertar..." CommandParameter="insertar_agenda_visitante" Command="{Binding OnClick}" />
+                                                <MenuItem Header="Borrar..." CommandParameter="borrar_agenda_visitante" Command="{Binding OnClick}" />
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>-->
+                                    </DataGrid>
+                                </GroupBox>
+                            </Grid>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Padrón de Visitas" IsSelected="{Binding PadronVisitasTab}" Style="{StaticResource HeaderTabStyle}">
+                        <StackPanel x:Name="TabPadron">
+                            <StackPanel Orientation="Vertical">
+                                <GroupBox Grid.Column="0" Grid.Row="0" Header="Visitante">
+                                    <local:CapturaVisitaView Margin="1" MaxWidth="{Binding ElementName=PadronVisitasWindow,Path=ActualWidth}" x:Name="CapturaVisitaW" ></local:CapturaVisitaView>
+                                </GroupBox>
+
+                                <Grid Grid.Column="0" Grid.Row="1" MaxWidth="{Binding ElementName=PadronVisitasWindow,Path=ActualWidth}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="160"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Header="Internos que puede visitar"
+                                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="gb1" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Name="dgImputados" HorizontalAlignment="Stretch" 
+                                              Style="{StaticResource MetroDataGrid}" VerticalAlignment="Stretch" ItemsSource="{Binding ListadoInternos}" FontSize="11" 
+                                              SelectionMode="Single" >
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Año" Binding="{Binding INGRESO.ID_ANIO}"/>
+                                                <DataGridTextColumn Header="Folio" Binding="{Binding INGRESO.ID_IMPUTADO}"/>
+                                                <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"/>
+                                                <DataGridTextColumn Header="Apellido Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"/>
+                                                <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"/>
+                                                <DataGridTemplateColumn Header="Ubicación">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding INGRESO.CAMA.CELDA.SECTOR.EDIFICIO.DESCR}"></TextBlock>
+                                                                <TextBlock Text="-"></TextBlock>
+                                                                <TextBlock Text="{Binding INGRESO.CAMA.CELDA.SECTOR.DESCR}"></TextBlock>
+                                                                <TextBlock Text="{Binding INGRESO.CAMA.CELDA.ID_CELDA}"></TextBlock>
+                                                                <TextBlock Text="-"></TextBlock>
+                                                                <TextBlock Text="{Binding INGRESO.CAMA.ID_CAMA}"></TextBlock>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                                <DataGridTextColumn Header="Situación" Binding="{Binding ESTATUS_VISITA.DESCR, Converter={StaticResource Trimming}}"/>
+                                                <DataGridTextColumn Header="Relación" Binding="{Binding TIPO_REFERENCIA.DESCR, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                            <DataGrid.ContextMenu>
+                                                <ContextMenu >
+                                                    <MenuItem Header="Insertar..." CommandParameter="insertar_interno_que_visita" Command="{Binding OnClick}" IsEnabled="{Binding ContextMenuEnabled}" />
+                                                    <MenuItem Header="Borrar..." CommandParameter="borrar_interno_que_visita" Command="{Binding OnClick}" IsEnabled="{Binding ContextMenuEnabled}" />
+                                                </ContextMenu>
+                                            </DataGrid.ContextMenu>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDoubleClick" >
+                                                    <i:InvokeCommandAction CommandParameter="{Binding ElementName=dgImputados}" Command="{Binding dgImputadoCommand}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </DataGrid>
+                                    </GroupBox>
+
+                                    <GroupBox Grid.Column="1" Grid.Row="0" Header="Datos del Imputado" HorizontalAlignment="Stretch" >
+                                        <AdornerDecorator>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="3*"></RowDefinition>
+                                                    <RowDefinition Height="1*"></RowDefinition>
+                                                    <RowDefinition Height="1*"></RowDefinition>
+                                                    <RowDefinition Height="1*"></RowDefinition>
+                                                    <RowDefinition Height="1*"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <local:DatosExpedienteView Grid.Column="0" Grid.Row="0" IsEnabled="{Binding IsDetalleInternosEnable}" VerticalAlignment="Stretch"/>
+                                                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                                                    <StackPanel Margin="0 0 5 0">
+                                                        <Label>Parentesco</Label>
+                                                        <ComboBox ItemsSource="{Binding ListTipoRelacion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_REFERENCIA" 
+                                                      Width="195" IsEnabled="{Binding SelectParentescoIngresoEnabled}"
+                                                      SelectedValue="{Binding SelectParentesco,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                                                        <!--  -->
+                                                    </StackPanel>
+                                                    <StackPanel Margin="5 0 5 0">
+                                                        <Label>Estatus de la Visita con el Interno</Label>
+                                                        <ComboBox ItemsSource="{Binding ListSituacion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTATUS_VISITA" 
+                                                      MinWidth="100" MaxWidth="250" IsEnabled="{Binding SelectEstatusRelacionEnabled}"
+                                                      SelectedValue="{Binding SelectEstatusRelacion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                                                    </StackPanel>
+                                                    <StackPanel Margin="5 0 5 0">
+                                                        <Label >Tipo Visitante</Label>
+                                                        <ComboBox ItemsSource="{Binding ListTipoVisitante}" DisplayMemberPath="DESCR" Width="195"
+                                                          SelectedValuePath="ID_TIPO_VISITANTE" Height="25" IsEnabled="{Binding GeneralEnabled}"
+                                                          SelectedValue="{Binding SelectTipoVisitante, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></ComboBox>
+                                                    </StackPanel>
+                                                    <StackPanel Margin="5 0 5 0">
+                                                        <Label HorizontalAlignment="Center">Acceso Único</Label>
+                                                        <CheckBox IsEnabled="{Binding AccesoUnicoEnabled}" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                          IsChecked="{Binding SelectAccesoUnico,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                                                        </CheckBox>
+                                                    </StackPanel>
+
+                                                    <StackPanel Margin="5 0 5 0">
+                                                        <Label HorizontalAlignment="Center">Credencializado</Label>
+                                                        <CheckBox IsEnabled="false" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                          IsChecked="{Binding Credencializado,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                                                        </CheckBox>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <Label Grid.Column="0" Grid.Row="2" Margin="0 5 0 0">Observación:</Label>
+                                                <TextBox Grid.Column="0" Grid.Row="3" IsEnabled="{Binding GeneralEnabled}" CharacterCasing="Upper" Name="ObservacionIngreso"
+                                                 Text="{Binding TextObservacion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Margin="1 1 60 10" ></TextBox>
+
+                                                <StackPanel Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Center"  HorizontalAlignment="Right">
+                                                    <Label HorizontalAlignment="Center" Content="Expandir" Padding="0"/>
+
+                                                    <Button  Width="50" Height="50"  ToolTip="Expandir" IsEnabled="{Binding GeneralEnabled}"
+                                                Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="expandir_observacion" Command="{Binding OnClick}" >
+                                                        <Rectangle Width="26" Height="26" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_paper}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                </StackPanel>
+                                                <StackPanel Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Center"  HorizontalAlignment="left" Orientation="Horizontal">
+                                                    <Button Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="pase_de_termino" Margin="0 10 10 10" Command="{Binding OnClick}" HorizontalAlignment="Right" 
+                                                        VerticalAlignment="Center" IsEnabled="{Binding PaseTerminoEnabled}">de termino</Button>
+                                                    <Button Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="pase_10_dias" Margin="0 10 10 10" Command="{Binding OnClick}" HorizontalAlignment="Right" 
+                                                        VerticalAlignment="Center" IsEnabled="{Binding PaseDiasEnabled}">pase por 10 dias</Button>
+                                                    <Button Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="pase_extraordinario" Margin="0 10 10 10" Command="{Binding OnClick}" HorizontalAlignment="Right" 
+                                                        VerticalAlignment="Center" IsEnabled="{Binding PaseExtraordinarioEnabled}">Pase extraordinario</Button>
+                                                </StackPanel>
+                                            </Grid>
+                                        </AdornerDecorator>
+                                    </GroupBox>
+
+                                    <GroupBox Grid.Column="1" Grid.Row="1" Header="Acompañantes" Visibility="{Binding AcompananteVisible}" HorizontalAlignment="Stretch" >
+                                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListAcompanantes}" FontSize="11" SelectedItem="{Binding SelectAcompanante}" 
+                                              CanUserAddRows="False" IsReadOnly="True" Style="{StaticResource MetroDataGrid}" SelectionMode="Single">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="No.Visita" Binding="{Binding ID_ACOMPANANTE}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding VISITANTE_INGRESO.VISITANTE.PERSONA.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Apellido Materno" Binding="{Binding VISITANTE_INGRESO.VISITANTE.PERSONA.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Nombre" Binding="{Binding VISITANTE_INGRESO.VISITANTE.PERSONA.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Relación" Binding="{Binding TIPO_REFERENCIA.DESCR, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Estatus visita" Binding="{Binding VISITANTE_INGRESO.ESTATUS_VISITA.DESCR, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                            <DataGrid.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Insertar..." CommandParameter="insertar_acompanante" Command="{Binding OnClick}" />
+                                                    <MenuItem Header="Borrar..." Visibility="{Binding BorrarMenuAcompananteVisible}" CommandParameter="borrar_acompanante" Command="{Binding OnClick}" />
+                                                </ContextMenu>
+                                            </DataGrid.ContextMenu>
+                                        </DataGrid>
+                                    </GroupBox>
+                                </Grid>
+                            </StackPanel>
+                            <!--<Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="Padron de Visitas" Style="{DynamicResource DescriptionHeaderStyle}" />-->
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Entrega de Credenciales" IsSelected="{Binding CredencialesTab}" Style="{StaticResource HeaderTabStyle}">
+                        <StackPanel x:Name="TabCredenciales">
+                            <StackPanel Orientation="Vertical">
+                                <GroupBox Grid.Column="0" Grid.Row="0" Header="Visitante">
+                                    <Grid Name="GridGeneral">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            <ColumnDefinition Width="3.6*" Name="Container"></ColumnDefinition>
+                                            <ColumnDefinition Width="2.2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="2.2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition Width="65"/>
+                                            <ColumnDefinition Width="70"></ColumnDefinition>
+                                            <ColumnDefinition Width="75"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" MinHeight="20"></RowDefinition>
+                                            <RowDefinition Height="auto" MinHeight="20"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="30"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Column="0" Grid.Row="0">Código</Label>
+                                        <Label Grid.Column="1" Grid.Row="0">Nombre</Label>
+                                        <Label Grid.Column="2" Grid.Row="0">Apellido Paterno</Label>
+                                        <Label Grid.Column="3" Grid.Row="0">Apellido Materno</Label>
+                                        <Label Grid.Column="3" Grid.Row="2">Tipo Visitante</Label>
+
+                                        <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding TextCodigo,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" 
+                                             MaxLength="10" IsReadOnly="{Binding CodigoEnabled}" Name="CodigoBuscar1" Height="Auto" VerticalAlignment="Center">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=CodigoBuscar1}" Command="{Binding EnterClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextNombre, Converter={StaticResource Trimming},UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                        CharacterCasing="Upper" Name="NombreBuscar1" Height="Auto" VerticalAlignment="Center">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding EnterClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TextPaterno, Converter={StaticResource Trimming},UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                             CharacterCasing="Upper" Name="ApellidoPaternoBuscar1" Height="Auto" VerticalAlignment="Center">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=ApellidoPaternoBuscar}" Command="{Binding EnterClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding TextMaterno, Converter={StaticResource Trimming},UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                                             CharacterCasing="Upper" Name="ApellidoMaternoBuscar1" Height="Auto" VerticalAlignment="Center">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="{Binding ElementName=ApellidoMaternoBuscar}" Command="{Binding EnterClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <ComboBox Grid.Column="3" Grid.Row="3" ItemsSource="{Binding ListTipoVisitante}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_VISITANTE"
+                                              SelectedValue="{Binding SelectTipoVisitante, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="False" />
+
+                                        <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" >
+                                            <Label HorizontalAlignment="Center" Content="Visita" Padding="0"/>
+                                            <Button  Width="50" Height="50"  ToolTip="Buscar Visita" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_visita" 
+                                                 Command="{Binding OnClick}" >
+                                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" >
+                                            <Label HorizontalAlignment="Center" Content="Huellas " Padding="0"/>
+                                            <Button  Width="50" Height="50"  ToolTip="Buscar por Huellas" Style="{DynamicResource MetroCircleButtonStyle}" Grid.RowSpan="2" 
+                                                 Command="{Binding BuscarHuella}" >
+                                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+
+
+                                        <Label Grid.Column="0" Grid.Row="2">Sexo</Label>
+                                        <Label Grid.Column="1" Grid.Row="2">Fecha Nacimiento</Label>
+                                        <Label Grid.Column="2" Grid.Row="2">Edad</Label>
+                                        <ComboBox Grid.Column="0" Grid.Row="3" SelectedValuePath="Tag" IsEnabled="False" SelectedValue="{Binding SelectSexo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="MASCULINO" Tag="M"></ComboBoxItem>
+                                            <ComboBoxItem Content="FEMENINO" Tag="F"></ComboBoxItem>
+                                        </ComboBox>
+                                        <DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" IsEnabled="False"
+                    SelectedDate="{Binding FechaNacimiento,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                                        </DatePicker>
+                                        <TextBox Grid.Column="2" Grid.Row="3" IsEnabled="False" CharacterCasing="Upper"
+                 Text="{Binding TextEdad,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="Auto">
+                                            <i:Interaction.Behaviors>
+                                                <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <!--<Label Grid.Column="0" Grid.Row="4">NIP</Label>-->
+                                        <Label Grid.Column="0" Grid.Row="4">Situación</Label>
+
+                                        <!--                   <TextBox Grid.Column="0" Grid.Row="5" IsEnabled="False" CharacterCasing="Upper" 
+                 Text="{Binding TextNip,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="Auto"></TextBox>-->
+
+                                        <ComboBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" ItemsSource="{Binding ListSituacion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTATUS_VISITA" 
+                  IsEnabled="False"
+                  SelectedValue="{Binding SelectSituacion,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ComboBoxItem}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="11">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="12">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ID_ESTATUS_VISITA}" Value="13">
+                                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+
+                                        <Label Grid.Column="0" Grid.Row="6" FontWeight="Bold" Grid.ColumnSpan="2">Observación</Label>
+                                        <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="7" IsEnabled="False" CharacterCasing="Upper" MaxLength="200" 
+                 Text="{Binding TextObservacion,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Name="Observacion" Height="Auto"></TextBox>
+
+                                        <Image Grid.Column="6" Grid.Row="0" Grid.RowSpan="6" Grid.ColumnSpan="2" Margin="10,10,0,6" Source="{Binding FotoVisita}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="150" />
+                                    </Grid>
+                                </GroupBox>
+
+                                <GroupBox Grid.Column="1" Grid.Row="1" Header="Acompañantes" HorizontalAlignment="Stretch" >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="317*"/>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="61*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListAcompanantes}" Name="dgAcompaniante" SelectionMode="Single" FontSize="11"
+                                                  SelectedItem="{Binding SelectAcompanante}" CanUserAddRows="False" IsReadOnly="True" MinHeight="120" Style="{StaticResource MetroDataGrid}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="No. Visita" Binding="{Binding ID_VISITANTE}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding VISITANTE_INGRESO1.VISITANTE.PERSONA.PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Apellido Materno" Binding="{Binding VISITANTE_INGRESO1.VISITANTE.PERSONA.MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Nombre" Binding="{Binding VISITANTE_INGRESO1.VISITANTE.PERSONA.NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Edad" Binding="{Binding VISITANTE_INGRESO1.VISITANTE.PERSONA.FEC_NACIMIENTO, Converter={StaticResource ConvertirEdad}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Relación" Binding="{Binding TIPO_REFERENCIA.DESCR, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Estatus visita" Binding="{Binding VISITANTE_INGRESO1.ESTATUS_VISITA.DESCR, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDoubleClick" >
+                                                    <i:InvokeCommandAction CommandParameter="{Binding ElementName=dgAcompaniante,Path=SelectedItem}" Command="{Binding dgAcompananteCommand}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </DataGrid>
+
+                                        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label HorizontalAlignment="Center" Content=" Entregar&#10;Credencial" Padding="0"/>
+                                            <Button  Width="50" Height="50"  ToolTip="Entregar Credencial" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="EntregaAcompaniante" Margin="3,0,2,0" >
+                                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                    <Rectangle.OpacityMask>
+                                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_creditcard}" />
+                                                    </Rectangle.OpacityMask>
+                                                </Rectangle>
+                                            </Button>
+                                        </StackPanel>
+
+                                        <Image Grid.Column="2" Height="150" Source="{Binding ImagenAcompanante}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"/>
+                                    </Grid>
+                                </GroupBox>
+                                <Grid Grid.Column="0" MaxWidth="{Binding ElementName=PadronVisitasWindow,Path=ActualWidth}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Internos que puede visitar"
+                                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="gb2" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="317*"/>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="61*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Name="dgImputados1" HorizontalAlignment="Stretch" 
+                                                  SelectionMode="Single" Style="{StaticResource MetroDataGrid}" VerticalAlignment="Stretch" ItemsSource="{Binding  ListadoInternos}" 
+                                                  FontSize="11" Grid.Column="0" >
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Año" Binding="{Binding INGRESO.ID_ANIO}"/>
+                                                    <DataGridTextColumn Header="Folio" Binding="{Binding INGRESO.ID_IMPUTADO}"/>
+                                                    <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding INGRESO.IMPUTADO.PATERNO, Converter={StaticResource Trimming}}"/>
+                                                    <DataGridTextColumn Header="Apellido Materno" Binding="{Binding INGRESO.IMPUTADO.MATERNO, Converter={StaticResource Trimming}}"/>
+                                                    <DataGridTextColumn Header="Nombre" Binding="{Binding INGRESO.IMPUTADO.NOMBRE, Converter={StaticResource Trimming}}"/>
+                                                    <DataGridTemplateColumn Header="Ubicación">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="{Binding INGRESO.CAMA.CELDA.SECTOR.EDIFICIO.DESCR}"></TextBlock>
+                                                                    <TextBlock Text="-"></TextBlock>
+                                                                    <TextBlock Text="{Binding INGRESO.CAMA.CELDA.SECTOR.DESCR}"></TextBlock>
+                                                                    <TextBlock Text="{Binding INGRESO.CAMA.CELDA.ID_CELDA}"></TextBlock>
+                                                                    <TextBlock Text="-"></TextBlock>
+                                                                    <TextBlock Text="{Binding INGRESO.CAMA.ID_CAMA}"></TextBlock>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTextColumn Header="Situación" Binding="{Binding ESTATUS_VISITA.DESCR, Converter={StaticResource Trimming}}"/>
+                                                    <DataGridTextColumn Header="Relación" Binding="{Binding TIPO_REFERENCIA.DESCR, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseDoubleClick" >
+                                                        <i:InvokeCommandAction CommandParameter="{Binding ElementName=dgImputados1}" Command="{Binding dgImputadoCommand}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </DataGrid>
+
+                                            <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3,0,2,0">
+                                                <Label HorizontalAlignment="Center" Content=" Entregar&#10;Credencial" Padding="0"/>
+                                                <Button  Width="50" Height="50"  ToolTip="Entregar Credencial" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" CommandParameter="EntregaPersona"  >
+                                                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_creditcard}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Button>
+                                            </StackPanel>
+
+
+                                            <Image Grid.Column="2" Height="150" Source="{Binding ImagenIngreso}" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch"/>
+                                        </Grid>
+                                    </GroupBox>
+
+
+                                </Grid>
+                            </StackPanel>
+                            <!--<Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="Padron de Visitas" Style="{DynamicResource DescriptionHeaderStyle}" />-->
+
+                        </StackPanel>
+                    </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+            </Grid>
+        </StackPanel>
+    </AdornerDecorator>
+</UserControl>

@@ -1,0 +1,222 @@
+﻿<UserControl x:Class="ControlPenales.TrasladoIslasPersonalidadView"
+             mc:Ignorable="d"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                          xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Height="auto" Width="auto">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Views:MenuTrasladosPersonalidadView Grid.Row="0" Grid.ColumnSpan="3" />
+            <Label Grid.Column="0" Grid.Row="1" Content="Solicitud de traslado islas" Grid.ColumnSpan="2" Style="{DynamicResource DescriptionHeaderStyle}" />
+            <Button Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="regresar_traslado_sol" Command="{Binding OnClick}" Content="Regresar"></Button>
+            <GroupBox Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" Header="criminodiagnostico (Conjunto de indicadores criminológicos, para determinar el índice actual de estado peligroso)">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <GroupBox Grid.Column="0" Grid.Row="0" Header="VI.1. Criminogénesis (Señale los factores de índole criminológica que determinaron, prepararon y desencadenaron el o los hechos delictivos)" Grid.ColumnSpan="3">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Grid.ColumnSpan="3" Name="lblReferencia1"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" MaxWidth="{ Binding ElementName=lblReferencia1, Path=ActualWidth}" Text="{ Binding CriminogTrasladoIslas, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MaxLength="500" MinHeight="50"></TextBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="1" Header="VI.2. Capacidad criminal" Grid.ColumnSpan="3">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Egocentrismo"></Label>
+                                    <Label Grid.Column="1" Grid.Row="0" Content="Labilidad afectiva"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IdEgocentrismoTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                                        <ComboBoxItem Content="ALTO" Tag="1"></ComboBoxItem>
+                                        <ComboBoxItem Content="MEDIO" Tag="2"></ComboBoxItem>
+                                        <ComboBoxItem Content="BAJO" Tag="4"></ComboBoxItem>
+                                    </ComboBox>
+                                    <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag"
+                        SelectedValue="{ Binding IdLabAfecTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                                        <ComboBoxItem Content="ALTO" Tag="1"></ComboBoxItem>
+                                        <ComboBoxItem Content="MEDIO" Tag="2"></ComboBoxItem>
+                                        <ComboBoxItem Content="BAJO" Tag="4"></ComboBoxItem>
+                                    </ComboBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="2" Header="VI.3. Antecedentes y evolución de conductas para y/o antisociales" Grid.ColumnSpan="3">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="En caso de adicción a narcóticos, actualmente se encuentra en"></Label>
+                                    <Label Grid.Column="1" Grid.Row="0" Content="Intimidación ante la pena impuesta (¿Considera que la pena de prisión logró su efecto?)"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding EstadoAdiccionTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="REMISIÓN" Tag="R"></ComboBoxItem>
+                                        <ComboBoxItem Content="EXTINGUIDA" Tag="E"></ComboBoxItem>
+                                        <ComboBoxItem Content="EN ENTORNO CONTROLADA" Tag="C"></ComboBoxItem>
+                                    </ComboBox>
+                                    <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IntimidacionPenaTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="3" Header="VI.4. nocividad" Grid.ColumnSpan="3">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Agresividad intramuros"></Label>
+                                    <ComboBox Grid.Column="1" Grid.Row="0" SelectedValuePath="Tag"
+                        SelectedValue="{ Binding IdAgresivIntrTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                                        <ComboBoxItem Content="ALTO" Tag="1"></ComboBoxItem>
+                                        <ComboBoxItem Content="MEDIO" Tag="2"></ComboBoxItem>
+                                        <ComboBoxItem Content="BAJO" Tag="4"></ComboBoxItem>
+                                    </ComboBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Header="VI.5. Índice de peligrosidad criminológica actual">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Índice de peligrosidad criminológica actual"></Label>
+                                    <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding LstPeligrosidadTraslados}" DisplayMemberPath="DESCR" SelectedValuePath="ID_PELIGROSIDAD"
+                        SelectedValue="{ Binding IdPeligroTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Header="VII Dictamen para traslado">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Dictamen para traslado"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding DictamenTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="FAVORABLE" Tag="F"></ComboBoxItem>
+                                        <ComboBoxItem Content="DESFAVORABLE" Tag="D"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="1" Grid.Row="0" Content="Continúe en tratamiento"></Label>
+                                    <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding ContinTratamTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                        <GroupBox Grid.Column="0" Grid.Row="6" Header="VIII Observación y sugerencias" Grid.ColumnSpan="3">
+                            <AdornerDecorator>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Cuenta con anuencia firmada de traslado voluntario"></Label>
+                                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding TieneAnuenciaTrasladoIslas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Grid.Column="0" Grid.Row="2" Content="Tratamiento intramuros sugerido" Grid.ColumnSpan="3" Name="lblReferencia2"></Label>
+                                    <TextBox Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="3" MinHeight="50" MaxLength="500" MaxWidth="{ Binding ElementName=lblReferencia2, Path=ActualWidth}" Text="{ Binding TratamSugTrasladoIslas, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                                    <Label Grid.Column="0" Grid.Row="4" Content="Fecha"></Label>
+                                    <DatePicker Grid.Column="0" Grid.Row="5" Controls:TextBoxHelper.Watermark="Seleccione una fecha"
+                SelectedDate="{Binding FechaTrasladoIslas,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                </Grid>
+                            </AdornerDecorator>
+                        </GroupBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

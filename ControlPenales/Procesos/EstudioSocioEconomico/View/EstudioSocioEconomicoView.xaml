@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="ControlPenales.EstudioSocioEconomicoView" 
+             x:Name="EstudioSocioEconomicoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding EstudioSocioEconomicoLoad}" CommandParameter="{Binding ElementName=EstudioSocioEconomicoWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuIconosView Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1" Content="Estudio Socioeconómico" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:DatosExpediente2View Grid.Row="2"></Views:DatosExpediente2View>
+        <Views:DatosEstudioSocioEconomicoView Grid.Row="3"></Views:DatosEstudioSocioEconomicoView>
+    </Grid>
+</UserControl>

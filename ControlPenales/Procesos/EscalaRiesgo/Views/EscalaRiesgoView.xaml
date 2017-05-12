@@ -1,0 +1,322 @@
+﻿<UserControl x:Class="ControlPenales.EscalaRiesgoView"
+             x:Name="EscalaRiesgoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoading}" CommandParameter="{Binding ElementName=EscalaRiesgoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Views:MenuIconosView Grid.Row="0" />
+            <Label Content="Escala Riesgo" Grid.Row="1"></Label>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition MaxWidth="250"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Content="Lugar" Grid.Column="0" Grid.Row="0"></Label>
+                <Label Content="Fecha" Grid.Column="1" Grid.Row="0"></Label>
+                <TextBox Text="{Binding Lugar,ValidatesOnDataErrors=True}" Grid.Column="0" Grid.Row="1" MaxLength="150" CharacterCasing="Upper"></TextBox>
+                <DatePicker Grid.Column="1" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding Fecha,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Content="Apellido Paterno" Grid.Column="0" Grid.Row="0"></Label>
+                <Label Content="Apellido Materno" Grid.Column="1" Grid.Row="0"></Label>
+                <Label Content="Nombre" Grid.Column="2" Grid.Row="0"></Label>
+
+                <TextBox Text="{Binding Paterno,ValidatesOnDataErrors=True}" Grid.Column="0" Grid.Row="1" MaxLength="50" CharacterCasing="Upper"></TextBox>
+                <TextBox Text="{Binding Materno,ValidatesOnDataErrors=True}" Grid.Column="1" Grid.Row="1" MaxLength="50" CharacterCasing="Upper"></TextBox>
+                <TextBox Text="{Binding Nombre,ValidatesOnDataErrors=True}" Grid.Column="2" Grid.Row="1" MaxLength="75" CharacterCasing="Upper"></TextBox>
+
+                <Label Content="NUC" Grid.Column="0" Grid.Row="2"></Label>
+                <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding NUC,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxLength="16" Name="nuc">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="16" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+            </Grid>
+
+            <Label Grid.Row="4" Content="1. CONDICIONES SOCIOFAMILIARES Y DE PERTENENCIA" HorizontalAlignment="Center" FontWeight="Bold"></Label>
+    
+            <Expander Grid.Row="5" Header="A.DATOS FAMILIARES" Name="E1" BorderBrush="Red">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Vive con su familia consanguínea en linea recta(padres o hijos) y/o pareja"></Label>
+                    <RadioButton Name="a1" Grid.Column="1" Grid.Row="0" GroupName="a" Command="{Binding checkRadio}" CommandParameter="a1" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Vive con otro familiar o amigo/a"></Label>
+                    <RadioButton Name="a2" Grid.Column="1" Grid.Row="1" GroupName="a" Command="{Binding checkRadio}" CommandParameter="a2" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Vive solo/a"></Label>
+                    <RadioButton Name="a3" Grid.Column="1" Grid.Row="2" GroupName="a" Command="{Binding checkRadio}" CommandParameter="a3" HorizontalAlignment="Center"></RadioButton>
+                </Grid>
+            </Expander>
+
+            <Expander Grid.Row="6" Header="B. APORTACION ECONOMICA FAMILIAR"  Name="E2" BorderBrush="Red">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Tiene dependientes económicos"></Label>
+                    <RadioButton Name="b1" Grid.Column="1" Grid.Row="0" GroupName="b" Command="{Binding checkRadio}" CommandParameter="b1" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="1" Content="No tiene dependientes económicos"></Label>
+                    <RadioButton Name="b2" Grid.Column="1" Grid.Row="1" GroupName="b" Command="{Binding checkRadio}" CommandParameter="b2" HorizontalAlignment="Center"></RadioButton>
+                 </Grid>
+            </Expander>
+
+            <Expander Grid.Row="7" Header="C. ARRAIGO EN LA LOCALIDAD"  Name="E3" BorderBrush="Red">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Tiene por lomenos dos años viviendo dentro dela localidad"></Label>
+                    <RadioButton Name="c1" Grid.Column="1" Grid.Row="0" GroupName="c" Command="{Binding checkRadio}" CommandParameter="c1" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Tiene mas de un año pero menos de dos viviendo dentrode la localidad"></Label>
+                    <RadioButton Name="c2" Grid.Column="1" Grid.Row="1" GroupName="c" Command="{Binding checkRadio}" CommandParameter="c2" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Tiene menos de un año,pero por lomenos seis meses viviendo en la localidad"></Label>
+                    <RadioButton Name="c3" Grid.Column="1" Grid.Row="2" GroupName="c" Command="{Binding checkRadio}" CommandParameter="c3" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Tiene menos de seis meses viviendo en la localidad"></Label>
+                    <RadioButton Name="c4" Grid.Column="1" Grid.Row="3" GroupName="c" Command="{Binding checkRadio}" CommandParameter="c4" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="4" Content="No vive en la localidad"></Label>
+                    <RadioButton Name="c5" Grid.Column="1" Grid.Row="4" GroupName="c" Command="{Binding checkRadio}" CommandParameter="c5" HorizontalAlignment="Center"></RadioButton>
+                </Grid>
+            </Expander>
+
+            <Expander Grid.Row="8" Header="D. RESIDENCIA"  Name="E4" BorderBrush="Red">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Es propietario de la vivienda en la que habita"></Label>
+                    <RadioButton Name="d1" Grid.Column="1" Grid.Row="0" GroupName="d" Command="{Binding checkRadio}" CommandParameter="d1" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Tiene mas de un año ocupando la vivienda en renta o préstamo"></Label>
+                    <RadioButton Name="d2" Grid.Column="1" Grid.Row="1" GroupName="d" Command="{Binding checkRadio}" CommandParameter="d2" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Tiene menos de un año viviendo en renta o préstamo"></Label>
+                    <RadioButton Name="d3" Grid.Column="1" Grid.Row="2" GroupName="d" Command="{Binding checkRadio}" CommandParameter="d3" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Vive en situación de calle"></Label>
+                    <RadioButton Name="d4" Grid.Column="1" Grid.Row="3" GroupName="d" Command="{Binding checkRadio}" CommandParameter="d4" HorizontalAlignment="Center"></RadioButton>
+                </Grid>
+            </Expander>
+
+            <Expander Grid.Row="9" Header="E. HISTORIA LABORAL/ESCOLAR"  Name="E5" BorderBrush="Red">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Tiene mas de un año con la misma actividad laboral o escolar"></Label>
+                    <RadioButton Name="e1" Grid.Column="1" Grid.Row="0" GroupName="e" Command="{Binding checkRadio}" CommandParameter="e1" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Tiene mas de un año con actividad laboral, en diversas ocupaciones pero  continuas, o escolar"></Label>
+                    <RadioButton  Name="e2" Grid.Column="1" Grid.Row="1" GroupName="e" Command="{Binding checkRadio}" CommandParameter="e2" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Tiene de 6 a 12 meses con actividad escolar o laboral continua(un o varios trabajos)"></Label>
+                    <RadioButton Name="e3" Grid.Column="1" Grid.Row="2" GroupName="e" Command="{Binding checkRadio}" CommandParameter="e3" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Tiene menos de seis meses con actividad laboral oescolar"></Label>
+                    <RadioButton Name="e4" Grid.Column="1" Grid.Row="3" GroupName="e" Command="{Binding checkRadio}" CommandParameter="e4" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Se encuentra desempleado y no estudia"></Label>
+                    <RadioButton Name="e5" Grid.Column="1" Grid.Row="4" GroupName="e" Command="{Binding checkRadio}" CommandParameter="e4" HorizontalAlignment="Center"></RadioButton>
+                </Grid>
+            </Expander>
+
+            <Expander Grid.Row="10" Header="F. CONSUMO DE SUSTANCIAS"  Name="E6" BorderBrush="Red">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Consume drogas y/o alcohol mas de tres veces a la semana"></Label>
+                    <RadioButton Name="f1" Grid.Column="1" Grid.Row="0" GroupName="f" Command="{Binding checkRadio}" CommandParameter="f1" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Consume drogas y/o alcohol"></Label>
+                    <RadioButton Name="f2" Grid.Column="1" Grid.Row="1" GroupName="f" Command="{Binding checkRadio}" CommandParameter="f2" HorizontalAlignment="Center"></RadioButton>
+                  </Grid>
+            </Expander>
+
+            <Expander Grid.Row="11" Header="G. POSIBLE PENA IMPONER"  Name="E7" BorderBrush="Red">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="No excede los 5 años  de pena privativa de libertad"></Label>
+                    <RadioButton Name="g1" Grid.Column="1" Grid.Row="0" GroupName="g" Command="{Binding checkRadio}" CommandParameter="g1" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Excede los 5 años de pena privativa de libertad"></Label>
+                    <RadioButton Name="g2" Grid.Column="1" Grid.Row="1" GroupName="g" Command="{Binding checkRadio}" CommandParameter="g2" HorizontalAlignment="Center"></RadioButton>
+                </Grid>
+            </Expander>
+
+            <Expander Grid.Row="12" Header="H. CUMPLIMIENTO  DE CONDICIONES JUDICIALES">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Incumplio condiciones judiciales en procesos anteriores"></Label>
+                    <CheckBox Name="h1" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" IsChecked="{Binding HValue}"></CheckBox>
+                 </Grid>
+            </Expander>
+
+            <Expander Grid.Row="13" Header="I. ANTECEDENTES PENALES" Name="E9">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Tiene antecedentes penales"></Label>
+                    <CheckBox Name="i1" Grid.Column="1" Grid.Row="0" IsChecked="{Binding TieneAntecedentes}"  HorizontalAlignment="Center"></CheckBox>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Tiene de 2 a 3 antecedentes penales"></Label>
+                    <RadioButton Name="i2" Grid.Column="1" Grid.Row="1" GroupName="i" IsChecked="{Binding TieneDosATresAntecedentes}" IsEnabled="{Binding AntecedentesEnabled}" HorizontalAlignment="Center"></RadioButton>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Tiene masde3 antecedentes penales"></Label>
+                    <RadioButton Name="i3" Grid.Column="1" Grid.Row="2" GroupName="i" IsChecked="{Binding TieneMasTresAntecedentes}" IsEnabled="{Binding AntecedentesEnabled}" HorizontalAlignment="Center"></RadioButton>
+                </Grid>
+            </Expander>
+
+            <Expander Grid.Row="14" Header="J. DATOS FALSOS">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Mintió en la información proporcionadaen la entrevista"></Label>
+                    <CheckBox Name="j1" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"  IsChecked="{Binding JValue}"></CheckBox>
+                </Grid>
+            </Expander>
+
+            <DataGrid Grid.Row="15" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding LstCalificaciones}" Margin="5"  Style="{StaticResource MetroDataGrid}"> 
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="1A" Binding="{Binding A1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1B" Binding="{Binding B1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1C" Binding="{Binding C1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1D" Binding="{Binding D1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1E" Binding="{Binding E1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1F" Binding="{Binding F1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1G" Binding="{Binding G1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1H" Binding="{Binding H1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1I" Binding="{Binding I1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="1J" Binding="{Binding J1}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Total" Binding="{Binding TOTAL}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Grid.Row="16" Content="Escala de Riesgo" FontWeight="Bold"></Label>
+            <DataGrid Grid.Row="17" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding LstRangos}" Margin="5"  Style="{StaticResource MetroDataGrid}"> 
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nivel" Binding="{Binding DESCR}"></DataGridTextColumn>
+                </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SELECCION}" Value="1">
+                                <Setter Property="Background" Value="#207044"></Setter>
+                                <Setter Property="Foreground" Value="White"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

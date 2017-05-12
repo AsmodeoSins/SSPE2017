@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="ControlPenales.Actividades"
+             x:Name="ActividadWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             mc:Ignorable="d" 
+             d:DesignHeight="430" d:DesignWidth="1250"
+             ScrollViewer.CanContentScroll="True"
+             ScrollViewer.VerticalScrollBarVisibility="Visible">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ActividadLoading}" CommandParameter="{Binding ElementName=ActividadWindow}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding ActividadUnloading}" CommandParameter="{Binding ElementName=ActividadWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Grid Margin="0,0,0,55">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <GroupBox Grid.Row="0" x:Name="gpbMain" Grid.Column="0"  Header="Actividades que Desarrolla" HorizontalAlignment="Stretch" Height="500" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <GroupBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="addActividad"/>
+                        <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editActividad"/>
+                        <MenuItem Header="Eliminar" Visibility="{Binding EliminarItemMenu,Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding OnClick}" CommandParameter="delActividad"/>
+                    </ContextMenu>
+                </GroupBox.ContextMenu>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                    <ListView Name="lvActividades" 
+                          ItemsSource="{Binding LstAuxiliarActividades, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                          SelectedIndex="{Binding DataContext.RowSelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type Views:EntrevistaMultidiciplinariaView}},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                          >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Focusable="False"></RowDefinition>
+                                        <RowDefinition Focusable="False"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0"  Content="{Binding Actividad, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Background="#7FA4C5F5" />
+                                    <DataGrid Name="dgvActividades" 
+                                          ItemsSource="{Binding Actividades,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                          SelectedItem="{Binding DataContext.SelectedActividad, RelativeSource={RelativeSource AncestorType={x:Type Views:EntrevistaMultidiciplinariaView}},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                          AutoGenerateColumns="False" 
+                                          CanUserAddRows="False" 
+                                          Grid.Column="0" 
+                                          Grid.Row="1" 
+                                          Visibility="{Binding IsGridVisible,Converter={StaticResource booleanToVisibilityConverter},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                          IsReadOnly="True"
+                                          Style="{StaticResource MetroDataGrid}"
+                                          >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn FontWeight="Light" FontFamily="Segoe UI"  Header="Año" Binding="{Binding ANO_ACTIVIDADES}" />
+                                            <DataGridTextColumn FontWeight="Light" FontFamily="Segoe UI" Header="Descripción de actividades" Binding="{Binding DESCRIPCION_ACTIVIDADES}" />
+                                            <DataGridTextColumn FontWeight="Light" FontFamily="Segoe UI" Header="Duración" Binding="{Binding DURACION_ACTIVIDADES}" />
+                                            <DataGridTextColumn FontWeight="Light" FontFamily="Segoe UI" Header="Conclusión o Abandono" Binding="{Binding EMI_ESTATUS_PROGRAMA.DESCR}" />
+                                            <DataGridTextColumn FontWeight="Light" FontFamily="Segoe UI" Header="No. Programa*" Binding="{Binding PROGRAMA_TERMINADO}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Label Content="No hay información" Grid.Column="0" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding IsGridEmpty,Converter={StaticResource booleanToVisibilityConverter},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="518,0,514,-37"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

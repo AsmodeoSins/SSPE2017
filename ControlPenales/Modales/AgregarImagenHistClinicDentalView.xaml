@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="ControlPenales.AgregarImagenHistClinicDentalView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Views:TipoImagenDentalConverter x:Key="TipoImagenDentalConverter" />
+    </UserControl.Resources>
+    <Border Background="#90000000">
+        <Border BorderBrush="Black" BorderThickness="1" Background="#fff" Padding="5" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="380" MinHeight="380">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Agregar imágenes a la historia clínica dental" Style="{DynamicResource DescriptionHeaderStyle}"></Label>
+                <Label Grid.Column="0" Grid.Row="1" Content="Categoría"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="2" SelectedValue="{ Binding IdTipoImagenDental, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ItemsSource="{Binding ListTipoDocumento}" DisplayMemberPath="DESCR" SelectedValuePath="ID_DOCTO"></ComboBox>
+                <Label Grid.Column="1" Grid.Row="1" Content="Anexar archivo"></Label>
+                <Button Grid.Column="1" Grid.Row="2" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="seleccionar_archivo_dental" Command="{Binding OnClick}" Content="Seleccione Imagen ..."></Button>
+                <DataGrid Grid.Column="0" Grid.Row="3" MinHeight="200" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" MaxHeight="250" ItemsSource="{Binding LstDocumentosDentales}" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Categoría" Binding="{Binding ID_DOCTO, Converter={ StaticResource TipoImagenDentalConverter}}" IsReadOnly="True"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_imagenes_dentales" Command="{Binding OnClick}" Content="Guardar"></Button>
+                <Button Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_imagen_dental" Command="{Binding OnClick}" Content="Cancelar"></Button>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>

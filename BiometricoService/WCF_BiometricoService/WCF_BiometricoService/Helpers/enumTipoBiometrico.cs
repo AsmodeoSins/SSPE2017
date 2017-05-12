@@ -1,0 +1,35 @@
+﻿namespace WCF_BiometricoService.Helpers
+{
+    public enum enumTipoBiometrico
+    {
+        FOTOGRAFIA_SALIDA = 101,
+
+        FOTO_FRENTE_REGISTRO = 102,
+        FOTO_DER_REGISTRO = 103,
+        FOTO_IZQ_REGISTRO = 104,
+
+        FOTO_FRENTE_SEGUIMIENTO = 105,
+        FOTO_DER_SEGUIMIENTO = 106,
+        FOTO_IZQ_SEGUIMIENTO = 107,
+
+        PULGAR_DERECHO = 0,
+        INDICE_DERECHO = 1,
+        MEDIO_DERECHO = 2,
+        ANULAR_DERECHO = 3,
+        MENIQUE_DERECHO = 4,
+        PULGAR_IZQUIERDO = 5,
+        INDICE_IZQUIERDO = 6,
+        MEDIO_IZQUIERDO = 7,
+        ANULAR_IZQUIERDO = 8,
+        MENIQUE_IZQUIERDO = 9,
+
+        CUATRO_DEDOS_MANO_DERECHA = 10,
+        CUATRO_DEDOS_MANO_IZQUIERDA = 11,
+        DOS_PULGARES_AMBAS_MANOS = 12,
+        REGISTRO_VOZ = 13,
+        PLANTILLA_FACIAL = 14,
+        PLANTILLA_ADN = 15,
+        PLANTILLA_IRIS_OJO_DERECHO = 16,
+        PLANTILLA_IRIS_OJO_IZQUIERDO = 17
+    }
+}

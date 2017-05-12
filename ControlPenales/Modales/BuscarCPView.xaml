@@ -1,0 +1,295 @@
+﻿<UserControl x:Class="ControlPenales.BuscarCPView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:ControlPenales"
+             mc:Ignorable="d"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" Height="auto"
+        Width="auto">
+    <UserControl.Resources>
+        <local:TrimStringConverter x:Key="Trimming" />
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="buscar_salir"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=AnioBuscar, Path=Text.Length}" Value="4">
+                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscar}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center"  >
+                <Grid Width="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="180" MinWidth="180"></ColumnDefinition>
+                        <ColumnDefinition Width="600"></ColumnDefinition>
+                        <ColumnDefinition MaxWidth="200" MinWidth="200"></ColumnDefinition>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="1" Grid.Row="0" Content="Búsqueda" Style="{DynamicResource DescriptionHeaderStyle}" HorizontalAlignment="Left" Width="105" />
+
+                    <GroupBox Grid.Column="1" Grid.Row="1" Header="No.Expediente">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                            <TextBlock Grid.Column="2" Grid.Row="0">Folio</TextBlock>
+                            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding AnioBuscar,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" MaxLength="4" Name="AnioBuscar" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                <TextBox.InputBindings>
+                                    <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                                </TextBox.InputBindings>
+                                <i:Interaction.Behaviors>
+                                    <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                            <TextBox Grid.Column="2" Grid.Row="1" Name="FolioBuscar" Text="{Binding FolioBuscar,UpdateSourceTrigger=PropertyChanged,TargetNullValue={x:Static sys:String.Empty}}" MaxLength="6" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                <TextBox.InputBindings>
+                                    <KeyBinding CommandParameter="{Binding ElementName=FolioBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                                </TextBox.InputBindings>
+                                <i:Interaction.Behaviors>
+                                    <local:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                        </Grid>
+                    </GroupBox>
+
+                    <DockPanel Grid.Column="2" Grid.Row="1">
+                        <GroupBox Header="Nombre, Alias ó Apodo"  Width="545">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Column="0" Grid.Row="0">Nombre,Alias ó Apodo</TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="0">Apellido Paterno</TextBlock>
+                                <TextBlock Grid.Column="2" Grid.Row="0">Apellido Materno</TextBlock>
+
+                                <TextBox Grid.Column="0" Grid.Row="1" MaxLength="30" Text="{Binding NombreBuscar,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="NombreBuscar" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Behaviors>
+                                        <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="1" MaxLength="30" Text="{Binding ApellidoPaternoBuscar,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoPaternoBuscar" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding CommandParameter="{Binding ElementName=ApellidoPaternoBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Behaviors>
+                                        <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Column="2" Grid.Row="1" MaxLength="40" Text="{Binding ApellidoMaternoBuscar,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoMaternoBuscar" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                    <TextBox.InputBindings>
+                                        <KeyBinding CommandParameter="{Binding ElementName=ApellidoMaternoBuscar}" Command="{Binding BuscarClick}" Key="Enter" />
+                                    </TextBox.InputBindings>
+                                    <i:Interaction.Behaviors>
+                                        <local:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                            </Grid>
+                        </GroupBox>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" ToolTip="Buscar" Name="BotonBuscar"
+                                    CommandParameter="{Binding ElementName=BotonBuscar}" Command="{Binding BuscarClick}" Style="{DynamicResource MetroCircleButtonStyle}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                            
+                        
+                    </DockPanel>
+                    
+
+                    <Label Grid.Column="1" Grid.Row="2" Content="Expedientes" Style="{DynamicResource DescriptionHeaderStyle}" HorizontalAlignment="Left" Width="126" />
+                    <DataGrid Name="dgExpediente" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" AutoGenerateColumns="False" MinHeight="150" MaxHeight="150" SelectionMode="Single"
+                            CanUserAddRows="False" ItemsSource="{Binding ListExpediente}" SelectedItem="{Binding SelectExpediente, NotifyOnSourceUpdated=True}" Style="{StaticResource MetroDataGrid}">
+                        <i:Interaction.Triggers>
+                            <local:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged" >
+                                <cmd:EventToCommand Command="{Binding CargarMasResultados}" PassEventArgsToCommand="True" />
+                            </local:RoutedEventTrigger>
+                            <i:EventTrigger EventName="SourceUpdated">
+                                <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_expediente"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                            
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Centro" Binding="{Binding CENTRO.DESCR, Converter={StaticResource Trimming}}" IsReadOnly="True" />
+                            <DataGridTextColumn Header="Año" Binding="{Binding ID_ANIO}" IsReadOnly="True" />
+                            <DataGridTextColumn Header="Folio"  Binding="{Binding ID_IMPUTADO}"  IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding PATERNO, Converter={StaticResource Trimming}}"  IsReadOnly="True" />
+                            <DataGridTextColumn Header="Apellido Materno" Binding="{Binding MATERNO, Converter={StaticResource Trimming}}"  IsReadOnly="True" />
+                            <DataGridTextColumn Header="Nombre" Binding="{Binding NOMBRE, Converter={StaticResource Trimming}}"  IsReadOnly="True" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Label Grid.Column="0" Grid.Row="3" Margin="0 30 0 0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontStyle="Italic" Content="No hay información"
+                           Visibility="{Binding EmptyExpedienteVisible, Converter={StaticResource booleanToVisibilityConverter}}" Width="112"/>
+                    <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Width="335">
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,10,10,0"
+                CommandParameter="nueva_busqueda" Command="{Binding OnClick}">Nueva Búsqueda</Button>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,10,10,0"
+                CommandParameter="nuevo_expediente" Command="{Binding OnClick}" IsEnabled="{Binding CrearNuevoExpedienteEnabled}">Crear Nuevo Expediente</Button>
+                    </StackPanel>
+
+                    <Label Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Ingresos del Expediente Seleccionado" Style="{DynamicResource DescriptionHeaderStyle}" HorizontalAlignment="Left" Width="375" />
+                    <DataGrid Name="dgExpedienteIngreso" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" MinHeight="150" MaxHeight="150" AutoGenerateColumns="False" SelectionMode="Single"
+                            IsReadOnly="True" ItemsSource="{Binding LstBuscarIngreso}" SelectedItem="{Binding SelectIngreso}" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ElementName=BT_Aceptar, Path=Command}" CommandParameter="{Binding ElementName=BT_Aceptar,Path=CommandParameter}"></MouseBinding>
+                        </DataGrid.InputBindings>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="No. Ingreso" Binding="{Binding ID_INGRESO}" Width="100" />
+                            <!--<DataGridTextColumn Header="Activo" Width="70" Binding="{Binding activo}" />-->
+                            <DataGridTextColumn Header="Fecha Ingreso" Width="150" Binding="{Binding FEC_REGISTRO}" />
+                            <DataGridTextColumn Header="Fecha Ing. Cereso" Width="150"  Binding="{Binding FEC_INGRESO_CERESO}" />
+                            <DataGridTextColumn Header="No. Oficio Internación" Binding="{Binding DOCINTERNACION_NUM_OFICIO}" Width="200" />
+                            <DataGridTextColumn Header="Autoridad Interno" Binding="{Binding TIPO_AUTORIDAD_INTERNA.DESCR}" Width="200" />
+                        </DataGrid.Columns>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ID_ESTATUS_ADMINISTRATIVO}" Value="4">
+                                        <Setter Property="Background" Value="#D81010"></Setter>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                    <!-- ESTATUS NO ACTIVOS-->
+                                    <DataTrigger Binding="{Binding ID_ESTATUS_ADMINISTRATIVO}" Value="5">
+                                        <Setter Property="Background" Value="#D81010"></Setter>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ID_ESTATUS_ADMINISTRATIVO}" Value="6">
+                                        <Setter Property="Background" Value="#D81010"></Setter>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                    <!---->
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self},Path=IsSelected}" Value="True"/>
+                                            <Condition Binding="{Binding ID_ESTATUS_ADMINISTRATIVO}" Value="4" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="#99B9F9" />
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </MultiDataTrigger>
+                                    <!-- ESTATUS NO ACTIVOS-->
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self},Path=IsSelected}" Value="True"/>
+                                            <Condition Binding="{Binding ID_ESTATUS_ADMINISTRATIVO}" Value="5" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="#99B9F9" />
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self},Path=IsSelected}" Value="True"/>
+                                            <Condition Binding="{Binding ID_ESTATUS_ADMINISTRATIVO}" Value="6" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Background" Value="#99B9F9" />
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </MultiDataTrigger>
+                                    <!---->
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self},Path=IsSelected}" Value="True">
+                                        <Setter Property="Background" Value="#99B9F9"></Setter>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=Self},Path=IsSelected}" Value="False">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </DataTrigger>
+                                    <!-- PON ESTO AQUI NINO-->
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+                                            <!--<Condition Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource Self}}" Value="True"/>-->
+                                        </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="{DynamicResource AccentColorBrush3}"/>
+                                    </MultiDataTrigger>
+                                    <!-- AQUI TERMINA-->
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+
+                    <Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontStyle="Italic" Content="No hay información" Margin="0,30,0,0" 
+                           Visibility="{Binding EmptyIngresoVisible, Converter={StaticResource booleanToVisibilityConverter}}" Width="114" />
+                    <StackPanel Grid.Column="2" Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Width="335" Margin="0 0 0 10" >
+                        <Button  Name="BT_Aceptar" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,10,10,0"
+                CommandParameter="buscar_seleccionar" Command="{Binding OnClick}" IsEnabled="{Binding SelectIngresoEnabled}" Content="{Binding TextBotonSeleccionarIngreso}"></Button>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,10,10,0"
+                CommandParameter="buscar_salir" Command="{Binding OnClick}">Cancelar</Button>
+                    </StackPanel>
+                    <!--<Button Grid.Column="2" Grid.Row="9" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,5,347,7"
+                CommandParameter="buscar_crear_ingreso" Command="{Binding OnClick}">crear nuevo ingreso</Button>-->
+
+                    <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="9" Margin="0,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="2"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition MaxHeight="150" MinHeight="150"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition MaxHeight="150" MinHeight="150"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="1" Grid.Row="0" Content="Foto Ingreso" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Margin="58,0,60,0"></Label>
+
+                        <Image Grid.Column="1" Grid.Row="1" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding ImagenImputado}"></Image>
+
+                        <Label Grid.Column="1" Grid.Row="2" Content="Foto Centro" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"></Label>
+
+                        <Image Grid.Column="1" Grid.Row="3" Width="150" Source="{Binding ImagenIngreso}"></Image>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

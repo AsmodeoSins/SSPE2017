@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="ControlPenales.AgregarMedidaPresentacionView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_alias"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+        <Grid>
+            <Border Background="#90000000">
+                <Border BorderBrush="Black" BorderThickness="1" Background="#fff"
+					CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="600" MinHeight="600" MaxWidth="500" MinWidth="500" Padding="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Agregar Presentación" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+
+                        <Label Grid.Column="0" Grid.Row="3" Content="Lugar de Cumplimiento" Grid.ColumnSpan="2"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" ItemsSource="{Binding LstLugarCumplimiento}" SelectedValue="{Binding MPRLugar,ValidatesOnDataErrors=True}" SelectedValuePath="ID_LUGCUM" DisplayMemberPath="DESCR"></ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="5" Content="Asesor" Grid.ColumnSpan="2"></Label>
+                        <ComboBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="2" ItemsSource="{Binding LstAsesor}" SelectedValue="{Binding MPRAsesor,ValidatesOnDataErrors=True}" SelectedValuePath="ID_EMPLEADO" DisplayMemberPath="NOMBRE"></ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="9" Content="Observaciones" Grid.ColumnSpan="2" Name="observaciones"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" TextWrapping="Wrap" CharacterCasing="Upper" MaxLength="250" Text="{Binding MPRObservacion}" MaxWidth="{Binding ElementName=observaciones,Path=ActualWidth}"></TextBox>
+
+                        <Grid Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="Individual"></Label>
+                            <Grid Grid.Column="0" Grid.Row="1" Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition Width="75"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" Content="Fecha"></Label>
+                                <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding MPRFechaAgrerar,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                <Button Grid.Column="1" Grid.Row="1" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="AregarFechaProgramacion" Command="{Binding OnClick}">Agregar</Button>
+                                <DataGrid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" MinHeight="200" MaxHeight="200" ItemsSource="{Binding LstMedidaPresentacionDetalle,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedMedidaPresentacionDetalle}" SelectionMode="Single" Background="LemonChiffon" AutoGenerateColumns="False" CanUserAddRows="False" Style="{StaticResource MetroDataGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Fecha" Binding="{Binding FECHA, StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                    <DataGrid.ContextMenu >
+                                        <ContextMenu>
+                                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_fecha_presentacion"/>
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                </DataGrid>
+                            </Grid>
+
+
+                            <Label Grid.Column="1" Grid.Row="0" Content="Programacion"></Label>
+                            <Grid Grid.Column="1" Grid.Row="1" Margin="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Content="Los dias"></Label>
+                                <ComboBox Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{Binding MPRDia,UpdateSourceTrigger=PropertyChanged}">
+                                    <ComboBoxItem Tag="-1" Content="SELECCIONE"></ComboBoxItem>
+                                    <ComboBoxItem Tag="0" Content="DOMINGO"></ComboBoxItem>
+                                    <ComboBoxItem Tag="1" Content="LUNES"></ComboBoxItem>
+                                    <ComboBoxItem Tag="2" Content="MARTES"></ComboBoxItem>
+                                    <ComboBoxItem Tag="3" Content="MIERCOLES"></ComboBoxItem>
+                                    <ComboBoxItem Tag="4" Content="JUEVES"></ComboBoxItem>
+                                    <ComboBoxItem Tag="5" Content="VIERNES"></ComboBoxItem>
+                                    <ComboBoxItem Tag="6" Content="SABADO"></ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="2" Content="Cada (Semana)" Height="25" VerticalAlignment="Bottom"></Label>
+                                <ComboBox Grid.Row="3" SelectedValuePath="Tag" SelectedValue="{Binding MPRCada}">
+                                    <ComboBoxItem Tag="-1" Content="SELECCIONE"></ComboBoxItem>
+                                    <ComboBoxItem Tag="1" Content="1"></ComboBoxItem>
+                                    <ComboBoxItem Tag="2" Content="2"></ComboBoxItem>
+                                    <ComboBoxItem Tag="3" Content="3"></ComboBoxItem>
+                                    <ComboBoxItem Tag="4" Content="4"></ComboBoxItem>
+                                    <ComboBoxItem Tag="5" Content="5"></ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="4" Content="Primera Asistencia"></Label>
+                                <DatePicker Grid.Row="5" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding MPRPrimeraAsistencia,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                                <Label Grid.Row="6" Content="Ultima Asistencia"></Label>
+                                <DatePicker Grid.Row="7" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding MPRUltimaAsistencia,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+
+                                <Button Grid.Row="8" VerticalAlignment="Top" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="generar_programacion" Command="{Binding OnClick}">Generar</Button>
+                            </Grid>
+                        </Grid>
+
+                        <Button Grid.Column="0" Grid.Row="13" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_medida_presentacion" Command="{Binding OnClick}">Guardar</Button>
+                    <Button Grid.Column="1" Grid.Row="13" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_medida_presentacion" Command="{Binding OnClick}">Cancelar</Button>
+                    </Grid>
+                </Border>
+            </Border>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

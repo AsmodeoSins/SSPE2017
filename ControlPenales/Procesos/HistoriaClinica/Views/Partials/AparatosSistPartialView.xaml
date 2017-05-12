@@ -1,0 +1,218 @@
+﻿<UserControl x:Class="ControlPenales.AparatosSistPartialView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto">
+    <AdornerDecorator>
+        <GroupBox Header="Aparatos y sistemas">
+            <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0"
+                        SelectedIndex="{Binding SelectAparatosSistemas,UpdateSourceTrigger=PropertyChanged}">
+                <TabItem Header="Respiratorio" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="124*"></ColumnDefinition>
+                                <ColumnDefinition Width="1001*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="TOS, EXPECTORACIÓN, HEMOPTISIS, DOLOR, DISNEA, DISFONÍA, ETC."  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia1" Grid.ColumnSpan="2"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" MaxWidth="{ Binding ElementName=lblReferencia1, Path=ActualWidth}" Text="{ Binding TextRespiratorio, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextWrapping="Wrap" Grid.ColumnSpan="2" ></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Cardiovascular" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="DOLOR, PALPITACIONES, DISNEA, EDEMAS, INSUFICIENCIA PERIFÉRICA, CEFALEAS, LIPOTOMIAS, FOSFENOS, ACÚFENOS, VÁRICES, ETC." Grid.Column="0" Grid.Row="0"></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia2"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia2, Path=ActualWidth}" Text="{ Binding TextCardiovascular, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Digestivo" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="APETITO, DISFAGIA, REGURGITACIONES, DOLOR, DISPEPSIA, NÁUSEAS, VÓMITO, HEMATEMESIS, ICTERICIA, METEORISMO, DIARREAS, MELENA, RECTORRAGIA, CONSTIPACIÓN, ETC."></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia3"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Text="{ Binding TextDigestivo, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia3, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Urinario" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="POLIURIA, POLAQUIURIA, DISURIA, RITMO DE ELIMINACIÓN, INCONTINENCIA, HEMATURIA, PIURIA, ETC."></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia4"></Label>
+                            <TextBox IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Text="{ Binding TextUrinario, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="0" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia4, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Genital" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Visibility="{Binding GenitalMujer}" Content="ALTERACIONES DE RITMO, METRORRAGIAS, LEUCORREA, SINTOMATOLOGÍA DE EMBARAZO, MENOPAUSIA."></Label>
+                            <Label Grid.Column="0" Grid.Row="0" Visibility="{Binding GenitalHombre}" Content="INFLAMACIÓN, DOLOR, FÍSTULA EN TESTÍCULOS, ERECCIÓN, EYACULACIÓN, ESTERILIDAD."></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia5"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia5, Path=ActualWidth}" Text="{ Binding TextGenital, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Endócrino" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="PERTURBACIONES SOMÁTICAS, MANIFESTACIONES DE DIABETES, BOCIO, HIPERTRICOSIS, INSUFICIENCIA SUPRARRENAL."></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia6"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Text="{ Binding TextEndocrino, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia6, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Musculo-Esquelético" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="MIALGIAS, ATROFIAS, DEFORMIDADES, ARTICULARES, MOVIMIENTOS, MARCHA, ETC."></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia7"></Label>
+                            <TextBox IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Text="{ Binding TextMusculoEsqueletico, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Column="0" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia7, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Hemático y Linfático" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="MANIFESTACIONES DE ANEMIA, PÚRPURA, EQUIMOSIS, SANGRADO, ADENOPATÍAS."></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia8"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Text="{ Binding TextHematicoLinfatico, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia8, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Nervioso" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="SENSIBILIDAD, MOTILIDAD, MOVIMIENTOS INVOLUNTARIOS, CONVULSIONES, CERATEA, ÓRGANOS DE LOS SENTIDOS, NERVIOS CRANEALES, SUEÑO, FUNCIONES SUPERIORES."></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia9"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Text="{ Binding TextNervioso, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia9, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Piel y Anexos" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia10"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Row="2" Text="{ Binding TextPielAnexos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia10, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Síntomas Generales" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="FIEBRE, ASTENIA, ADINAMIA, VARIACIONES EN EL PESO."></Label>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia11"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Text="{ Binding TextSintomasGenerales, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia11, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+                <TabItem Header="Terapéutica Previa" Style="{StaticResource SubHeaderTabStyle}">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="1" Content="Especifique" Name="lblReferencia12"></Label>
+                            <TextBox Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Text="{ Binding TextTerapeuticaPrevia, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }" Grid.Row="2" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap" MaxWidth="{ Binding ElementName=lblReferencia12, Path=ActualWidth}"></TextBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </TabItem>
+            </Controls:MetroAnimatedSingleRowTabControl>
+        </GroupBox>
+    </AdornerDecorator>
+</UserControl>

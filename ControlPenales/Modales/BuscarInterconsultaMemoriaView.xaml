@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="ControlPenales.BuscarInterconsultaMemoriaView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_buscar_interconsulta_mem"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:IngresoUbicacion x:Key="IngresoUbicacion" />
+        <Views:GetHospitalDescripcion x:Key="GetHospitalDescripcion"></Views:GetHospitalDescripcion>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="866" MaxWidth="866" MinHeight="500" MaxHeight="700">
+                <StackPanel>
+                    <Label Content="Buscar Hojas de Referencia Médica" Style="{DynamicResource DescriptionHeaderStyle}"/>
+                    <ListView MaxHeight="250" Padding="0 10 0 0" SelectionMode="Single" ItemsSource="{Binding LstHojaReferenciaMedicaMem}" SelectedItem="{Binding SelectedHojaReferenciaMedicaMemBuscar}" >
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Header="Unidad Médica" DisplayMemberBinding="{Binding Converter={StaticResource GetHospitalDescripcion}}" Width="400"></GridViewColumn>
+                                <GridViewColumn Header="FECHA" DisplayMemberBinding="{Binding FECHA_CITA,StringFormat=dd/MM/yyyy}"></GridViewColumn>
+                                <GridViewColumn Header="Nivel de Prioridad" DisplayMemberBinding="{Binding INTERCONSULTA_SOLICITUD.INTERCONSULTA_NIVEL_PRIORIDAD.DESCR,StringFormat=dd/MM/yyyy}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Orientation="Horizontal">
+                        <Button  Width="250" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="agregar_interconsulta_mem" Command="{Binding OnClick}">Nueva hoja de referencia médica</Button>
+                        <Button  Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="seleccionar_interconsulta_mem" Command="{Binding OnClick}">Seleccionar</Button>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,10,10,0"
+                CommandParameter="cancelar_buscar_interconsulta_mem" Command="{Binding OnClick}">Cancelar</Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

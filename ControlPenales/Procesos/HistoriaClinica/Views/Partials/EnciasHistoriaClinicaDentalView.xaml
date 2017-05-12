@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ControlPenales.EnciasHistoriaClinicaDentalView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Column="0" Grid.Row="0" Header="Encías">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Color" Name="lblColorEncia"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="1" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblColorEncia, Path=ActualWidth}" Text="{ Binding EnciasColorDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextWrapping="Wrap" CharacterCasing="Upper" MinHeight="50" MaxLength="200"></TextBox>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Forma"></Label>
+                        <TextBox Grid.Column="1" Grid.Row="1" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{ Binding ElementName=lblColorEncia, Path=ActualWidth}" Text="{ Binding EnciasFormaDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextWrapping="Wrap" CharacterCasing="Upper" MaxLength="200" MinHeight="50"></TextBox>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Textura" Name="lblBigReferencia" Grid.ColumnSpan="2"></Label>
+                        <TextBox Grid.Column="0" Grid.Row="3" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" MaxWidth="{ Binding ElementName=lblBigReferencia, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap" Text="{ Binding EnciasTexturaDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.ColumnSpan="2" MinHeight="50"></TextBox>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

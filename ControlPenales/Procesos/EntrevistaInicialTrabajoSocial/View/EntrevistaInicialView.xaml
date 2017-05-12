@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="ControlPenales.EntrevistaInicialView"
+             x:Name="EntrevistaInicialWindows"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoading}" CommandParameter="{Binding ElementName=EntrevistaInicialWindows}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Name="contenedor">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="666"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1" Margin="10 10 0 0"  Content="Entrevista Inicial Trabajo Social" Style="{DynamicResource DescriptionHeaderStyle}" />
+        
+        <Grid Grid.Column="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="200" MinHeight="200"></RowDefinition>
+                <RowDefinition MaxHeight="37" MinHeight="37"></RowDefinition>
+                <RowDefinition MaxHeight="37" MinHeight="37"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Width="800" Height="{Binding ReporteHeight,UpdateSourceTrigger=PropertyChanged}" Margin="5">
+                <WindowsFormsHost Name="WFH" Visibility="{Binding ReportViewerVisible}" Height="{Binding ReporteHeight,UpdateSourceTrigger=PropertyChanged}">
+                    <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+                </WindowsFormsHost>
+            </DockPanel>
+
+            <Image Grid.Column="1" Grid.Row="0" Source="{Binding ImagenIngreso}" Width="150" HorizontalAlignment="Center" Margin="5"></Image>
+
+            <Button Grid.Column="1" Grid.Row="1" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar_interno" Command="{Binding OnClick}" HorizontalAlignment="Center" Margin="5">Buscar</Button>
+
+            <Button Grid.Column="1" Grid.Row="2" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="imprimir" Command="{Binding OnClick}" HorizontalAlignment="Center" Margin="5">Reporte</Button>
+
+        </Grid>
+        
+        
+        
+        
+        
+        
+        
+        
+    </Grid>
+</UserControl>

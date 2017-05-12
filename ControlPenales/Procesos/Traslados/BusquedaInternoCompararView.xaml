@@ -1,0 +1,234 @@
+﻿<UserControl x:Class="ControlPenales.BusquedaInternoCompararView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Column="0" Grid.Row="1" Content="Buscar" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <GroupBox Header="Núm. Expediente" Grid.Column="0" Grid.Row="2" Height="100" VerticalAlignment="Top" Width="auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0">Folio</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="1" Name="tnExpedienteAnio"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                <TextBox Grid.Column="2" Grid.Row="1" Name="tnExpedienteFolio"></TextBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="1" Grid.Row="2" Header="Nombre, Alias ó Apodo" Height="100" VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0">Nombre,Alias ó Apodo</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="0">Paterno</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0">Materno</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="1" Name="tbNombre"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Name="tbApellidoPatrno"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Name="tbApellidoMaterno"></TextBox>
+            </Grid>
+        </GroupBox>
+
+        <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="0 10 0 0" VerticalAlignment="Top" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Expediente"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre del Interno"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ingresos"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cereso"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Column="2" Grid.Row="3" Grid.RowSpan="3" Margin="0 -100 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Width="150" Content="Folio Indiciado" VerticalAlignment="Bottom"></Label>
+            <Image Grid.Column="0" Grid.Row="1" Width="150" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+            <Label Grid.Column="0" Grid.Row="2" Width="150" Content="Folio Ficha" VerticalAlignment="Bottom"></Label>
+            <Image Grid.Column="0" Grid.Row="3" Width="150" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+            <Label Grid.Column="0" Grid.Row="4" Width="150">Ubicación</Label>
+            <TextBox Grid.Column="0" Grid.Row="5" Width="150" Margin="0 5 0 5"></TextBox>
+            <Label Grid.Column="0" Grid.Row="6" Width="150">Estatus</Label>
+            <TextBox Grid.Column="0" Grid.Row="7" Width="150" Margin="0 5 0 5"></TextBox>
+
+            <Button Grid.Column="0" Grid.Row="8" Margin="0 5 0 5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}"
+                    CommandParameter="nueva_busqueda_interno_comparar" Command="{Binding OnClick}">Nueva Búsqueda</Button>
+            <Button Grid.Column="0" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}"
+                    CommandParameter="detener_busqueda_interno_comparar" Command="{Binding OnClick}" IsEnabled="false">Detener</Button>
+            <Button Grid.Column="0" Grid.Row="10" Margin="0 5 0 5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}"
+                    CommandParameter="salir_busqueda_interno_comparar" Command="{Binding OnClick}">Salir</Button>
+
+        </Grid>
+
+
+
+    </Grid>
+    <!--<Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Busqueda">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Num. Expediente">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0"></TextBox>
+                        <Label Grid.Column="1" HorizontalAlignment="Center">/</Label>
+                        <TextBox Grid.Column="2"></TextBox>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="1" Header="Indicar Nombre, Alias o Apodo">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0">Nombre o Apodo</Label>
+                        <Label Grid.Row="2">Paterno</Label>
+                        <Label Grid.Row="4">Materno</Label>
+                        <TextBox Grid.Row="1"></TextBox>
+                        <TextBox Grid.Row="3"></TextBox>
+                        <TextBox Grid.Row="5"></TextBox>
+                        
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,0,0,0"
+                    CommandParameter="nueva_busqueda_interno_comparar" Command="{Binding ClickPageCommand}">Nueva Busqueda</Button>
+            <Button Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,0,0,0"
+                    CommandParameter="detener_busqueda_interno_comparar" Command="{Binding ClickPageCommand}" IsEnabled="false">Detener</Button>
+            <Button Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,0,0,0"
+                    CommandParameter="salir_busqueda_interno_comparar" Command="{Binding ClickPageCommand}">Salir</Button>
+
+
+        </Grid>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" Height="200" Margin="5,10,5,10" Background="WhiteSmoke">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Expediente"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre del Interno"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ingresos"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cereso"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Frente Ficha</Label>
+            <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">Frente Ingreso</Label>
+            <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,0" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+            <Image Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,0,0,0" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+
+            <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" >Ubicacion</Label>
+            <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" >Status</Label>
+            <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
+            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
+
+
+
+        </Grid>
+    </Grid>-->
+</UserControl>

@@ -1,0 +1,266 @@
+﻿<UserControl x:Class="ControlPenales.SeniasDorsoView"
+             x:Name="SeniasDorsoWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SeniasDorsoLoading}" CommandParameter="{Binding ElementName=SeniasDorsoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid IsEnabled="{Binding DatosEnabled}" Name="GridDorso">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="100"/>
+            <ColumnDefinition MaxWidth="400" MinWidth="400"/>
+            <ColumnDefinition MinWidth="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Grid.Column="1" Width="400" Source="/ControlPenales;component/Imagen/back_human_4.png"></Image>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="321,10,55,0"
+                                 ToolTip="REGION POSTERIOR DE LA CABEZA" CommandParameter="50-U01" Command="{Binding RegionClick}" />
+        <Line X1="184" Y1="19" X2="321" Y2="19" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="62,24,314,0" 
+                                 ToolTip="REGION POSTERIOR DE LA CABEZA" CommandParameter="50-I02" Command="{Binding RegionClick}" />
+        <Line X1="80" Y1="33" X2="165" Y2="33" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="297,24,79,0" 
+                                 ToolTip="REGION POSTERIOR DE LA CABEZA" CommandParameter="50-D02" Command="{Binding RegionClick}" />
+        <Line X1="204" Y1="33" X2="297" Y2="33" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="174,35,202,0" 
+                                 ToolTip="REGION OCCIPITAL (NUCA)" CommandParameter="51-U03" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="321,47,55,0" 
+                                 ToolTip="REGION OREJA POSTERIOR DERECHA" CommandParameter="98-D07" Command="{Binding RegionClick}" />
+        <Line X1="212" Y1="56" X2="322" Y2="56" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="62,46,314,0" 
+                                 ToolTip="REGION OREJA POSTERIOR DERECHA" CommandParameter="99-I07" Command="{Binding RegionClick}" />
+        <Line X1="80" Y1="56" X2="156" Y2="56" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="80,63,296,0" 
+                                 ToolTip="REGION OCCIPITAL (NUCA)" CommandParameter="51-I04" Command="{Binding RegionClick}" />
+        <Line X1="97" Y1="72" X2="167" Y2="72" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="306,63,70,0" 
+                                 ToolTip="REGION OCCIPITAL (NUCA)" CommandParameter="51-D04" Command="{Binding RegionClick}" />
+        <Line X1="202" Y1="72" X2="306" Y2="72" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="175,78,201,0" 
+                                 ToolTip="REGION POSTERIOR DEL CUELLO" CommandParameter="52-U05" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="175,104,201,0" 
+                                 ToolTip="REGION POSTERIOR DEL CUELLO" CommandParameter="52-U08" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="226,78,150,0" 
+                                 ToolTip="REGION POSTERIOR DEL CUELLO" CommandParameter="52-D06" Command="{Binding RegionClick}" />
+        <Line X1="202" Y1="87" X2="227" Y2="87" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="118,78,258,0" 
+                                 ToolTip="REGION POSTERIOR DEL CUELLO" CommandParameter="52-I06" Command="{Binding RegionClick}" />
+        <Line X1="135" Y1="87" X2="168" Y2="87" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="137,110,239,0" 
+                                 ToolTip="REGION POSTERIOR DEL HOMBRO IZQUIERDO" CommandParameter="55-I09" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="213,110,163,0" 
+                                 ToolTip="REGION POSTERIOR DEL HOMBRO DERECHO" CommandParameter="54-D09" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="97,124,279,0" 
+                                 ToolTip="REGION POSTERIOR DEL HOMBRO IZQUIERDO" CommandParameter="55-I10" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="255,124,121,0" 
+                                 ToolTip="REGION POSTERIOR DEL HOMBRO DERECHO" CommandParameter="54-D10" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="144,144,232,0" 
+                                 ToolTip="REGION ESCAPULAR IZQUIERDA" CommandParameter="57-I11" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="203,144,173,0" 
+                                 ToolTip="REGION ESCAPULAR DERECHA" CommandParameter="56-D11" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="144,189,232,0" 
+                                 ToolTip="REGION COSTILLAS COSTADO IZQUIERDO" CommandParameter="101-I15" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="124,199,252,0" 
+                                 ToolTip="REGION COSTILLAS COSTADO IZQUIERDO" CommandParameter="101-I17" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="203,189,173,0" 
+                                 ToolTip="REGION COSTILLAS COSTADO DERECHA" CommandParameter="100-D15" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="227,199,149,0" 
+                                 ToolTip="REGION COSTILLAS COSTADO DERECHA" CommandParameter="100-D17" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="148,238,228,0" 
+                                 ToolTip="REGION LUMBAR RENAL IZQUIERDA" CommandParameter="65-I16" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="130,255,246,0" 
+                                 ToolTip="REGION LUMBAR RENAL IZQUIERDA" CommandParameter="65-I18" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="202,238,174,0" 
+                                 ToolTip="REGION LUMBAR RENAL DERECHA" CommandParameter="64-D16" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="222,255,154,0" 
+                                 ToolTip="REGION LUMBAR RENAL DERECHA" CommandParameter="64-D18" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="175,228,201,0" 
+                                 ToolTip="REGION VERTEBRAL LUMBAR" CommandParameter="66-U48" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="175,189,201,0" 
+                                 ToolTip="REGION VERTEBRAL TORACISA" CommandParameter="61-U47" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="175,144,201,0" 
+                                 ToolTip="REGION TORACISA DORSAL" CommandParameter="58-U14" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="175,271,201,0" 
+                                 ToolTip="REGION SACRA" CommandParameter="69-U19" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="144,324,232,0" 
+                                 ToolTip="REGION GLUTEA IZQUIERDA" CommandParameter="70-U30" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="203,324,173,0" 
+                                 ToolTip="REGION GLUTEA DERECHA" CommandParameter="71-U30" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="109,147,267,0" 
+                                 ToolTip="REGION ESCAPULAR IZQUIERDA" CommandParameter="57-I12" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="51,189,325,0" 
+                                 ToolTip="REGION BRAZO POSTERIOR IZQUIERDO" CommandParameter="60-I22" Command="{Binding RegionClick}" />
+        <Line X1="68" Y1="198" X2="112" Y2="198" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="27,179,349,0" 
+                                 ToolTip="REGION BRAZO POSTERIOR IZQUIERDO" CommandParameter="60-I21" Command="{Binding RegionClick}" />
+        <Line X1="45" Y1="188" X2="88" Y2="188" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="86,199,290,0" 
+                                 ToolTip="REGION BRAZO POSTERIOR IZQUIERDO" CommandParameter="60-I19" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="241,147,135,0" 
+                                 ToolTip="REGION ESCAPULAR DERECHA" CommandParameter="56-D12" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="338,179,38,0" 
+                                 ToolTip="REGION BRAZO POSTERIOR DERECHO" CommandParameter="59-I21" Command="{Binding RegionClick}" />
+        <Line X1="280" Y1="188" X2="338" Y2="188" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="314,189,62,0" 
+                                 ToolTip="REGION BRAZO POSTERIOR DERECHO" CommandParameter="59-I21" Command="{Binding RegionClick}" />
+        <Line X1="256" Y1="198" X2="315" Y2="198" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="266,200,110,0" 
+                                 ToolTip="REGION BRAZO POSTERIOR DERECHO" CommandParameter="59-I21" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="71,241,305,0" 
+                                 ToolTip="CODO IZQUIERDO" CommandParameter="63-I24" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="277,241,99,0" 
+                                 ToolTip="CODO DERECHO" CommandParameter="62-D24" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="112,241,264,0" 
+                                 ToolTip="CODO IZQUIERDO" CommandParameter="63-I23" Command="{Binding RegionClick}" />
+        <Line X1="93" Y1="249" X2="113" Y2="249" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="237,241,139,0" 
+                                 ToolTip="CODO DERECHO" CommandParameter="62-D23" Command="{Binding RegionClick}" />
+        <Line X1="254" Y1="249" X2="271" Y2="249" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="51,278,325,0" 
+                                 ToolTip="REGION ANTEBRAZO IZQUIERDO" CommandParameter="68-I25" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="108,278,268,0" 
+                                 ToolTip="REGION ANTEBRAZO IZQUIERDO" CommandParameter="68-I29" Command="{Binding RegionClick}" />
+        <Line X1="78" Y1="287" X2="109" Y2="287" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,265,376,0" 
+                                 ToolTip="REGION ANTEBRAZO IZQUIERDO" CommandParameter="68-I28" Command="{Binding RegionClick}" />
+        <Line X1="18" Y1="274" X2="54" Y2="274" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="295,278,81,0" 
+                                 ToolTip="REGION ANTEBRAZO DERECHO" CommandParameter="67-D25" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="242,278,134,0" 
+                                 ToolTip="REGION ANTEBRAZO DERECHO" CommandParameter="67-D29" Command="{Binding RegionClick}" />
+        <Line X1="260" Y1="287" X2="289" Y2="287" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="376,265,0,0" 
+                                 ToolTip="REGION ANTEBRAZO DERECHO" CommandParameter="67-D28" Command="{Binding RegionClick}" />
+        <Line X1="312" Y1="274" X2="376" Y2="274" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="33,318,343,0" 
+                                 ToolTip="MUÑECA POSTERIOR IZQUIERDA" CommandParameter="103-I26" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="314,318,62,0" 
+                                 ToolTip="MUÑECA POSTERIOR DERECHA" CommandParameter="102-D26" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="27,339,349,0" 
+                                 ToolTip="REGION DORSAL MANO IZQUIERDA" CommandParameter="73-I27" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="318,339,58,0" 
+                                 ToolTip="REGION DORSAL MANO DERECHA" CommandParameter="72-I26" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="24,364,352,0" 
+                                 ToolTip="REGION FALANGES (DEDOS) POSTERIORES MANO IZQUIERDA" CommandParameter="75-I41" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="322,364,54,0" 
+                                 ToolTip="REGION FALANGES (DEDOS) POSTERIORES MANO DERECHA" CommandParameter="74-D41" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="130,418,246,0" 
+                                 ToolTip="REGION MUSLO POSTERIOR IZQUIERDO (PIERNA)" CommandParameter="77-I32" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="71,401,305,0" 
+                                 ToolTip="REGION MUSLO POSTERIOR IZQUIERDO (PIERNA)" CommandParameter="77-I33" Command="{Binding RegionClick}" />
+        <Line X1="88" Y1="410" X2="117" Y2="410" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="71,357,305,0" 
+                                 ToolTip="REGION MUSLO POSTERIOR IZQUIERDO (PIERNA)" CommandParameter="77-I31" Command="{Binding RegionClick}" />
+        <Line X1="88" Y1="366" X2="117" Y2="366" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="24,432,352,0" 
+                                 ToolTip="REGION POSTERIOR ENTREPIERNA IZQUIERDA" CommandParameter="105-I34" Command="{Binding RegionClick}" />
+        <Line X1="42" Y1="440" X2="159" Y2="440" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="217,418,159,0" 
+                                 ToolTip="REGION MUSLO POSTERIOR DERECHO (PIERNA)" CommandParameter="76-D32" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="277,401,99,0" 
+                                 ToolTip="REGION MUSLO POSTERIOR DERECHO (PIERNA)" CommandParameter="76-D33" Command="{Binding RegionClick}" />
+        <Line X1="248" Y1="366" X2="278" Y2="366" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="278,357,98,0" 
+                                 ToolTip="REGION MUSLO POSTERIOR DERECHO (PIERNA)" CommandParameter="76-D31" Command="{Binding RegionClick}" />
+        <Line X1="248" Y1="410" X2="278" Y2="410" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="322,432,54,0" 
+                                 ToolTip="REGION POSTERIOR ENTREPIERNA DERECHA" CommandParameter="76-104" Command="{Binding RegionClick}" />
+        <Line X1="202" Y1="440" X2="323" Y2="440" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="222,476,154,0" 
+                                 ToolTip="REGION POPLITEA (RODILLA POSTERIOR) DERECHA" CommandParameter="78-D35" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="119,476,257,0" 
+                                 ToolTip="REGION POPLITEA (RODILLA POSTERIOR) IZQUIERDA" CommandParameter="79-I35" Command="{Binding RegionClick}" />
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="232,521,144,0" 
+                                 ToolTip="REGION PANTORRILLA (ANTEPIERNA POSTERIOR) DERECHA" CommandParameter="80-D36" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="187,545,189,0" 
+                                 ToolTip="REGION PANTORRILLA (ANTEPIERNA POSTERIOR) DERECHA" CommandParameter="80-D39" Command="{Binding RegionClick}" />
+        <Line X1="205" Y1="554" X2="223" Y2="554" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="321,545,55,0" 
+                                 ToolTip="REGION PANTORRILLA (ANTEPIERNA POSTERIOR) DERECHA" CommandParameter="80-D37" Command="{Binding RegionClick}" />
+        <Line X1="258" Y1="554" X2="321" Y2="554" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="236,587,140,0" 
+                                 ToolTip="REGION PANTORRILLA (ANTEPIERNA POSTERIOR) DERECHA" CommandParameter="80-D38" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="106,521,270,0" 
+                                 ToolTip="REGION PANTORRILLA (ANTEPIERNA POSTERIOR) IZQUIERDA" CommandParameter="81-I36" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="158,545,218,0" 
+                                 ToolTip="REGION PANTORRILLA (ANTEPIERNA POSTERIOR) IZQUIERDA" CommandParameter="81-I39" Command="{Binding RegionClick}" />
+        <Line X1="133" Y1="554" X2="158" Y2="554" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="24,545,352,0" 
+                                 ToolTip="REGION PANTORRILLA (ANTEPIERNA POSTERIOR) IZQUIERDA" CommandParameter="81-I37" Command="{Binding RegionClick}" />
+        <Line X1="41" Y1="554" X2="98" Y2="554" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="100,586,276,0" 
+                                 ToolTip="REGION PANTORRILLA (ANTEPIERNA POSTERIOR) IZQUIERDA" CommandParameter="81-I38" Command="{Binding RegionClick}" />
+        
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="33,629,343,0" 
+                                 ToolTip="REGION POSTERIOR TARZO (TOBILLO) IZQUIERDO" CommandParameter="107-I40" Command="{Binding RegionClick}" />
+        <Line X1="50" Y1="641" X2="94" Y2="641" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,-4,0,4"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="294,629,82,0" 
+                                 ToolTip="REGION POSTERIOR TARZO (TOBILLO) DERECHO" CommandParameter="106-D40" Command="{Binding RegionClick}" />
+        <Line X1="260" Y1="642" X2="295" Y2="642" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,-3,0,3"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="89,691,287,0" 
+                                 ToolTip="REGION CALCANEO (TALON) IZQUIERDO" CommandParameter="85-I42" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="247,691,129,0" 
+                                 ToolTip="REGION CALCANEO (TALON) DERECHO" CommandParameter="84-D42" Command="{Binding RegionClick}" />
+
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="254,725,122,0" 
+                                 ToolTip="REGION METATARZIANA PLANTA DE PIE (DERECHO)" CommandParameter="82-D43" Command="{Binding RegionClick}" />
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="84,725,292,0" 
+                                 ToolTip="REGION METATARZIANA PLANTA DE PIE (IZQUIERDA)" CommandParameter="83-I43" Command="{Binding RegionClick}" />
+
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="213,767,163,0" 
+                                 ToolTip="REGION FALANGES (DEDOS) PIE DERECHO" CommandParameter="94-D46" Command="{Binding RegionClick}" />
+        <Line X1="231" Y1="779" X2="265" Y2="779" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,-3,0,3"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="137,767,239,0" 
+                                 ToolTip="REGION FALANGES (DEDOS) PIE IZQUIERDO" CommandParameter="95-I46" Command="{Binding RegionClick}" />
+        <Line X1="101" Y1="779" X2="138" Y2="779" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,-3,0,3"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="148,744,228,0" 
+                                 ToolTip="REGION METATARZIANA PLANTA DE PIE IZQUIERDO" CommandParameter="83-I45" Command="{Binding RegionClick}" />
+        <Line X1="215" Y1="755" X2="250" Y2="755" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,-3,0,3"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="199,744,177,0" 
+                                 ToolTip="REGION METATARZIANA PLANTA DE PIE DERECHO" CommandParameter="83-D45" Command="{Binding RegionClick}" />
+        <Line X1="109" Y1="755" X2="148" Y2="755" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,-3,0,3"></Line>
+
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="27,711,349,0" 
+                                 ToolTip="REGION METATARZIANA PLANTA DE PIE IZQUIERDO" CommandParameter="83-I44" Command="{Binding RegionClick}" />
+        <Line X1="45" Y1="723" X2="84" Y2="723" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,-3,0,3"></Line>
+        <RadioButton Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="302,711,74,0" 
+                                 ToolTip="REGION METATARZIANA PLANTA DE PIE DERECHO" CommandParameter="82-D44" Command="{Binding RegionClick}" />
+        <Line X1="273" Y1="723" X2="302" Y2="723" StrokeThickness="1" Stroke="Black" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="0,-3,0,3"></Line>
+    </Grid>
+</UserControl>

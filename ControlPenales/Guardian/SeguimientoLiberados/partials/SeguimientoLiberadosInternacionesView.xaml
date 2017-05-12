@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="ControlPenales.SeguimientoLiberadosInternacionesView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">
+            <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+            <Button Width="50" Height="50" ToolTip="Buscar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_buscar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <DataGrid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" AutoGenerateColumns="False" CanUserAddRows="False"  IsReadOnly="True" ItemsSource="{Binding Imputado.internaciones}" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding fecha}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Salida" Binding="{Binding salida}"></DataGridTextColumn>
+                <DataGridTextColumn Header="internación" Binding="{Binding internacion}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cumplimiento"  Binding="{Binding cumplimiento}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lugar"  Binding="{Binding lugar}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        
+
+    </Grid>
+    </UserControl>
+
+    

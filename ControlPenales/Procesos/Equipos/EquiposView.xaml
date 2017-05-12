@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="ControlPenales.EquiposView" x:Name="EquiposWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding EquiposLoading}" CommandParameter="{Binding ElementName=EquiposWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:EstatusConverter x:Key="EstatusConverter" />
+    </UserControl.Resources>
+    <StackPanel>
+
+        <Views:MenuCatalogosView />
+
+        <Grid Visibility="{Binding GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+                <ColumnDefinition Width="68*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Catálogo de Equipos" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" Grid.ColumnSpan="2" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="2">
+                <Label>Búsqueda</Label>
+                <TextBox Margin="2" MinWidth="200" MaxWidth="500" Text="{Binding Busqueda}" CharacterCasing="Upper" MaxLength="{Binding MaxLength}" Name="txtBuscar">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0" Name="btnBuscar"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar" Content="Buscar" Command="{Binding OnClick}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </Button.InputBindings>
+                </Button>
+            </StackPanel>
+
+            <ListView Grid.Row="2" MaxHeight="700" Margin="10" Name="lvMedia" ItemsSource="{Binding ListItems}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single" Grid.ColumnSpan="2" Visibility="{Binding IsEquiposVisible}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="IP" Width="Auto" DisplayMemberBinding="{Binding IP}" />
+                        <GridViewColumn Header="MAC ADDRESS" Width="Auto"  DisplayMemberBinding="{Binding MAC_ADDRESS}"/>
+                        <GridViewColumn Header="DESCRIPCION" Width="Auto" DisplayMemberBinding="{Binding DESCRIPCION}" />
+                        <!--<GridViewColumn Header="CENTRO" Width="Auto" DisplayMemberBinding="{Binding CERESO}" />-->
+                        <GridViewColumn Header="ESTATUS" Width="Auto" DisplayMemberBinding="{Binding ACTIVO,Converter={StaticResource EstatusConverter}}" />
+                        <GridViewColumn Header="BIOMETRIA" Width="Auto" DisplayMemberBinding="{Binding BIOMETRIA,Converter={StaticResource EstatusConverter}}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding EmptyVisible, Converter={StaticResource booleanToVisibilityConverter}}" Content="No hay información" Margin="250,0,320,0"/>
+        </Grid>
+
+       
+        <Grid Visibility="{Binding AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}" Margin="10,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="359*"/>
+                <ColumnDefinition Width="381*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+
+            <Label Grid.Row="0" Grid.Column="0" Content="{Binding HeaderAgregar, Mode=TwoWay}" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <!--<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">-->
+            <Grid Grid.Row="1" Margin="10" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Label Content="IP" Grid.Column="0" Grid.Row="0"></Label>
+                <Label Content="Mac Address" Grid.Column="1" Grid.Row="0"></Label>
+                <Label Content="Serie Volumen" Grid.Column="2" Grid.Row="0"></Label>
+                
+                <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding EIP,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}" CharacterCasing="Upper" Focusable="True"
+                        MaxLength="15" Views:FocusExtension.IsFocused="{Binding FocusText}" IsEnabled="{Binding Editar}"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding EMacAddress,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, ValidatesOnDataErrors=True}" CharacterCasing="Upper" Focusable="True"
+                        MaxLength="17" IsEnabled="{Binding Editar}"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding ESerieVolum,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                         CharacterCasing="Upper" Focusable="True" MaxLength="9"></TextBox>
+                
+                <Label Content="Descripción" Grid.Column="0" Grid.Row="2"></Label>
+                <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding EDescripcion,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnDataErrors=True}" CharacterCasing="Upper" Focusable="True" MaxLength="100"></TextBox>
+                
+                <Label Content="Centro" Grid.Column="0" Grid.Row="4"></Label>           
+                <Label Content="Tipo de Equipo" Grid.Column="1" Grid.Row="4"></Label>
+                <Label Content="Biometria" Grid.Column="2" Grid.Row="4"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="5" ItemsSource="{Binding LstCentros}" SelectedValuePath="ID_CENTRO" DisplayMemberPath="DESCR" SelectedItem="{Binding SelectedCentro}" SelectedValue="{Binding ECentro,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding LstTipoEquipo}" SelectedValuePath="ID" DisplayMemberPath="DESCR" SelectedValue="{Binding ETipoEquipo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+                <CheckBox Grid.Column="2" Grid.Row="5" Margin="20 0 0 0" IsChecked="{Binding EBiometria,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                
+                <Label Content="Estatus" Grid.Column="0" Grid.Row="6"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="7" ItemsSource="{Binding Lista_Estatus.LISTA_ESTATUS}" SelectedValuePath="CLAVE" DisplayMemberPath="DESCRIPCION"
+                        SelectedValue="{Binding EEstatus}"></ComboBox>
+                <Label Content="Area(s) asignada(s)" Grid.Column="0" Grid.Row="8"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="9" ItemsSource="{Binding LstAreas}" SelectedValuePath="ID_AREA" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectedAreaValue}"></ComboBox>
+                <Button Grid.Column="1" Grid.Row="9" Width="100" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Command="{Binding OnClick}" CommandParameter="agregar_area" >Agregar</Button>
+                <ListView MaxHeight="250" Padding="0 10 0 0" SelectionMode="Single" ItemsSource="{Binding LstAreasAsignadas}" SelectedItem="{Binding SelectedAreaAsignada}" Grid.Row="10" Grid.ColumnSpan="4">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Desasignar" Command="{Binding OnClick}" CommandParameter="desasignar_area" />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn Header="Area" DisplayMemberBinding="{Binding DESCR}" Width="450"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+
+        </Grid>
+    </StackPanel>
+</UserControl>

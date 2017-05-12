@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="ControlPenales.ExpedienteDepartamentoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             mc:Ignorable="d" 
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--MENU-->
+        <local:MenuExpedienteDepartamentoView Grid.Column="0" Grid.Row="0"></local:MenuExpedienteDepartamentoView>
+        
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Datos del Expediente">
+            <local:DatosExpedienteView></local:DatosExpedienteView>
+        </GroupBox>
+        
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Expedientes del Interno" MinHeight="400">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" Style="{StaticResource MetroDataGrid}" MaxHeight="500" Margin="0 10 0 0">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="Reporte"></DataGridCheckBoxColumn>
+                        <DataGridTextColumn Header="Fecha"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Actividad"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tipo Documento"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ultima Modificación"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Insertar..." />
+                            <MenuItem Header="Borrar..." />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

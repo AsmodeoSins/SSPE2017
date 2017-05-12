@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ControlPenales.AmparoIndirectoListadoView"
+             x:Name="AmparoIndirectoListadoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding AmparoIndirectoListadoOnLoading}" CommandParameter="{Binding ElementName=AmparoIndirectoListadoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+    
+    <Grid VerticalAlignment="Top" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Column="0" Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="true" ItemsSource="{Binding LstAmparoIndirecto}" SelectedItem="{Binding SelectedAmparoIndirecto}" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <!--<DataGridTextColumn Header="Tipo Amparo" Binding="{Binding AMPARO_INDIRECTO_TIPO.DESCR}" Foreground="Black"></DataGridTextColumn>-->
+                <DataGridTextColumn Header="No. Oficio" Binding="{Binding OFICIO_NUM}" Foreground="Black"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha Notificación" Binding="{Binding NOTIFICACION_FEC, StringFormat=dd/MM/yyyy}" Foreground="Black"></DataGridTextColumn>
+                <DataGridTextColumn Header="Autoridad que Informa" Binding="{Binding JUZGADO1.DESCR}" Foreground="Black"></DataGridTextColumn>
+                <DataGridTextColumn Header="No. Amparo" Binding="{Binding AMPARO_NUM}" Foreground="Black"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="addAmparoIndirecto" Visibility="{Binding MostrarOpcion}"/>
+                    <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editAmparoIndirecto" Visibility="{Binding MostrarOpcion}"/>
+                    <!--<MenuItem Header="Eliminar" Visibility="{Binding EliminarItemMenu, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding OnClick}" CommandParameter="delAmparoIndirecto"/>-->
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" FontStyle="Italic" Content="No hay información." Visibility="{Binding AmparoIndirectoEmpty, Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+    </Grid>
+</UserControl>

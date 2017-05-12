@@ -1,0 +1,230 @@
+﻿<UserControl x:Class="GESAL.Views.RequisicionExtraordinariaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Converters="clr-namespace:MVVMShared.Converters;assembly=MVVMShared"
+             xmlns:Views="clr-namespace:GESAL.Views"
+             xmlns:Behaviours="clr-namespace:GESAL.Clases.Behaviours"
+             Name="RequisicionExtraordinaria">
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdLoadRequisicionExtraordinaria}" CommandParameter="{Binding ElementName=RequisicionExtraordinaria}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+    <StackPanel>
+        <GroupBox Header="Datos del Centro">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".25*"></ColumnDefinition>
+                    <ColumnDefinition Width=".25*"></ColumnDefinition>
+                    <ColumnDefinition Width=".25*"></ColumnDefinition>
+                    <ColumnDefinition Width=".25*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="5">Municipio</TextBlock>
+                <TextBlock Grid.Column="1" Margin="5">Centro</TextBlock>
+                <TextBlock Grid.Column="2" Margin="5">Tipo de Almacén</TextBlock>
+                <TextBlock Grid.Column="3" Margin="5">Almacén Principal</TextBlock>
+                <ComboBox Grid.Row="1" ItemsSource="{Binding Municipios}" DisplayMemberPath="MUNICIPIO1" SelectedValue="{Binding SelectedMunicipioValue,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" SelectedValuePath="ID_MUNICIPIO" Margin="5" IsEnabled="{Binding IsDatosCentroRequisicionHabilitado}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdComboBoxFiltroRequisicionChanged}" CommandParameter="cambio_municipio">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Centros}" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectedCentroValue,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectedValuePath="ID_CENTRO" Margin="5" IsEnabled="{Binding IsDatosCentroRequisicionHabilitado}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdComboBoxFiltroRequisicionChanged}" CommandParameter="cambio_centro">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Almacen_Tipos_Cat}" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectedAlmacen_Tipo_CatValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectedValuePath="ID_ALMACEN_TIPO" Margin="5" IsEnabled="{Binding IsDatosCentroRequisicionHabilitado}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdComboBoxFiltroRequisicionChanged}" CommandParameter="cambio_almacen_tipo">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding AlmacenesPrincipales}" SelectedValue="{Binding SelectedAlmacenPrincipalValue, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="ID_ALMACEN" Margin="5" DisplayMemberPath="DESCRIPCION" IsEnabled="{Binding IsDatosCentroRequisicionHabilitado}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdComboBoxFiltroRequisicionChanged}" CommandParameter="cambio_almacen">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="{Binding TituloDatosRequisicion}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5">Producto:</TextBlock>
+                    <TextBox Text="{Binding BuscarProducto,UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="300" CharacterCasing="Upper" MaxLength="200" IsEnabled="{Binding IsRequisicionHabilitado}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" CommandParameter="buscar_producto" Command="{Binding CmdOnClickRequisicion}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Content="Buscar" Style="{DynamicResource AccentedSquareButtonStyleCustom}" Width="100" Margin="5" Command="{Binding CmdOnClickRequisicion}" CommandParameter="buscar_producto" IsEnabled="{Binding IsRequisicionHabilitado}" />
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".45*"></ColumnDefinition>
+                        <ColumnDefinition Width=".1*"></ColumnDefinition>
+                        <ColumnDefinition Width=".45*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Catalogo de Productos" Grid.Row="0" Grid.Column="0" Grid.RowSpan="5">
+                        <ScrollViewer Height="300">
+                            <DataGrid Height="Auto" Background="WhiteSmoke" AutoGenerateColumns="False"  CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding Productos}"
+                                  SelectedItem="{Binding SelectedProducto}" Style="{StaticResource MetroDataGrid}" IsEnabled="{Binding IsRequisicionHabilitado}" SelectionMode="Single">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="PRODUCTO" MaxWidth="200" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding NOMBRE}" TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Unidad de Medida" MaxWidth="140" IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding UNIDAD_MEDIDA}" TextWrapping="Wrap"></TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="PRESENTACIÓN" MaxWidth="140" IsReadOnly="True" >
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding PRESENTACION}" TextWrapping="Wrap"></TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Existencia" Binding="{Binding CANTIDAD}" IsReadOnly="True"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Seleccionado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                                <Setter Property="Background" Value="SkyBlue"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.RowStyle>
+                            </DataGrid>
+                        </ScrollViewer>
+                    </GroupBox>
+                    <GroupBox Header="Requisición" Grid.Row="0" Grid.Column="2" Grid.RowSpan="5">
+                        <Border BorderBrush="Red" ToolTipService.IsEnabled="{Binding IsProductosRequisicionValido, Converter={Converters:BoolToOppositeBoolConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="ToolTipService.Placement" Value="Top"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsProductosRequisicionValido}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="CAPTURA POR LO MENOS UN PRODUCTO A REQUERIR!" Style="{StaticResource errorLabel}"/>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <ScrollViewer Height="300">
+                                <DataGrid  Height="Auto" Background="WhiteSmoke" AutoGenerateColumns="False"  CanUserAddRows="False"  ItemsSource="{Binding ProductosRequisicion,NotifyOnSourceUpdated=true}"
+                                       SelectedItem="{Binding SelectedProductoRequisicion}" Style="{StaticResource MetroDataGrid}" IsEnabled="{Binding IsRequisicionHabilitado}" SelectionMode="Single" KeyboardNavigation.TabNavigation="Local">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="PRODUCTO" MaxWidth="200" IsReadOnly="True">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding NOMBRE}" TextWrapping="Wrap"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Unidad de Medida" MaxWidth="140" IsReadOnly="True">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding UNIDAD_MEDIDA}" TextWrapping="Wrap"></TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="PRESENTACIÓN" MaxWidth="140" IsReadOnly="True" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding PRESENTACION}" TextWrapping="Wrap"></TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="REQUERIDO" Width="100" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Red" HorizontalAlignment="Left" ToolTipService.IsEnabled="{Binding IsOrdenadoValido, Converter={Converters:BoolToOppositeBoolConverter}}">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                <Setter Property="ToolTipService.Placement" Value="Right"></Setter>
+                                                                <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsOrdenadoValido}" Value="False">
+                                                                        <Setter Property="BorderThickness" Value="1"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <ToolTipService.ToolTip>
+                                                            <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                                                <ToolTip.Content>
+                                                                    <TextBlock Text="REQUERIDO ES OBLIGATORIO" Style="{StaticResource errorLabel}">
+                                                                    </TextBlock>
+                                                                </ToolTip.Content>
+                                                            </ToolTip>
+                                                        </ToolTipService.ToolTip>
+                                                        <TextBox Text="{Binding ORDENADO, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay, TargetNullValue=''}" Width="97">
+                                                            <i:Interaction.Behaviors>
+                                                                <Behaviours:TextBoxInputRegExBehaviour RegularExpression="^\d+$" MaxLength="6" EmptyValue="" />
+                                                            </i:Interaction.Behaviors>
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="TextChanged">
+                                                                    <i:InvokeCommandAction Command="{Binding DataContext.CmdValidacionRequerido, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type UserControl}}}" CommandParameter=""></i:InvokeCommandAction>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </TextBox>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ScrollViewer>                            
+                        </Border>
+                        
+                    </GroupBox>
+                    <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Background="{StaticResource AccentColorBrush}" Style="{DynamicResource AccentedSquareButtonStyleCustom}" Margin="10,0,10,0"
+                    CommandParameter="agregar_producto" Command="{Binding CmdOnClickRequisicion}" IsEnabled="{Binding IsRequisicionHabilitado}">agregar -- ></Button>
+                    <Button Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Background="{StaticResource AccentColorBrush}" Style="{DynamicResource AccentedSquareButtonStyleCustom}" Margin="10,0,10,0"
+                    CommandParameter="quitar_producto" Command="{Binding CmdOnClickRequisicion}" IsEnabled="{Binding IsRequisicionHabilitado}">&lt; -- quitar</Button>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

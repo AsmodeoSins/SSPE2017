@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ControlPenales.InventariosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" >
+    <StackPanel>
+        <Label Grid.Row="0" Margin="10" Content="INVENTARIOS POR AUTORIZAR" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="4" Margin="10" MinWidth="200" MinHeight="150" AutoGenerateColumns="False" ItemsSource="{Binding Lista1}" SelectedItem="{Binding SelectedItem}" IsReadOnly="True" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Pedido}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Cereso" Binding="{Binding Almacen}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Almacén" Binding="{Binding Almacen}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Auditor" Binding="{Binding Fecha}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Estatus" Binding="{Binding Pedido}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding OnClick}" CommandParameter="click_doble"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DataGrid>
+        <StackPanel Visibility="{Binding Path=ProductosVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <DataGrid Grid.Row="3" Grid.ColumnSpan="4" Margin="10" MinWidth="200" MinHeight="150" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Lista2}" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Producto" Binding="{Binding Producto}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Cantidad Anterior" Binding="{Binding Cantidad}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Cantidad Actual" Binding="{Binding Cantidad}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Diferencia" Binding="{Binding Producto}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Unidad Medida" Binding="{Binding UnidadMedida}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Observaciones" Binding="{Binding UnidadMedida}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding Path=BotonesVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Button Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_autorizar_inventarios" 
+                        Command="{Binding OnClick}" Margin="10">Autorizar</Button>
+            <Button Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_rechazar_inventarios" 
+                        Command="{Binding OnClick}" Margin="10">Rechazar</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="ControlPenales.BuscarCausaPenalView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_apodo"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <AdornerDecorator>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                     MaxHeight="310" MinHeight="310" Padding="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Buscar Causa Penal" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+                        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="75"></ColumnDefinition>
+                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            
+                            <Label Grid.Column="0" Grid.Row="0" Content="Anio"></Label>
+                            <Label Grid.Column="2" Grid.Row="0" Content="Folio"></Label>
+                            
+                            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding CPAnio}" Name="cpAnio">
+                                <TextBox.InputBindings>
+                                    <KeyBinding CommandParameter="{Binding ElementName=cpAnio}" Command="{Binding BuscarCPClick}" Key="Enter" />
+                                </TextBox.InputBindings>
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <Label Grid.Column="1" Grid.Row="1" Content="/" HorizontalAlignment="Center"></Label>
+                            <TextBox Grid.Column="2" Grid.Row="1"  Text="{Binding CPFolio}" Name="cpFolio">
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                                </i:Interaction.Behaviors>
+                                <TextBox.InputBindings>
+                                    <KeyBinding CommandParameter="{Binding ElementName=cpFolio}" Command="{Binding BuscarCPClick}" Key="Enter" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+
+                            <Button Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom"  Width="100" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="5 0 0 0"
+                CommandParameter="buscar_causa_penal" Command="{Binding OnClick}">Buscar</Button>
+                        </Grid>
+                    
+                    <Label Grid.Column="0" Grid.Row="2" Content="Juzgado" Grid.ColumnSpan="2" Name="lJuzgado"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="2" Text="{Binding Juzgado}"  MaxWidth="{Binding ElementName=lJuzgado,Path=ActualWidth}"
+                             CharacterCasing="Upper" MaxLength="255" TextWrapping="Wrap" Height="50" Name="tbJuzgado">
+                    </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="4" Content="Delito" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="2" TextWrapping="Wrap" Height="50" Text="{Binding Delito}"  MaxWidth="{Binding ElementName=lJuzgado,Path=ActualWidth}"
+                             CharacterCasing="Upper" MaxLength="200" Name="tbDelito">
+                    </TextBox>
+
+                        <Button Grid.Column="0" Grid.Row="6" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="imprimir_ficha" Command="{Binding OnClick}">Imprimir</Button>
+                    <Button Grid.Column="1" Grid.Row="6" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_ficha" Command="{Binding OnClick}">Cancelar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

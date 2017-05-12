@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="ControlPenales.CatalogoTipoMensajeView"
+             x:Name="TipoMensajeWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding TipoMensajeLoading}" CommandParameter="{Binding ElementName=TipoMensajeWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+  
+    <UserControl.Resources>
+        <Views:PrioridadConverter x:Key="CoverterPrioridad"/>
+        <Views:CatalogosEstatus x:Key="EstatusNull"/>
+    </UserControl.Resources>
+  
+    <StackPanel>
+        <Views:MenuCatalogosView />
+
+        <Grid Visibility="{Binding GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Tipo de Mensaje" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Label>Búsqueda</Label>
+                <TextBox IsEnabled="{Binding TextoHabilitado}" Margin="2" MinWidth="200" MaxWidth="500" Text="{Binding Busqueda}" CharacterCasing="Upper" MaxLength="{Binding MaxLength}" Name="txtBuscar">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button IsEnabled="{Binding BuscarHabilitado}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="15,0,0,0"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="buscar" Content="Buscar"
+                Command="{Binding OnClick}">
+                    <Button.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=txtBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </Button.InputBindings>
+                </Button>
+            </StackPanel>
+
+            <!--<ListView Grid.Row="2" MaxHeight="500" Margin="10" Name="lvMedia" ItemsSource="{Binding ListItems}" SelectedItem="{Binding SelectedItem}">
+                --><!--<ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                                <Setter Property="Background" Value="#D2EDF7" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>--><!--
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="75"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="75"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="{Binding DESCR}" MinWidth="500" MaxWidth="500"></Label>
+                            <Label Grid.Column="1" Grid.Row="0" Content="{Binding PRIORIDAD, Converter={StaticResource CoverterPrioridad}}"  MinWidth="350" MaxWidth="350"></Label>
+                            <Label Grid.Column="2" Grid.Row="0" Content="{Binding ENCABEZADO}"  MinWidth="350" MaxWidth="350"></Label>
+                            <TextBox Grid.Column="4" Grid.Row="0" Width="50" Background="{Binding COLOR}"  MinWidth="50" MaxWidth="50" IsReadOnly="True"></TextBox>
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="menu_agregar"/>
+                        <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="menu_editar"/>
+                        <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="menu_eliminar"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>-->
+            <ListView Grid.Row="2" MaxHeight="700" Margin="10" Name="lvMedia" ItemsSource="{Binding ListItems}" SelectedItem="{Binding SelectedItem}" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <!--<GridViewColumn Header="Estatus" Width="Auto"  DisplayMemberBinding="{Binding ESTATUS}"/>-->
+                        <GridViewColumn Header="Descripción" Width="Auto" DisplayMemberBinding="{Binding DESCR}" />   
+                        <GridViewColumn Header="Prioridad" Width="Auto" DisplayMemberBinding="{Binding PRIORIDAD}" />
+                        <GridViewColumn Header="Encabezado" Width="Auto"  DisplayMemberBinding="{Binding ENCABEZADO}"/>
+                        <GridViewColumn Header="Color" Width="Auto" DisplayMemberBinding="{Binding COLOR}" />
+                        <GridViewColumn Header="Estatus" Width="Auto" DisplayMemberBinding="{Binding ESTATUS, Converter={StaticResource EstatusNull}}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding EmptyVisible, Converter={StaticResource booleanToVisibilityConverter}}" Content="No hay información"></Label>
+        </Grid>
+
+        <Grid Visibility="{Binding AgregarVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.ColumnSpan="2" Content="{Binding HeaderAgregar}" Style="{DynamicResource DescriptionHeaderStyle}" Margin="8,0,0,0" />
+            <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Descripción"></Label>
+            <TextBox Grid.Row="1" Grid.Column="1"  MinWidth="300" MaxWidth="400" HorizontalAlignment="Left" Margin="5" MaxLength="100" CharacterCasing="Upper" Text="{Binding Descripcion,Mode=TwoWay,ValidatesOnDataErrors=True}"></TextBox>
+
+            <Label Grid.Row="2" Grid.Column="0"  VerticalAlignment="Center" Content="Prioridad"></Label>
+            <ComboBox Grid.Row="2" Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding Prioridad,Mode=TwoWay,ValidatesOnDataErrors=True}" MinWidth="300" MaxWidth="400" HorizontalAlignment="Left" Margin="5">
+                <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                <ComboBoxItem Content="ALTA" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="MEDIA" Tag="2"></ComboBoxItem>
+                <ComboBoxItem Content="BAJA" Tag="3"></ComboBoxItem>
+            </ComboBox>
+
+            <Label Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Content="Encabezado"></Label>
+            <TextBox Grid.Row="3" Grid.Column="1"  MinWidth="300" MaxWidth="400" HorizontalAlignment="Left" Margin="5" MaxLength="100" CharacterCasing="Upper" Text="{Binding Encabezado,Mode=TwoWay,ValidatesOnDataErrors=True}"></TextBox>
+
+            <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="Contenido"></Label>
+            <TextBox Grid.Row="4" Grid.Column="1"  MinWidth="800" MaxWidth="800" MinLines="3" HorizontalAlignment="Left" Margin="5" MaxLength="1000" CharacterCasing="Upper" Text="{Binding Contenido,Mode=TwoWay,ValidatesOnDataErrors=True}"></TextBox>
+
+
+            <Label Grid.Row="5" Grid.Column="0"  VerticalAlignment="Center" Content="Color"></Label>
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition MinWidth="40" MaxWidth="40"></ColumnDefinition>
+                    <ColumnDefinition  MinWidth="200" MaxWidth="200"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <TextBox Grid.Column="0" Grid.Row="0" Background="{Binding Color}" Margin="5" IsReadOnly="True" HorizontalAlignment="Left"></TextBox>
+                <Button Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Margin="5" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="cambiar_color" Content="Seleccionar Color" Command="{Binding OnClick}">
+                </Button>
+            </Grid>
+
+            <Label Grid.Row="6" Grid.Column="0"  VerticalAlignment="Center" Content="Rol"></Label>
+            <ComboBox Grid.Row="6" Grid.Column="1" MinWidth="200" MaxWidth="500" HorizontalAlignment="Left" ItemsSource="{Binding LstRol}" SelectedValuePath="ID_ROL" DisplayMemberPath="DESCR" SelectedValue="{Binding Rol}" SelectedItem="{Binding SelectedRol,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+            <Button Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="210 0 0 0" VerticalAlignment="Top" Width="150"  Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="addRol" Content="Agregar rol" Command="{Binding OnClick}"></Button>
+
+            <ListView Grid.Row="7" Grid.Column="1" MaxHeight="700" Margin="10" ItemsSource="{Binding LstMensajeRol}" SelectedItem="{Binding SelectedMensajeRol}" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Rol" Width="Auto" DisplayMemberBinding="{Binding SISTEMA_ROL.DESCR}" />
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Eliminar"  Command="{Binding OnClick}" CommandParameter="delRol"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+
+            <Label Grid.Row="8" Grid.Column="0"  VerticalAlignment="Center" Content="Estatus"></Label>
+            <ComboBox Grid.Row="8" Grid.Column="1" MinWidth="200" MaxWidth="500" HorizontalAlignment="Left" ItemsSource="{Binding ListEstatus.LISTA_ESTATUS}" DisplayMemberPath="DESCRIPCION" SelectedItem="{Binding SelectedEstatus,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></ComboBox>
+        </Grid>
+    </StackPanel>
+</UserControl>

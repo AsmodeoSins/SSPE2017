@@ -1,0 +1,1707 @@
+﻿<UserControl x:Class="ControlPenales.CreacionGruposView"
+             x:Name="CreacionProgramasWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:local="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d"
+             d:DesignHeight="880"
+             d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CreacionProgramasLoading}"
+                                   CommandParameter="{Binding ElementName=CreacionProgramasWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <local:MultiValueConverter x:Key="MultiParamConverter"></local:MultiValueConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <local:MenuCatalogosView />
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Row="1"
+                                                   HorizontalAlignment="Stretch"
+                                                   TabStripPlacement="Top"
+                                                   Height="auto"
+                                                   Name="TabCreacionGrupo">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <cmd:EventToCommand Command="{Binding TabChange }"  PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+            <TabItem Header="Modelo"
+                     Style="{StaticResource HeaderTabStyle}"
+                     IsSelected="{Binding SelectedTab}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Creación de Grupos"
+                           Style="{DynamicResource DescriptionHeaderStyle}" />
+                    <GroupBox Grid.Row="1"
+                              Header="Seleccione Filtros"
+                              Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".02*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".05*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".05*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".04*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="EJE"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      Height="25"
+                                      VerticalAlignment="Center"
+                                      ItemsSource="{Binding ListEjes}"
+                                      SelectedValuePath="ID_EJE"
+                                      DisplayMemberPath="DESCR"
+                                      SelectedValue="{Binding SelectedEje}"
+                                      IsEnabled="{Binding EjeEnabled}" />
+                            <TextBlock Grid.Column="2"
+                                       Text="PROGRAMA"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="3"
+                                      Height="25"
+                                      VerticalAlignment="Center"
+                                      ItemsSource="{Binding ListProgramas}"
+                                      SelectedValuePath="ID_TIPO_PROGRAMA"
+                                      DisplayMemberPath="NOMBRE"
+                                      SelectedValue="{Binding SelectedPrograma}"
+                                      IsEnabled="{Binding ProgramaEnabled}" />
+                            <TextBlock Grid.Column="4"
+                                       Text="ACTIVIDAD"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="5"
+                                      Height="25"
+                                      VerticalAlignment="Center"
+                                      ItemsSource="{Binding ListActividades}"
+                                      SelectedValuePath="ID_ACTIVIDAD"
+                                      DisplayMemberPath="DESCR"
+                                      SelectedValue="{Binding SelectedActividad}"
+                                      IsEnabled="{Binding ActividadEnabled}" />
+                            <TextBlock Grid.Column="6"
+                                       Text="GRUPO"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="7"
+                                      Height="25"
+                                      VerticalAlignment="Center"
+                                      ItemsSource="{Binding ListGrupo}"
+                                      SelectedValuePath="ID_GRUPO"
+                                      DisplayMemberPath="DESCR"
+                                      SelectedItem="{Binding SelectedGrupo}"
+                                      IsEnabled="{Binding EnabledEditGrupo}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Name="GB_CrearGrupo"
+                              Grid.Row="2"
+                              Header="Crear Grupo"
+                              IsEnabled="{Binding EnabledPanelCrearGrupo}"
+                              Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".667*" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="NOMBRE DEL GRUPO"
+                                       VerticalAlignment="Center" />
+                            <TextBox Grid.Column="0"
+                                     Grid.Row="1"
+                                     Text="{Binding GrupoDescripcion,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnDataErrors=True}"
+                                     CharacterCasing="Upper"
+                                     VerticalAlignment="Center"
+                                     MaxLength="70" />
+                            <Grid Grid.Row="2"
+                                  Grid.ColumnSpan="2"
+                                  Visibility="{Binding PanelUpdate}"
+                                  HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="{Binding RowDomingo}" />
+                                    <RowDefinition Height="{Binding RowLunes}" />
+                                    <RowDefinition Height="{Binding RowMartes}" />
+                                    <RowDefinition Height="{Binding RowMiercoles}" />
+                                    <RowDefinition Height="{Binding RowJueves}" />
+                                    <RowDefinition Height="{Binding RowViernes}" />
+                                    <RowDefinition Height="{Binding RowSabado}" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                               Text="FECHA DE INICIO"
+                                               VerticalAlignment="Center" />
+                                    <DatePicker Name="FechaInicio"
+                                                Grid.Row="1"
+                                                DisplayDateStart="{Binding FechaServer,Mode=TwoWay}"
+                                                SelectedDate="{Binding FechaInicio}" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="FECHA DE TERMINACIÓN"
+                                               VerticalAlignment="Center" />
+                                    <DatePicker Name="FechaFinal"
+                                                Grid.Column="2"
+                                                DisplayDateStart="{Binding FechaServer,Mode=TwoWay}"
+                                                Grid.Row="1"
+                                                SelectedDate="{Binding FechaFin,ValidatesOnDataErrors=True}" />
+                                </Grid>
+                                <TextBlock Grid.Row="2"
+                                           Grid.ColumnSpan="6"
+                                           Text="RECURRENCIA"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Center"
+                                           Background="#427399"
+                                           Foreground="WhiteSmoke" />
+                                <StackPanel Grid.Row="3"
+                                            Grid.ColumnSpan="4"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,5,0,5">
+                                    <CheckBox Name="Dom"
+                                              Content="DOMINGO"
+                                              Tag="D"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckDomingo}" />
+                                    <CheckBox Name="Lun"
+                                              Content="LUNES"
+                                              Tag="L"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckLunes}" />
+                                    <CheckBox Name="Mar"
+                                              Content="MARTES"
+                                              Tag="Ma"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckMartes}" />
+                                    <CheckBox Name="Mie"
+                                              Content="MIÉRCOLES"
+                                              Tag="Mi"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckMiercoles}" />
+                                    <CheckBox Name="Jue"
+                                              Content="JUEVES"
+                                              Tag="J"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckJueves}" />
+                                    <CheckBox Name="Vie"
+                                              Content="VIERNES"
+                                              Tag="V"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckViernes}" />
+                                    <CheckBox Name="Sab"
+                                              Content="SÁBADO"
+                                              Tag="S"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckSabado}" />
+                                </StackPanel>
+                                <Border Grid.Row="4"
+                                        Grid.ColumnSpan="6"
+                                        HorizontalAlignment="Stretch"
+                                        BorderThickness="8"
+                                        BorderBrush="#427399"
+                                        VerticalAlignment="Top" />
+                                <TextBlock Grid.Row="4"
+                                           Text="DIA"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="1"
+                                           Text="HORA INICIO"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="2"
+                                           Text="HORA FIN"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="4"
+                                           Grid.ColumnSpan="6"
+                                           HorizontalAlignment="Stretch"
+                                           Text="LUGAR"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke" />
+                                <TextBlock Grid.Row="5"
+                                           Text="DOMINGO"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityDomingo}" />
+                                <xctk:DateTimeUpDown Name="InicioDiaDomingo"
+                                                     Grid.Column="1"
+                                                     Grid.Row="5"
+                                                     IsEnabled="{Binding CheckDomingo,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaDomingo,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityDomingo}" />
+                                <xctk:DateTimeUpDown Name="FinDiaDomingo"
+                                                     Grid.Column="2"
+                                                     Grid.Row="5"
+                                                     IsEnabled="{Binding CheckDomingo,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaDomingo,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityDomingo}" />
+                                <ComboBox Grid.Row="5"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckDomingo,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaDomingo,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="5"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateDomingo,UpdateSourceTrigger=PropertyChanged}"
+                                           Visibility="{Binding ShowMarkErrorDomingo}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="6"
+                                           Text="LUNES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityLunes}" />
+                                <xctk:DateTimeUpDown Name="InicioDiaLunes"
+                                                     Grid.Column="1"
+                                                     Grid.Row="6"
+                                                     IsEnabled="{Binding CheckLunes,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaLunes,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityLunes}" />
+                                <xctk:DateTimeUpDown Name="FinDiaLunes"
+                                                     Grid.Column="2"
+                                                     Grid.Row="6"
+                                                     IsEnabled="{Binding CheckLunes,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaLunes,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityLunes}" />
+                                <ComboBox Grid.Row="6"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckLunes,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaLunes,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="6"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateLunes}"
+                                           Visibility="{Binding ShowMarkErrorLunes}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="7"
+                                           Text="MARTES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityMartes}" />
+                                <xctk:DateTimeUpDown Name="InicioDiaMartes"
+                                                     Grid.Column="1"
+                                                     Grid.Row="7"
+                                                     IsEnabled="{Binding CheckMartes,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaMartes,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityMartes}" />
+                                <xctk:DateTimeUpDown Name="FinDiaMartes"
+                                                     Grid.Column="2"
+                                                     Grid.Row="7"
+                                                     IsEnabled="{Binding CheckMartes,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaMartes,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityMartes}" />
+                                <ComboBox Grid.Row="7"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckMartes,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaMartes,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="7"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateMartes}"
+                                           Visibility="{Binding ShowMarkErrorMartes}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="8"
+                                           Text="MIÉRCOLES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityMiercoles}" />
+                                <xctk:DateTimeUpDown Name="InicioDiaMiercoles"
+                                                     Grid.Column="1"
+                                                     Grid.Row="8"
+                                                     IsEnabled="{Binding CheckMiercoles,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaMiercoles,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityMiercoles}" />
+                                <xctk:DateTimeUpDown Name="FinDiaMiercoles"
+                                                     Grid.Column="2"
+                                                     Grid.Row="8"
+                                                     IsEnabled="{Binding CheckMiercoles,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaMiercoles,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityMiercoles}" />
+                                <ComboBox Grid.Row="8"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckMiercoles,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaMiercoles,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="8"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateMiercoles}"
+                                           Visibility="{Binding ShowMarkErrorMiercoles}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="9"
+                                           Text="JUEVES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityJueves}" />
+                                <xctk:DateTimeUpDown Name="InicioDiaJueves"
+                                                     Grid.Column="1"
+                                                     Grid.Row="9"
+                                                     IsEnabled="{Binding CheckJueves,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaJueves,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityJueves}" />
+                                <xctk:DateTimeUpDown Name="FinDiaJueves"
+                                                     Grid.Column="2"
+                                                     Grid.Row="9"
+                                                     IsEnabled="{Binding CheckJueves,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaJueves,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityJueves}" />
+                                <ComboBox Grid.Row="9"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckJueves,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaJueves,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="9"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateJueves}"
+                                           Visibility="{Binding ShowMarkErrorJueves}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="10"
+                                           Text="VIERNES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityViernes}" />
+                                <xctk:DateTimeUpDown Name="InicioDiaViernes"
+                                                     Grid.Column="1"
+                                                     Grid.Row="10"
+                                                     IsEnabled="{Binding CheckViernes,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaViernes,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityViernes}" />
+                                <xctk:DateTimeUpDown Name="FinDiaViernes"
+                                                     Grid.Column="2"
+                                                     Grid.Row="10"
+                                                     IsEnabled="{Binding CheckViernes,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaViernes,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityViernes}" />
+                                <ComboBox Grid.Row="10"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckViernes,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaViernes,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="10"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateViernes}"
+                                           Visibility="{Binding ShowMarkErrorViernes}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="11"
+                                           Text="SÁBADO"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilitySabado}" />
+                                <xctk:DateTimeUpDown Name="InicioDiaSabado"
+                                                     Grid.Column="1"
+                                                     Grid.Row="11"
+                                                     IsEnabled="{Binding CheckSabado,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaSabado,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilitySabado}" />
+                                <xctk:DateTimeUpDown Name="FinDiaSabado"
+                                                     Grid.Column="2"
+                                                     Grid.Row="11"
+                                                     IsEnabled="{Binding CheckSabado,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaSabado,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilitySabado}" />
+                                <ComboBox Grid.Row="11"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckSabado,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaSabado,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="11"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateSabado}"
+                                           Visibility="{Binding ShowMarkErrorSabado}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <Border Grid.Row="12"
+                                        Grid.ColumnSpan="6"
+                                        BorderThickness="3"
+                                        BorderBrush="#427399"></Border>
+                            </Grid>
+                            <TextBlock Grid.Row="3"
+                                       Text="RESPONSABLE DEL GRUPO"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Row="4"
+                                      ItemsSource="{Binding ListResponsable}"
+                                      SelectedValuePath="ID_PERSONA"
+                                      DisplayMemberPath="NOMBRE_COMPLETO"
+                                      SelectedValue="{Binding SelectedResponsable,ValidatesOnDataErrors=True}"
+                                      VerticalAlignment="Center"
+                                      Margin="0,5,0,0" />
+                            <TextBlock Grid.Row="5"
+                                       Text="ESTATUS DEL GRUPO"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Row="6"
+                                      ItemsSource="{Binding ListEstatus}"
+                                      SelectedValuePath="ID_ESTATUS_GRUPO"
+                                      DisplayMemberPath="DESCR"
+                                      SelectedValue="{Binding SelectedEstatus,ValidatesOnDataErrors=True}"
+                                      VerticalAlignment="Center"
+                                      IsEnabled="{Binding EnabledEstatusGrupo}"
+                                      Margin="0,5,0,0" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="3"
+                              Header="Lista de Internos"
+                              IsEnabled="{Binding EnabledListaHorario}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="{Binding EmpalmeHorarioNuevo}" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="*CREE UN HORARIO PARA HABILITAR LA LISTA DE INTERNOS"
+                                       Visibility="{Binding IsUPanelUpdatepdate}"
+                                       VerticalAlignment="Top"
+                                       Foreground="#427399" />
+                            <TextBlock Grid.Row="1"
+                                       Text="SE ENCONTRO EMPALMES CON EL NUEVO HORARIO PROGRAMADO"
+                                       Visibility="{Binding PanelUpdate}"
+                                       VerticalAlignment="Top"
+                                       Foreground="Red" />
+                            <StatusBar Grid.Row="2"
+                                       Background="#427399"
+                                       MaxHeight="30"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Center"
+                                       Width="300">
+                                <Label Content="{Binding SelectedCountText}"
+                                       Foreground="White"
+                                       Margin="55,0,0,0"
+                                       HorizontalContentAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            </StatusBar>
+                            <ListBox Grid.Row="3"
+                                     Name="List_Internos"
+                                     ScrollViewer.CanContentScroll="False"
+                                     ItemsSource="{Binding ListGrupoParticipante, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     SelectionMode="Single"
+                                     MaxHeight="400"
+                                     VerticalAlignment="Top"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     SelectedItem="{Binding SelectedInterno,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="Red"
+                                                Margin="10,2,2,2"
+                                                BorderThickness="{Binding ShowEmpalme,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                                            <Grid Background="{Binding PLANIMETRIACOLOR}"
+                                                  Margin="2,2,2,2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <CheckBox Name="CB_CheckBox"
+                                                          Margin="10,0,10,0"
+                                                          IsChecked="{Binding elegido, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.Checked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                <i:InvokeCommandAction.CommandParameter>
+                                                                    <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                        <Binding />
+                                                                        <Binding ElementName="CB_CheckBox" />
+                                                                    </MultiBinding>
+                                                                </i:InvokeCommandAction.CommandParameter>
+                                                            </i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="Unchecked">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.Unchecked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                <i:InvokeCommandAction.CommandParameter>
+                                                                    <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                        <Binding />
+                                                                        <Binding ElementName="CB_CheckBox" />
+                                                                    </MultiBinding>
+                                                                </i:InvokeCommandAction.CommandParameter>
+                                                            </i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <Image DockPanel.Dock="Left"
+                                                           VerticalAlignment="Top"
+                                                           Source="{Binding ImageSource}"
+                                                           Height="74"
+                                                           Margin="10" />
+                                                </CheckBox>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Grid.Column="1">
+                                                    <Grid Margin="0,10">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock Text="FOLIO: "
+                                                                   Foreground="Black"
+                                                                   FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding FOLIO}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1" />
+                                                        <TextBlock Text="NOMBRE: "
+                                                                   Foreground="Black"
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="1" />
+                                                        <TextBlock Text="{Binding NOMBRECOMPLETO}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="1" />
+                                                        <TextBlock Text="UBICACION: "
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="2"
+                                                                   Foreground="Black" />
+                                                        <TextBlock Text="{Binding UBICACION}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="2" />
+                                                        <TextBlock Text="PLANIMETRIA: "
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="3"
+                                                                   Foreground="Black" />
+                                                        <TextBlock Text="{Binding PLANIMETRIA}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="3" />
+                                                        <TextBlock Text="SENTENCIA: "
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="4"
+                                                                   Foreground="Black" />
+                                                        <TextBlock Text="{Binding SENTENCIA}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="4" />
+                                                        <TextBlock Text="SENTENCIA RESTANTE: "
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="5"
+                                                                   Foreground="Black" />
+                                                        <TextBlock Text="{Binding RESTANTE}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="5" />
+                                                    </Grid>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="4"
+                              Grid.Column="1"
+                              Header="HORARIOS EMPALMADOS">
+                        <DataGrid Grid.Column="1"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  ItemsSource="{Binding ListActividadParticipante}"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  CanUserResizeRows="False"
+                                  SelectionMode="Single"
+                                  AutoGenerateColumns="False"
+                                  Style="{StaticResource MetroDataGrid}"
+                                  MinHeight="200">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding State,UpdateSourceTrigger=PropertyChanged}"
+                                                     Value="Empalme">
+                                            <Setter Property="Foreground"
+                                                    Value="#C35F57" />
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding State,UpdateSourceTrigger=PropertyChanged}"
+                                                     Value="">
+                                            <Setter Property="Foreground"
+                                                    Value="Black" />
+                                            <Setter Property="Visibility"
+                                                    Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="EJE"
+                                                    Binding="{Binding NombreEje}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="ACTIVIDAD"
+                                                    Binding="{Binding NombreActividad}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="GRUPO"
+                                                    Binding="{Binding NombreGrupo}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="RECURRENCIA"
+                                                    Binding="{Binding RecurrenciaActividad}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="FECHA INICIO"
+                                                    Binding="{Binding InicioActividad}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="FECHA FINAL"
+                                                    Binding="{Binding FinActividad}"
+                                                    IsReadOnly="True" />
+                                <DataGridTemplateColumn Header="REVISIÓN">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Revision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      HorizontalAlignment="Center">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Unchecked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.UncheckedRevision, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <Binding ElementName="List_Internos" />
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <Expander IsExpanded="True">
+                                        <DataGrid HorizontalAlignment="Stretch"
+                                                  VerticalAlignment="Stretch"
+                                                  ItemsSource="{Binding Path=ListHorario}"
+                                                  IsReadOnly="True"
+                                                  CanUserAddRows="False"
+                                                  CanUserDeleteRows="False"
+                                                  CanUserResizeRows="False"
+                                                  SelectionMode="Single"
+                                                  AutoGenerateColumns="False"
+                                                  Style="{StaticResource MetroDataGrid}"
+                                                  MaxHeight="350">
+                                            <DataGrid.RowStyle>
+                                                <Style TargetType="DataGridRow">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding State,UpdateSourceTrigger=PropertyChanged}"
+                                                                     Value="Empalme">
+                                                            <Setter Property="Background"
+                                                                    Value="#C35F57"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding State,UpdateSourceTrigger=PropertyChanged}"
+                                                                     Value="">
+                                                            <Setter Property="Background"
+                                                                    Value="White"></Setter>
+                                                            <Setter Property="Foreground"
+                                                                    Value="Black"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGrid.RowStyle>
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="LUGAR"
+                                                                    Binding="{Binding AREADESCR}"
+                                                                    IsReadOnly="True" />
+                                                <DataGridTextColumn Header="DIA"
+                                                                    Binding="{Binding DESCRDIA}"
+                                                                    IsReadOnly="True" />
+                                                <DataGridTextColumn Header="HORA INICIO"
+                                                                    Binding="{Binding strHORA_INICIO}"
+                                                                    IsReadOnly="True" />
+                                                <DataGridTextColumn Header="HORA TERMINO"
+                                                                    Binding="{Binding strHORA_TERMIINO}"
+                                                                    IsReadOnly="True" />
+                                                <DataGridTextColumn Header="ESTATUS"
+                                                                    Binding="{Binding GRUPO_HORARIO_ESTATUSDESCR}"
+                                                                    IsReadOnly="True" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Expander>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Complementario"
+                     Style="{DynamicResource HeaderTabStyle}"
+                     IsEnabled="{Binding TabComplementarioEnabled}"
+                     IsSelected="{Binding SelectedTabComplementario}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="21*" />
+                        <ColumnDefinition Width="179*" />
+                        <ColumnDefinition Width="200*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Creación de Grupos Complementarios"
+                           Style="{DynamicResource DescriptionHeaderStyle}"
+                           Grid.ColumnSpan="2" />
+                    <GroupBox Grid.Row="1"
+                              Header="Seleccione Filtros"
+                              Grid.ColumnSpan="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".07*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".07*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                                <ColumnDefinition Width=".05*"></ColumnDefinition>
+                                <ColumnDefinition Width=".12*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="PROGRAMA"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="1"
+                                      Height="25"
+                                      VerticalAlignment="Center"
+                                      ItemsSource="{Binding ListProgramasCompl}"
+                                      SelectedValuePath="ID_TIPO_PROGRAMA"
+                                      DisplayMemberPath="NOMBRE"
+                                      SelectedValue="{Binding SelectedProgramaCompl}" />
+                            <TextBlock Grid.Column="2"
+                                       Text="ACTIVIDAD"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="3"
+                                      Height="25"
+                                      VerticalAlignment="Center"
+                                      ItemsSource="{Binding ListActividadesCompl}"
+                                      SelectedValuePath="ID_ACTIVIDAD"
+                                      DisplayMemberPath="DESCR"
+                                      SelectedValue="{Binding SelectedActividadCompl}" />
+                            <TextBlock Grid.Column="4"
+                                       Text="GRUPO"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            <ComboBox Grid.Column="5"
+                                      Height="25"
+                                      VerticalAlignment="Center"
+                                      ItemsSource="{Binding ListGrupoCompl}"
+                                      SelectedValuePath="ID_GRUPO"
+                                      DisplayMemberPath="DESCR"
+                                      SelectedItem="{Binding SelectedGrupoCompl}"
+                                      IsEnabled="{Binding EnabledEditGrupoCompl}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="2"
+                              Header="Crear Grupo"
+                              IsEnabled="{Binding EnabledPanelCrearGrupoCompl}"
+                              Grid.ColumnSpan="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".667*" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="NOMBRE DEL GRUPO"
+                                       VerticalAlignment="Center" />
+                            <TextBox Grid.Row="1"
+                                     Text="{Binding GrupoDescripcionCompl,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnDataErrors=True}"
+                                     CharacterCasing="Upper"
+                                     VerticalAlignment="Center"
+                                     MaxLength="70" />
+                            <Grid Grid.Row="2"
+                                  Grid.ColumnSpan="2"
+                                  Visibility="{Binding PanelUpdateCompl}"
+                                  HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="{Binding RowDomingoCompl}" />
+                                    <RowDefinition Height="{Binding RowLunesCompl}" />
+                                    <RowDefinition Height="{Binding RowMartesCompl}" />
+                                    <RowDefinition Height="{Binding RowMiercolesCompl}" />
+                                    <RowDefinition Height="{Binding RowJuevesCompl}" />
+                                    <RowDefinition Height="{Binding RowViernesCompl}" />
+                                    <RowDefinition Height="{Binding RowSabadoCompl}" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="FECHA DE INICIO"
+                                               VerticalAlignment="Center" />
+                                    <DatePicker Grid.Row="1"
+                                                DisplayDateStart="{Binding FechaServer,Mode=TwoWay}"
+                                                SelectedDate="{Binding FechaInicioCompl}" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="FECHA DE TERMINACIÓN"
+                                               VerticalAlignment="Center" />
+                                    <DatePicker Grid.Row="1"
+                                                Grid.Column="2"
+                                                DisplayDateStart="{Binding FechaServer,Mode=TwoWay}"
+                                                SelectedDate="{Binding FechaFinCompl,ValidatesOnDataErrors=True}" />
+                                </Grid>
+                                <TextBlock Grid.Row="2"
+                                           Grid.ColumnSpan="6"
+                                           Text="RECURRENCIA"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Center"
+                                           Background="#427399"
+                                           Foreground="WhiteSmoke" />
+                                <StackPanel Grid.Row="3"
+                                            Grid.ColumnSpan="4"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Left"
+                                            Margin="0,5,0,5">
+                                    <CheckBox Content="DOMINGO"
+                                              Tag="D"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckDomingoCompl}" />
+                                    <CheckBox Content="LUNES"
+                                              Tag="L"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckLunesCompl}" />
+                                    <CheckBox Content="MARTES"
+                                              Tag="Ma"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckMartesCompl}" />
+                                    <CheckBox Content="MIÉRCOLES"
+                                              Tag="Mi"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckMiercolesCompl}" />
+                                    <CheckBox Content="JUEVES"
+                                              Tag="J"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckJuevesCompl}" />
+                                    <CheckBox Content="VIERNES"
+                                              Tag="V"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckViernesCompl}" />
+                                    <CheckBox Content="SÁBADO"
+                                              Tag="S"
+                                              Margin="0,0,10,0"
+                                              IsChecked="{Binding CheckSabadoCompl}" />
+                                </StackPanel>
+                                <Border Grid.Row="4"
+                                        Grid.ColumnSpan="6"
+                                        HorizontalAlignment="Stretch"
+                                        BorderThickness="8"
+                                        BorderBrush="#427399"
+                                        VerticalAlignment="Top" />
+                                <TextBlock Grid.Row="4"
+                                           Text="DIA"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="1"
+                                           Text="HORA INICIO"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="2"
+                                           Text="HORA FIN"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="4"
+                                           Grid.ColumnSpan="6"
+                                           HorizontalAlignment="Stretch"
+                                           Text="LUGAR"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke" />
+                                <TextBlock Grid.Row="5"
+                                           Text="DOMINGO"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityDomingoCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="1"
+                                                     Grid.Row="5"
+                                                     IsEnabled="{Binding CheckDomingoCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaDomingoCompl,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityDomingoCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="2"
+                                                     Grid.Row="5"
+                                                     IsEnabled="{Binding CheckDomingoCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaDomingoCompl,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityDomingoCompl}" />
+                                <ComboBox Grid.Row="5"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckDomingoCompl,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaDomingoCompl,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="5"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateDomingoCompl,UpdateSourceTrigger=PropertyChanged}"
+                                           Visibility="{Binding ShowMarkErrorDomingoCompl}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="6"
+                                           Text="LUNES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityLunesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="1"
+                                                     Grid.Row="6"
+                                                     IsEnabled="{Binding CheckLunesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaLunesCompl,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityLunesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="2"
+                                                     Grid.Row="6"
+                                                     IsEnabled="{Binding CheckLunesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaLunesCompl,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityLunesCompl}" />
+                                <ComboBox Grid.Row="6"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckLunesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaLunesCompl,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="6"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateLunesCompl}"
+                                           Visibility="{Binding ShowMarkErrorLunesCompl}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="7"
+                                           Text="MARTES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityMartesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="1"
+                                                     Grid.Row="7"
+                                                     IsEnabled="{Binding CheckMartesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaMartesCompl,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityMartesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="2"
+                                                     Grid.Row="7"
+                                                     IsEnabled="{Binding CheckMartesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaMartesCompl,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityMartesCompl}" />
+                                <ComboBox Grid.Row="7"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckMartesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaMartesCompl,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="7"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateMartesCompl}"
+                                           Visibility="{Binding ShowMarkErrorMartesCompl}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="8"
+                                           Text="MIÉRCOLES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityMiercolesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="1"
+                                                     Grid.Row="8"
+                                                     IsEnabled="{Binding CheckMiercolesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaMiercolesCompl,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityMiercolesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="2"
+                                                     Grid.Row="8"
+                                                     IsEnabled="{Binding CheckMiercolesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaMiercolesCompl,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityMiercolesCompl}" />
+                                <ComboBox Grid.Row="8"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckMiercolesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaMiercolesCompl,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="8"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateMiercolesCompl}"
+                                           Visibility="{Binding ShowMarkErrorMiercolesCompl}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="9"
+                                           Text="JUEVES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityJuevesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="1"
+                                                     Grid.Row="9"
+                                                     IsEnabled="{Binding CheckJuevesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaJuevesCompl,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityJuevesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="2"
+                                                     Grid.Row="9"
+                                                     IsEnabled="{Binding CheckJuevesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaJuevesCompl,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityJuevesCompl}" />
+                                <ComboBox Grid.Row="9"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckJuevesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaJuevesCompl,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="9"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateJuevesCompl}"
+                                           Visibility="{Binding ShowMarkErrorJuevesCompl}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="10"
+                                           Text="VIERNES"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilityViernesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="1"
+                                                     Grid.Row="10"
+                                                     IsEnabled="{Binding CheckViernesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaViernesCompl,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilityViernesCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="2"
+                                                     Grid.Row="10"
+                                                     IsEnabled="{Binding CheckViernesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaViernesCompl,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilityViernesCompl}" />
+                                <ComboBox Grid.Row="10"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckViernesCompl,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaViernesCompl,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="10"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateViernesCompl}"
+                                           Visibility="{Binding ShowMarkErrorViernesCompl}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <TextBlock Grid.Row="11"
+                                           Text="SÁBADO"
+                                           VerticalAlignment="Center"
+                                           Visibility="{Binding VisibilitySabadoCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="1"
+                                                     Grid.Row="11"
+                                                     IsEnabled="{Binding CheckSabadoCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding InicioDiaSabadoCompl,UpdateSourceTrigger=LostFocus}"
+                                                     Visibility="{Binding VisibilitySabadoCompl}" />
+                                <xctk:DateTimeUpDown Grid.Column="2"
+                                                     Grid.Row="11"
+                                                     IsEnabled="{Binding CheckSabadoCompl,UpdateSourceTrigger=PropertyChanged}"
+                                                     ShowButtonSpinner="False"
+                                                     Format="Custom"
+                                                     FormatString="HH:mm"
+                                                     Value="{Binding FinDiaSabadoCompl,UpdateSourceTrigger=LostFocus,ValidatesOnDataErrors=True}"
+                                                     Visibility="{Binding VisibilitySabadoCompl}" />
+                                <ComboBox Grid.Row="11"
+                                          Grid.Column="4"
+                                          Height="25"
+                                          IsEnabled="{Binding CheckSabadoCompl,UpdateSourceTrigger=PropertyChanged}"
+                                          VerticalAlignment="Center"
+                                          ItemsSource="{Binding ListArea}"
+                                          SelectedValuePath="ID_AREA"
+                                          DisplayMemberPath="DESCR"
+                                          SelectedValue="{Binding SelectedAreaSabadoCompl,ValidatesOnDataErrors=True}"
+                                          HorizontalAlignment="Stretch"
+                                          Grid.ColumnSpan="2" />
+                                <TextBlock Grid.Row="11"
+                                           Grid.Column="3"
+                                           Text="{Binding FechaValidateSabadoCompl}"
+                                           Visibility="{Binding ShowMarkErrorSabadoCompl}"
+                                           VerticalAlignment="Center"
+                                           Foreground="WhiteSmoke"
+                                           Background="#DC000C" />
+                                <Border Grid.Row="12"
+                                        Grid.ColumnSpan="6"
+                                        BorderThickness="3"
+                                        BorderBrush="#427399"></Border>
+                            </Grid>
+                            <TextBlock Grid.Row="3"
+                                       Text="RESPONSABLE DEL GRUPO"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Row="4"
+                                      ItemsSource="{Binding ListResponsable}"
+                                      SelectedValuePath="ID_PERSONA"
+                                      DisplayMemberPath="NOMBRE_COMPLETO"
+                                      SelectedValue="{Binding SelectedResponsableCompl,ValidatesOnDataErrors=True}"
+                                      VerticalAlignment="Center"
+                                      Margin="0,5,0,0" />
+                            <TextBlock Grid.Row="5"
+                                       Text="ESTATUS DEL GRUPO"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Grid.Row="6"
+                                      ItemsSource="{Binding ListEstatus}"
+                                      SelectedValuePath="ID_ESTATUS_GRUPO"
+                                      DisplayMemberPath="DESCR"
+                                      SelectedValue="{Binding SelectedEstatusCompl,ValidatesOnDataErrors=True}"
+                                      VerticalAlignment="Center"
+                                      IsEnabled="{Binding EnabledEstatusGrupoCompl}"
+                                      Margin="0,5,0,0" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="3"
+                              Header="Lista de Internos"
+                              IsEnabled="{Binding EnabledListaHorarioCompl}"
+                              Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="{Binding EmpalmeHorarioNuevoCompl}" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="*CREE UN HORARIO PARA HABILITAR LA LISTA DE INTERNOS"
+                                       Visibility="{Binding IsUPanelUpdatepdateCompl}"
+                                       VerticalAlignment="Top"
+                                       Foreground="#427399"
+                                       Grid.ColumnSpan="4" />
+                            <TextBlock Grid.Row="1"
+                                       Text="SE ENCONTRO EMPALMES CON EL NUEVO HORARIO PROGRAMADO"
+                                       Visibility="{Binding PanelUpdateCompl}"
+                                       VerticalAlignment="Top"
+                                       Foreground="Red"
+                                       Grid.ColumnSpan="4" />
+                            <StatusBar Grid.Row="2"
+                                       Background="#427399"
+                                       MaxHeight="30"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Center"
+                                       Width="300"
+                                       Grid.ColumnSpan="4"
+                                       Margin="39,0">
+                                <Label Content="{Binding SelectedCountTextCompl}"
+                                       Foreground="White"
+                                       Margin="55,0,0,0"
+                                       HorizontalContentAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                            </StatusBar>
+                            <Button Grid.Column="3"
+                                    Grid.Row="3"
+                                    VerticalAlignment="Center"
+                                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                                    Width="150"
+                                    Command="{Binding OnClick}"
+                                    CommandParameter="VerSeleccionados"
+                                    Height="28">Ver Seleccionados</Button>
+                            <TextBlock Text="DELITO"
+                                       Grid.Row="4" />
+                            <ComboBox Grid.Row="5"
+                                      ItemsSource="{Binding ListDelitosCompl}"
+                                      SelectedValuePath="ID_DELITO"
+                                      DisplayMemberPath="DESCR"
+                                      SelectedValue="{Binding SelectedDelitoCompl}" />
+                            <TextBlock Text="EDAD"
+                                       Grid.Row="4"
+                                       Grid.Column="1" />
+                            <ComboBox Grid.Row="5"
+                                      Grid.Column="1"
+                                      ItemsSource="{Binding ListEdadesCompl}"
+                                      SelectedValue="{Binding SelectedEdades}"
+                                      SelectedValuePath="ID_EDAD"
+                                      DisplayMemberPath="RANGO_EDAD" />
+                            <TextBlock Text="PLANIMETRIA"
+                                       Grid.Row="4"
+                                       Grid.Column="2" />
+                            <ComboBox Grid.Row="5"
+                                      Grid.Column="2"
+                                      ItemsSource="{Binding ListPlanimetriaCompl}"
+                                      SelectedValuePath="ID_SECTOR_CLAS"
+                                      DisplayMemberPath="POBLACION"
+                                      SelectedValue="{Binding SelectedPlanimetriaCompl}" />
+                            <TextBlock Text="AÑO"
+                                       Grid.Row="4"
+                                       Grid.Column="3" />
+                            <ComboBox Grid.Row="5"
+                                      Grid.Column="3"
+                                      ItemsSource="{Binding ListPAniosCompl}"
+                                      SelectedValue="{Binding SelectedAniosCompl}"
+                                      SelectedValuePath="ID_ANIO"
+                                      DisplayMemberPath="ANIO" />
+                            <!--TODO: Frank este es el listbox que te digo que tarda mucho-->
+                            <ListBox Name="List_InternosCompl"
+                                     Grid.Row="6"
+                                     ScrollViewer.CanContentScroll="False"
+                                     ItemsSource="{Binding ListGrupoParticipanteCompl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     SelectionMode="Single"
+                                     MaxHeight="400"
+                                     VerticalAlignment="Top"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     SelectedItem="{Binding SelectedInternoCompl}"
+                                     Grid.ColumnSpan="4">
+                                <i:Interaction.Triggers>
+                                    <local:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                        <cmd:EventToCommand Command="{Binding CargarMasResultados}"
+                                                            PassEventArgsToCommand="True" />
+                                    </local:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="Red"
+                                                Margin="10,2,2,2"
+                                                BorderThickness="{Binding ShowEmpalme,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                                            <Grid Background="{Binding PLANIMETRIACOLOR}"
+                                                  Margin="2,2,2,2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <CheckBox Name="CB_CheckBox"
+                                                          Margin="10,0,10,0"
+                                                          IsChecked="{Binding elegido}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Checked">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.CheckedCompl, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                <i:InvokeCommandAction.CommandParameter>
+                                                                    <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                        <Binding />
+                                                                        <Binding ElementName="CB_CheckBox" />
+                                                                    </MultiBinding>
+                                                                </i:InvokeCommandAction.CommandParameter>
+                                                            </i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="Unchecked">
+                                                            <i:InvokeCommandAction Command="{Binding DataContext.UncheckedCompl, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                                <i:InvokeCommandAction.CommandParameter>
+                                                                    <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                                        <Binding />
+                                                                        <Binding ElementName="CB_CheckBox" />
+                                                                    </MultiBinding>
+                                                                </i:InvokeCommandAction.CommandParameter>
+                                                            </i:InvokeCommandAction>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <Image DockPanel.Dock="Left"
+                                                           VerticalAlignment="Stretch"
+                                                           HorizontalAlignment="Stretch"
+                                                           Source="{Binding ImageSource}"
+                                                           Height="75"
+                                                           Width="75"
+                                                           Margin="10" />
+                                                </CheckBox>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Grid.Column="1">
+                                                    <Grid Margin="0,10">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock Text="FOLIO: "
+                                                                   Foreground="Black"
+                                                                   FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding FOLIO}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1" />
+                                                        <TextBlock Text="NOMBRE: "
+                                                                   Foreground="Black"
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="1" />
+                                                        <TextBlock Text="{Binding NOMBRECOMPLETO}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="1" />
+                                                        <TextBlock Text="UBICACION: "
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="2"
+                                                                   Foreground="Black" />
+                                                        <TextBlock Text="{Binding UBICACION}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="2" />
+                                                        <TextBlock Text="PLANIMETRIA: "
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="3"
+                                                                   Foreground="Black" />
+                                                        <TextBlock Text="{Binding PLANIMETRIA}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="3" />
+                                                        <TextBlock Text="SENTENCIA: "
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="4"
+                                                                   Foreground="Black" />
+                                                        <TextBlock Text="{Binding SENTENCIA}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="4" />
+                                                        <TextBlock Text="SENTENCIA RESTANTE: "
+                                                                   FontWeight="Bold"
+                                                                   Grid.Row="5"
+                                                                   Foreground="Black" />
+                                                        <TextBlock Text="{Binding RESTANTE}"
+                                                                   Foreground="Black"
+                                                                   Grid.Column="1"
+                                                                   Grid.Row="5" />
+                                                    </Grid>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="3"
+                              Grid.Column="2"
+                              Header="Horarios Que Se Empalman">
+                        <DataGrid Grid.Column="1"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Top"
+                                  ItemsSource="{Binding ListActividadParticipanteCompl}"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  CanUserResizeRows="False"
+                                  SelectionMode="Single"
+                                  AutoGenerateColumns="False"
+                                  Style="{StaticResource MetroDataGrid}"
+                                  MinHeight="200">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ACTIVIDAD"
+                                                    Binding="{Binding NombreActividad}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="GRUPO"
+                                                    Binding="{Binding NombreGrupo}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="RECURRENCIA"
+                                                    Binding="{Binding RecurrenciaActividad}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="FECHA INICIO"
+                                                    Binding="{Binding InicioActividad}"
+                                                    IsReadOnly="True" />
+                                <DataGridTextColumn Header="FECHA FINAL"
+                                                    Binding="{Binding FinActividad}"
+                                                    IsReadOnly="True" />
+                                <DataGridTemplateColumn Header="REVISIÓN">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Revision, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      HorizontalAlignment="Center">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Unchecked">
+                                                        <i:InvokeCommandAction Command="{Binding DataContext.UncheckedRevisionCompl, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                                            <i:InvokeCommandAction.CommandParameter>
+                                                                <Binding ElementName="List_InternosCompl" />
+                                                            </i:InvokeCommandAction.CommandParameter>
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <Expander IsExpanded="True">
+                                        <DataGrid HorizontalAlignment="Stretch"
+                                                  VerticalAlignment="Stretch"
+                                                  ItemsSource="{Binding Path=ListHorario}"
+                                                  IsReadOnly="True"
+                                                  CanUserAddRows="False"
+                                                  CanUserDeleteRows="False"
+                                                  CanUserResizeRows="False"
+                                                  SelectionMode="Single"
+                                                  AutoGenerateColumns="False"
+                                                  Style="{StaticResource MetroDataGrid}"
+                                                  MaxHeight="350">
+                                            <DataGrid.RowStyle>
+                                                <Style TargetType="DataGridRow">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding State,UpdateSourceTrigger=PropertyChanged}"
+                                                                     Value="Empalme">
+                                                            <Setter Property="Background"
+                                                                    Value="#C35F57"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding State,UpdateSourceTrigger=PropertyChanged}"
+                                                                     Value="">
+                                                            <Setter Property="Background"
+                                                                    Value="White"></Setter>
+                                                            <Setter Property="Foreground"
+                                                                    Value="Black"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGrid.RowStyle>
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="LUGAR"
+                                                                    Binding="{Binding AREADESCR}"
+                                                                    IsReadOnly="True" />
+                                                <DataGridTextColumn Header="DIA"
+                                                                    Binding="{Binding DESCRDIA}"
+                                                                    IsReadOnly="True" />
+                                                <DataGridTextColumn Header="HORA INICIO"
+                                                                    Binding="{Binding strHORA_INICIO}"
+                                                                    IsReadOnly="True" />
+                                                <DataGridTextColumn Header="HORA TERMINO"
+                                                                    Binding="{Binding strHORA_TERMIINO}"
+                                                                    IsReadOnly="True" />
+                                                <DataGridTextColumn Header="ESTATUS"
+                                                                    Binding="{Binding GRUPO_HORARIO_ESTATUSDESCR}"
+                                                                    IsReadOnly="True" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Expander>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

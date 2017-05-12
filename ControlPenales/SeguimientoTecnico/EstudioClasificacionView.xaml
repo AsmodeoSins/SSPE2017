@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ControlPenales.EstudioClasificacionView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto" >
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+
+            <Label Grid.Column="0" Grid.Row="1"  Content="Estudios de Clasificación" Style="{DynamicResource DescriptionHeaderStyle}" />
+            
+            <GroupBox Grid.Column="0" Grid.Row="2" Header="Datos del Expediente" Visibility="{Binding Path=GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+                <Views:DatosExpedienteView />
+            </GroupBox>
+            
+            <GroupBox Grid.Column="0" Grid.Row="3" Header="Captura de Alias" Visibility="{Binding Path=GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}" >
+                <DataGrid MinHeight="250" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Paterno"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Materno"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Nombre"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Insertar" IsEnabled="false" />
+                            <MenuItem Header="Borrar" IsEnabled="false" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </GroupBox>
+            
+            <Views:BuscarView Grid.Column="0" Grid.Row="4" Visibility="{Binding Path=BuscarVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+        </Grid>
+    </StackPanel>
+</UserControl>

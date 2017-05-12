@@ -1,0 +1,33 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.VerHistorialTratamientoView"
+             x:Name="VerHistorialTratamientoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:Dedo="clr-namespace:ControlPenales.BiometricoServiceReference"
+             xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+             Height="600" Width="auto"
+            BorderThickness="1"
+            BorderBrush="#3FAFDF"
+            Title="Historial de Tratamiento" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoading}" CommandParameter="{Binding ElementName=VerHistorialTratamientoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4"  Content="Historial de Tratamiento" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Grid Grid.Column="0" Grid.Row="1" Name="DynamicGridHistorico" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ShowGridLines="True" Background="LightSteelBlue" />
+    </Grid>
+</Controls:MetroWindow>

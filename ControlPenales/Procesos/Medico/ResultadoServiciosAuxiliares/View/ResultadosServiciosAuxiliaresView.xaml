@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="ControlPenales.ResultadosServiciosAuxiliaresView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             Name="ResultadosServiciosWindow"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+             Height="auto" Width="auto"  mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="900" >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadingresultadosServAux }" CommandParameter="{Binding ElementName=ResultadosServiciosWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuResultadoServAuxiliaresView Grid.Row="0" Grid.ColumnSpan="2" />
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Content="Resultados de servicios auxiliares" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:DatosExpediente2View Grid.Row="2" Grid.ColumnSpan="2"></Views:DatosExpediente2View>
+        <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Header="Búsqueda de resultados">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Ingreso"></Label>
+                <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding LstCustomizadaIngresos, Mode=TwoWay}" SelectedValue="{Binding SelectedIngresoBusquedas, NotifyOnSourceUpdated=True}" SelectedValuePath="IdIngreso" DisplayMemberPath="DescripcionIngreso" ></ComboBox>
+                <Label Content="Tipo de Servicio Auxiliar de Diagnostico" Grid.Row="1" Grid.Column="0"></Label>
+                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding LstTipoServAux}" SelectedValue="{Binding SelectedTipoServAux, NotifyOnSourceUpdated=True}" SelectedValuePath="ID_TIPO_SADT" DisplayMemberPath="DESCR">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_tipo_serv_aux">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Label Grid.Column="2" Grid.Row="1" Content="Subtipo de Servicio Auxiliar de Diagnostico"></Label>
+                <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding LstSubtipoServAux}" SelectedValue="{Binding SelectedSubtipoServAux, NotifyOnSourceUpdated=True}" SelectedValuePath="ID_SUBTIPO_SADT" DisplayMemberPath="DESCR">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SourceUpdated">
+                            <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_subtipo_serv_aux">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <Label Grid.Column="4" Content="Diagnostico" Grid.Row="1"></Label>
+                <ComboBox Grid.Row="1" Grid.Column="5" ItemsSource="{Binding LstDiagnosticosPrincipal}" SelectedValue="{Binding SelectedDiagnPrincipal, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectedValuePath="ID_SERV_AUX" DisplayMemberPath="DESCR"></ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="Fecha de Inicio"></Label>
+                <DatePicker Grid.Column="1" Grid.Row="2" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaInicioBusquedaResultServ,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                <Label Grid.Column="2" Grid.Row="2" Content="Fecha de Fin"></Label>
+                <DatePicker Grid.Column="3" DisplayDateStart="{ Binding FechaInicioBusquedaResultServ}" Grid.Row="2" Controls:TextBoxHelper.Watermark="Seleccione una fecha" SelectedDate="{Binding FechaFinBusquedaResultServ,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                <Button Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" 
+                    CommandParameter="buscar_result_existentes" Command="{Binding OnClick}" Content="Buscar"></Button>
+            </Grid>
+        </GroupBox>
+        <DataGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" AutoGenerateColumns="False" Name="dgSolic" ItemsSource="{Binding LstCustomizadaSinArchivos, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SeletedResultadoSinArchivo}" SelectionMode="Single"
+                    CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha de registro" Binding="{Binding FechaRegistro}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Servicio Auxiliar" Binding="{Binding ServicioAuxiliar}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre del usuario" Binding="{Binding NombreUsuario}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Extensión del archivo" Binding="{Binding ExtensionArchivo}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Archivo">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="100" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Visualizar" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_documento_resultado_servicios" Visibility="{ Binding VisibleDocumentoResult, UpdateSourceTrigger=PropertyChanged, Converter={ StaticResource booleanToVisibilityConverter}}" ></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="agregar_resultado_trat"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Label Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontStyle="Italic" Content="No hay información." HorizontalAlignment="Center" Visibility="{Binding EmptyResultados,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+    </Grid>
+</UserControl>

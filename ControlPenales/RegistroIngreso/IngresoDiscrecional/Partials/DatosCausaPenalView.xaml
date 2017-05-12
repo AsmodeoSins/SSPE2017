@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="ControlPenales.DatosCausaPenalView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="0" Margin="0, 0, 0, 0" TabStripPlacement="Top" Controls:TabControlHelper.IsUnderlined="True" >
+            <TabItem Header="CAUSA PENAL" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Averiguacion Previa" Grid.Row="0" FontSize="11.5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition> 
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">Agencia</Label>
+                        <Label Grid.Row="0" Grid.Column="3">Año</Label>
+                        <Label Grid.Row="0" Grid.Column="4">Folio</Label>
+                        <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="4">Averiguación Previa Foránea</Label>
+                        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="3"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="4"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="4"></TextBox>
+
+
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">Inicio Averiguación</Label>
+                        <Label Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="4">Fecha Consignación</Label>
+                        <DatePicker Grid.Column="0" Grid.Row="3" Controls:TextBoxHelper.Watermark="Seleccionar" IsEnabled="false" Grid.ColumnSpan="3"></DatePicker>
+                        <!--<DatePicker Grid.Column="4" Grid.Row="3" Controls:TextBoxHelper.Watermark="Seleccionar" IsEnabled="false" Grid.ColumnSpan="3"></DatePicker>-->
+                            <xctk:DateTimePicker Grid.Column="4" Grid.Row="3" Format="Custom" FormatString="dd/MM/yyyy hh:mm tt" IsEnabled="false" Grid.ColumnSpan="3" Watermark="Seleccione una fecha"
+                            Text="{Binding FechaNoDefinidaEnCodigo,StringFormat=dd/MM/yyyy hh:mm tt,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></xctk:DateTimePicker>
+
+
+                        </Grid>
+                </GroupBox>
+
+                    <GroupBox Header="Causa Penal" Grid.Row="1" FontSize="11.5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1">Año</Label>
+                            <Label Grid.Row="0" Grid.Column="1">Folio</Label>
+                            <Label Grid.Row="0" Grid.Column="2">Bis</Label>
+                            <Label Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="4">Causa Penal Foránea</Label>
+                            <Label Grid.Row="0" Grid.Column="9">Tipo Orden</Label>
+                            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1"></TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="2"></TextBox>
+                            <TextBox Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="4"></TextBox>
+                            <ComboBox Grid.Row="1" Grid.Column="8"></ComboBox>
+
+                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">Fuero</Label>
+                            <Label Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4">Juzgado</Label>
+                            <Label Grid.Row="2" Grid.Column="7">Fecha Radicación</Label>
+                            <ComboBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1"></ComboBox>
+                            <ComboBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4"></ComboBox>
+                            <!--<DatePicker Grid.Column="7" Grid.Row="3" Controls:TextBoxHelper.Watermark="{Binding Date.Now}" IsEnabled="false" Grid.ColumnSpan="2"></DatePicker>-->
+                            <xctk:DateTimePicker Grid.Column="7" Grid.Row="3" Controls:TextBoxHelper.Watermark="{Binding Date.Now}" Format="Custom" FormatString="dd/MM/yyyy hh:mm tt" IsEnabled="false" Grid.ColumnSpan="2" Watermark="Seleccione una fecha"
+                            Text="{Binding FechaNoDefinidaEnCodigo,StringFormat=dd/MM/yyyy hh:mm tt,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></xctk:DateTimePicker>
+
+                            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">Ampliación</Label>
+                            <Label Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2">Vencimiento de Termino</Label>
+                            <Label Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="3">Termino</Label>
+                            <Label Grid.Row="4" Grid.Column="7" Grid.ColumnSpan="2">Status de la Causa Penal</Label>
+                            <RadioButton Grid.Row="5" Grid.Column="0">Sí</RadioButton>
+                            <RadioButton Grid.Row="5" Grid.Column="1">No</RadioButton>
+                            <DatePicker Grid.Column="2" Grid.Row="5" Controls:TextBoxHelper.Watermark="{Binding Date.Now}" IsEnabled="false" Grid.ColumnSpan="2"></DatePicker>
+                            <ComboBox Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3"></ComboBox>
+                            <ComboBox Grid.Row="5" Grid.Column="7" Grid.ColumnSpan="2"></ComboBox>
+
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Baja" Grid.Row="2" Grid.Column="0" VerticalAlignment="Stretch" FontSize="11.5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            
+                            <Label Grid.Column="0" Grid.Row="0" Content="Fecha"></Label>
+                            <Label Grid.Column="1" Grid.Row="0" Content="Motivo"></Label>
+                            <Label Grid.Column="2" Grid.Row="0" Content="Autoridad"></Label>
+                            
+                            <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding BFecha}"></DatePicker>
+                            <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LstMotivoBaja}" SelectedValue="{Binding BMotivoBaja}" SelectedValuePath="ID_MOTIVO_BAJA" DisplayMemberPath="DESCR"></ComboBox>
+                            <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding LstAutoridadBaja}" SelectedValue="{Binding BAutoridadBaja}" SelectedValuePath="ID_AUTO_BAJA" DisplayMemberPath="NOMBRE"></ComboBox>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Delitos de la Sentencia" Grid.Row="3" Grid.Column="0" VerticalAlignment="Stretch" FontSize="11.5">
+                        <DataGrid VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource MetroDataGrid}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Delito" Visibility="Collapsed" ></DataGridTextColumn>
+                                <DataGridComboBoxColumn Header="Delito"></DataGridComboBoxColumn>
+                                <DataGridTextColumn Header="Modalidad"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Grave"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Tipo Delito"></DataGridTextColumn>
+                            </DataGrid.Columns>
+
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Insertar" Name="InsertarDelito" Command="{Binding ClickPageCommand}" CommandParameter="insertar_delito" />
+                                    <MenuItem Header="Borrar" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="COMPARTICIPES" Style="{StaticResource HeaderTabStyle}" IsEnabled="false" Controls:ControlsHelper.HeaderFontSize="20">
+                <!--<Views:DatosIdentificacionView />-->
+            </TabItem>
+            <TabItem Header="SENTENCIA" Style="{StaticResource HeaderTabStyle}" IsEnabled="False" Controls:ControlsHelper.HeaderFontSize="20">
+                <!--<Views:DatosPersonalesAduana />-->
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

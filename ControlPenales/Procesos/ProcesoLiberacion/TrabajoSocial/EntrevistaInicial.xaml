@@ -1,0 +1,310 @@
+﻿<UserControl x:Class="ControlPenales.EntrevistaInicial"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             Name="EntrevistaInicialWindow"
+              Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding EntrevistaInicialLoad}" CommandParameter="{Binding ElementName=EntrevistaInicialWindow}"  /> 
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <GroupBox Header="ENTREVISTA INICIAL DE TRABAJO SOCIAL" Grid.Column="0" Grid.Row="0" Margin="5">
+            <AdornerDecorator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="lblLugar">Lugar</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="1" MaxWidth="{Binding ElementName=lblLugar,Path=ActualWidth}" MaxLength="{Binding LugarMax}"  Text="{Binding TextLugarEntrevista,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" />
+
+                    <TextBlock Grid.Column="1">Fecha</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TextLugarEntrevista}" CharacterCasing="Upper" />
+                    <DatePicker Grid.Column="1"  Grid.Row="1"  Controls:TextBoxHelper.Watermark="Seleccione una fecha" 
+                            SelectedDate="{Binding TextFechaEntrv,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" Name="lblNuc">Nuc</TextBlock>
+                    <TextBlock Grid.Column="1" Grid.Row="2" Name="lblCausaPenal">Causa penal</TextBlock>
+
+                    <TextBox Grid.Column="0" Grid.Row="3" MaxWidth="{Binding ElementName=lblNuc,Path=ActualWidth}" MaxLength="{Binding NucMax}" Text="{Binding TextNucEntrevista,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" />
+                    <TextBox Grid.Column="1" Grid.Row="3" MaxWidth="{Binding ElementName=lblCausaPenal,Path=ActualWidth}" MaxLength="{Binding CausaPenalMax}" Text="{Binding TextCausaPenalEntrevista,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" CharacterCasing="Upper" />
+
+                </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        
+        <Expander IsExpanded="True" Header="DATOS GENERALES" Grid.Column="0" Grid.Row="1" IsEnabled="{Binding EnableDatosGenerales}">
+            <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock>Apellido Paterno</TextBlock>
+                <TextBlock Grid.Column="1">Apellido Materno</TextBlock>
+                <TextBlock Grid.Column="2">Nombre</TextBlock>
+                <TextBlock Grid.Column="3">Sexo</TextBlock>
+                <TextBlock Grid.Column="4">Edad</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="2">Teléfono</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="2">Idioma</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="2">Religión</TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="2">Ocupación</TextBlock>
+                <!--<TextBlock Grid.Column="4" Grid.Row="2">Oficio o Profesión</TextBlock>-->
+
+
+                <TextBlock Grid.Column="0" Grid.Row="5">Calle</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="5">Número Exterior</TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="5">Número Interior</TextBlock>
+                <TextBlock Grid.Column="4" Grid.Row="5">Ultimo Grado de Estudios</TextBlock>
+                <ComboBox Grid.Column="4" Grid.Row="6" ItemsSource="{Binding ListEscolaridad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESCOLARIDAD"
+                            SelectedValue="{Binding SelectEscolaridad,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                </ComboBox>
+                <TextBlock Grid.Column="3">Sexo</TextBlock>
+                <TextBlock Grid.Column="4">Edad</TextBlock>
+                <TextBlock Grid.Column="1" Grid.Row="2">Idioma</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="2">Religion</TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="2">Ocupacion</TextBlock>
+
+
+
+                <!--<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9">Apodo</TextBlock>
+                <TextBlock Grid.Column="2"  Grid.ColumnSpan="4" Grid.Row="9">Alias</TextBlock>-->
+
+
+                <TextBlock Grid.Column="0"  Grid.ColumnSpan="2" Grid.Row="11">Estado Civil</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="11">Grupo Etnico</TextBlock>
+                <TextBlock Grid.Column="3" Grid.Row="11">Tiempo o Antigüedad</TextBlock>
+
+
+
+
+                <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" >Fecha de Nacimiento</Label>
+                <Label Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="7" >Lugar de Nacimiento</Label>
+
+                <ComboBox Grid.Column="3" Grid.Row="1" SelectedValuePath="Tag"
+                          SelectedValue="{Binding SelectSexo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  >
+                    <ComboBoxItem Content="SELECCIONE" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="MASCULINO" Tag="M"></ComboBoxItem>
+                    <ComboBoxItem Content="FEMENINO" Tag="F"></ComboBoxItem>
+                </ComboBox>
+                <TextBox  Grid.Column="4" Grid.Row="1" IsEnabled="False" MaxLength="3" Text="{Binding  TextEdad,UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Row="1" Text="{Binding ApellidoPaternoBuscar}" CharacterCasing="Upper"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ApellidoMaternoBuscar}" CharacterCasing="Upper"/>
+                <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding NombreBuscar}" CharacterCasing="Upper"/>
+
+                <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding ETelefonoFijo,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="14" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding LstIdioma}" DisplayMemberPath="DESCR" SelectedValuePath="ID_IDIOMA" SelectedValue="{Binding SelectedIdioma,ValidatesOnDataErrors=True}"></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="3" ItemsSource="{Binding ListReligion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_RELIGION"
+                          SelectedValue="{Binding SelectReligion,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="3" ItemsSource="{Binding ListOcupacion}" DisplayMemberPath="DESCR"  SelectedValuePath="ID_OCUPACION"
+                            SelectedValue="{Binding SelectOcupacion,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                <!--<TextBox Grid.Row="3" Grid.Column="4" Text="{Binding textOficio,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"/>-->
+
+                <Label Grid.Column="0" Grid.Row="4" FontWeight="Bold" Content="Domicilio"/>
+                <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Text="{Binding TextCalle, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+
+
+                <TextBox Grid.Column="2"  Grid.Row="6"  Text="{Binding TextNumeroExterior,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="1" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="3"  Grid.Row="6" Text="{Binding TextNumeroInterior,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="1" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+
+                <DatePicker Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8"  Controls:TextBoxHelper.Watermark="Seleccione Fecha"
+                            SelectedDate="{Binding TextFechaNacimiento,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                <TextBox Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="8"  Text="{Binding TextLugarNacimientoExtranjero,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                         CharacterCasing="Upper" IsEnabled="{Binding LugarNacimientoEnabled}"></TextBox>
+                <!--<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" Text="{Binding TextApodo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"/>
+                <TextBox Grid.Column="2"  Grid.ColumnSpan="4" Grid.Row="10" Text="{Binding TextAlias,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"/>-->
+                <ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="12" ItemsSource="{Binding LstEstadoCivil}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTADO_CIVIL"
+                            SelectedValue="{Binding SelectEstadoCivil,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                <TextBox Grid.Row="12" Grid.Column="2" Text="{Binding TextGrupoEtnico,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"/>
+                <ComboBox Grid.Column="2" Grid.Row="12" ItemsSource="{Binding LstGrupoEtnico}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ETNIA"
+                            SelectedValue="{Binding SelectGrupoEtnico,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                <TextBox Grid.Row="12" Grid.Column="3" Text="{Binding TextTiempoAntiguedad,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"/>
+
+                <Label Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="5" HorizontalAlignment="Center">Tiempo de Referencia en el Estado</Label>
+                <!--<DatePicker Grid.Column="0" Grid.Row="14" Controls:TextBoxHelper.Watermark="Seleccione Fecha"
+                                SelectedDate="{Binding FechaEstado,UpdateSourceTrigger=PropertyChanged}" />-->
+                <Label Grid.Column="1" Grid.Row="14"  HorizontalAlignment="Center">Años</Label>
+                <!--<TextBox Grid.Column="2" Grid.Row="12" Text="{Binding AniosEstado}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                    </i:Interaction.Behaviors>
+                </TextBox>-->
+                <Label Grid.Column="3" Grid.Row="14" HorizontalAlignment="Center">Meses</Label>
+                <TextBox Grid.Column="3" Grid.Row="15" Text="{Binding MesesEstado}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="1" Grid.Row="15" Text="{Binding AniosEstado}">
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+            </Grid>
+
+        </Expander>
+
+        <GroupBox Header="DOMICILIO REFERENCIA" Grid.Column="0" Grid.Row="2">
+            <AdornerDecorator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="lblDomicilioRef">Domicilio Referencia</TextBlock>
+                    <TextBox MaxWidth="{Binding WidhtEntrevistainicial}" Width="{Binding WidhtEntrevistainicial}" HorizontalAlignment="Left" MaxLength="{Binding DelitoImputaMax}"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"    Height="50"  AcceptsReturn="True" Text="{Binding TextDomicilioReferencia,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"/>
+                </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Header="SITUACIÓN JURÍDICA" Grid.Column="0" Grid.Row="3">
+            <AdornerDecorator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="lblDelitoImputa">Delito que se le imputa</TextBlock>
+                    <TextBox MaxWidth="{Binding WidhtEntrevistainicial}" Width="{Binding WidhtEntrevistainicial}" HorizontalAlignment="Left" MaxLength="{Binding DelitoImputaMax}"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"    Height="50"  AcceptsReturn="True" Text="{Binding TextDelitoImputa,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"/>
+                </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+       
+        <GroupBox Header="DATOS DE PERSONA DE APOYOS" Grid.Column="0" Grid.Row="4" Margin="5,6,5,4">
+            <AdornerDecorator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock  Name="lblNombrePrsApoyo">Nombre</TextBlock>
+                    <TextBox Grid.Row="1" MaxWidth="{Binding ElementName=lblNombrePrsApoyo,Path=ActualWidth}" MaxLength="{Binding NombreApoyoMax}" Text="{Binding TextNombreApoyo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"/>
+                    <TextBlock Name="lblEdadApoyo" Grid.Column="1">Edad</TextBlock>
+                    <TextBox Grid.Row="1" MaxWidth="{Binding ElementName=lblEdadApoyo,Path=ActualWidth}" Grid.Column="1" Text="{Binding TextEdadApoyo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,TargetNullValue=''}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock Grid.Column="2">Ocupación:</TextBlock>
+                    <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ListOcupacionesApoyo}" DisplayMemberPath="DESCR" SelectedValuePath="ID_OCUPACION"
+                            SelectedValue="{Binding SelectOcupacionApoyo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="2">Calle:</TextBlock>
+                    <TextBlock Name="lblNumeroInterior" Grid.Column="1" Grid.Row="2">Número  Interior:</TextBlock>
+                    <TextBlock Name="lblNumExteriorApoyo" Grid.Column="2"  Grid.Row="2">Número  Exterior:</TextBlock>
+
+
+                    <TextBlock Name="lblTelApoyo" Grid.Column="0" Grid.Row="4">Teléfono:</TextBlock>
+                    <TextBlock Grid.Column="1" Grid.Row="4">Parentesco:</TextBlock>
+                    <TextBlock Name="lblTiempoConocerle" Grid.Column="2" Grid.Row="4">Tiempo de Conocerce:</TextBlock>
+
+                    <TextBox  MaxWidth="{Binding ElementName=lblCalleApoyo,Path=ActualWidth}" MaxLength="{Binding CalleApoyoMax}" Grid.Column="0"  Grid.Row="3" Text="{Binding TextCalleApoyo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"></TextBox>
+                    <TextBox Grid.Column="1" MaxWidth="{Binding ElementName=lblNumeroInterior,Path=ActualWidth}" Grid.Row="3" Text="{Binding TextNumeroInteriorApoyo,UpdateSourceTrigger=PropertyChanged}" MaxLength="6" CharacterCasing="Upper">
+                       
+                    </TextBox>
+                    <TextBox  Grid.Column="2" Grid.Row="3" MaxWidth="{Binding ElementName=lblNumExteriorApoyo,Path=ActualWidth}" Text="{Binding TextNumeroExteriorApoyo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox MaxWidth="{Binding ElementName=lblTelApoyo,Path=ActualWidth}" Grid.Column="0"  Grid.Row="5" Text="{Binding TextTelefonoApoyo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" Margin="0,2,0,-2">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="14" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <ComboBox Grid.Column="1" Grid.Row="5" ItemsSource="{Binding ListParentesco}" SelectedItem="{Binding SelectedParentesco}" SelectedValue="{Binding SelectParentesco,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_REFERENCIA"></ComboBox>
+                    <TextBox MaxWidth="{Binding ElementName=lblTiempoConocerle,Path=ActualWidth}" Grid.Column="2" Grid.Row="5" MaxLength="{Binding TiempoConocerleMax}" Text="{Binding TextTiempoConocerceApoyo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper"/>
+
+                </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+    </Grid>
+</UserControl>
+
+    

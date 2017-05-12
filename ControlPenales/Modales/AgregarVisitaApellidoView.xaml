@@ -1,0 +1,275 @@
+﻿<UserControl x:Class="ControlPenales.AgregarVisitaApellidoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:DataRangeSlider="clr-namespace:Andora.UserControlLibrary;assembly=Andora.UserControlLibrary"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick}" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_visita_apellido"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <AdornerDecorator>
+
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" Padding="5"
+					CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="420">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="260"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Programación Visita por Apellido" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+                        <Label Grid.Row="1" Content="Día:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding ListVisitaDia}" DisplayMemberPath="DESCR" SelectedValuePath="ID_DIA"
+                            SelectedValue="{Binding SelectDiaVisita,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Margin="0 10 10 10">
+                    </ComboBox>
+                    
+                    <Label Grid.Row="2" Content="Tipo Visita:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0"/>
+                    <ComboBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" ItemsSource="{Binding ListTipoVisita}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TIPO_VISITA"
+                            SelectedValue="{Binding SelectTipoVisita,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Margin="0 10 10 10">
+                    </ComboBox>
+
+                    <Label Grid.Row="3" VerticalAlignment="Center" Content="Letra Inicial:" HorizontalAlignment="Right" Margin="0 0 5 0"/>
+                    <ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding ListLetras}" Margin="0 10 10 10" VerticalAlignment="Center"
+                            SelectedValue="{Binding SelectLetraInicial, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" />
+                    
+                    <Label Grid.Row="4" VerticalAlignment="Center" Content="Letra Final:" HorizontalAlignment="Right" Margin="0 0 5 0" />
+                    <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ListLetras}" Margin="0 10 10 10" VerticalAlignment="Center"
+                            SelectedValue="{Binding SelectLetraFinal,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+                        <Label Grid.Row="5" VerticalAlignment="Center" Content="Área:" HorizontalAlignment="Right" Margin="0 0 5 0" />
+                    <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding ListAreas}" Margin="0 10 10 10" VerticalAlignment="Center"
+                            SelectedValue="{Binding SelectArea, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" DisplayMemberPath="DESCR" SelectedValuePath="ID_AREA" />
+
+                        <Label Grid.Column="0" Grid.Row="6" Content="Horario Inicio:" HorizontalAlignment="Right" Margin="0 0 5 0" />
+                        <ComboBox Grid.Column="1" Grid.Row="6" Width="75" HorizontalAlignment="Left" SelectedValuePath="Tag" SelectedValue="{Binding HoraInicio}">
+                            <ComboBoxItem Content="00" Tag="00"></ComboBoxItem>
+                            <ComboBoxItem Content="01" Tag="01"></ComboBoxItem>
+                            <ComboBoxItem Content="02" Tag="02"></ComboBoxItem>
+                            <ComboBoxItem Content="03" Tag="03"></ComboBoxItem>
+                            <ComboBoxItem Content="04" Tag="04"></ComboBoxItem>
+                            <ComboBoxItem Content="05" Tag="05"></ComboBoxItem>
+                            <ComboBoxItem Content="06" Tag="06"></ComboBoxItem>
+                            <ComboBoxItem Content="07" Tag="07"></ComboBoxItem>
+                            <ComboBoxItem Content="08" Tag="08"></ComboBoxItem>
+                            <ComboBoxItem Content="09" Tag="09"></ComboBoxItem>
+                            <ComboBoxItem Content="10" Tag="10"></ComboBoxItem>
+                            <ComboBoxItem Content="11" Tag="11"></ComboBoxItem>
+                            <ComboBoxItem Content="12" Tag="12"></ComboBoxItem>
+                            <ComboBoxItem Content="13" Tag="13"></ComboBoxItem>
+                            <ComboBoxItem Content="14" Tag="14"></ComboBoxItem>
+                            <ComboBoxItem Content="15" Tag="15"></ComboBoxItem>
+                            <ComboBoxItem Content="16" Tag="16"></ComboBoxItem>
+                            <ComboBoxItem Content="17" Tag="17"></ComboBoxItem>
+                            <ComboBoxItem Content="18" Tag="18"></ComboBoxItem>
+                            <ComboBoxItem Content="19" Tag="19"></ComboBoxItem>
+                            <ComboBoxItem Content="20" Tag="20"></ComboBoxItem>
+                            <ComboBoxItem Content="21" Tag="21"></ComboBoxItem>
+                            <ComboBoxItem Content="22" Tag="22"></ComboBoxItem>
+                            <ComboBoxItem Content="23" Tag="23"></ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="6" Width="75" HorizontalAlignment="Left" Margin="85 0 0 0"  SelectedValuePath="Tag" SelectedValue="{Binding MinutoInicio}">
+                            <ComboBoxItem Content="00" Tag="00"></ComboBoxItem>
+                            <ComboBoxItem Content="01" Tag="01"></ComboBoxItem>
+                            <ComboBoxItem Content="02" Tag="02"></ComboBoxItem>
+                            <ComboBoxItem Content="03" Tag="03"></ComboBoxItem>
+                            <ComboBoxItem Content="04" Tag="04"></ComboBoxItem>
+                            <ComboBoxItem Content="05" Tag="05"></ComboBoxItem>
+                            <ComboBoxItem Content="06" Tag="06"></ComboBoxItem>
+                            <ComboBoxItem Content="07" Tag="07"></ComboBoxItem>
+                            <ComboBoxItem Content="08" Tag="08"></ComboBoxItem>
+                            <ComboBoxItem Content="09" Tag="09"></ComboBoxItem>
+                            <ComboBoxItem Content="10" Tag="10"></ComboBoxItem>
+                            <ComboBoxItem Content="11" Tag="11"></ComboBoxItem>
+                            <ComboBoxItem Content="12" Tag="12"></ComboBoxItem>
+                            <ComboBoxItem Content="13" Tag="13"></ComboBoxItem>
+                            <ComboBoxItem Content="14" Tag="14"></ComboBoxItem>
+                            <ComboBoxItem Content="15" Tag="15"></ComboBoxItem>
+                            <ComboBoxItem Content="16" Tag="16"></ComboBoxItem>
+                            <ComboBoxItem Content="17" Tag="17"></ComboBoxItem>
+                            <ComboBoxItem Content="18" Tag="18"></ComboBoxItem>
+                            <ComboBoxItem Content="19" Tag="19"></ComboBoxItem>
+                            <ComboBoxItem Content="20" Tag="20"></ComboBoxItem>
+                            <ComboBoxItem Content="21" Tag="21"></ComboBoxItem>
+                            <ComboBoxItem Content="22" Tag="22"></ComboBoxItem>
+                            <ComboBoxItem Content="23" Tag="23"></ComboBoxItem>
+                            <ComboBoxItem Content="24" Tag="24"></ComboBoxItem>
+                            <ComboBoxItem Content="25" Tag="25"></ComboBoxItem>
+                            <ComboBoxItem Content="26" Tag="26"></ComboBoxItem>
+                            <ComboBoxItem Content="27" Tag="27"></ComboBoxItem>
+                            <ComboBoxItem Content="28" Tag="28"></ComboBoxItem>
+                            <ComboBoxItem Content="29" Tag="29"></ComboBoxItem>
+                            <ComboBoxItem Content="30" Tag="30"></ComboBoxItem>
+                            <ComboBoxItem Content="31" Tag="31"></ComboBoxItem>
+                            <ComboBoxItem Content="32" Tag="32"></ComboBoxItem>
+                            <ComboBoxItem Content="33" Tag="33"></ComboBoxItem>
+                            <ComboBoxItem Content="34" Tag="34"></ComboBoxItem>
+                            <ComboBoxItem Content="35" Tag="35"></ComboBoxItem>
+                            <ComboBoxItem Content="36" Tag="36"></ComboBoxItem>
+                            <ComboBoxItem Content="37" Tag="37"></ComboBoxItem>
+                            <ComboBoxItem Content="38" Tag="38"></ComboBoxItem>
+                            <ComboBoxItem Content="39" Tag="39"></ComboBoxItem>
+                            <ComboBoxItem Content="40" Tag="40"></ComboBoxItem>
+                            <ComboBoxItem Content="41" Tag="41"></ComboBoxItem>
+                            <ComboBoxItem Content="42" Tag="42"></ComboBoxItem>
+                            <ComboBoxItem Content="43" Tag="43"></ComboBoxItem>
+                            <ComboBoxItem Content="44" Tag="44"></ComboBoxItem>
+                            <ComboBoxItem Content="45" Tag="45"></ComboBoxItem>
+                            <ComboBoxItem Content="46" Tag="46"></ComboBoxItem>
+                            <ComboBoxItem Content="47" Tag="47"></ComboBoxItem>
+                            <ComboBoxItem Content="48" Tag="48"></ComboBoxItem>
+                            <ComboBoxItem Content="49" Tag="49"></ComboBoxItem>
+                            <ComboBoxItem Content="50" Tag="50"></ComboBoxItem>
+                            <ComboBoxItem Content="51" Tag="51"></ComboBoxItem>
+                            <ComboBoxItem Content="52" Tag="52"></ComboBoxItem>
+                            <ComboBoxItem Content="53" Tag="53"></ComboBoxItem>
+                            <ComboBoxItem Content="54" Tag="54"></ComboBoxItem>
+                            <ComboBoxItem Content="55" Tag="55"></ComboBoxItem>
+                            <ComboBoxItem Content="56" Tag="56"></ComboBoxItem>
+                            <ComboBoxItem Content="57" Tag="57"></ComboBoxItem>
+                            <ComboBoxItem Content="58" Tag="58"></ComboBoxItem>
+                            <ComboBoxItem Content="59" Tag="59"></ComboBoxItem>
+                        </ComboBox>
+
+                        <Label Grid.Column="0" Grid.Row="7" Content="Horario Final:" HorizontalAlignment="Right" Margin="0 5 5 0" />
+                        <ComboBox Grid.Column="1" Grid.Row="7" Width="75" HorizontalAlignment="Left" Margin="0 5 0 0"  SelectedValuePath="Tag" SelectedValue="{Binding HoraFin}">
+                            <ComboBoxItem Content="00" Tag="00"></ComboBoxItem>
+                            <ComboBoxItem Content="01" Tag="01"></ComboBoxItem>
+                            <ComboBoxItem Content="02" Tag="02"></ComboBoxItem>
+                            <ComboBoxItem Content="03" Tag="03"></ComboBoxItem>
+                            <ComboBoxItem Content="04" Tag="04"></ComboBoxItem>
+                            <ComboBoxItem Content="05" Tag="05"></ComboBoxItem>
+                            <ComboBoxItem Content="06" Tag="06"></ComboBoxItem>
+                            <ComboBoxItem Content="07" Tag="07"></ComboBoxItem>
+                            <ComboBoxItem Content="08" Tag="08"></ComboBoxItem>
+                            <ComboBoxItem Content="09" Tag="09"></ComboBoxItem>
+                            <ComboBoxItem Content="10" Tag="10"></ComboBoxItem>
+                            <ComboBoxItem Content="11" Tag="11"></ComboBoxItem>
+                            <ComboBoxItem Content="12" Tag="12"></ComboBoxItem>
+                            <ComboBoxItem Content="13" Tag="13"></ComboBoxItem>
+                            <ComboBoxItem Content="14" Tag="14"></ComboBoxItem>
+                            <ComboBoxItem Content="15" Tag="15"></ComboBoxItem>
+                            <ComboBoxItem Content="16" Tag="16"></ComboBoxItem>
+                            <ComboBoxItem Content="17" Tag="17"></ComboBoxItem>
+                            <ComboBoxItem Content="18" Tag="18"></ComboBoxItem>
+                            <ComboBoxItem Content="19" Tag="19"></ComboBoxItem>
+                            <ComboBoxItem Content="20" Tag="20"></ComboBoxItem>
+                            <ComboBoxItem Content="21" Tag="21"></ComboBoxItem>
+                            <ComboBoxItem Content="22" Tag="22"></ComboBoxItem>
+                            <ComboBoxItem Content="23" Tag="23"></ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="7" Width="75" HorizontalAlignment="Left" Margin="85 5 0 0"  SelectedValuePath="Tag" SelectedValue="{Binding MinutoFin}">
+                            <ComboBoxItem Content="00" Tag="00"></ComboBoxItem>
+                            <ComboBoxItem Content="01" Tag="01"></ComboBoxItem>
+                            <ComboBoxItem Content="02" Tag="02"></ComboBoxItem>
+                            <ComboBoxItem Content="03" Tag="03"></ComboBoxItem>
+                            <ComboBoxItem Content="04" Tag="04"></ComboBoxItem>
+                            <ComboBoxItem Content="05" Tag="05"></ComboBoxItem>
+                            <ComboBoxItem Content="06" Tag="06"></ComboBoxItem>
+                            <ComboBoxItem Content="07" Tag="07"></ComboBoxItem>
+                            <ComboBoxItem Content="08" Tag="08"></ComboBoxItem>
+                            <ComboBoxItem Content="09" Tag="09"></ComboBoxItem>
+                            <ComboBoxItem Content="10" Tag="10"></ComboBoxItem>
+                            <ComboBoxItem Content="11" Tag="11"></ComboBoxItem>
+                            <ComboBoxItem Content="12" Tag="12"></ComboBoxItem>
+                            <ComboBoxItem Content="13" Tag="13"></ComboBoxItem>
+                            <ComboBoxItem Content="14" Tag="14"></ComboBoxItem>
+                            <ComboBoxItem Content="15" Tag="15"></ComboBoxItem>
+                            <ComboBoxItem Content="16" Tag="16"></ComboBoxItem>
+                            <ComboBoxItem Content="17" Tag="17"></ComboBoxItem>
+                            <ComboBoxItem Content="18" Tag="18"></ComboBoxItem>
+                            <ComboBoxItem Content="19" Tag="19"></ComboBoxItem>
+                            <ComboBoxItem Content="20" Tag="20"></ComboBoxItem>
+                            <ComboBoxItem Content="21" Tag="21"></ComboBoxItem>
+                            <ComboBoxItem Content="22" Tag="22"></ComboBoxItem>
+                            <ComboBoxItem Content="23" Tag="23"></ComboBoxItem>
+                            <ComboBoxItem Content="24" Tag="24"></ComboBoxItem>
+                            <ComboBoxItem Content="25" Tag="25"></ComboBoxItem>
+                            <ComboBoxItem Content="26" Tag="26"></ComboBoxItem>
+                            <ComboBoxItem Content="27" Tag="27"></ComboBoxItem>
+                            <ComboBoxItem Content="28" Tag="28"></ComboBoxItem>
+                            <ComboBoxItem Content="29" Tag="29"></ComboBoxItem>
+                            <ComboBoxItem Content="30" Tag="30"></ComboBoxItem>
+                            <ComboBoxItem Content="31" Tag="31"></ComboBoxItem>
+                            <ComboBoxItem Content="32" Tag="32"></ComboBoxItem>
+                            <ComboBoxItem Content="33" Tag="33"></ComboBoxItem>
+                            <ComboBoxItem Content="34" Tag="34"></ComboBoxItem>
+                            <ComboBoxItem Content="35" Tag="35"></ComboBoxItem>
+                            <ComboBoxItem Content="36" Tag="36"></ComboBoxItem>
+                            <ComboBoxItem Content="37" Tag="37"></ComboBoxItem>
+                            <ComboBoxItem Content="38" Tag="38"></ComboBoxItem>
+                            <ComboBoxItem Content="39" Tag="39"></ComboBoxItem>
+                            <ComboBoxItem Content="40" Tag="40"></ComboBoxItem>
+                            <ComboBoxItem Content="41" Tag="41"></ComboBoxItem>
+                            <ComboBoxItem Content="42" Tag="42"></ComboBoxItem>
+                            <ComboBoxItem Content="43" Tag="43"></ComboBoxItem>
+                            <ComboBoxItem Content="44" Tag="44"></ComboBoxItem>
+                            <ComboBoxItem Content="45" Tag="45"></ComboBoxItem>
+                            <ComboBoxItem Content="46" Tag="46"></ComboBoxItem>
+                            <ComboBoxItem Content="47" Tag="47"></ComboBoxItem>
+                            <ComboBoxItem Content="48" Tag="48"></ComboBoxItem>
+                            <ComboBoxItem Content="49" Tag="49"></ComboBoxItem>
+                            <ComboBoxItem Content="50" Tag="50"></ComboBoxItem>
+                            <ComboBoxItem Content="51" Tag="51"></ComboBoxItem>
+                            <ComboBoxItem Content="52" Tag="52"></ComboBoxItem>
+                            <ComboBoxItem Content="53" Tag="53"></ComboBoxItem>
+                            <ComboBoxItem Content="54" Tag="54"></ComboBoxItem>
+                            <ComboBoxItem Content="55" Tag="55"></ComboBoxItem>
+                            <ComboBoxItem Content="56" Tag="56"></ComboBoxItem>
+                            <ComboBoxItem Content="57" Tag="57"></ComboBoxItem>
+                            <ComboBoxItem Content="58" Tag="58"></ComboBoxItem>
+                            <ComboBoxItem Content="59" Tag="59"></ComboBoxItem>
+                        </ComboBox>
+
+
+                        <!--<Label Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="Horario de Visita"/>
+                    <DataRangeSlider:DateRangeSlider x:Name="HorarioVisita" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" 
+                                                     LowerValue="{Binding HoraInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     UpperValue="{Binding HoraFinal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                     Minimum="12:00 AM" Maximum="11:59 PM" IsSnapToTickEnabled="True" TickFrequency="0:0:30:0.000" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,1,0,0" Width="360" />
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" Margin="0,10,45,10"
+                               Text="{Binding ElementName=HorarioVisita, Path=LowerValue, Mode=OneWay, StringFormat={}{0:ENTRADA hh:mm tt}}" />
+                    <TextBlock  HorizontalAlignment="Center" Margin="45,10,0,10"
+                               Text="{Binding ElementName=HorarioVisita, Path=UpperValue, Mode=OneWay, StringFormat={}{0:SALIDA hh:mm tt}}" />
+                    </StackPanel>-->
+                    
+                    
+                    <StackPanel Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                            CommandParameter="guardar_visita_apellido" Command="{Binding OnClick}">Guardar</Button>
+                        <Button  VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                            CommandParameter="cancelar_visita_apellido" Command="{Binding OnClick}">Cancelar</Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+
+    </AdornerDecorator>
+</UserControl>

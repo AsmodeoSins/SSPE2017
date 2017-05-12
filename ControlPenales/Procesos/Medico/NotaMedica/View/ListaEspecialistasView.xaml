@@ -1,0 +1,51 @@
+﻿<Controls:MetroWindow x:Class="ControlPenales.ListaEspecialistasView"
+        x:Name="ListaEspecialistasWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Views="clr-namespace:ControlPenales"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Dedo="clr-namespace:ControlPenales.BiometricoServiceReference"
+        xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        NonActiveGlowBrush="Red"
+        BorderThickness="1"
+        BorderBrush="#3FAFDF"
+        Title="LISTA DE ESPECIALISTAS" Height="300" Width="650" WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding EspecialistasLoading}" CommandParameter="{Binding ElementName=ListaEspecialistasWindow}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick}" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cerrar_especialistas"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <Views:TrimStringConverter x:Key="Trimming" />
+        <Views:DateConverter x:Key="ConvertirEdad" />
+    </Window.Resources>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=BT_Aceptar}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" Name="dgSolic" ItemsSource="{Binding ListaEspecialistas, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectEspecialista}" 
+                  SelectionMode="Single" CanUserAddRows="False" Style="{StaticResource MetroDataGrid}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Especialidad" Binding="{Binding ESPECIALIDAD.DESCR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="No. Especialista" Binding="{Binding ID_PERSONA}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido Paterno" Binding="{Binding ESPECIALISTA_PATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellido Materno" Binding="{Binding ESPECIALISTA_MATERNO, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Nombre" Binding="{Binding ESPECIALISTA_NOMBRE, Converter={StaticResource Trimming}}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Content="No hay información." Margin="0 30 0 0" HorizontalAlignment="Center" Visibility="{Binding EmptyEspecialistas,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+        <Button Name="BT_Aceptar" Content="Seleccionar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="123" Margin="0,0,10,10" Command="{Binding OnClick}" CommandParameter="seleccionar_especialista" 
+                Style="{DynamicResource AccentedSquareButtonStyle}" Grid.Column="3" Grid.Row="2" Height="28" Focusable="True" />
+        <Button Name="BT_Cancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="123" Margin="10,0,0,10" Command="{Binding OnClick}" CommandParameter="cancelar_especialista" 
+                Style="{DynamicResource AccentedSquareButtonStyle}" Grid.Column="3" Grid.Row="2" Height="28" Focusable="True" />
+    </Grid>
+</Controls:MetroWindow>

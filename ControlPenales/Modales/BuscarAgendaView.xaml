@@ -1,0 +1,172 @@
+﻿<UserControl x:Class="ControlPenales.BuscarAgendaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Views:CentroDestinoVacio x:Key="CentroDestinoVacio"/>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="cancelar_buscar_agenda"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="800" MaxWidth="800" MinHeight="600" MaxHeight="600">
+                <StackPanel>
+                    <Label Content="Buscar Agenda" Style="{DynamicResource DescriptionHeaderStyle}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="54"></ColumnDefinition>
+                            <ColumnDefinition Width="154"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="170"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <GroupBox  Header="No.Expediente">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50"></ColumnDefinition>
+                                            <ColumnDefinition Width="10"></ColumnDefinition>
+                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=BuscarAnioImputadoAgenda, Path=Text.Length}"
+                                                     Value="4">
+                                                        <Setter Property="FocusManager.FocusedElement"
+                                                    Value="{Binding ElementName=BuscarFolioImputadoAgenda}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <TextBlock Grid.Column="0" Grid.Row="0">Año</TextBlock>
+                                        <TextBlock Grid.Column="2" Grid.Row="0">Folio</TextBlock>
+                                        <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding BuscarAnioImputadoAgenda,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" MaxLength="4" Name="BuscarAnioImputadoAgenda" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_busqueda_imputado_agenda" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                                        <TextBox Grid.Column="2" Grid.Row="1" Name="BuscarFolioImputadoAgenda" Text="{Binding BuscarFolioImputadoAgenda,UpdateSourceTrigger=PropertyChanged,TargetNullValue=''}" MaxLength="6" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_busqueda_imputado_agenda" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Nombre" Grid.Column="1">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0">Nombre</TextBlock>
+                                        <TextBlock Grid.Column="1" Grid.Row="0">Apellido Paterno</TextBlock>
+                                        <TextBlock Grid.Column="2" Grid.Row="0">Apellido Materno</TextBlock>
+
+                                        <TextBox Grid.Column="0" Grid.Row="1" MaxLength="30" Text="{Binding BuscarNombreImputadoAgenda,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="BuscarNombreImputadoAgenda" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_busqueda_imputado_agenda" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="1" Grid.Row="1" MaxLength="30" Text="{Binding BuscarApPaternoImputadoAgenda,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="BuscarApPaternoImputadoAgenda" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_busqueda_imputado_agenda" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                        <TextBox Grid.Column="2" Grid.Row="1" MaxLength="40" Text="{Binding BuscarApMaternoImputadoAgenda,UpdateSourceTrigger=PropertyChanged}" CharacterCasing="Upper" Name="ApellidoMaternoBuscar" ToolTip="Presionar ENTER para realizar la búsqueda">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding CommandParameter="filtro_busqueda_imputado_agenda" Command="{Binding OnClick}" Key="Enter" />
+                                            </TextBox.InputBindings>
+                                            <i:Interaction.Behaviors>
+                                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </Grid>
+                        <StackPanel Grid.Column="1" Margin="0 0 0 10">
+                            <Label HorizontalAlignment="Center" Content="Buscar" Padding="0" />
+                            <Button Width="50" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center"  ToolTip="Buscar" IsEnabled="{Binding MenuBuscarEnabledAgenda}"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="filtro_busqueda_imputado_agenda" Command="{Binding OnClick}">
+                                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </Button>
+                        </StackPanel>
+                        <Image Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Source="{Binding BuscarImagenImputadoAgenda}"></Image>
+                    </Grid>
+                    <GroupBox Header="Datos Generales de la Cita">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Tipo de Servicio"></Label>
+                            <ComboBox Grid.Row="1" ItemsSource="{Binding LstBusquedaAgendaAtencionTipos}" SelectedValuePath="ID_TIPO_ATENCION" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectedBusquedaAgendaAtencionTipo, ValidatesOnDataErrors=True}" Width="200" HorizontalAlignment="Left"
+                          IsEnabled="{Binding IsAtencionTiposEnabled}"></ComboBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="{Binding HeaderBuscarAgenda}">
+                        <ListView MaxHeight="250" Padding="0 10 0 0" SelectionMode="Single" ItemsSource="{Binding BusquedaAgenda}" SelectedItem="{Binding SelectedBuscarAgenda}">
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="False">
+                                    <GridViewColumn Header="SERVICIO" DisplayMemberBinding="{Binding ATENCION_SERVICIO.DESCR}" Width="100"></GridViewColumn>
+                                    <GridViewColumn Header="FECHA" DisplayMemberBinding="{Binding CITA_FECHA_HORA, StringFormat=d}" Width="90"></GridViewColumn>
+                                    <GridViewColumn Header="HORA INICIO"  DisplayMemberBinding="{Binding CITA_FECHA_HORA, StringFormat=t}" Width="80"></GridViewColumn>
+                                    <GridViewColumn Header="HORA FINAL"  DisplayMemberBinding="{Binding CITA_HORA_TERMINA, StringFormat=t}" Width="80"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"  Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="seleccionar_buscar_agenda" Command="{Binding OnClick}">Seleccionar</Button>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="15,10,10,0"
+                CommandParameter="cancelar_buscar_agenda" Command="{Binding OnClick}">Cancelar</Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

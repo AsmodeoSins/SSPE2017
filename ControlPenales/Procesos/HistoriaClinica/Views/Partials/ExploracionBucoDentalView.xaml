@@ -1,0 +1,188 @@
+﻿<UserControl x:Class="ControlPenales.ExploracionBucoDentalView"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Column="0" Grid.Row="0" Header="Exploración bucodental">
+                <AdornerDecorator>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Controls:MetroAnimatedSingleRowTabControl HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto" Margin="0 5 0 0" SelectedIndex="{Binding SelectedExploracionBucoDental,UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.ColumnSpan="4">
+                            <TabItem Header="Labios" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef1"></Label>
+                                        <TextBox Grid.Column="0" MaxLength="100" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{Binding ElementName=lblRef1, Path=ActualWidth}" Text="{ Binding EspecifiqueLabiosDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Lengua" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef2"></Label>
+                                        <TextBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="100" MaxWidth="{ Binding ElementName=lblRef2, Path=ActualWidth}" Text="{ Binding EspecifiqueLenguaDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Mucosa nasal" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef3"></Label>
+                                        <TextBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="100" MaxWidth="{ Binding ElementName=lblRef3, Path=ActualWidth }" Text="{ Binding EspecifiqueMucosaDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Amígdalas" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef4" ></Label>
+                                        <TextBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="100" Text="{ Binding EspecifiqueAmigdalasDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" MaxWidth="{ Binding ElementName=lblRef4, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Piso de boca" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef5"></Label>
+                                        <TextBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="100" Text="{ Binding EspecifiquePisoBocaDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" MaxWidth="{ Binding ElementName=lblRef5, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Paladar duro" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef6"></Label>
+                                        <TextBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="100" Text="{ Binding EspecifiquePaladarDuroDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" MaxWidth="{ Binding ElementName=lblRef6, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Paladar blanco" Style="{StaticResource SubHeaderTabStyle}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef7" ></Label>
+                                    <TextBox Grid.Column="0" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" MaxLength="100" Text="{ Binding EspecifiquePaladarBlancoDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" MaxWidth="{ Binding ElementName=lblRef7, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Carrillos" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef8"></Label>
+                                        <TextBox Grid.Column="0" MaxLength="100" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" Text="{ Binding EspecifiqueCarrillosDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" MaxWidth="{ Binding ElementName=lblRef8, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Frenillos" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef9" ></Label>
+                                        <TextBox Grid.Column="0" MaxLength="100" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" Text="{ Binding EspecifiqueFrenillosDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" MaxWidth="{ Binding ElementName=lblRef9, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                            <TabItem Header="Otros" Style="{StaticResource SubHeaderTabStyle}">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Especifique" Name="lblRef10" ></Label>
+                                        <TextBox Grid.Column="0" MaxLength="100" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" Text="{ Binding EspecifiqueOtrosDental, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="1" MinHeight="100" MaxWidth="{ Binding ElementName=lblRef10, Path=ActualWidth}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </TabItem>
+                        </Controls:MetroAnimatedSingleRowTabControl>
+                    </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

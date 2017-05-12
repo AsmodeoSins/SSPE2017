@@ -1,0 +1,372 @@
+﻿<UserControl x:Class="ControlPenales.CausasPenalesIngresoCausaPenalView"
+             x:Name="IngresoCausaPenalWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+
+    <UserControl.Resources>
+        <Views:SiNoConverter x:Key="ConvertirSiNo"/>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding IngresoCausaPenalLoading}" CommandParameter="{Binding ElementName=IngresoCausaPenalWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid VerticalAlignment="Top" >
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=AnioAP, Path=Text.Length}" Value="4">
+                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioAP}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ElementName=AnioCP, Path=Text.Length}" Value="4">
+                        <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioCP}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Averiguación Previa" IsEnabled="{Binding CausasPenalesIngresoEnabled}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180"></ColumnDefinition>
+                    <ColumnDefinition Width="15"></ColumnDefinition>
+                    <ColumnDefinition Width="75"></ColumnDefinition>
+                    <ColumnDefinition Width="15"></ColumnDefinition>
+                    <ColumnDefinition Width="75"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Agencia"></Label>
+                <Label Grid.Column="2" Grid.Row="0" Content="Año"></Label>
+                <Label Grid.Column="4" Grid.Row="0" Content="Folio"></Label>
+                <Label Grid.Column="5" Grid.Row="0" Content="Averiguación Previa Foránea"></Label>
+
+                <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding LstAgencias}" DisplayMemberPath="DESCR"  SelectedValuePath="ID_AGENCIA"
+                          SelectedItem="{Binding SelectedAgencia}" SelectedValue="{Binding AgenciaAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                    <!--<ComboBox.Style>
+                        <Style TargetType="ComboBox">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="MinWidth" Value="100"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Style>-->
+                </ComboBox>
+                <Label Grid.Column="1" Grid.Row="1" Content="/" HorizontalAlignment="Center"></Label>
+                <TextBox Grid.Column="2" Grid.Row="1" Name="AnioAP" Text="{Binding AnioAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <Label Grid.Column="3" Grid.Row="1" Content="/" HorizontalAlignment="Center"></Label>
+                <TextBox Grid.Column="4" Grid.Row="1" Name="FolioAP" Text="{Binding FolioAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="5" Grid.Row="1" Text="{Binding AveriguacionPreviaAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  MaxLength="100" CharacterCasing="Upper"></TextBox>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="Inicio Averiguación"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" Content="Fecha Consignación"></Label>
+
+                <DatePicker Grid.Column="0" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" 
+                            SelectedDate="{Binding FecAveriguacionAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />
+                <DatePicker Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="4" Controls:TextBoxHelper.Watermark="Selecciona una fecha" 
+                            SelectedDate="{Binding FecConsignacionAP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />
+
+            </Grid>
+        </GroupBox>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="5 5 5 0" HorizontalAlignment="Right" Visibility="{Binding BotonDigitalizacionNucVisible}">
+            <Label HorizontalAlignment="Center" Content="Digitalización Documentos" Padding="0" />
+            <Button Width="50" Height="50" 
+                ToolTip="Digitalización Documentos" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding OnClick}" 
+                CommandParameter="digitalizar_causa_penal" IsEnabled="{Binding DCausaPenal}" >
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_printer_text}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+
+
+        <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Content="{Binding NUC,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Padding="0 12 10 0" Foreground="#FFF" Panel.ZIndex="666"></Label>
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="CAUSA PENAL" IsEnabled="{Binding CausasPenalesIngresoEnabled}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Grid.Row="0" Width="100" HorizontalAlignment="Right" Style="{DynamicResource AccentedSquareButtonStyle}" Command="{Binding BuscarNUCInterconexion}"
+                        Visibility="{Binding BotonDigitalizacionNucVisible}">NUC</Button>
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Año"></Label>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Folio"></Label>
+                    <Label Grid.Column="3" Grid.Row="0" Content="Bis"></Label>
+                    <Label Grid.Column="4" Grid.Row="0" Content="Causa Penal Foraneo"></Label>
+                    <Label Grid.Column="5" Grid.Row="0" Content="Tipo Orden"></Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="1" Name="AnioCP" Text="{Binding AnioCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Label Grid.Column="1" Grid.Row="1" Content="/"></Label>
+                    <TextBox Grid.Column="1" Grid.Row="1" Name="FolioCP" Text="{Binding FolioCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Grid.ColumnSpan="2" Margin="14,0,1,0" >
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="10" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding BisCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  MaxLength="15" CharacterCasing="Upper"></TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="1" Text="{Binding ForaneoCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  MaxLength="100" CharacterCasing="Upper"></TextBox>
+                    <ComboBox Grid.Column="5" Grid.Row="1" ItemsSource="{Binding LstTiposOrden}" DisplayMemberPath="DESCR" SelectedValuePath="CP_TIPO_ORDEN" 
+                              SelectedValue="{Binding TipoOrdenCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+
+                </Grid>
+
+                <Grid  Grid.Column="0" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="País del Juzgado"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Estado del Juzgado"></Label>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Municipio del Juzgado"></Label>
+
+                    <ComboBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding LstPaises}" SelectedValuePath="ID_PAIS_NAC" DisplayMemberPath="PAIS"
+                              SelectedItem="{Binding SelectedPais}" SelectedValue="{Binding PaisJuzgadoCP,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                        <!--<ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="MinWidth" Value="100"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>-->
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LstEntidades}" SelectedValuePath="ID_ENTIDAD" DisplayMemberPath="DESCR" IsEnabled="{Binding EstadoJuzgadoEnabled}"
+                              SelectedItem="{Binding SelectedEstado}" SelectedValue="{Binding EstadoJuzgadoCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                        <!--<ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="MinWidth" Value="100"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>-->
+                    </ComboBox>
+                    <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding LstMunicipios}" SelectedValuePath="ID_MUNICIPIO" DisplayMemberPath="MUNICIPIO1" IsEnabled="{Binding EstadoJuzgadoEnabled}"
+                              SelectedValue="{Binding MunicipioJuzgadoCP,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                        <!--<ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="MinWidth" Value="100"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>-->
+                    </ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="2" Content="Fuero"></Label>
+                    <Label Grid.Column="1" Grid.Row="2" Content="Juzgado"></Label>
+                    <Label Grid.Column="2" Grid.Row="2" Content="Fecha de Radicación"></Label>
+
+                    <ComboBox Grid.Column="0" Grid.Row="3" ItemsSource="{Binding LstFueros}" DisplayMemberPath="DESCR" SelectedValuePath="ID_FUERO" 
+                              SelectedValue="{Binding FueroCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding LstJuzgados}" DisplayMemberPath="DESCR" SelectedValuePath="ID_JUZGADO" 
+                              SelectedItem="{Binding SelectedJuzgado}" SelectedValue="{Binding JuzgadoCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" >
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                        <!--<ComboBox.Style>
+                            <Style TargetType="ComboBox">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="MinWidth" Value="100"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.Style>-->
+                    </ComboBox>
+                    <DatePicker Grid.Column="2" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FecRadicacionCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Ampliación"></Label>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Vencimiento de Termino"></Label>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Termino"></Label>
+                    <Label Grid.Column="3" Grid.Row="0" Content="Estatus de la Causa Penal"></Label>
+
+                    <ComboBox Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{Binding AmpliacionCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Tag="" IsSelected="True">SELECCIONE</ComboBoxItem>
+                        <ComboBoxItem Tag="S">SI</ComboBoxItem>
+                        <ComboBoxItem Tag="N">NO</ComboBoxItem>
+                    </ComboBox>
+
+                    <DatePicker Grid.Column="1" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" 
+                                SelectedDate="{Binding FecVencimientoTerinoCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  />
+                    <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding LstTerminos}" DisplayMemberPath="DESCR" SelectedValuePath="ID_TERMINO" 
+                              SelectedValue="{Binding TerminoCP,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+                    <ComboBox Grid.Column="3" Grid.Row="1" ItemsSource="{Binding LstCPEstatus}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTATUS_CP" 
+                              SelectedValue="{Binding EstatusCP,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" ></ComboBox>
+
+                </Grid>
+
+                <Label Grid.Column="0" Grid.Row="4" Content="Observaciones" Name="observaciones"></Label>
+                <TextBox Grid.Column="0" Grid.Row="5" Name="tbObservaciones" Text="{Binding ObservacionesCP}" MaxLength="500" CharacterCasing="Upper"
+                        MaxWidth="{Binding ElementName=observaciones,Path=ActualWidth}"></TextBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Baja" Grid.Row="3" Grid.Column="0" IsEnabled="False">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Fecha"></Label>
+                <Label Grid.Column="1" Grid.Row="0" Content="Motivo"></Label>
+                <Label Grid.Column="2" Grid.Row="0" Content="Autoridad"></Label>
+
+                <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding BFecha}"></DatePicker>
+                <ComboBox Grid.Column="1" Grid.Row="1" ItemsSource="{Binding LstLiberacionMotivo}" SelectedValue="{Binding BLiberacionMotivo}" SelectedValuePath="ID_LIBERACION_MOTIVO" DisplayMemberPath="DESCR"></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding LstLiberacionAutoridad}" SelectedValue="{Binding BLiberacionAutoridad}" SelectedValuePath="ID_LIBERACION_AUTORIDAD" DisplayMemberPath="DESCR"></ComboBox>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Header="Delitos" Grid.Column="0" Grid.Row="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Column="0" Grid.Row="0" Padding="0 10 0 10" IsReadOnly="True" CanUserAddRows="False" ItemsSource="{Binding LstCausaPenalDelitos}" AutoGenerateColumns="False"
+                        SelectedItem="{Binding SelectedCausaPenalDelito}" Style="{StaticResource MetroDataGrid}" MaxWidth="{Binding ElementName=observaciones,Path=ActualWidth}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Delito" Binding="{Binding MODALIDAD_DELITO.DELITO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Modalidad" Binding="{Binding DESCR_DELITO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Grave" Binding="{Binding MODALIDAD_DELITO.DELITO.GRAVE,Converter={StaticResource ConvertirSiNo}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding TIPO_DELITO.DESCR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cantidad" Binding="{Binding CANTIDAD}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Objeto" Binding="{Binding OBJETO}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="insertar_delito_causa_penal" Visibility="{Binding MostrarOpcion}"
+                                    IsEnabled="{Binding CausasPenalesIngresoEnabled}" />
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editar_delito_causa_penal" Visibility="{Binding MostrarOpcion}"
+                                    IsEnabled="{Binding CausasPenalesIngresoEnabled}" />
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_delito_causa_penal"
+                                    Visibility="{Binding EliminarVisible, Converter={StaticResource booleanToVisibilityConverter}}" IsEnabled="{Binding CausasPenalesIngresoEnabled}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+
+                <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" FontStyle="Italic" Visibility="{Binding CausaPenalDelitoEmpty, Converter={StaticResource booleanToVisibilityConverter}}">No hay información.</Label>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

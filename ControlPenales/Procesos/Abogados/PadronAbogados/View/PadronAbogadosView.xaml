@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ControlPenales.PadronAbogadosView"
+             x:Name="PadronAbogadosWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" d:DesignWidth="1000"
+             Height="auto" Width="auto">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=PadronAbogadosWindow}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="UnLoaded">
+            <i:InvokeCommandAction Command="{Binding OnUnLoaded}" CommandParameter="{Binding ElementName=PadronVisitasWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuAbogadoView />
+        <Label Grid.Row="1" Content="Padrón de Abogados" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Row="2" HorizontalAlignment="Stretch" TabStripPlacement="Top" Height="auto">
+            <TabItem Header="Registro Abogado" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" Selector.IsSelected="{Binding TabRegistro}">
+                <Views:CapturaAbogadoView Style="{StaticResource ViewTabStyle}"></Views:CapturaAbogadoView>
+            </TabItem>
+            <TabItem Header="Asignación Interno-Abogado" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" 
+                     Selector.IsSelected="{Binding TabAsignacion}" IsEnabled="{Binding AsignacionEnabled}">
+                <Views:AsignacionInternoAbogadoView Style="{StaticResource ViewTabStyle}"></Views:AsignacionInternoAbogadoView>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,339 @@
+﻿<UserControl x:Class="ControlPenales.PadronColaboradorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+             xmlns:dic="clr-namespace:Resources.ControlPenales.Abogados.Colaborador;assembly=Resources"
+             Height="auto" Width="auto">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Grid.Row="0"  Content="{x:Static dic:PadronColaboradorView.titulo}" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <TabControl Controls:TabControlHelper.IsUnderlined="True" Grid.Column="1" Grid.Row="1" >
+            <TabItem Header="{x:Static dic:PadronColaboradorView.registro_colaborador}" Controls:ControlsHelper.HeaderFontSize="18" Style="{StaticResource HeaderTabStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>             
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Header="{x:Static dic:PadronColaboradorView.datos_titular}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="60"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="{x:Static dicGeneral:General.apellido_pat}"/>
+                            <Label Grid.Column="1" Grid.Row="0" Content="{x:Static dicGeneral:General.apellido_mat}"/>
+                            <Label Grid.Column="2" Grid.Row="0" Content="{x:Static dicGeneral:General.nombre}"/>
+                            <TextBox Grid.Column="0" Grid.Row="1"></TextBox>
+                            <TextBox Grid.Column="1" Grid.Row="1"></TextBox>
+                            <TextBox Grid.Column="2" Grid.Row="1"></TextBox>
+                            <StackPanel Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0 2 0 0">
+                                <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.buscar}" Padding="0"/>
+                                <Button Width="50" Height="50" ToolTip="{x:Static dicGeneral:General.buscar}" 
+                                    Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_abogado" Command="{Binding ClickPageCommand}" >
+                                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <Button Grid.Column="0" Grid.Row="0" Width="200" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.ColumnSpan="10" Margin="0 0 20 10" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="digitalizar" Command="{Binding OnClick}" Content="{x:Static dic:PadronColaboradorView.digitalizacion_documentos}"/>
+                    <Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" FontWeight="Bold" Content="{x:Static dic:PadronColaboradorView.abogado_titular}"/>
+                    <ComboBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"></ComboBox>
+                    <Label Grid.Column="0" Grid.Row="3" Content="{x:Static dicGeneral:General.codigo}"/>
+                    <Label Grid.Column="1" Grid.Row="3" Content="{x:Static dicGeneral:General.apellido_pat}"/>
+                    <Label Grid.Column="2" Grid.Row="3" Content="{x:Static dicGeneral:General.apellido_mat}"/>
+                    <Label Grid.Column="3" Grid.Row="3" Content="{x:Static dicGeneral:General.nombre}"/>
+                    <Label Grid.Column="5" Grid.Row="3" Content="{x:Static dic:PadronColaboradorView.tipo_visitante}" />
+                    <TextBox Grid.Column="0" Grid.Row="4"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="4"></TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="4"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="4"></TextBox>
+                    <ComboBox Grid.Column="5" Grid.Row="4"></ComboBox>
+                    <Label Grid.Column="0" Grid.Row="5" Content="{x:Static dicGeneral:General.sexo}" />
+                    <Label Grid.Column="1" Grid.Row="5" Content="{x:Static dicGeneral:General.fecha_nacimiento}"/>
+                    <Label Grid.Column="2" Grid.Row="5" Content="{x:Static dicGeneral:General.curp}"/>
+                    <Label Grid.Column="3" Grid.Row="5" Content="{x:Static dicGeneral:General.rfc}"/>
+                    <Label Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="2" Content="{x:Static dic:PadronColaboradorView.situacion}"/>
+                    <ComboBox Grid.Column="0" Grid.Row="6">
+                        <ComboBoxItem Content="{x:Static dicGeneral:General.masculino}"/> 
+                        <ComboBoxItem Content="{x:Static dicGeneral:General.femenino}"/>
+                    </ComboBox>
+                    <DatePicker Grid.Column="1" Grid.Row="6" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+                    <TextBox Grid.Column="2" Grid.Row="6"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="6"></TextBox>
+                    <ComboBox Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="2"></ComboBox>
+                    <Label Grid.Column="0" Grid.Row="7" Content="{x:Static dicGeneral:General.correo_electronico}"/>
+                    <Label Grid.Column="1" Grid.Row="7" Content="{x:Static dicGeneral:General.telefono_fijo}"/>
+                    <Label Grid.Column="2" Grid.Row="7" Content="{x:Static dicGeneral:General.telefono_movil}" Height="25" VerticalAlignment="Top"/>
+                    <Label Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="2" Content="{x:Static dicGeneral:General.credencial_ine}"/>
+                    <!--<Label Grid.Column="5" Grid.Row="7" Content="{x:Static dicGeneral:General.nip}"/>-->
+                    <TextBox Grid.Column="0" Grid.Row="8"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="8"></TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="8"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="8" Grid.ColumnSpan="2"></TextBox>
+                    <!--<TextBox Grid.Column="5" Grid.Row="8"></TextBox>-->
+                    <Label Grid.Column="0" Grid.Row="9" Content="{x:Static dicGeneral:General.fecha_alta}"/>
+                    <DatePicker Grid.Column="0" Grid.Row="10" Controls:TextBoxHelper.Watermark="{x:Static dicGeneral:General.seleccione_fecha}" />
+                    <Label Grid.Column="0" Grid.Row="11" FontWeight="Bold" Content="{x:Static dicGeneral:General.domicilio}"/>
+                    <Grid Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="{x:Static dicGeneral:General.pais}"/>
+                        <Label Grid.Column="1" Grid.Row="0" Content="{x:Static dicGeneral:General.estado}"/>
+                        <Label Grid.Column="2" Grid.Row="0" Content="{x:Static dicGeneral:General.municipio}"/>
+                        <Label Grid.Column="3" Grid.Row="0" Content="{x:Static dicGeneral:General.colonia}"/>
+                        <ComboBox Grid.Column="0" Grid.Row="1"></ComboBox>
+                        <ComboBox Grid.Column="1" Grid.Row="1"></ComboBox>
+                        <ComboBox Grid.Column="2" Grid.Row="1"></ComboBox>
+                        <ComboBox Grid.Column="3" Grid.Row="1"></ComboBox>
+                        <Label Grid.Column="0" Grid.Row="2" Content="{x:Static dicGeneral:General.calle}"/>
+                        <Label Grid.Column="1" Grid.Row="2" Content="{x:Static dicGeneral:General.numero_ext}"/>
+                        <Label Grid.Column="2" Grid.Row="2" Content="{x:Static dicGeneral:General.numero_int}"/>
+                        <Label Grid.Column="3" Grid.Row="2" Content="{x:Static dicGeneral:General.codigo_postal}"/>
+                        <TextBox Grid.Column="0" Grid.Row="3"></TextBox>
+                        <Controls:NumericUpDown Grid.Column="1" Grid.Row="3" TextAlignment="Left" Minimum="0" />
+                        <Controls:NumericUpDown Grid.Column="2" Grid.Row="3" TextAlignment="Left" Minimum="0" />
+                        <Controls:NumericUpDown Grid.Column="3" Grid.Row="3" TextAlignment="Left" Minimum="0" />
+                    </Grid>
+                    <Label Grid.Column="0" Grid.Row="13" FontWeight="Bold" Content="{x:Static dic:PadronColaboradorView.discapacidad}"/>
+                    <Label Grid.Column="0" Grid.Row="14" Content="{x:Static dic:PadronColaboradorView.discapacidad}"/>
+                    <Label Grid.Column="1" Grid.Row="14" Content="{x:Static dic:PadronColaboradorView.tipo_discapacidad}"/>
+                    <ComboBox Grid.Column="0" Grid.Row="15">
+                        <ComboBoxItem Content="{x:Static dicGeneral:General.si}"/>
+                        <ComboBoxItem Content="{x:Static dicGeneral:General.no}"/>
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="15" Grid.ColumnSpan="5"></ComboBox>
+                    <Label Grid.Column="0" Grid.Row="16" FontWeight="Bold" Content="{x:Static dicGeneral:General.observacion}"/>
+                    <TextBox Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="6" MinLines="2"></TextBox>
+                    <StackPanel Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0 2 0 0">
+                        <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.buscar}" Padding="0"/>
+                        <Button Width="50" Height="50" ToolTip="Buscar" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_abogado" Command="{Binding ClickPageCommand}" >
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <Label Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Center" Content="{x:Static dic:PadronColaboradorView.cereso_origen}"/>
+                    <Image Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="7" Width="150" VerticalAlignment="Center" Margin="10" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+                    <StackPanel Grid.Column="6" Grid.Row="12" VerticalAlignment="Top" Margin="0 2 0 0">
+                        <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.camara}" Padding="0"/>
+                        <Button Width="50" Height="50" ToolTip="{x:Static dicGeneral:General.camara}" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="7" Grid.Row="12" VerticalAlignment="Top" Margin="0 2 0 0">
+                        <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.huella}" Padding="0"/>
+                        <Button Width="50" Height="50" ToolTip="{x:Static dicGeneral:General.huella}" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="8" Grid.Row="12" VerticalAlignment="Top" Margin="0 2 0 0">
+                        <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.firma}" Padding="0"/>
+                        <Button Width="50" Height="50" ToolTip="{x:Static dicGeneral:General.firma}" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_draw_pen_reflection}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="9" Grid.Row="12" VerticalAlignment="Top" Margin="0 2 0 0">
+                        <Label HorizontalAlignment="Center" Content="{x:Static dicGeneral:General.impresion}" Padding="0"/>
+                        <Button Width="50" Height="50" ToolTip="{x:Static dic:PadronColaboradorView.impresion_credencial}" Style="{DynamicResource MetroCircleButtonStyle}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_printer_text}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    <Button Grid.Column="0" Grid.Row="17" Width="200" HorizontalAlignment="Right" Grid.ColumnSpan="10" Margin="0 2 20 10" Style="{DynamicResource AccentedSquareButtonStyle}" Content="{x:Static dic:PadronColaboradorView.fotografia_identificacion}"/>
+                    <!--<Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">Abogado Titular</Label>
+                    <Label Grid.Column="2" Grid.Row="1">Codigo</Label>
+                    <Label Grid.Column="3" Grid.Row="1">Apellido Paterno</Label>
+                    <Label Grid.Column="4" Grid.Row="1">Apellido Materno</Label>
+                    <Label Grid.Column="5" Grid.Row="1">Nombre</Label>
+                   
+                    <ComboBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"></ComboBox>
+                    <TextBox Grid.Column="2" Grid.Row="2" Name="tbCodigo"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="2" Name="tbApellidoPaterno"></TextBox>
+                    <TextBox Grid.Column="4" Grid.Row="2" Name="tbApellidoMaterno"></TextBox>
+                    <TextBox Grid.Column="5" Grid.Row="2" Name="tbNombre"></TextBox>
+                   
+                    <Label Grid.Column="0" Grid.Row="3">Sexo</Label>
+                    <Label Grid.Column="1" Grid.Row="3">Fecha Nacimiento</Label>
+                    <Label Grid.Column="2" Grid.Row="3">Domicilio</Label>
+                    <Label Grid.Column="3" Grid.Row="3">Numero Exterior</Label>
+                    <Label Grid.Column="4" Grid.Row="3">Numero Interior</Label>
+                    <Label Grid.Column="5" Grid.Row="3">Pais</Label>
+
+                    <ComboBox Grid.Column="0" Grid.Row="4" Name="cbSexo">
+                        <ComboBoxItem>Femenino</ComboBoxItem>
+                        <ComboBoxItem>Masculino</ComboBoxItem>
+                    </ComboBox>
+                    <DatePicker Grid.Column="1" Grid.Row="4" Controls:TextboxHelper.Watermark="Selecciona una fecha" />
+                    <TextBox Grid.Column="2" Grid.Row="4" Name="tbDomicilio"></TextBox>
+                    <Controls:NumericUpDown Grid.Column="3" Grid.Row="4" TextAlignment="Left" Minimum="0" Name="tbNumeroExterior" />
+                    <Controls:NumericUpDown Grid.Column="4" Grid.Row="4" TextAlignment="Left" Minimum="0" Name="tbNumeroInterior" />
+                    <ComboBox Grid.Column="5" Grid.Row="4" Name="cbPais"></ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="5">Estado</Label>
+                    <Label Grid.Column="1" Grid.Row="5">Municipio</Label>
+                    <Label Grid.Column="2" Grid.Row="5">Colonia</Label>
+                    <Label Grid.Column="3" Grid.Row="5">Codigo Postal</Label>
+                    <Label Grid.Column="4" Grid.Row="5">Telefono Fijo</Label>
+                    <Label Grid.Column="5" Grid.Row="5">Telefono Movil</Label>
+
+                    <ComboBox Grid.Column="0" Grid.Row="6" Name="cbEstado"></ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="6" Name="cbMunicipio"></ComboBox>
+                    <ComboBox Grid.Column="2" Grid.Row="6" Name="cbColonia"></ComboBox>
+                    <Controls:NumericUpDown Grid.Column="3" Grid.Row="6" TextAlignment="Left" Minimum="0" Name="tbCodigoPostal" />
+                    <TextBox Grid.Column="4" Grid.Row="6" Name="tbTelefonoFijo"></TextBox>
+                    <TextBox Grid.Column="5" Grid.Row="6" Name="tbTelefonoMovil"></TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="7">Correo Electronico</Label>
+                    <Label Grid.Column="1" Grid.Row="7">CURP</Label>
+                    <Label Grid.Column="2" Grid.Row="7">RFC</Label>
+                    <Label Grid.Column="3" Grid.Row="7">Situacion</Label>
+                    <Label Grid.Column="4" Grid.Row="7">Credencial INE</Label>
+                    <Label Grid.Column="5" Grid.Row="7">Tipo Visita</Label>
+
+                    <TextBox Grid.Column="0" Grid.Row="8" Name="tbCorreoElectronico"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="8" Name="tbCURP"></TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="8" Name="tbRFC"></TextBox>
+                    <ComboBox Grid.Column="3" Grid.Row="8" Name="tbSituacion"></ComboBox>
+                    <TextBox Grid.Column="4" Grid.Row="8" Name="tbCredencialINE"></TextBox>
+                    <ComboBox Grid.Column="5" Grid.Row="8" Name="cbTipoVisitante"></ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="9">Discapacidad</Label>
+                    <Label Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="3">Tipo Discapacidad</Label>
+                    <Label Grid.Column="4" Grid.Row="9">NIP</Label>
+                    <Label Grid.Column="5" Grid.Row="9">Fecha Alta</Label>
+
+                    <ComboBox Grid.Column="0" Grid.Row="10" Name="cbDiscapacidad">
+                        <ComboBoxItem>Si</ComboBoxItem>
+                        <ComboBoxItem>No</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3" Name="cbTipoDiscapacidad"></ComboBox>
+                    <TextBox Grid.Column="4" Grid.Row="10" Name="tbNIP"></TextBox>
+                    <DatePicker Grid.Column="5" Grid.Row="10" Controls:TextboxHelper.Watermark="Selecciona una fecha" />
+
+
+                    <Label Grid.Column="0" Grid.Row="11">Observaciones</Label>
+                    <TextBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="6" MinLines="5"></TextBox>
+
+                    <Label Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Center">Cereso de Origen</Label>
+
+                    <Image Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="6" Width="150" VerticalAlignment="Center" Margin="10" Source="/ControlPenales;component/Imagen/placeholder_person.gif"></Image>
+
+                    <Button Grid.Column="6" Grid.Row="12" Width="50" Height="50" VerticalAlignment="Top" Margin="0 2 0 0" ToolTip="Camara" Style="{DynamicResource MetroCircleButtonStyle}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+
+                    <Button Grid.Column="7" Grid.Row="12" Width="50" Height="50" VerticalAlignment="Top" Margin="0 2 0 0" ToolTip="Huella" Style="{DynamicResource MetroCircleButtonStyle}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+
+                    <Button Grid.Column="8" Grid.Row="12" Width="50" Height="50" VerticalAlignment="Top" Margin="0 2 0 0" ToolTip="Firma" Style="{DynamicResource MetroCircleButtonStyle}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_draw_pen_reflection}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+
+                    <Button Grid.Column="9" Grid.Row="12" Width="50" Height="50" VerticalAlignment="Top" Margin="0 2 0 0" ToolTip="Impresion de Credencial" Style="{DynamicResource MetroCircleButtonStyle}">
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_printer_text}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+
+                    <Button Grid.Column="0" Grid.Row="13" Width="200" HorizontalAlignment="Right" Grid.ColumnSpan="10" Margin="0 2 20 10" Style="{DynamicResource AccentedSquareButtonStyle}">Fotografia de identificacion</Button>-->
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static dic:PadronColaboradorView.asignacion_interno_colaborador}" Controls:ControlsHelper.HeaderFontSize="18" Style="{StaticResource HeaderTabStyle}">
+                <Views:AsignacionInternoAbogadoView></Views:AsignacionInternoAbogadoView>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

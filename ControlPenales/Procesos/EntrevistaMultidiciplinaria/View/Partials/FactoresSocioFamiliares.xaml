@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="ControlPenales.FactoresSocioFamiliares"
+             x:Name="FactoresSocioFamiliaresWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="1250">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding FactoresSocioFamiliaresUnloading}" CommandParameter="{Binding ElementName=FactoresSocioFamiliaresWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="3" Name="TabGroup" Margin="0 5 0 0" SelectedIndex="{Binding IndexHijo2}">
+            <TabItem Header="Factores" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabFactorSelected}" IsEnabled="{Binding FactoresEnabled }">
+                <Views:Factores Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="Datos Grupo Familiar" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabGrupoFamiliarSelected}" IsEnabled="{Binding GrupoFamiliarEnabled }">
+                <Views:DatosGrupoFamiliar Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="Antecedentes Grupo Familiar" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabGrupoFamiliarAntecedenteSelected}" IsEnabled="{Binding AntecedenteGrupoFamiliarEnabled}">
+                <Views:AntecedentesGrupoFamilliar Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ControlPenales.IngresoAnteriorCeresoMenorLiberado"
+             x:Name="IngresoAnteriorMenorLiberadoWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             d:DesignHeight="300" d:DesignWidth="1250">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding IngresoAnteriorMenorLoading}" CommandParameter="{Binding ElementName=IngresoAnteriorMenorLiberadoWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding IngresoAnteriorMenorUnloading}" CommandParameter="{Binding ElementName=IngresoAnteriorMenorLiberadoWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--<Button Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="3"
+         Command="{Binding BuscarIngAnt}">Buscar Ingreso Anterior</Button>-->
+        <DataGrid Grid.Column="0" Grid.Row="1"  AutoGenerateColumns="false" CanUserAddRows="False" IsReadOnly="False" Margin="0 10 0 0" ItemsSource="{Binding LstIngresosAnterioresMenor}" SelectedItem="{Binding SelectedIngresoAnteriorMenor,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MetroDataGrid}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Cereso"
+                                    Binding="{Binding EMISOR.DESCR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Delito" Binding="{Binding DELITO}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Periodo Reclusión" Binding="{Binding PERIODO_RECLUSION}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Sanciones" Binding="{Binding SANCIONES}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="addIngresoAntMenor"/>
+                    <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editIngresoAntMenor"/>
+                    <MenuItem Header="Eliminar" Visibility="{Binding EliminarItemMenu, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding OnClick}" CommandParameter="delIngresoAntMenor"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+
+        <Label Grid.Column="0" Grid.Row="2" Content="No hay Información..." HorizontalAlignment="Center" Visibility="{Binding EmptyIngresosAnterioresMenores, Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+
+    </Grid>
+</UserControl>

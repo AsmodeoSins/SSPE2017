@@ -1,0 +1,653 @@
+﻿<UserControl x:Class="ControlPenales.AntecedentesHeredoFamiliaresPartialView"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto">
+    <GroupBox Header="Antecedentes heredo-familiares">
+        <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <GroupBox Header="Padre" Height="auto" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Vive" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Edad" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="2" Content="Padecimiento (s)" HorizontalAlignment="Center"></Label>
+                            <ComboBox Grid.Row="1" Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" SelectedValuePath="Tag" SelectedValue="{Binding CheckPadreVive,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextEdadPadre,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                                    IsEnabled="{Binding PadreEnabled, UpdateSourceTrigger=PropertyChanged}" Width="100" HorizontalAlignment="Center">
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <ComboBox Grid.Row="1" Grid.Column="2" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" SelectedValuePath="Tag" SelectedValue="{Binding CheckPadrePadece, UpdateSourceTrigger=PropertyChanged , ValidatesOnDataErrors=True}" >
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                            </ComboBox>
+
+                            <GroupBox Header="Padecimientos del Padre" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Diabetes"></Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="T.B"></Label>
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Ca."></Label>
+                                        <Label Grid.Column="3" Grid.Row="0" Content="Cardiacos"></Label>
+                                        <Label Grid.Column="4" Grid.Row="0" Content="Epilepsia"></Label>
+                                        <Label Grid.Column="5" Grid.Row="0" Content="Mentales"></Label>
+                                        <Label Grid.Column="6" Grid.Row="0" Content="Alergias"></Label>
+                                        <Label Grid.Column="7" Grid.Row="0" Content="Hipertensivo"></Label>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosPadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedDiabPadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox IsEnabled="{ Binding IsEnabledPadecimientosPadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedTBPadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosPadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCAPadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosPadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCardiPadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosPadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedEpiPadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosPadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedMentPadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosPadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="6" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedAlergiPadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosPadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="7" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedHipertPadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                            <GroupBox Grid.Column="0" Grid.Row="3" Header="Detalle de Fallecimiento de padre" Grid.ColumnSpan="3">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Cuando" Name="lblReferencia1"></Label>
+                                        <DatePicker Grid.Column="0" Grid.Row="1" MaxWidth="{ Binding ElementName=lblReferencia1, Path=ActualWidth}" DisplayDateEnd="{ Binding MaximaFechaMuerte}" SelectedDate="{ Binding CuandoMuertePadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoPadre, UpdateSourceTrigger=PropertyChanged}"
+                                        Controls:TextBoxHelper.Watermark="Selecciona una fecha"></DatePicker>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Causa"></Label>
+                                        <TextBox Grid.Column="1" CharacterCasing="Upper" Grid.Row="1" MaxWidth="{ Binding ElementName=lblReferencia1, Path=ActualWidth}" IsEnabled="{ Binding IsMuertoPadre, UpdateSourceTrigger=PropertyChanged}" Text="{ Binding CausaMuertePadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </GroupBox>
+
+
+                <GroupBox Header="Madre" Height="auto" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Vive" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Edad" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="2" Content="Padecimiento (s)" HorizontalAlignment="Center"></Label>
+                            <ComboBox Grid.Row="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Column="0" SelectedValuePath="Tag" SelectedValue="{Binding CheckMadreVive, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextEdadMadre,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                                    IsEnabled="{Binding MadreEnabled}" CharacterCasing="Upper" MaxLength="3" HorizontalAlignment="Center" Width="100">
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <ComboBox Grid.Row="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Column="2" SelectedValuePath="Tag" SelectedValue="{Binding CheckMadrePadece, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                            </ComboBox>
+                            <GroupBox Header="Padecimientos de la Madre" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Diabetes"></Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="T.B"></Label>
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Ca."></Label>
+                                        <Label Grid.Column="3" Grid.Row="0" Content="Cardiacos"></Label>
+                                        <Label Grid.Column="4" Grid.Row="0" Content="Epilepsia"></Label>
+                                        <Label Grid.Column="5" Grid.Row="0" Content="Mentales"></Label>
+                                        <Label Grid.Column="6" Grid.Row="0" Content="Alergias"></Label>
+                                        <Label Grid.Column="7" Grid.Row="0" Content="Hipertensivo"></Label>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosMadre, UpdateSourceTrigger=PropertyChanged}"  Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedDiabMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosMadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedTBMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosMadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCAMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosMadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCardiMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosMadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedEpiMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox IsEnabled="{ Binding IsEnabledPadecimientosMadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedMentMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox IsEnabled="{ Binding IsEnabledPadecimientosMadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="6" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedAlergiMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox IsEnabled="{ Binding IsEnabledPadecimientosMadre, UpdateSourceTrigger=PropertyChanged}" Grid.Column="7" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedHipertMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                            <GroupBox Grid.Column="0" Grid.Row="3" Header="Detalle de Fallecimiento de madre" Grid.ColumnSpan="3">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Cuando" Name="lblReferencia2"></Label>
+                                        <DatePicker Grid.Column="0" Grid.Row="1" DisplayDateEnd="{ Binding MaximaFechaMuerte}" MaxWidth="{ Binding ElementName=lblReferencia2, Path=ActualWidth}" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{ Binding CuandoMuerteMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoMadre, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Causa"></Label>
+                                        <TextBox Grid.Column="1" CharacterCasing="Upper" Grid.Row="1" MaxWidth="{ Binding ElementName=lblReferencia2, Path=ActualWidth}" Text="{ Binding CausaMuerteMadre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoMadre, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </GroupBox>
+                <GroupBox Header="Hermanos" Height="auto" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Vive" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="2" Content="Padecimiento (s)" HorizontalAlignment="Center"></Label>
+                            <ComboBox Grid.Row="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Column="0" SelectedValuePath="Tag" SelectedValue="{Binding CheckHermanosVivos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                <ComboBoxItem Content="NO APLICA" Tag="X"></ComboBoxItem>
+                            </ComboBox>
+                            <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Content="Mujeres" HorizontalAlignment="Center"></Label>
+                                <Label Grid.Column="1" Content="Hombres" HorizontalAlignment="Center"></Label>
+                                <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding TextHermanosMujeres,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" Width="100" IsReadOnly="{ Binding IsMuertoHnos, UpdateSourceTrigger=PropertyChanged}" >
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextHermanosHombres,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"  Width="100" IsReadOnly="{ Binding IsMuertoHnos, UpdateSourceTrigger=PropertyChanged}" >
+                                    <i:Interaction.Behaviors>
+                                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                            </Grid>
+                            <ComboBox Grid.Row="1" Grid.Column="2" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" 
+                                  SelectedValuePath="Tag" SelectedValue="{Binding CheckHermanosSanos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                            </ComboBox>
+                            <GroupBox Header="Padecimientos de hermanos" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Diabetes"></Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="T.B"></Label>
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Ca."></Label>
+                                        <Label Grid.Column="3" Grid.Row="0" Content="Cardiacos"></Label>
+                                        <Label Grid.Column="4" Grid.Row="0" Content="Epilepsia"></Label>
+                                        <Label Grid.Column="5" Grid.Row="0" Content="Mentales"></Label>
+                                        <Label Grid.Column="6" Grid.Row="0" Content="Alergias"></Label>
+                                        <Label Grid.Column="7" Grid.Row="0" Content="Hipertensivo"></Label>
+                                        <ComboBox IsEnabled="{ Binding IsEnabledPadecimientosHnos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedDiabHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox IsEnabled="{ Binding IsEnabledPadecimientosHnos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedTBHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHnos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCAHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHnos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCardiHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHnos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedEpiHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHnos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedMentHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHnos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="6" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedAlergiHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHnos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="7" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedHipertHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                            <GroupBox Grid.Column="0" Grid.Row="3" Header="Detalle de Fallecimiento de hermanos" Grid.ColumnSpan="3">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Cuando" Name="lblReferencia3"></Label>
+                                        <DatePicker Grid.Column="0" Grid.Row="1" DisplayDateEnd="{ Binding MaximaFechaMuerte}" MaxWidth="{ Binding ElementName=lblReferencia3, Path=ActualWidth}" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{ Binding CuandoMuerteHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoHnos, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Causa"></Label>
+                                        <TextBox Grid.Column="1"  CharacterCasing="Upper" Grid.Row="1" MaxWidth="{ Binding ElementName=lblReferencia3, Path=ActualWidth}" Text="{ Binding CausaMuerteHnos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoHnos, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </GroupBox>
+                <GroupBox Header="Cónyuge" Height="auto" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Vive" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Edad" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="2" Content="Padecimiento (s)" HorizontalAlignment="Center"></Label>
+                            <ComboBox Grid.Row="1" Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" SelectedValuePath="Tag" SelectedValue="{Binding CheckConyugeVive, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                <ComboBoxItem Content="NO APLICA" Tag="X"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextEdadConyuge,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                                    IsEnabled="{Binding ConyugeEnabled}" MaxLength="3" HorizontalAlignment="Center" Width="100">
+                                <i:Interaction.Behaviors>
+                                    <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+                                </i:Interaction.Behaviors>
+                            </TextBox>
+                            <ComboBox Grid.Row="1" Grid.Column="2" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Margin="5 0 0 0" SelectedValuePath="Tag" SelectedValue="{Binding CheckConyugePadece, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                            </ComboBox>
+                            <GroupBox Header="Padecimientos de Cónyuge" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Diabetes"></Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="T.B"></Label>
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Ca."></Label>
+                                        <Label Grid.Column="3" Grid.Row="0" Content="Cardiacos"></Label>
+                                        <Label Grid.Column="4" Grid.Row="0" Content="Epilepsia"></Label>
+                                        <Label Grid.Column="5" Grid.Row="0" Content="Mentales"></Label>
+                                        <Label Grid.Column="6" Grid.Row="0" Content="Alergias"></Label>
+                                        <Label Grid.Column="7" Grid.Row="0" Content="Hipertensivo"></Label>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosCony, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedDiabCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosCony, UpdateSourceTrigger=PropertyChanged}"  Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedTBCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosCony, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCACony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosCony, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCardiCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosCony, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedEpiCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosCony, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedMentCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosCony, UpdateSourceTrigger=PropertyChanged}" Grid.Column="6" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedAlergiCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosCony, UpdateSourceTrigger=PropertyChanged}" Grid.Column="7" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedHipertCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                            <GroupBox Grid.Column="0" Grid.Row="3" Header="Detalle de Fallecimiento de Cónyuge" Grid.ColumnSpan="3">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Cuando" Name="lblReferencia4"></Label>
+                                        <DatePicker Grid.Column="0" Grid.Row="1" DisplayDateEnd="{ Binding MaximaFechaMuerte}" MaxWidth="{ Binding ElementName=lblReferencia4, Path=ActualWidth}" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{ Binding CuandoMuerteCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoCony, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Causa"></Label>
+                                        <TextBox Grid.Column="1" CharacterCasing="Upper"  Grid.Row="1" MaxWidth="{ Binding ElementName=lblReferencia4, Path=ActualWidth}" Text="{ Binding CausaMuerteCony, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoCony, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </GroupBox>
+                <GroupBox Header="Hijos" Height="auto" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+                    <AdornerDecorator>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Content="Vive" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="1" Content="Edad" HorizontalAlignment="Center"></Label>
+                            <Label Grid.Row="0" Grid.Column="2" Content="Padecimiento (s)" HorizontalAlignment="Center"></Label>
+                            <ComboBox Grid.Row="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.Column="0" SelectedValuePath="Tag" SelectedValue="{Binding CheckHijosVive, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                <ComboBoxItem Content="NO APLICA" Tag="X"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextEdadesHijos,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                                    IsEnabled="{Binding HijosEnabled}" MaxLength="20" Width="100" HorizontalAlignment="Center"></TextBox>
+                            <ComboBox Grid.Row="1" Grid.Column="2" SelectedValuePath="Tag" SelectedValue="{Binding CheckHijosPadece, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                            </ComboBox>
+                            <GroupBox Header="Padecimientos de hijos" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" >
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Diabetes"></Label>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="T.B"></Label>
+                                        <Label Grid.Column="2" Grid.Row="0" Content="Ca."></Label>
+                                        <Label Grid.Column="3" Grid.Row="0" Content="Cardiacos"></Label>
+                                        <Label Grid.Column="4" Grid.Row="0" Content="Epilepsia"></Label>
+                                        <Label Grid.Column="5" Grid.Row="0" Content="Mentales"></Label>
+                                        <Label Grid.Column="6" Grid.Row="0" Content="Alergias"></Label>
+                                        <Label Grid.Column="7" Grid.Row="0" Content="Hipertensivo"></Label>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHijos, UpdateSourceTrigger=PropertyChanged}"  Grid.Column="0" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedDiabHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHijos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedTBHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHijos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCAHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHijos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedCardiHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHijos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedEpiHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHijos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedMentHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHijos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="6" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedAlergiHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                        <ComboBox  IsEnabled="{ Binding IsEnabledPadecimientosHijos, UpdateSourceTrigger=PropertyChanged}" Grid.Column="7" Grid.Row="1" SelectedValuePath="Tag" SelectedValue="{ Binding IsCheckedHipertHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" >
+                                            <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                                            <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                                            <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                                        </ComboBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                            <GroupBox Grid.Column="0" Grid.Row="3" Header="Detalle de Fallecimiento de hijos" Grid.ColumnSpan="3">
+                                <AdornerDecorator>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Content="Cuando" Name="lblReferencia5"></Label>
+                                        <DatePicker Grid.Column="0"  Grid.Row="1" DisplayDateEnd="{ Binding MaximaFechaMuerte}" MaxWidth="{ Binding ElementName=lblReferencia5, Path=ActualWidth}" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{ Binding CuandoMuerteHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoHijos, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+                                        <Label Grid.Column="1" Grid.Row="0" Content="Causa"></Label>
+                                        <TextBox Grid.Column="1" CharacterCasing="Upper"  Grid.Row="1" MaxWidth="{ Binding ElementName=lblReferencia5, Path=ActualWidth}" Text="{ Binding CausaMuerteHijos, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{ Binding IsMuertoHijos, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    </Grid>
+                                </AdornerDecorator>
+                            </GroupBox>
+                        </Grid>
+                    </AdornerDecorator>
+                </GroupBox>
+            </Grid>
+        </AdornerDecorator>
+    </GroupBox>
+</UserControl>

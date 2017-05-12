@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ControlPenales.AgregarTratamientoRecibidoPsiclogicoFueroComunView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border Background="#90000000">
+        <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="666" MinWidth="666">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="Edición de Programas" Style="{DynamicResource DescriptionHeaderStyle}" />
+                <Label Grid.Column="0" Grid.Row="1" Content="Concluido"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="2" SelectedValuePath="Tag" 
+                          SelectedValue="{ Binding ConcluidoGrupoIV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True }">
+                    <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                    <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                    <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                </ComboBox>
+                <Label Grid.Column="1" Grid.Row="1" Content="Duración"></Label>
+                <TextBox Grid.Column="1" Grid.Row="2" MaxLength="20" TextWrapping="Wrap" CharacterCasing="Upper" Grid.ColumnSpan="2" MinHeight="20" Text="{ Binding DuracionrupoIV, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                <Label Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Content="Nombre del Programa o Taller"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="2" ItemsSource="{Binding LstActividadesNuevasEdicion}" SelectedValue="{Binding SelectedTipoPNuev,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="ID_ACTIVIDAD" DisplayMemberPath="DESCR" IsEnabled="{Binding EnabledEdicionProgPsicoComun, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                <Label Grid.Column="0" Grid.Row="5" Content="Observaciones" Grid.ColumnSpan="2" Name="lblReferencia"></Label>
+                <TextBox Grid.Column="0" Grid.Row="6" MaxLength="500" Grid.ColumnSpan="2" MinHeight="100" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}" CharacterCasing="Upper" Text="{ Binding ObservacionesGrupoIV, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" TextWrapping="Wrap"></TextBox>
+                <Button Grid.Column="0" Grid.Row="7" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="guardar_grupo_comun" Command="{Binding OnClick}">Guardar</Button>
+                <Button Grid.Column="1" Grid.Row="7" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="cancelar_grupo_comun" Command="{Binding OnClick}">Cancelar</Button>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>

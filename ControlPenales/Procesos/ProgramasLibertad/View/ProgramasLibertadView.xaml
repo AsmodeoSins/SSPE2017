@@ -1,0 +1,443 @@
+﻿<UserControl x:Class="ControlPenales.ProgramasLibertadView"
+             xmlns:Name="ProgramasLibertadWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoaded}" CommandParameter="{Binding ElementName=ProgramasLibertadWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:NombreConverter x:Key="CoverterNombre" />
+        <Views:TrimStringConverter x:Key="Trimming" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--MENU-->
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+        
+        <!--TITULO-->
+        <Label Grid.Column="0" Grid.Row="1"  Content="Programa de Sentencia en Libertad" Style="{DynamicResource DescriptionHeaderStyle}" />
+        
+        <!--Generales-->
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Datos del imputado" Name="header">
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=AnioBuscar, Path=Text.Length}" Value="4">
+                                <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=FolioBuscar}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"></ColumnDefinition>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                    <ColumnDefinition Width="15"></ColumnDefinition>
+                    <ColumnDefinition Width="115"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="75"></ColumnDefinition>
+                    <ColumnDefinition Width="75"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto" MaxHeight="25"></RowDefinition>
+                    <RowDefinition Height="auto" MaxHeight="25"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="1">NUC</Label>
+                <Label Grid.Column="1" Grid.Row="1">Año</Label>
+                <Label Grid.Column="3" Grid.Row="1">Folio</Label>
+                <Label Grid.Column="4" Grid.Row="1">Apellido Paterno</Label>
+                <Label Grid.Column="5" Grid.Row="1">Apellido Materno</Label>
+                <Label Grid.Column="6" Grid.Row="1">Nombre</Label>
+
+                <TextBox Grid.Column="0" Grid.Row="2" TextAlignment="Left" Text="{Binding NUCBuscar}" Name="NUCBuscar" IsEnabled="{Binding CamposBusquedaEnabled}">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=NUCBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="16"  />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding AnioBuscar,UpdateSourceTrigger=PropertyChanged}" MaxLength="4" Name="AnioBuscar">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=AnioBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="4" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                
+                <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Content="Causa Penal" VerticalAlignment="Center"  Padding="45 0 0 0"></Label>
+                <TextBlock Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">/</TextBlock>
+                <TextBox Grid.Column="3" Grid.Row="2" Name="FolioBuscar" Text="{Binding FolioBuscar,UpdateSourceTrigger=PropertyChanged}" MaxLength="6" ToolTip="Presionar ENTER para realizar la búsqueda">
+                    <TextBox.InputBindings>
+                        <KeyBinding CommandParameter="{Binding ElementName=FolioBuscar}" Command="{Binding ModelClick}" Key="Enter" />
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="6" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <TextBox Grid.Column="4" Grid.Row="2" MaxLength="30" Text="{Binding ApellidoPaternoBuscar}" CharacterCasing="Upper" Name="ApellidoPaternoBuscar" IsEnabled="{Binding CamposBusquedaEnabled}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=ApellidoPaternoBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30"  />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="5" Grid.Row="2" MaxLength="30" Text="{Binding ApellidoMaternoBuscar}" CharacterCasing="Upper" Name="ApellidoMaternoBuscar" IsEnabled="{Binding CamposBusquedaEnabled}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=ApellidoMaternoBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="30" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                <TextBox Grid.Column="6" Grid.Row="2" MaxLength="40" Text="{Binding NombreBuscar}" CharacterCasing="Upper" Name="NombreBuscar" IsEnabled="{Binding CamposBusquedaEnabled}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" CommandParameter="{Binding ElementName=NombreBuscar}" Command="{Binding BuscarClick}"></KeyBinding>
+                    </TextBox.InputBindings>
+                    <i:Interaction.Behaviors>
+                        <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[a-zA-ZñÑ]*$" MaxLength="40" />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+
+                <StackPanel Grid.Column="7" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                    <Button  Width="50" Height="50" ToolTip="Buscar"
+                            Style="{DynamicResource MetroCircleButtonStyle}"  CommandParameter="buscar_visible" Command="{Binding OnClick}" IsEnabled="{Binding CamposBusquedaEnabled}" >
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="8" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="Huellas" Padding="0"/>
+                    <Button  Width="50" Height="50"  ToolTip="Buscar por Huellas"
+                                 Style="{DynamicResource MetroCircleButtonStyle}"
+                                 Command="{Binding BuscarHuella}"
+                                 IsEnabled="{Binding BHuellasEnabled}" >
+                        <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+
+                <Image Grid.Column="9" Grid.Row="0" Grid.RowSpan="4" HorizontalAlignment="Center" MinWidth="100" MaxWidth="100" MinHeight="110" MaxHeight="110" Source="{Binding ImagenInterno}"></Image>
+
+            </Grid>
+        </GroupBox>
+
+        <!--Programas-->
+        <GroupBox Grid.Column="0"  Grid.Row="3" Header="Programas">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ListView   Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" MaxHeight="700" Margin="10" SelectionMode="Single" ItemsSource="{Binding LstAgenda}" SelectedItem="{Binding AgendaLibertadDetalle}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Unidad Receptota" DisplayMemberBinding="{Binding UNIDAD_RECEPTORA.NOMBRE}"/>
+                            <GridViewColumn Header="Actividad" DisplayMemberBinding="{Binding ACTIVIDAD_PROGRAMA.DESCR}"/>
+                            <GridViewColumn Header="Fecha Inicio" DisplayMemberBinding="{Binding FECHA_INICIO,StringFormat=dd/MM/yyyy}"/>
+                            <GridViewColumn Header="Fecha Fin" DisplayMemberBinding="{Binding FECHA_FINAL,StringFormat=dd/MM/yyyy}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Agregar" Command="{Binding OnClick}" CommandParameter="addSeguimiento"/>
+                            <MenuItem Header="Editar" Command="{Binding OnClick}" CommandParameter="editSeguimiento"/>
+                            <MenuItem Header="Ver Agenda" Command="{Binding OnClick}" CommandParameter="viewSeguimiento"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                </ListView>
+                <Label Content="No hay información." FontStyle="Italic" Padding="0 45 0 0" HorizontalAlignment="Center" Visibility="{Binding VisibleAgenda}"></Label>
+            </Grid>
+        </GroupBox>
+        
+        <!--Formatos-->
+        <GroupBox Grid.Column="0" Grid.Row="4" Header="Formatos" Visibility="{Binding VisibleDetalle}">
+            <AdornerDecorator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--<StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Padding="0">Asignación</Label>
+                        <Button  Width="50" Height="50" ToolTip="Medida"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="medida" Command="{Binding OnClick}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_book_open_information}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>-->
+                  
+                    <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Padding="0">Asignación</Label>
+                        <Button  Width="50" Height="50" ToolTip="Medida"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="asignacion" Command="{Binding OnClick}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_app_plus}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Padding="0">Baja</Label>
+                        <Button  Width="50" Height="50" ToolTip="Medida"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="baja" Command="{Binding OnClick}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_app_minus}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Padding="0">Conclusión</Label>
+                        <Button  Width="50" Height="50" ToolTip="Medida"
+                        Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="conclusion" Command="{Binding OnClick}">
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_app_favorite}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+
+                    <ListView   Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" MaxHeight="200" Margin="10" SelectionMode="Single" ItemsSource="{Binding LstOficios}" SelectedItem="{Binding SelectedOficio}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Oficio" DisplayMemberBinding="{Binding IMPUTADO_TIPO_DOCUMENTO.DESCR}" />
+                                <GridViewColumn Header="Fecha" DisplayMemberBinding="{Binding FECHA,StringFormat=dd/MM/yyyy}"/>
+                                <GridViewColumn Header="Obrservación" DisplayMemberBinding="{Binding OBSERVACION}"/>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Ver" Command="{Binding OnClick}" CommandParameter="viewOficio"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                    <Label Content="No hay información." Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" FontStyle="Italic" Padding="0 45 0 0" HorizontalAlignment="Center" Visibility="{Binding VisibleOficio}"></Label>
+                </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+
+        <!--Unidad Receptora-->
+        <GroupBox Grid.Column="0" Grid.Row="5" Header="Unidad Receptora" Visibility="{Binding VisibleDetalle}">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Unidad Receptora"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LstUnidadreceptora}" SelectedItem="{Binding SelectedUnidadReceptora}" SelectedValue="{Binding UnidadReceptoraAL,ValidatesOnDataErrors=True}" SelectedValuePath="ID_UNIDAD_RECEPTORA" DisplayMemberPath="NOMBRE"></ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Content="Dirección" Name="Direccion"></Label>
+                <TextBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding DireccionUR}" IsReadOnly="True" MaxWidth="{Binding ElementName=Direccion,Path=ActualWidth}" CharacterCasing="Upper"></TextBox>
+
+                <Label Grid.Column="0" Grid.Row="4" Content="Teléfono"></Label>
+                <TextBox Grid.Column="0" Grid.Row="5" Text="{Binding TelefonoUR}" IsReadOnly="True"></TextBox>
+
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <!--Actividad-->
+        <GroupBox Grid.Column="0" Grid.Row="6" Header="Programas"  Visibility="{Binding VisibleDetalle}">
+            <AdornerDecorator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Programa"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LstPrograma}" SelectedItem="{Binding SelectedPrograma}" SelectedValue="{Binding ProgramaLibertadAL,ValidatesOnDataErrors=True}" SelectedValuePath="ID_PROGRAMA_LIBERTAD" DisplayMemberPath="DESCR"></ComboBox>
+
+                <Label Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Content="Actividad"></Label>
+                <ComboBox Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LstActividad}" SelectedValue="{Binding ActividadProgramadaAL,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="ID_ACTIVIDAD_PROGRAMA" DisplayMemberPath="DESCR"></ComboBox>
+                
+               <Label Grid.Column="0" Grid.Row="2" Content="Fecha Inicio"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Content="Fecha Fin"></Label>
+                <Label Grid.Column="2" Grid.Row="2" Content="Remunerado" HorizontalAlignment="Center"></Label>
+                <Label Grid.Column="3" Grid.Row="2" Content="Estatus"></Label>
+
+                <DatePicker Grid.Column="0" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FechaInicioAL,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                <DatePicker Grid.Column="1" Grid.Row="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding FechaFinalAL,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></DatePicker>
+                <CheckBox Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" IsChecked="{Binding RemuneradaAL}"></CheckBox>
+                <ComboBox Grid.Column="3" Grid.Row="3" SelectedValuePath="Tag" SelectedValue="{Binding EstatusAL,ValidatesOnDataErrors=True}">
+                    <ComboBoxItem Tag="-1" IsSelected="True">SELECCIONE</ComboBoxItem>
+                    <ComboBoxItem Tag="1">ACTIVO</ComboBoxItem>
+                    <ComboBoxItem Tag="2">INACTIVO</ComboBoxItem>
+                </ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="4" Content="Recurrencia" FontWeight="Bold"></Label>
+
+                <Grid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" Content="Domingo" HorizontalAlignment="Center" IsChecked="{Binding Domingo}"></CheckBox>
+                    <CheckBox Grid.Column="1" Content="Lunes" HorizontalAlignment="Center"  IsChecked="{Binding Lunes}"></CheckBox>
+                    <CheckBox Grid.Column="2" Content="Martes" HorizontalAlignment="Center" IsChecked="{Binding Martes}"></CheckBox>
+                    <CheckBox Grid.Column="3" Content="Miércoles" HorizontalAlignment="Center" IsChecked="{Binding Miercoles}"></CheckBox>
+                    <CheckBox Grid.Column="4" Content="Jueves" HorizontalAlignment="Center" IsChecked="{Binding Jueves}"></CheckBox>
+                    <CheckBox Grid.Column="5" Content="Viernes" HorizontalAlignment="Center" IsChecked="{Binding Viernes}"></CheckBox>
+                    <CheckBox Grid.Column="6" Content="Sábado" HorizontalAlignment="Center" IsChecked="{Binding Sabado}"></CheckBox>
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" Margin="0 10 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="1" Grid.Row="0" Content="Hora Inicio" FontWeight="Bold" HorizontalAlignment="Center"></Label>
+                    <Label Grid.Column="2" Grid.Row="0" Content="Hora Final" FontWeight="Bold" HorizontalAlignment="Center"></Label>
+                    
+                    <Label Grid.Column="0" Grid.Row="1" Content="Domingo" FontWeight="Bold" Visibility="{Binding Domingo,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <xctk:DateTimeUpDown Name="InicioDiaDomingo" Grid.Column="1" Grid.Row="1" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding DomingoInicio,UpdateSourceTrigger=LostFocus}" Visibility="{Binding Domingo,Converter={StaticResource booleanToVisibilityConverter}}" />
+                    <xctk:DateTimeUpDown Name="FinDiaDomingo" Grid.Column="2" Grid.Row="1" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding DomingoFin,UpdateSourceTrigger=LostFocus}" Visibility="{Binding Domingo,Converter={StaticResource booleanToVisibilityConverter}}" />
+
+                    <Label Grid.Column="0" Grid.Row="2" Content="Lunes" FontWeight="Bold"  Visibility="{Binding Lunes,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <xctk:DateTimeUpDown Name="InicioDiaLunes" Grid.Column="1" Grid.Row="2" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding LunesInicio,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Lunes,Converter={StaticResource booleanToVisibilityConverter}}" />
+                    <xctk:DateTimeUpDown Name="FinDiaLunes" Grid.Column="2" Grid.Row="2" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding LunesFin,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Lunes,Converter={StaticResource booleanToVisibilityConverter}}" />
+
+                    <Label Grid.Column="0" Grid.Row="3" Content="Martes" FontWeight="Bold"  Visibility="{Binding Martes,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <xctk:DateTimeUpDown Name="InicioDiaMartes" Grid.Column="1" Grid.Row="3" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding MartesInicio,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Martes,Converter={StaticResource booleanToVisibilityConverter}}" />
+                    <xctk:DateTimeUpDown Name="FinDiaMartes" Grid.Column="2" Grid.Row="3" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding MartesFin,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Martes,Converter={StaticResource booleanToVisibilityConverter}}" />
+
+                    <Label Grid.Column="0" Grid.Row="4" Content="Miércoles" FontWeight="Bold"  Visibility="{Binding Miercoles,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <xctk:DateTimeUpDown Name="InicioDiaMiercoles" Grid.Column="1" Grid.Row="4" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding MiercolesInicio,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Miercoles,Converter={StaticResource booleanToVisibilityConverter}}" />
+                    <xctk:DateTimeUpDown Name="FinDiaMiercoles" Grid.Column="2" Grid.Row="4" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding MiercolesFin,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Miercoles,Converter={StaticResource booleanToVisibilityConverter}}" />
+
+                    <Label Grid.Column="0" Grid.Row="5" Content="Jueves" FontWeight="Bold"  Visibility="{Binding Jueves,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <xctk:DateTimeUpDown Name="InicioDiaJueves" Grid.Column="1" Grid.Row="5" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding JuevesInicio,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Jueves,Converter={StaticResource booleanToVisibilityConverter}}" />
+                    <xctk:DateTimeUpDown Name="FinDiaJueves" Grid.Column="2" Grid.Row="5" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding JuevesFin,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Jueves,Converter={StaticResource booleanToVisibilityConverter}}" />
+
+                    <Label Grid.Column="0" Grid.Row="6" Content="Viernes" FontWeight="Bold"  Visibility="{Binding Viernes,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <xctk:DateTimeUpDown Name="InicioDiaVirnes" Grid.Column="1" Grid.Row="6" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding ViernesInicio,UpdateSourceTrigger=LostFocus}" Visibility="{Binding Viernes,Converter={StaticResource booleanToVisibilityConverter}}" />
+                    <xctk:DateTimeUpDown Name="FinDiaViernes" Grid.Column="2" Grid.Row="6" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding ViernesFin,UpdateSourceTrigger=LostFocus}" Visibility="{Binding Viernes,Converter={StaticResource booleanToVisibilityConverter}}" />
+
+                    <Label Grid.Column="0" Grid.Row="7" Content="Sábado" FontWeight="Bold" Visibility="{Binding Sabado,Converter={StaticResource booleanToVisibilityConverter}}"></Label>
+                    <xctk:DateTimeUpDown Name="InicioDiaSabado" Grid.Column="1" Grid.Row="7" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding SabadoInicio,UpdateSourceTrigger=LostFocus}" Visibility="{Binding Sabado,Converter={StaticResource booleanToVisibilityConverter}}" />
+                    <xctk:DateTimeUpDown Name="FinDiaSabado" Grid.Column="2" Grid.Row="7" ShowButtonSpinner="False" Format="Custom" FormatString="HH:mm" Value="{Binding SabadoFin,UpdateSourceTrigger=LostFocus}" Visibility="{Binding Sabado,Converter={StaticResource booleanToVisibilityConverter}}" />
+                </Grid>
+               
+            </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <!--Horarios Empalmados-->
+        <GroupBox Grid.Column="0" Grid.Row="7" Header="Horarios Empalmados"  Visibility="Collapsed">
+            <ListView  MaxHeight="700" Margin="10" SelectionMode="Single" ItemsSource="{Binding LstEmaplmes}" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Actividad"/>
+                        <GridViewColumn Header="Fecha"/>
+                        <GridViewColumn Header="Hora Inicio"/>
+                        <GridViewColumn Header="Hora Fin"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="ControlPenales.AgregarUsoDrogasView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="PreviewKeyDown">
+            <cmd:EventToCommand Command="{Binding OnClick }" EventArgsConverter="{StaticResource EscapePopUpHelpper}" EventArgsConverterParameter="rollbackUsoDrogas"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <AdornerDecorator>
+    <Grid>
+        <Border Background="#4C000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border BorderBrush="Black"  BorderThickness="1" Background="#fff" Padding="0"
+					CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="{Binding TituloModal}" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+                    <Label Grid.Column="0" Grid.Row="1" Content="Droga" Grid.ColumnSpan="2"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="2" ItemsSource="{Binding LstDrogas}" SelectedValue="{Binding popUpDrogaId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" SelectedValuePath="ID_DROGA" DisplayMemberPath="DESCR"></ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="3" Content="Edad Inicio" Grid.ColumnSpan="2"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="4" Text="{Binding popUpEdadInicio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="2" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="5" Content="Fecha Última Dosis" Grid.ColumnSpan="2"></Label>
+                    <!--<DatePicker Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Controls:TextboxHelper.Watermark="Selecciona una fecha"  SelectedDate="{Binding popUpFechaUltDosis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>-->
+                    <DatePicker Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Controls:TextBoxHelper.Watermark="Selecciona una fecha" SelectedDate="{Binding popUpFechaUltDosis,Mode=TwoWay,ValidatesOnDataErrors=True}"/>
+
+                    <Label Grid.Column="0" Grid.Row="7" Content="Frecuencia Uso" Grid.ColumnSpan="2"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="8"  Grid.ColumnSpan="2" ItemsSource="{Binding LstFrecuenciasUsoDrogas}" DisplayMemberPath="DESCR" SelectedValuePath="ID_FRECUENCIA" SelectedValue="{Binding popUpFrecuenciaUso,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    </ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="9" Content="¿Consume Actualmente?" Grid.ColumnSpan="2"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" SelectedValuePath="Tag" SelectedValue="{Binding popUpConsumoActual,ValidatesOnDataErrors=True}">
+                        <ComboBox.Items>
+                            <ComboBoxItem Tag="S" Content="SI"/>
+                            <ComboBoxItem Tag="N" Content="NO"/>
+                        </ComboBox.Items>
+                    </ComboBox>
+
+                    <Label Grid.Column="0" Grid.Row="11" Content="Tiempo Consumo" Grid.ColumnSpan="2"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" SelectedValuePath="Tag" SelectedValue="{Binding popUpTiempoConsumo,ValidatesOnDataErrors=True}">
+                        <ComboBox.Items>
+                            <ComboBoxItem Tag="1" Content="NINGUNO"/>
+                            <ComboBoxItem Tag="2" Content="MENOR A 1 AÑO"/>
+                            <ComboBoxItem Tag="3" Content="DE 1 A 5 AÑOS"/>
+                            <ComboBoxItem Tag="4" Content="DE 5 A 10 AÑOS"/>
+                            <ComboBoxItem Tag="5" Content="MAYOR A 10 AÑOS"/>
+                        </ComboBox.Items>
+                    </ComboBox>
+
+                    <Button Grid.Column="0" Grid.Row="13" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="commitUsoDrogas" Command="{Binding OnClick}">Guardar</Button>
+                    <Button Grid.Column="1" Grid.Row="13" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10"
+                CommandParameter="rollbackUsoDrogas" Command="{Binding OnClick}">Cancelar</Button>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

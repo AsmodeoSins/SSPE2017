@@ -1,0 +1,180 @@
+﻿<UserControl x:Class="ControlPenales.DatosGeneralesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Width="auto"
+             Height="auto">
+    
+    <AdornerDecorator>
+    <Grid IsEnabled="{Binding IdentificacionDatosGeneralesEnabled}" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock>Apellido Paterno</TextBlock>
+        <TextBlock Grid.Column="1">Apellido Materno</TextBlock>
+        <TextBlock Grid.Column="2">Nombre</TextBlock>
+        <TextBlock Grid.Column="3">Sexo</TextBlock>
+        <TextBlock Grid.Column="4">Edad</TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="2">Télefono</TextBlock>
+       <TextBlock Grid.Column="1" Grid.Row="2">Estado Civil</TextBlock>
+         <!-- <TextBlock Grid.Column="2" Grid.Row="2">Religion</TextBlock>-->
+        <TextBlock Grid.Column="3" Grid.Row="2">Ocupación</TextBlock>
+       
+
+        <TextBlock Grid.Column="0" Grid.Row="5">Calle</TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="5">Número Exterior</TextBlock>
+        <TextBlock Grid.Column="3" Grid.Row="5">Número Interior</TextBlock>
+        <TextBlock Grid.Column="4" Grid.Row="5">Último Grado de Estudios</TextBlock>
+        <ComboBox Grid.Column="4" Grid.Row="6" ItemsSource="{Binding ListEscolaridad}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESCOLARIDAD"
+                            SelectedValue="{Binding SelectEscolaridad,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="False">
+        </ComboBox>
+        <TextBlock Grid.Column="3">Sexo</TextBlock>
+        <TextBlock Grid.Column="4">Edad</TextBlock>
+        <!--<TextBlock Grid.Column="1" Grid.Row="2">Estado Cvili</TextBlock>-->
+        <!--<TextBlock Grid.Column="2" Grid.Row="2">Religion</TextBlock>-->
+      
+       
+        <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" >Fecha de Nacimiento</Label>
+
+        <ComboBox Grid.Column="3" Grid.Row="1" SelectedValuePath="Tag" IsEnabled="False"
+                          SelectedValue="{Binding SelectSexo,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="26" VerticalAlignment="Top"  >
+            <ComboBoxItem Content="SELECCIONE" Tag="S"></ComboBoxItem>
+            <ComboBoxItem Content="MASCULINO" Tag="M"></ComboBoxItem>
+            <ComboBoxItem Content="FEMENINO" Tag="F"></ComboBoxItem>
+        </ComboBox>
+        <TextBox  Grid.Column="4" Grid.Row="1" IsEnabled="False" MaxLength="3" Text="{Binding TextEdad}"> 
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]+$" MaxLength="3" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBox Grid.Row="1" Text="{Binding ApellidoPaternoBuscar}" CharacterCasing="Upper" IsEnabled="False"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ApellidoMaternoBuscar}" CharacterCasing="Upper" IsEnabled="False"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding NombreBuscar}" CharacterCasing="Upper" IsEnabled="False"/>
+
+            <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding TextTelefono,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="False">
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]*$" MaxLength="14" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <ComboBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" ItemsSource="{Binding LstEstadoCivil}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ESTADO_CIVIL" IsEnabled="False"
+                            SelectedValue="{Binding SelectEstadoCivil,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></ComboBox>
+
+        <!--<ComboBox Grid.Column="1" Grid.Row="3" ItemsSource="{Binding LstIdioma}" DisplayMemberPath="DESCR" SelectedValuePath="ID_IDIOMA" SelectedValue="{Binding SelectedIdioma,ValidatesOnDataErrors=True}"></ComboBox>
+        <ComboBox Grid.Column="2" Grid.Row="3" ItemsSource="{Binding ListReligion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_RELIGION"
+                          SelectedValue="{Binding SelectReligion,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" ></ComboBox>-->
+        <ComboBox Grid.Column="3" Grid.Row="3" ItemsSource="{Binding ListOcupacion}" DisplayMemberPath="DESCR" SelectedValuePath="ID_OCUPACION" IsEnabled="False"
+                            SelectedValue="{Binding SelectOcupacion,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Height="26" VerticalAlignment="Top"></ComboBox>
+       
+        <Label Grid.Column="0" Grid.Row="4" FontWeight="Bold" Content="Domicilio" Grid.ColumnSpan="5" Name="lblDomicilio"/>
+        <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Text="{Binding TextCalle, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="False"></TextBox>
+
+
+        <TextBox Grid.Column="2"  Grid.Row="6"  Text="{Binding TextNumeroExterior,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="False">
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="1" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <TextBox Grid.Column="3"  Grid.Row="6" Text="{Binding TextNumeroInterior,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="False">
+            <i:Interaction.Behaviors>
+                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="1" />
+            </i:Interaction.Behaviors>
+        </TextBox>
+
+
+        <DatePicker Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8"  Controls:TextBoxHelper.Watermark="Selecciona una fecha"
+                            SelectedDate="{Binding TextFechaNacimiento,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" IsEnabled="False"></DatePicker>
+     
+        <TextBlock Grid.Row="9">Pais</TextBlock>
+        <TextBlock Grid.Row="9" Grid.Column="1">Estado</TextBlock>
+        <TextBlock Grid.Row="9" Grid.Column="2">Municipio</TextBlock>
+        <ComboBox Grid.Column="0" Grid.Row="10" ItemsSource="{Binding ListPaisNacimiento}" DisplayMemberPath="PAIS" SelectedValuePath="ID_PAIS_NAC" IsEnabled="False"
+                          SelectedValue="{Binding SelectPaisNacimiento,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnDataErrors=True}" SelectedItem="{Binding SelectedPaisNacimiento,UpdateSourceTrigger=PropertyChanged}">
+            <!--<ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>-->
+        </ComboBox>
+        <ComboBox Grid.Column="1" Grid.Row="10" ItemsSource="{Binding ListEntidadNacimiento}" DisplayMemberPath="DESCR" SelectedValuePath="ID_ENTIDAD" IsEnabled="False"
+                          SelectedValue="{Binding SelectEntidadNacimiento,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnDataErrors=True}" SelectedItem="{Binding SelectedEntidadNacimiento,UpdateSourceTrigger=PropertyChanged}">
+            <!--<ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>-->
+        </ComboBox>
+        <ComboBox Grid.Column="2" Grid.Row="10" ItemsSource="{Binding ListMunicipioNacimiento}" DisplayMemberPath="MUNICIPIO1" SelectedValuePath="ID_MUNICIPIO" IsEnabled="False"
+                          SelectedValue="{Binding SelectMunicipioNacimiento,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnDataErrors=True}" Height="26" VerticalAlignment="Top">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+            <!--<ComboBox.Style>
+                        <Style TargetType="ComboBox">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="MinWidth" Value="100"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Style>-->
+        </ComboBox>
+        <GroupBox Header="Medida Cautelar Impuesta" Grid.Row="11" Grid.ColumnSpan="5" Name="MedidaCtutelar">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                    <TextBox Text="{Binding TextMedidaCautelar,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" MaxWidth="{Binding MaxWidhtActualGeneric}" Width="{Binding MaxWidhtActualGeneric}" MaxLength="{Binding MedidaCutMax}" HorizontalAlignment="Left"
+                         CharacterCasing="Upper"></TextBox>
+
+            </Grid>
+
+        </GroupBox>
+        <GroupBox Header="Motivo de la Visita Domiciliaria" Grid.Row="12" Grid.ColumnSpan="5" Name="ProblemaPareja">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                    <TextBox Height="80" CharacterCasing="Upper" AcceptsReturn="True" Text="{Binding TextMotivoVisita,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" MaxWidth="{Binding MaxWidhtActualGeneric}" Width="{Binding MaxWidhtActualGeneric}" MaxLength="{Binding MotivoVisitaDomMax}" HorizontalAlignment="Left"/> 
+
+            </Grid>
+
+        </GroupBox>
+
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

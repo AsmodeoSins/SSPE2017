@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="ControlPenales.SeguimientoMedidasJudicialesExpedienteView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition  MaxWidth="250" MinWidth="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0"  Content="Expediente Detallado" Style="{DynamicResource DescriptionHeaderStyle}" />
+        
+        <Label Grid.Column="0" Grid.Row="2" FontWeight="Bold" Content="Apellido Paterno"></Label>
+        <Label Grid.Column="1" Grid.Row="2" FontWeight="Bold"  Content="Apellido Materno"></Label>
+        <Label Grid.Column="2" Grid.Row="2" FontWeight="Bold"  Content="Nombre"></Label>
+        
+        <Label Grid.Column="0" Grid.Row="3" Content="{Binding Expediente.imputado.apellido_paterno}"></Label>
+        <Label Grid.Column="1" Grid.Row="3" Content="{Binding Expediente.imputado.apellido_materno}"></Label>
+        <Label Grid.Column="2" Grid.Row="3" Content="{Binding Expediente.imputado.nombre}"></Label>
+
+        <Image Grid.Column="3" Grid.Row="1" Grid.RowSpan="4" Width="150" Source="{Binding Expediente.imputado.foto}"></Image>
+
+
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" Controls:TabControlHelper.IsUnderlined="True">
+            <TabItem Header="Persona" Style="{StaticResource HeaderTabStyle}">
+                <Views:SeguimientoMedidasJudicialesExpedientePersonalesView Margin="10,0,10,10" Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="PGJE" Style="{StaticResource HeaderTabStyle}">
+            </TabItem>
+            <TabItem Header="Documentos" Style="{StaticResource HeaderTabStyle}">
+                <Views:SeguimientoMedidasJudicialesExpedienteDocumentosView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="Solicitudes PGJE" Style="{StaticResource HeaderTabStyle}">
+                <Views:SeguimientoMedidasJudicialesExpedienteSolicitudesPGJEView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="Medidas" Style="{StaticResource HeaderTabStyle}">
+                <Views:SeguimientoMedidasJudicialesExpedienteMedidasView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="Seguimientos" Style="{StaticResource HeaderTabStyle}">
+                <Views:SeguimientoMedidasJudicialesExpedienteSeguimientosView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="Orientación" Style="{StaticResource HeaderTabStyle}">
+                <Views:SeguimientoMedidasJudicialesExpedienteOrientacionView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="Audiencias" Style="{StaticResource HeaderTabStyle}">
+                <Views:SeguimientoMedidasJudicialesExpedienteAudienciaView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+            <TabItem Header="Resolutivo" Style="{StaticResource HeaderTabStyle}">
+                <Views:SeguimientoMedidasJudicialesExpedienteResolutivoView Style="{StaticResource ViewTabStyle}" />
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>
+
+    </Grid>
+    </UserControl>
+
+    

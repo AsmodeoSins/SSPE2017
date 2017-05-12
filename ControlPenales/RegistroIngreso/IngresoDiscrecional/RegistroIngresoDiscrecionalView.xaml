@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="ControlPenales.RegistroIngresoDiscrecionalView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+
+        <Grid Grid.Column="0" Grid.Row="1" Visibility="{Binding Path=GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <!--<ColumnDefinition Width="60"></ColumnDefinition>-->
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0"  Content="{Binding HeaderRegistro}" Style="{DynamicResource DescriptionHeaderStyle}" />
+            
+            <GroupBox Grid.Column="0" Grid.Row="1" Header="Datos de ingreso" Grid.RowSpan="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0">Folio</Label>
+                    <Label Grid.Column="1" Grid.Row="0">Apellido Paterno</Label>
+                    <Label Grid.Column="2" Grid.Row="0">Apellido Materno</Label>
+                    <Label Grid.Column="3" Grid.Row="0">Nombre</Label>
+                    
+                    <TextBox Grid.Column="0" Grid.Row="1">/</TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1"></TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="1"></TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="1"></TextBox>
+
+                    <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+                        <Button  Width="50" Height="50"  ToolTip="Buscar"
+                            Style="{DynamicResource MetroCircleButtonStyle}"  CommandParameter="buscar_visible" Command="{Binding OnClick}" >
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_magnify_browse}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="5" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label HorizontalAlignment="Center" Content="Huellas" Padding="0"/>
+                        <Button  Width="50" Height="50"  ToolTip="Buscar por Huellas"
+                            Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="buscar_visible" Command="{Binding OnClick}" >
+                            <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </StackPanel>
+                    
+                </Grid>
+            </GroupBox>
+           
+            <!--<Button Grid.Column="1" Grid.Row="0" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="Buscar por Huellas"
+                Style="{DynamicResource MetroCircleButtonStyle}" Grid.RowSpan="2">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>-->
+
+            <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="3" TabStripPlacement="Top" Controls:TabControlHelper.IsUnderlined="True" >
+                <TabItem Header="INGRESO" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding TabIngreso}" IsEnabled="{Binding IngresoEnabled}" >
+                    <Views:DatosIngresoInternoDiscrecionalView Style="{StaticResource ViewTabStyle}" />
+                </TabItem>
+                <TabItem Header="IDENTIFICACION" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding TabIdentificacion}" IsEnabled="{Binding IdentificacionEnabled}" >
+                    <Views:DatosIdentificacionView Style="{StaticResource ViewTabStyle}" />
+                </TabItem>
+                <TabItem Header="TRASLADO" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding TabTraslado}" IsEnabled="{Binding TrasladoEnabled}" >
+                    <Views:DatosPersonalesAduana Style="{StaticResource ViewTabStyle}" />
+                </TabItem>
+            </Controls:MetroAnimatedSingleRowTabControl>
+            
+            <Grid Grid.Column="0" Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition ></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" ></RowDefinition>
+                    <RowDefinition Height="auto" ></RowDefinition>
+                    <RowDefinition Height="auto" ></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Margin="20,0,0,0">No. de Control de Proceso</Label>
+                <TextBox Grid.Row="1" Height="30" Margin="20,0,0,0"></TextBox>
+                <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="20,0,0,0">(Sistema Nacional de Seguridad Publica)</Label>
+
+                <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="0,0,20,0"
+                        Visibility="{Binding Path=AgregarCausaPenalVisible, Converter={StaticResource booleanToVisibilityConverter}}"
+                CommandParameter="agregar_causa_penal" Command="{Binding OnClick}">Agregar Causa(s) Penale(s)</Button>
+            </Grid>
+        </Grid>
+
+        <!--BUSCAR-->
+        <Views:BuscarView Grid.Row="1" Visibility="{Binding Path=BusquedaVisible, Converter={StaticResource booleanToVisibilityConverter}}"  />
+        <!--INGRESO DISCRECIONAL-->
+        <Views:IngresoDiscrecionalView VerticalAlignment="Top" Grid.Row="1" Visibility="{Binding Path=DiscrecionVisible, Converter={StaticResource booleanToVisibilityConverter}}"  />
+        
+        <Border Panel.ZIndex="100"  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Background="#99000000" Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=ActualHeight}"
+                Visibility="{Binding Path=PopupBuscarDelitoVisible, Converter={StaticResource booleanToVisibilityConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Top" ></Border>
+
+        <Border Panel.ZIndex="10000"  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BorderBrush="LightBlue" BorderThickness="2" Background="White"
+                Visibility="{Binding Path=PopupBuscarDelitoVisible, Converter={StaticResource booleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Views:BuscarDelitosView />
+        </Border>
+        
+    </Grid>
+</UserControl>

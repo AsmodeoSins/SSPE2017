@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ControlPenales.SeccionUlserasPresionHEView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales"
+             mc:Ignorable="d" Width="auto" Height="auto" d:DesignWidth="880">
+    <Grid>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="600"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" TabStripPlacement="Top">
+                    <TabItem Header="FRENTE" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding TabFrente}" >
+                        <Views:SeniasFrenteView HorizontalAlignment="Left" x:Name="SeniasFrenteWindow" />
+                    </TabItem>
+                    <TabItem Header="DORSO" Style="{StaticResource HeaderTabStyle}" Controls:ControlsHelper.HeaderFontSize="20" IsSelected="{Binding TabDorso}" >
+                        <Views:SeniasDorsoView HorizontalAlignment="Left" x:Name="SeniasDorsoWindow" />
+                    </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+                <StackPanel Grid.Column="1">
+                    <Label Content="Descripción" x:Name="lbLesiones"/>
+                    <TextBox Text="{Binding TextDescripcionLesion, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" Height="250" MaxLength="1000" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbLesiones}"
+        					CharacterCasing="Upper" TextWrapping="Wrap"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="limpiar_lesion"
+        						Command="{Binding OnClick}" Margin="5" Content="limpiar"/>
+                        <Button Grid.Column="1" HorizontalAlignment="Center" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="130" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="agregar_lesion"
+        						Command="{Binding OnClick}" Margin="5" Content="agregar"/>
+                    </Grid>
+                    <Button x:Name="BT_LesionSelected" Command="{Binding LesionClick}" CommandParameter="{Binding ElementName=dgLesiones}" Visibility="Hidden"/>
+                    <DataGrid Height="350" Width="{Binding ActualWidth, ConverterParameter=x-1, Converter={Views:MathConverter}, ElementName=lbLesiones}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single"
+        					ItemsSource="{Binding ListLesiones}" IsReadOnly="True" Style="{StaticResource MetroDataGrid}" x:Name="dgLesiones" Visibility="Visible" SelectedItem="{Binding SelectLesionEliminar}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Región" Binding="{Binding REGION.DESCR}" />
+                            <DataGridTextColumn Header="Descripción" Binding="{Binding DESCR}" />
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_lesion" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding Command, ElementName=BT_LesionSelected}" CommandParameter="{Binding CommandParameter, ElementName=BT_LesionSelected}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </DataGrid>
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

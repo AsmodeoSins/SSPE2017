@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="ControlPenales.AgregarCeldasObservacion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+              Height="auto" Width="auto">
+    <Grid>
+
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" CornerRadius="10,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                     MaxHeight="500" MinHeight="500" MinWidth="400" MaxWidth="400" Padding="5">
+
+                <!--<GroupBox Header="OBSERVACIONES DE CELDAS">-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="OBSERVACIONES DE CELDAS" Style="{DynamicResource DescriptionHeaderStyle}" Width="293"/>
+                    
+                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Clasificación" />
+                    <ComboBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding LstSectorClasificacion}" SelectedValue="{Binding IdSectorClasificacion,Mode=TwoWay,ValidatesOnDataErrors=True}" SelectedItem="{Binding SelectedSectorClasificacion}" DisplayMemberPath="POBLACION" SelectedValuePath="ID_SECTOR_CLAS"></ComboBox>
+                    <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding SelectedSectorClasificacion.OBSERV}" />
+                    
+                    <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Observación" />
+                    <TextBox  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" CharacterCasing="Upper" MaxLength="200" AcceptsReturn="True" MinHeight="70" MaxHeight="70" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding popUpObservacion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="Auto" Margin="0,1,0,0"/>
+
+                    <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Content="Estancias incluidas:" />
+                    <DataGrid Focusable="False" Grid.Row="7" MinHeight="200" MaxHeight="200" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding LstCeldaX}" CanUserAddRows="False" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" Style="{StaticResource MetroDataGrid}">
+                        <DataGrid.Columns>
+                            
+                            <!--<DataGridCheckBoxColumn Header="Seleccionado" Binding="{Binding Seleccionado}"></DataGridCheckBoxColumn>-->
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="TODOS" Foreground="White" IsChecked="{Binding Path=DataContext.IsTodosSelected,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Style="{DynamicResource DescriptionHeaderStyleCheckBox}"></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.HeaderTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Seleccionado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            
+                            <DataGridTextColumn Header="Estancia #" Binding="{Binding Cama.CELDA.ID_CELDA}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Cama #"
+                                                Binding="{Binding Cama.ID_CAMA}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Grid.Row="8" Grid.Column="1" Content="Cancelar" Command="{Binding OnClick}" CommandParameter="rollbackObservacion" Style="{DynamicResource AccentedSquareButtonStyle}" Width="150"  HorizontalAlignment="Center" Margin="0 10 0 0" />
+                    <Button Grid.Row="8" Grid.Column="0" Content="Guardar" Command="{Binding OnClick}" CommandParameter="commitObservacion"  Style="{DynamicResource AccentedSquareButtonStyle}" Width="150" HorizontalAlignment="Center" Margin="0 10 0 0"  ></Button>
+                </Grid>
+                <!--</GroupBox>-->
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

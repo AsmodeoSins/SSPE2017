@@ -1,0 +1,279 @@
+﻿<UserControl x:Class="GESAL.Views.RegistroTraspasosExternosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:Views="clr-namespace:GESAL.Views"
+             xmlns:Behaviours="clr-namespace:GESAL.Clases.Behaviours"
+             Name="RegistroTraspasosExternos"
+             xmlns:Converter="clr-namespace:MVVMShared.Converters;assembly=MVVMShared">
+    <StackPanel>
+        <Label Style="{StaticResource estiloTituloControl}" Content="Registro de Traspasos Externos"/>
+        <GroupBox Header="Requisición Extraordinaria">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5">Folio de Requisición:</TextBlock>
+                    <TextBox Margin="5" Width="100" Text="{Binding BusquedaFolioRequisicionTraspaso, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" CommandParameter="buscar_requisicion_traspaso" Command="{Binding CmdOnClickTraspasos}"/>
+                        </TextBox.InputBindings>
+                        <i:Interaction.Behaviors>
+                            <Behaviours:TextBoxInputRegExBehaviour RegularExpression="^\d+$" MaxLength="7" EmptyValue="" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Button Content="Buscar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdOnClickTraspasos}" CommandParameter="buscar_requisicion_traspaso" />
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".25*"></ColumnDefinition>
+                        <ColumnDefinition Width=".25*"></ColumnDefinition>
+                        <ColumnDefinition Width=".25*"></ColumnDefinition>
+                        <ColumnDefinition Width=".25*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Folio No.:" Margin="5"></TextBlock>
+                    <TextBlock Text="Centro:" Margin="5" Grid.Column="1"></TextBlock>
+                    <TextBlock Text="Tipo de almacén:" Margin="5" Grid.Column="2"></TextBlock>
+                    <TextBlock Text="Almacén:" Margin="5" Grid.Column="3"></TextBlock>
+                    <TextBlock Text="{Binding SelectedRequisicionExtraordinaria.ID_REQUISICION}" Margin="5" Grid.Row="1"></TextBlock>
+                    <TextBlock Text="{Binding SelectedRequisicionExtraordinaria.ALMACEN.CENTRO.DESCR}" Margin="5" Grid.Column="1" Grid.Row="1"></TextBlock>
+                    <TextBlock Text="{Binding SelectedRequisicionExtraordinaria.ALMACEN.ALMACEN_TIPO_CAT.DESCR}" Margin="5" Grid.Column="2" Grid.Row="1"></TextBlock>
+                    <TextBlock Text="{Binding SelectedRequisicionExtraordinaria.ALMACEN.DESCRIPCION}" Margin="5" Grid.Column="3" Grid.Row="1"></TextBlock>
+                </Grid>
+                <ListView MaxHeight="300" Margin="5" Name="lvProductosRequisicion" ItemsSource="{Binding SelectedRequisicionExtraordinaria.REQUISICION_CENTRO_PRODUCTO}"  SelectionMode="Single">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Producto" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PRODUCTO.NOMBRE}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="UNIDAD DE MEDIDA" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PRODUCTO.PRODUCTO_UNIDAD_MEDIDA.NOMBRE}" TextWrapping="Wrap"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="PRESENTACION" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PRODUCTO.PRODUCTO_PRESENTACION.DESCR}" TextWrapping="Wrap"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Requerido" Width="100" DisplayMemberBinding="{Binding CANTIDAD}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Busqueda de Productos" Visibility="{Binding IsBusquedaProductosTraspasosVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5">Busqueda en Almacenes:</TextBlock>
+                    <ComboBox ItemsSource="{Binding TiposBusqueda}" DisplayMemberPath="DESCRIPCION" SelectedItem="{Binding SelectedTipoBusqueda, NotifyOnSourceUpdated=True}" Margin="5" Width="120">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SourceUpdated">
+                                <i:InvokeCommandAction Command="{Binding CmdModeloTraspasoChanged}" CommandParameter="cambio_tipo">
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                </StackPanel>
+                <GroupBox Header="Selecciona el Almacen de Origen" Visibility="{Binding IsAlmacenOrigenVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                            <ColumnDefinition Width=".25*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Municipio" Margin="5"></TextBlock>
+                        <TextBlock Text="Centro" Grid.Column="1" Margin="5"></TextBlock>
+                        <TextBlock Text="Tipo de Almacén" Grid.Column="2" Margin="5"></TextBlock>
+                        <TextBlock Text="Almacén" Grid.Column="3" Margin="5"></TextBlock>
+                        <ComboBox Grid.Row="1" ItemsSource="{Binding MunicipiosOrigen}" DisplayMemberPath="MUNICIPIO1" SelectedValue="{Binding SelectedMunicipioOrigenValue,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" SelectedValuePath="ID_MUNICIPIO" Margin="5">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SourceUpdated">
+                                    <i:InvokeCommandAction Command="{Binding CmdModeloTraspasoChanged}" CommandParameter="cambio_municipio">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CentrosOrigen}" DisplayMemberPath="DESCR" SelectedValue="{Binding SelectedCentroOrigenValue,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" SelectedValuePath="ID_CENTRO" Margin="5">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SourceUpdated">
+                                    <i:InvokeCommandAction Command="{Binding CmdModeloTraspasoChanged}" CommandParameter="cambio_centro">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                        <ComboBox Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Almacen_Tipos_CatOrigen}" DisplayMemberPath="DESCR"  SelectedValue="{Binding SelectedAlmacen_Tipo_CatOrigenValue,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" SelectedValuePath="ID_ALMACEN_TIPO" Margin="5">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SourceUpdated">
+                                    <i:InvokeCommandAction Command="{Binding CmdModeloTraspasoChanged}" CommandParameter="cambio_almacen_tipos_cat">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                        <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding AlmacenesPrincipalesOrigen}" SelectedValue="{Binding SelectedAlmacenPrincipalOrigenValue,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}" SelectedValuePath="ID_ALMACEN" Margin="5" DisplayMemberPath="DESCRIPCION">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SourceUpdated">
+                                    <i:InvokeCommandAction Command="{Binding CmdModeloTraspasoChanged}" CommandParameter="cambio_almacen">
+                                    </i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5">Producto:</TextBlock>
+                    <TextBox Text="{Binding BuscarProductoTraspaso, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="300" CharacterCasing="Upper" MaxLength="200">
+                    <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" CommandParameter="buscar_producto_traspaso" Command="{Binding CmdOnClickTraspasos}"/>
+                    </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Content="Buscar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdOnClickTraspasos}" CommandParameter="buscar_producto_traspaso" />
+                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".45*"></ColumnDefinition>
+                        <ColumnDefinition Width=".1*"></ColumnDefinition>
+                        <ColumnDefinition Width=".45*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Catalogo de productos" Grid.Row="0" Grid.RowSpan="5" Grid.Column="0">
+                        <ListView MaxHeight="300" Name="lvInventario_Productos" ItemsSource="{Binding Inventario_Productos}"  SelectionMode="Single" SelectedItem="{Binding SelectedInventario_Producto}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="CENTRO" Width="120" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding CENTRO}" TextWrapping="Wrap"></TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="ALMACÉN" DisplayMemberBinding="{Binding DESCR}"></GridViewColumn>
+                                    <GridViewColumn Header="PRODUCTO" Width="120">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding NOMBRE}" TextWrapping="Wrap"></TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="UNIDAD" DisplayMemberBinding="{Binding UNIDAD_MEDIDA}" ></GridViewColumn>
+                                    <GridViewColumn Header="PRESENTACIÓN" Width="100" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding PRESENTACION}" TextWrapping="Wrap"></TextBlock>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="EXISTENCIA" DisplayMemberBinding="{Binding CANTIDAD}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Seleccionado,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                            <Setter Property="Background" Value="SkyBlue"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox Header="Traspaso Externo" Grid.Row="0" Grid.Column="2" Grid.RowSpan="5">
+                        <Border BorderBrush="Red" ToolTipService.IsEnabled="{Binding IsTraspasoExternoValido, Converter={Converter:BoolToOppositeBoolConverter}}" Margin="0 10 0 0">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="ToolTipService.Placement" Value="Top"></Setter>
+                                    <Setter Property="ToolTipService.HorizontalOffset" Value="5"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsTraspasoExternoValido}" Value="False">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Template="{StaticResource ToolTipTemplate}">
+                                    <ToolTip.Content>
+                                        <TextBlock Text="{Binding MensajeErrorTraspasoExterno}" Style="{StaticResource errorLabel}"/>
+                                    </ToolTip.Content>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <ListView MaxHeight="300" Name="lvProductos_Traspaso_Externo" ItemsSource="{Binding ProductosTraspasoExterno, NotifyOnSourceUpdated=True}"  SelectionMode="Single" SelectedItem="{Binding SelectedProductoTraspasoExterno}" KeyboardNavigation.TabNavigation="Local">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="CENTRO" Width="120" >
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding CENTRO}" TextWrapping="Wrap"></TextBlock>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="ALMACÉN" DisplayMemberBinding="{Binding ALMACEN}"></GridViewColumn>
+                                        <GridViewColumn Header="PRODUCTO" Width="120">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding NOMBRE}" TextWrapping="Wrap"></TextBlock>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="UNIDAD" DisplayMemberBinding="{Binding UNIDAD_MEDIDA}" ></GridViewColumn>
+                                        <GridViewColumn Header="PRESENTACIÓN" Width="100" >
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding PRESENTACION}" TextWrapping="Wrap"></TextBlock>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="TRASPASAR">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBox x:Name="dgItemTraspasar" Text="{Binding TRASPASAR, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,Mode=TwoWay, TargetNullValue=''}">
+                                                        <i:Interaction.Behaviors>
+                                                            <Behaviours:TextBoxInputRegExBehaviour RegularExpression="^\d+$" MaxLength="6" EmptyValue="" />
+                                                        </i:Interaction.Behaviors>
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="TextChanged">
+                                                                <i:InvokeCommandAction Command="{Binding DataContext.CmdValidacionTraspaso, RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type UserControl}}}" CommandParameter=""></i:InvokeCommandAction>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </TextBox>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Border>                        
+                    </GroupBox>
+                    <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Background="{StaticResource AccentColorBrush}" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,0,10,0"
+                    CommandParameter="agregar_producto" Command="{Binding CmdOnClickTraspasos}">agregar -- ></Button>
+                    <Button Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Background="{StaticResource AccentColorBrush}" Style="{DynamicResource AccentedSquareButtonStyle}" Margin="10,0,10,0"
+                    CommandParameter="quitar_producto" Command="{Binding CmdOnClickTraspasos}">&lt; -- quitar</Button>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="ControlPenales.ExcarcelacionAutorizacionView"
+             x:Name="ExcarcelacionAutorizacionWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdExcarcelacionAutorizacionOnLoad}" CommandParameter="{Binding ElementName=ExcarcelacionAutorizacionWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:NombreConverter x:Key="CoverterNombre" />
+        <Views:MultiValueConverter x:Key="MultiParamConverter"></Views:MultiValueConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuAutorizacion2View></Views:MenuAutorizacion2View>
+        <Label Grid.Column="0" Grid.Row="1" Content="Autorización de excarcelaciones" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:BuscarExcarcelacionesAutorizacionView Grid.Row="2"></Views:BuscarExcarcelacionesAutorizacionView>
+        <ListView Grid.Row="3" MaxHeight="250" Padding="0 10 0 0" SelectionMode="Single" ItemsSource="{Binding ListaExcarcelaciones}" SelectedItem="{Binding SelectedExcarcelacion, NotifyOnSourceUpdated=True}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SourceUpdated">
+                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_excarcelacion_seleccionada"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="TIPO" DisplayMemberBinding="{Binding EXCARCELACION_TIPO.DESCR}" Width="150"></GridViewColumn>
+                    <GridViewColumn Header="AÑO" DisplayMemberBinding="{Binding INGRESO.ID_ANIO}" Width="70"></GridViewColumn>
+                    <GridViewColumn Header="FOLIO" DisplayMemberBinding="{Binding INGRESO.ID_IMPUTADO}" Width="70"></GridViewColumn>
+                    <GridViewColumn Header="IMPUTADO" DisplayMemberBinding="{Binding INGRESO.IMPUTADO,Converter={StaticResource CoverterNombre}}" Width="300"></GridViewColumn>
+                    <GridViewColumn Header="FECHA" DisplayMemberBinding="{Binding PROGRAMADO_FEC,StringFormat=dd/MM/yyyy}" Width="150"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ID_ESTATUS,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="CA">
+                            <Setter Property="Control.Background" Value="Red"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ID_ESTATUS,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="AU">
+                            <Setter Property="Control.Background" Value="SkyBlue"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <GroupBox Header="{Binding HeaderDestinosExcarcelacion}" Grid.Row="4" Visibility="{Binding IsExcarcelacionDestinosVisible}">
+            <ListView Grid.Row="1" MaxHeight="250" Padding="0 10 0 0" SelectionMode="Single" ItemsSource="{Binding ListaExcarcelacionDestinos}" SelectedItem="{Binding SelectedExcarcelacionDestino}">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Autorizar" Command="{Binding OnClick}" CommandParameter="autorizar_destino_excarcelacion" />
+                        <MenuItem Header="Cancelar" Command="{Binding OnClick}" CommandParameter="cancelar_destino_excarcelacion" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="DESTINO" DisplayMemberBinding="{Binding DESTINO}" Width="300"></GridViewColumn>
+                        <GridViewColumn Header="FOLIO" DisplayMemberBinding="{Binding FOLIO}" Width="150"></GridViewColumn>
+                        <GridViewColumn Header="DOCUMENTO" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver"
+                                            Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=ListView}}">
+                                        <Button.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiParamConverter}">
+                                                <Binding Source="visualizar_documento_excarcelacion" />
+                                                <Binding Path="DOCUMENTO" />
+                                                <Binding Path="FORMATO_DOCUMENTO" />
+                                            </MultiBinding>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Cert. Médico" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver"
+                                            Visibility="{Binding CERTIFICADO_MEDICO_ENABLED,Converter={StaticResource booleanToVisibilityConverter}}"
+                                            Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="visualizar_certificado_medico"></Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ESTATUS,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="CA">
+                                <Setter Property="Control.Background" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ESTATUS,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="AU">
+                                <Setter Property="Control.Background" Value="SkyBlue"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </GroupBox>
+    </Grid>
+</UserControl>

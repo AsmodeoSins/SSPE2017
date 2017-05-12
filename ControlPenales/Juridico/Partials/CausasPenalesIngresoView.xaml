@@ -1,0 +1,267 @@
+﻿<UserControl x:Class="ControlPenales.CausasPenalesIngresoView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid VerticalAlignment="Top" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Header="Datos de Ingreso">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Fecha Registro"></Label>
+                <Label Grid.Column="1" Grid.Row="0" Content="Fecha Ingreso al Cereso"></Label>
+                <Label Grid.Column="2" Grid.Row="0" Content="Tipo Ingreso"></Label>
+                <Label Grid.Column="3" Grid.Row="0" Content="Estatus Administrativo"></Label>
+
+                <DatePicker Grid.Column="0" Grid.Row="1" Controls:TextboxHelper.Watermark="Selecciona una fecha" />
+                <DatePicker Grid.Column="1" Grid.Row="1" Controls:TextboxHelper.Watermark="Selecciona una fecha" />
+                <ComboBox Grid.Column="2" Grid.Row="1"></ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="1"></ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="Clasificación"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Content="Delito"></Label>
+
+                <ComboBox Grid.Column="0" Grid.Row="3"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3"></ComboBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Header="Datos de Documento de Internacion">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="No.Oficio"></Label>
+                <Label Grid.Column="1" Grid.Row="0" Content="Autoridad que esta Internando"></Label>
+
+                <ComboBox Grid.Column="0" Grid.Row="1"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1"></ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="Tipo Seguridad"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Content="Queda a Disposicion de"></Label>
+
+                <ComboBox Grid.Column="0" Grid.Row="3"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="3"></ComboBox>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Header="Datos de Ubicación">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Seleccion de Edificio"></Label>
+                <Label Grid.Column="1" Grid.Row="0" Content="Ubicación"></Label>
+
+                <ComboBox Grid.Column="0" Grid.Row="1"></ComboBox>
+                <ComboBox Grid.Column="1" Grid.Row="1"></ComboBox>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="3" Header="Expediente">
+            <Grid Width="200" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Año"></Label>
+                <Label Grid.Column="2" Grid.Row="0" Content="Folio"></Label>
+
+                <TextBox Grid.Column="0" Grid.Row="1"></TextBox>
+                <Label Grid.Column="1" Grid.Row="1" Content="/" HorizontalAlignment="Center"></Label>
+                <TextBox Grid.Column="2" Grid.Row="1"></TextBox>
+            </Grid>
+        </GroupBox>
+
+        <Button Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Style="{DynamicResource AccentedSquareButtonStyle}" 
+                CommandParameter="cancelacion_antecedente" Command="{Binding OnClick}">Cancelacion de Antecedentes</Button>
+
+        <GroupBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Header="Expediente">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Content="Inicio de Compurgación:"></Label>
+                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalContentAlignment="Left" VerticalAlignment="Center" Padding="135 0 0 0" Content="00/00/000" FontWeight="Bold"></Label>
+
+                <GroupBox Grid.Column="0" Grid.Row="1" Header="Pena">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Años"></Label>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Meses"></Label>
+                        <Label Grid.Column="4" Grid.Row="0" Content="Dias"></Label>
+                        
+                        <TextBox Grid.Column="1" Grid.Row="0"></TextBox>
+                        <TextBox Grid.Column="3" Grid.Row="0"></TextBox>
+                        <TextBox Grid.Column="5" Grid.Row="0"></TextBox>
+
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Column="1" Grid.Row="1" Header="Cumplido">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Años"></Label>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Meses"></Label>
+                        <Label Grid.Column="4" Grid.Row="0" Content="Dias"></Label>
+
+                        <TextBox Grid.Column="1" Grid.Row="0"></TextBox>
+                        <TextBox Grid.Column="3" Grid.Row="0"></TextBox>
+                        <TextBox Grid.Column="5" Grid.Row="0"></TextBox>
+
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Column="2" Grid.Row="1" Header="Abonos">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Años"></Label>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Meses"></Label>
+                        <Label Grid.Column="4" Grid.Row="0" Content="Dias"></Label>
+
+                        <TextBox Grid.Column="1" Grid.Row="0"></TextBox>
+                        <TextBox Grid.Column="3" Grid.Row="0"></TextBox>
+                        <TextBox Grid.Column="5" Grid.Row="0"></TextBox>
+
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Grid.Column="3" Grid.Row="1" Header="Restante">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Column="0" Grid.Row="0" Content="Años"></Label>
+                        <Label Grid.Column="2" Grid.Row="0" Content="Meses"></Label>
+                        <Label Grid.Column="4" Grid.Row="0" Content="Dias"></Label>
+
+                        <TextBox Grid.Column="1" Grid.Row="0"></TextBox>
+                        <TextBox Grid.Column="3" Grid.Row="0"></TextBox>
+                        <TextBox Grid.Column="5" Grid.Row="0"></TextBox>
+
+                    </Grid>
+                </GroupBox>
+                
+            </Grid>
+        </GroupBox>
+
+
+        <Grid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Width="500" HorizontalAlignment="Left">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <DataGrid Grid.Column="0" Grid.Row="0" Padding="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Causa Penal"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Sentencia"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fuero"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        
+    </Grid>
+</UserControl>

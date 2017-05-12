@@ -1,0 +1,66 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="options">
+
+    <!--TONOS DE COLORES PARA LA APLICACION-->
+    <Color x:Key="HighlightColor">#FF13507F</Color>
+
+    <!--80%-->
+    <Color x:Key="AccentColor">#CC13507F</Color>
+    <!--60%-->
+    <Color x:Key="AccentColor2">#9913507F</Color>
+    <!--40%-->
+    <Color x:Key="AccentColor3">#6613507F</Color>
+    <!--20%-->
+    <Color x:Key="AccentColor4">#3313507F</Color>
+
+    <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="AccentColorBrush2" Color="{StaticResource AccentColor2}" options:Freeze="True" />
+    <SolidColorBrush x:Key="AccentColorBrush3" Color="{StaticResource AccentColor3}" options:Freeze="True" />
+    <SolidColorBrush x:Key="AccentColorBrush4" Color="{StaticResource AccentColor4}" options:Freeze="True" />
+
+    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource AccentColor}" options:Freeze="True" />
+
+    <LinearGradientBrush x:Key="ProgressBrush" EndPoint="0.001,0.5" StartPoint="1.002,0.5" options:Freeze="True">
+        <GradientStop Color="{StaticResource HighlightColor}" Offset="0" />
+        <GradientStop Color="{StaticResource AccentColor3}" Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="CheckmarkFill" Color="{StaticResource AccentColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="RightArrowFill" Color="{StaticResource AccentColor}" options:Freeze="True" />
+
+    <Color x:Key="IdealForegroundColor">White</Color>
+    <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{StaticResource IdealForegroundColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{StaticResource IdealForegroundColor}" Opacity="0.4" options:Freeze="True" />
+    <SolidColorBrush x:Key="AccentSelectedColorBrush" Color="{StaticResource IdealForegroundColor}" options:Freeze="True" />
+
+    <!-- DataGrid brushes -->
+    <SolidColorBrush x:Key="MetroDataGrid.HighlightBrush" Color="Yellow" options:Freeze="True" />
+    <SolidColorBrush x:Key="MetroDataGrid.HighlightTextBrush" Color="Yellow" options:Freeze="True" />
+    <SolidColorBrush x:Key="MetroDataGrid.MouseOverHighlightBrush" Color="Yellow" options:Freeze="True" />
+    <SolidColorBrush x:Key="MetroDataGrid.FocusBorderBrush" Color="Yellow" options:Freeze="True" />
+    <SolidColorBrush x:Key="MetroDataGrid.InactiveSelectionHighlightBrush" Color="Yellow" options:Freeze="True" />
+    <SolidColorBrush x:Key="MetroDataGrid.InactiveSelectionHighlightTextBrush" Color="Yellow" options:Freeze="True" />
+
+    <SolidColorBrush x:Key="MenuBackgroundBrush" options:Freeze="True" Color="{StaticResource BackGroundMenu}"/>
+    <SolidColorBrush x:Key="ContextMenuBackgroundBrush" options:Freeze="True" Color="{StaticResource BackGroundMenu}"/>
+    <SolidColorBrush x:Key="SubMenuBackgroundBrush" options:Freeze="True" Color="{StaticResource BackGroundMenu}"/>
+    <!-- OPCIONES DEL MENU-->
+    <SolidColorBrush x:Key="MenuItemBackgroundBrush" options:Freeze="True" Color="{StaticResource BackGroundMenu}"/>
+    <SolidColorBrush x:Key="ContextMenuBorderBrush" options:Freeze="True" Color="{StaticResource BlackColor}"/>
+    <SolidColorBrush x:Key="SubMenuBorderBrush" options:Freeze="True" Color="{StaticResource BlackColor}"/>
+    <SolidColorBrush x:Key="MenuItemSelectionFill" options:Freeze="True" Color="{StaticResource MenuFill}"/>
+    <SolidColorBrush x:Key="MenuItemSelectionStroke" options:Freeze="True" Color="{StaticResource MenuStroke}"/>
+    <SolidColorBrush x:Key="TopMenuItemPressedFill" options:Freeze="True" Color="{StaticResource MenuFill}"/>
+    <SolidColorBrush x:Key="TopMenuItemPressedStroke" options:Freeze="True" Color="{StaticResource MenuStroke}"/>
+    <SolidColorBrush x:Key="TopMenuItemSelectionStroke" options:Freeze="True" Color="{StaticResource MenuStroke}"/>
+    <SolidColorBrush x:Key="DisabledMenuItemForeground" options:Freeze="True" Color="{StaticResource Gray2}"/>
+    <SolidColorBrush x:Key="DisabledMenuItemGlyphPanel" options:Freeze="True" Color="#848589"/>
+    <!-- TEXTO DEL MENU-->
+    <SolidColorBrush x:Key="{x:Static SystemColors.MenuTextBrushKey}" options:Freeze="True"
+                   Color="White"/>
+    <Color x:Key="MenuShadowColor">#FFDEDEDE</Color>
+</ResourceDictionary>

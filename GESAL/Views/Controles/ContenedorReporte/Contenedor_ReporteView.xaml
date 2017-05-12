@@ -1,0 +1,12 @@
+﻿<Controls:MetroWindow x:Class="GESAL.Views.Contenedor_ReporteView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+        Title="Contenedor_ReporteView">
+    <DockPanel>
+        <WindowsFormsHost>
+            <rv:ReportViewer Width="1000" Height="500" x:Name="Report"></rv:ReportViewer>
+        </WindowsFormsHost>
+    </DockPanel>
+</Controls:MetroWindow>

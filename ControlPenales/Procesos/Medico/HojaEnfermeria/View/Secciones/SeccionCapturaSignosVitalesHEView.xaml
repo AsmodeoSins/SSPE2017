@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="ControlPenales.SeccionCapturaSignosVitalesHEView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto">
+    <UserControl.Resources>
+        <Views:SiNoHojaEnfermeriaConverter x:Key="SiNoHojaEnfermeriaConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuCapturaSignosVitalesHEView Grid.Row="0" />
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Signos Vitales y otras lecturas generales">
+            <AdornerDecorator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Column="0" Grid.Row="0" Header="Fecha y hora de captura" Grid.ColumnSpan="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25*"></ColumnDefinition>
+                                <ColumnDefinition Width="25*"></ColumnDefinition>
+                                <ColumnDefinition Width="25*"></ColumnDefinition>
+                                <ColumnDefinition Width="25*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Fecha y hora de captura" HorizontalAlignment="Center"></Label>
+                            <xctk:DateTimePicker Grid.Column="1" Grid.Row="0" Format="Custom" FormatString="dd/MM/yyyy hh:mm" Watermark="Seleccione una fecha"
+                            Text="{Binding FechaHoraCaptura,StringFormat=dd/MM/yyyy hh:mm,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" Minimum="{ Binding FechaMinimaHE, UpdateSourceTrigger=PropertyChanged}" Maximum="{ Binding FechaMaximaHE, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}"></xctk:DateTimePicker>
+                        </Grid>
+                    </GroupBox>
+                    <Label Grid.Column="0" Grid.Row="1" Content="F.C"></Label>
+                    <Label Grid.Column="1" Grid.Row="1" Content="F.R"></Label>
+                    <Label Grid.Column="2" Grid.Row="1" Content="T/A"></Label>
+                    <Label Grid.Column="3" Grid.Row="1" Content="T/A MEDIA"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="2" Text="{ Binding FrecuenciaCardiacaHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="2" Text="{ Binding FrecuenciaRespiratoriaHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Grid Grid.Column="2" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                            <ColumnDefinition Width="20*"></ColumnDefinition>
+                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.Column="0" Grid.Row="3" Text="{ Binding Arterial1, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                        <Label Grid.Column="1" Grid.Row="0" Content="/" HorizontalAlignment="Center"></Label>
+                        <TextBox Grid.Column="2" Grid.Row="0" Text="{ Binding Arterial2, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                            <i:Interaction.Behaviors>
+                                <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="3" />
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </Grid>
+                    <TextBox Grid.Column="3" Grid.Row="2" Text="{ Binding TensionArtMediaHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Temp"></Label>
+                    <Label Grid.Column="1" Grid.Row="3" Content="SaO2"></Label>
+                    <Label Grid.Column="2" Grid.Row="3" Content="Dextrostix"></Label>
+                    <Label Grid.Column="3" Grid.Row="3" Content="Neb"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="4" Text="{ Binding TempHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="4" Text="{ Binding Sa02HE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="2" Grid.Row="4" Text="{ Binding DextrHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Column="3" Grid.Row="4" Text="{ Binding NebHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <Label Grid.Column="0" Grid.Row="5" Content="PVC"></Label>
+                    <Label Grid.Column="1" Grid.Row="5" Content="Camb. Posición"></Label>
+                    <Label Grid.Column="2" Grid.Row="5" Content="Riesgo escara"></Label>
+                    <Label Grid.Column="3" Grid.Row="5" Content="Riesgo caídas"></Label>
+                    <TextBox Grid.Column="0" Grid.Row="6" Text="{ Binding PVCHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Behaviors>
+                            <Views:AllowableCharactersTextBoxBehavior RegularExpression="^[0-9]" MaxLength="20" />
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <ComboBox Grid.Column="1" Grid.Row="6" SelectedValuePath="Tag" SelectedValue="{ Binding CambioPosHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Grid.Column="2" Grid.Row="6" SelectedValuePath="Tag" SelectedValue="{ Binding RiesgoEscHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Grid.Column="3" Grid.Row="6" SelectedValuePath="Tag" SelectedValue="{ Binding RiesgoCaiHE, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Histórico de Signos vitales">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <DataGrid  AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" ItemsSource="{Binding LstSignosVitalesHojaEnfermeria}" SelectionUnit="FullRow" IsReadOnly="True"
+                                  SelectedItem="{Binding SelectedSignosVitalesHojaEnfermeria}" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Fecha" Binding="{ Binding FECHA_LECTURA,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Hora" Binding="{Binding FECHA_LECTURA ,StringFormat= HH:mm }"></DataGridTextColumn>
+                        <DataGridTextColumn Header="F.C" Binding="{Binding PC}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="F.R" Binding="{Binding PR}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="T.A" Binding="{Binding TA}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="T.A MEDIA" Binding="{Binding TA_MEDIA}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="temp" Binding="{Binding TEMP}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="sa02" Binding="{Binding SAO}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Dextroxtix" Binding="{Binding DEXTROXTIX}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="neb" Binding="{Binding NEB}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="pvc" Binding="{Binding PVC}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Camb. posición" Binding="{Binding CAMBIO_POSICION, Converter={ StaticResource SiNoHojaEnfermeriaConverter}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="riesgo escara" Binding="{Binding CAMBIO_ESCARAS, Converter={ StaticResource SiNoHojaEnfermeriaConverter}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Riesgo caídas" Binding="{Binding RIESGO_CAIDAS, Converter={ StaticResource SiNoHojaEnfermeriaConverter}}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Eliminar" Command="{Binding OnClick}" CommandParameter="eliminar_signos_vitales" IsEnabled="{Binding EnabledHojas, UpdateSourceTrigger=PropertyChanged}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

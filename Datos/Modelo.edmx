@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="wpfModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cereso">
+          <Key>
+            <PropertyRef Name="id_cereso" />
+          </Key>
+          <Property Name="id_cereso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cereso" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="expediente">
+          <Key>
+            <PropertyRef Name="id_expediente" />
+          </Key>
+          <Property Name="id_expediente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="anio" Type="int" />
+          <Property Name="folio" Type="int" />
+          <Property Name="causa_penal" Type="varchar" MaxLength="20" />
+          <Property Name="id_imputado" Type="int" />
+          <Property Name="id_cereso" Type="int" />
+          <Property Name="imagen" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="expediente_ingreso">
+          <Key>
+            <PropertyRef Name="id_expediente_ingreso" />
+          </Key>
+          <Property Name="id_expediente_ingreso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_expediente" Type="int" />
+          <Property Name="no_ingreso" Type="int" />
+          <Property Name="Activo" Type="tinyint" />
+          <Property Name="fecha_ingreso" Type="datetime" />
+          <Property Name="fecha_ingreso_cereso" Type="datetime" />
+          <Property Name="no_oficio_internacion" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="imputado">
+          <Key>
+            <PropertyRef Name="id_imputado" />
+          </Key>
+          <Property Name="id_imputado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="20" />
+          <Property Name="apellido_paterno" Type="nvarchar" MaxLength="20" />
+          <Property Name="apellido_materno" Type="nvarchar" MaxLength="20" />
+          <Property Name="alias" Type="nvarchar" MaxLength="20" />
+          <Property Name="fecha_nacimiento" Type="date" />
+          <Property Name="sexo" Type="nvarchar" MaxLength="10" />
+          <Property Name="estado_civil" Type="nvarchar" MaxLength="10" />
+          <Property Name="ciudad_nacimiento" Type="nvarchar" MaxLength="20" />
+          <Property Name="pais_nacimiento" Type="nvarchar" MaxLength="20" />
+          <Property Name="nacionalidad" Type="nvarchar" MaxLength="20" />
+          <Property Name="etnia" Type="nvarchar" MaxLength="20" />
+          <Property Name="religion" Type="nvarchar" MaxLength="20" />
+          <Property Name="anios_bc" Type="int" />
+          <Property Name="meses_bc" Type="int" />
+          <Property Name="dias_bc" Type="int" />
+          <Property Name="domicilio" Type="nvarchar" MaxLength="50" />
+          <Property Name="municipio" Type="nvarchar" MaxLength="20" />
+          <Property Name="estado" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_expediente_cereso">
+          <End Role="cereso" Type="Self.cereso" Multiplicity="0..1" />
+          <End Role="expediente" Type="Self.expediente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cereso">
+              <PropertyRef Name="id_cereso" />
+            </Principal>
+            <Dependent Role="expediente">
+              <PropertyRef Name="id_cereso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_expediente_imputado">
+          <End Role="imputado" Type="Self.imputado" Multiplicity="0..1" />
+          <End Role="expediente" Type="Self.expediente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="imputado">
+              <PropertyRef Name="id_imputado" />
+            </Principal>
+            <Dependent Role="expediente">
+              <PropertyRef Name="id_imputado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_expediente_ingreso_expediente">
+          <End Role="expediente" Type="Self.expediente" Multiplicity="0..1" />
+          <End Role="expediente_ingreso" Type="Self.expediente_ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="expediente">
+              <PropertyRef Name="id_expediente" />
+            </Principal>
+            <Dependent Role="expediente_ingreso">
+              <PropertyRef Name="id_expediente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="wpfModelStoreContainer">
+          <EntitySet Name="cereso" EntityType="Self.cereso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="expediente" EntityType="Self.expediente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="expediente_ingreso" EntityType="Self.expediente_ingreso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="imputado" EntityType="Self.imputado" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_expediente_cereso" Association="Self.FK_expediente_cereso">
+            <End Role="cereso" EntitySet="cereso" />
+            <End Role="expediente" EntitySet="expediente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_expediente_imputado" Association="Self.FK_expediente_imputado">
+            <End Role="imputado" EntitySet="imputado" />
+            <End Role="expediente" EntitySet="expediente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_expediente_ingreso_expediente" Association="Self.FK_expediente_ingreso_expediente">
+            <End Role="expediente" EntitySet="expediente" />
+            <End Role="expediente_ingreso" EntitySet="expediente_ingreso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="wpfModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cereso">
+          <Key>
+            <PropertyRef Name="id_cereso" />
+          </Key>
+          <Property Name="id_cereso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cereso1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="expedientes" Relationship="Self.FK_expediente_cereso" FromRole="cereso" ToRole="expediente" />
+        </EntityType>
+        <EntityType Name="expediente">
+          <Key>
+            <PropertyRef Name="id_expediente" />
+          </Key>
+          <Property Name="id_expediente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="anio" Type="Int32" />
+          <Property Name="folio" Type="Int32" />
+          <Property Name="causa_penal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="id_imputado" Type="Int32" />
+          <Property Name="id_cereso" Type="Int32" />
+          <Property Name="imagen" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="cereso" Relationship="Self.FK_expediente_cereso" FromRole="expediente" ToRole="cereso" />
+          <NavigationProperty Name="imputado" Relationship="Self.FK_expediente_imputado" FromRole="expediente" ToRole="imputado" />
+          <NavigationProperty Name="expediente_ingreso" Relationship="Self.FK_expediente_ingreso_expediente" FromRole="expediente" ToRole="expediente_ingreso" />
+        </EntityType>
+        <EntityType Name="expediente_ingreso">
+          <Key>
+            <PropertyRef Name="id_expediente_ingreso" />
+          </Key>
+          <Property Name="id_expediente_ingreso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_expediente" Type="Int32" />
+          <Property Name="no_ingreso" Type="Int32" />
+          <Property Name="Activo" Type="Byte" />
+          <Property Name="fecha_ingreso" Type="DateTime" Precision="3" />
+          <Property Name="fecha_ingreso_cereso" Type="DateTime" Precision="3" />
+          <Property Name="no_oficio_internacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="expediente" Relationship="Self.FK_expediente_ingreso_expediente" FromRole="expediente_ingreso" ToRole="expediente" />
+        </EntityType>
+        <EntityType Name="imputado">
+          <Key>
+            <PropertyRef Name="id_imputado" />
+          </Key>
+          <Property Name="id_imputado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="apellido_paterno" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="apellido_materno" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="alias" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Precision="0" />
+          <Property Name="sexo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="estado_civil" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ciudad_nacimiento" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="pais_nacimiento" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="nacionalidad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="etnia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="religion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="anios_bc" Type="Int32" />
+          <Property Name="meses_bc" Type="Int32" />
+          <Property Name="dias_bc" Type="Int32" />
+          <Property Name="domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="municipio" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="expedientes" Relationship="Self.FK_expediente_imputado" FromRole="imputado" ToRole="expediente" />
+        </EntityType>
+        <Association Name="FK_expediente_cereso">
+          <End Role="cereso" Type="Self.cereso" Multiplicity="0..1" />
+          <End Role="expediente" Type="Self.expediente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cereso">
+              <PropertyRef Name="id_cereso" />
+            </Principal>
+            <Dependent Role="expediente">
+              <PropertyRef Name="id_cereso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_expediente_imputado">
+          <End Role="imputado" Type="Self.imputado" Multiplicity="0..1" />
+          <End Role="expediente" Type="Self.expediente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="imputado">
+              <PropertyRef Name="id_imputado" />
+            </Principal>
+            <Dependent Role="expediente">
+              <PropertyRef Name="id_imputado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_expediente_ingreso_expediente">
+          <End Role="expediente" Type="Self.expediente" Multiplicity="0..1" />
+          <End Role="expediente_ingreso" Type="Self.expediente_ingreso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="expediente">
+              <PropertyRef Name="id_expediente" />
+            </Principal>
+            <Dependent Role="expediente_ingreso">
+              <PropertyRef Name="id_expediente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="wpfEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ceresoes" EntityType="Self.cereso" />
+          <EntitySet Name="expedientes" EntityType="Self.expediente" />
+          <EntitySet Name="expediente_ingreso" EntityType="Self.expediente_ingreso" />
+          <EntitySet Name="imputadoes" EntityType="Self.imputado" />
+          <AssociationSet Name="FK_expediente_cereso" Association="Self.FK_expediente_cereso">
+            <End Role="cereso" EntitySet="ceresoes" />
+            <End Role="expediente" EntitySet="expedientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_expediente_imputado" Association="Self.FK_expediente_imputado">
+            <End Role="imputado" EntitySet="imputadoes" />
+            <End Role="expediente" EntitySet="expedientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_expediente_ingreso_expediente" Association="Self.FK_expediente_ingreso_expediente">
+            <End Role="expediente" EntitySet="expedientes" />
+            <End Role="expediente_ingreso" EntitySet="expediente_ingreso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="wpfModelStoreContainer" CdmEntityContainer="wpfEntities">
+          <EntitySetMapping Name="ceresoes">
+            <EntityTypeMapping TypeName="wpfModel.cereso">
+              <MappingFragment StoreEntitySet="cereso">
+                <ScalarProperty Name="id_cereso" ColumnName="id_cereso" />
+                <ScalarProperty Name="cereso1" ColumnName="cereso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expedientes">
+            <EntityTypeMapping TypeName="wpfModel.expediente">
+              <MappingFragment StoreEntitySet="expediente">
+                <ScalarProperty Name="id_expediente" ColumnName="id_expediente" />
+                <ScalarProperty Name="anio" ColumnName="anio" />
+                <ScalarProperty Name="folio" ColumnName="folio" />
+                <ScalarProperty Name="causa_penal" ColumnName="causa_penal" />
+                <ScalarProperty Name="id_imputado" ColumnName="id_imputado" />
+                <ScalarProperty Name="id_cereso" ColumnName="id_cereso" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expediente_ingreso">
+            <EntityTypeMapping TypeName="wpfModel.expediente_ingreso">
+              <MappingFragment StoreEntitySet="expediente_ingreso">
+                <ScalarProperty Name="id_expediente_ingreso" ColumnName="id_expediente_ingreso" />
+                <ScalarProperty Name="id_expediente" ColumnName="id_expediente" />
+                <ScalarProperty Name="no_ingreso" ColumnName="no_ingreso" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="fecha_ingreso" ColumnName="fecha_ingreso" />
+                <ScalarProperty Name="fecha_ingreso_cereso" ColumnName="fecha_ingreso_cereso" />
+                <ScalarProperty Name="no_oficio_internacion" ColumnName="no_oficio_internacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="imputadoes">
+            <EntityTypeMapping TypeName="wpfModel.imputado">
+              <MappingFragment StoreEntitySet="imputado">
+                <ScalarProperty Name="id_imputado" ColumnName="id_imputado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido_paterno" ColumnName="apellido_paterno" />
+                <ScalarProperty Name="apellido_materno" ColumnName="apellido_materno" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="estado_civil" ColumnName="estado_civil" />
+                <ScalarProperty Name="ciudad_nacimiento" ColumnName="ciudad_nacimiento" />
+                <ScalarProperty Name="pais_nacimiento" ColumnName="pais_nacimiento" />
+                <ScalarProperty Name="nacionalidad" ColumnName="nacionalidad" />
+                <ScalarProperty Name="etnia" ColumnName="etnia" />
+                <ScalarProperty Name="religion" ColumnName="religion" />
+                <ScalarProperty Name="anios_bc" ColumnName="anios_bc" />
+                <ScalarProperty Name="meses_bc" ColumnName="meses_bc" />
+                <ScalarProperty Name="dias_bc" ColumnName="dias_bc" />
+                <ScalarProperty Name="domicilio" ColumnName="domicilio" />
+                <ScalarProperty Name="municipio" ColumnName="municipio" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

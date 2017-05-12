@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="ControlPenales.BruxismoHistoriaClinicaDentalView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales" Height="auto" Width="auto">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Column="0" Grid.Row="0" Header="bruxismo">
+                <AdornerDecorator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Bruxismo"></Label>
+                    <ComboBox Grid.Column="0" Grid.Row="1" IsEnabled="{ Binding IsEnabledHistoriaClinicaDental, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Tag" SelectedValue="{ Binding BruxismoEstatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="SI" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="NO" Tag="N"></ComboBoxItem>
+                        <ComboBoxItem Content="LO IGNORA" Tag="X"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="1" Grid.Row="0" Content="En caso afirmativo, tiene dolor o es asintomático"></Label>
+                    <ComboBox Grid.Column="1" Grid.Row="1" SelectedValuePath="Tag"  IsEnabled="{ Binding ActivoDetalleBruxismo, UpdateSourceTrigger=PropertyChanged}" SelectedValue="{ Binding AfirmativoBruxismo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                        <ComboBoxItem Content="SELECCIONE" Tag=""></ComboBoxItem>
+                        <ComboBoxItem Content="TIENE DOLOR" Tag="S"></ComboBoxItem>
+                        <ComboBoxItem Content="ES ASINTOMÁTICO" Tag="N"></ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+                </AdornerDecorator>
+            </GroupBox>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

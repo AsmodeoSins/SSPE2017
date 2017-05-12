@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="ControlPenales.CausaPenalView"
+             x:Name="CausaPenalWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto"  mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CausaPenalLoading}" CommandParameter="{Binding ElementName=CausaPenalWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+   
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
+        
+        <Label Content="Causas Penales" Style="{DynamicResource DescriptionHeaderStyle}"  Grid.Column="0" Grid.Row="1" Visibility="{Binding Path=GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+        <!--<Label Content="{Binding NUC}" Style="{DynamicResource DescriptionNUCStyle}"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" />-->
+        <Views:IngresoDiscrecionalView   Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Visibility="{Binding Path=GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+      
+        <!--<Views:AgregarDelitoView Margin="-69,-124,-66,-1000" x:Name="DelitoView" Visibility="{Binding Path=DelitoVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:AgregarDelitoView>
+        --><!--COPARTICIPE--><!--
+        <Views:AgregarCoparticipeView Margin="-69,-124,-66,-1000" x:Name="CoparticipeView" Visibility="{Binding Path=CoparticipeVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:AgregarCoparticipeView>
+        <Views:AgregarCoparticipeAliasView Margin="-69,-124,-66,-1000" x:Name="CoparticipeAliasView" Visibility="{Binding Path=CoparticipeAliasVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:AgregarCoparticipeAliasView>
+        <Views:AgregarCoparticipeApodoView Margin="-69,-124,-66,-1000" x:Name="CoparticipeApodoView" Visibility="{Binding Path=CoparticipeApodoVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:AgregarCoparticipeApodoView>
+        --><!--DELITO--><!--
+        <Views:AgregarDelitoView Margin="-69,-124,-66,-1000" Visibility="{Binding Path=DelitoVisible, Converter={StaticResource booleanToVisibilityConverter}}"></Views:AgregarDelitoView>-->
+    </Grid>
+    
+</UserControl>

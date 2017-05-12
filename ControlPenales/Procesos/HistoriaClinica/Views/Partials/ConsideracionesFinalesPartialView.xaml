@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ControlPenales.ConsideracionesFinalesPartialView"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  xmlns:TreeViewType="clr-namespace:ControlPenales.Clases"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:Views="clr-namespace:ControlPenales" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Height="auto" Width="auto">
+    <AdornerDecorator>
+    <GroupBox Header="Consideraciones finales en la estimación de la compatibilidad para el cumplimiento de la pena">
+            <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="La gravedad de su enfermedad y/o por sus complicaciones es:"></Label>
+                <ComboBox Grid.Column="0" Grid.Row="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" SelectedValuePath="Tag" SelectedValue="{ Binding IdComplica, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}">
+                <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                <ComboBoxItem Content="LEVE" Tag="0"></ComboBoxItem>
+                <ComboBoxItem Content="MODERADA" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="SEVERA" Tag="2"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Row="0" Grid.Column="1"  Content="La etapa evolutiva es:"></Label>
+                <ComboBox Grid.Column="1" Grid.Row="1" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" SelectedValuePath="Tag" SelectedValue="{ Binding IdEtapaEvo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                <ComboBoxItem Content="INICIAL" Tag="0"></ComboBoxItem>
+                <ComboBoxItem Content="MEDIA" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="TERMINAL" Tag="2"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Row="0" Grid.Column="2" Content="Las posibilidades de remisión son:"></Label>
+                <ComboBox Grid.Row="1" Grid.Column="2" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" SelectedValuePath="Tag" SelectedValue="{ Binding IdPosibRemis, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                <ComboBoxItem Content="REVERSIBLES CON TRATAMIENTO ADECUADO" Tag="0"></ComboBoxItem>
+                <ComboBoxItem Content="IRREVERSIBLES A PESAR DE TRATAMIENTO -SÓLO PALIATIVO -" Tag="1"></ComboBoxItem>
+            </ComboBox>
+            
+            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Content="Señale cual es el grado de afectación en sus capacidades para el cumplimiento de la pena impuesta:" Name="lblReferencia"></Label>
+                <TextBox Grid.Row="3" Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" MaxWidth="{ Binding ElementName=lblReferencia, Path=ActualWidth}" MinHeight="60" Grid.ColumnSpan="3" Text="{Binding TextGradoAfectacion,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap"></TextBox>
+            
+            <Label Grid.Row="4" Grid.Column="0" Content="Especifique cual es el pronóstico:" Margin="1"></Label>
+                <TextBox Grid.Row="5" Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" Grid.ColumnSpan="3" Text="{Binding TextPronostico,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" CharacterCasing="Upper" TextWrapping="Wrap" MinHeight="50"></TextBox>
+
+                <Label Grid.Row="6" Grid.Column="0" Content="La capacidad de la institución para brindar el tratamiento que requiere es:"></Label>
+                <ComboBox Grid.Row="7" Grid.Column="0" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" SelectedValuePath="Tag" SelectedValue="{ Binding IdCapacTrata, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                <ComboBoxItem Content="SUFICIENTE" Tag="0"></ComboBoxItem>
+                <ComboBoxItem Content="MEDIANA" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="ESCASA" Tag="2"></ComboBoxItem>
+                <ComboBoxItem Content="NULA" Tag="3"></ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Row="6" Grid.Column="1" Content="El nivel de atención médica institucional que requiere es de:"></Label>
+                <ComboBox Grid.Column="1" Grid.Row="7" IsEnabled="{ Binding IsReadOnlyDatos, UpdateSourceTrigger=PropertyChanged }" SelectedValuePath="Tag" SelectedValue="{ Binding IdNivelReq, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}">
+                    <ComboBoxItem Content="SELECCIONE" Tag="-1"></ComboBoxItem>
+                <ComboBoxItem Content="I NIVEL" Tag="0"></ComboBoxItem>
+                <ComboBoxItem Content="II NIVEL" Tag="1"></ComboBoxItem>
+                <ComboBoxItem Content="III NIVEL" Tag="2"></ComboBoxItem>
+            </ComboBox>
+        </Grid>
+            </AdornerDecorator>
+        </GroupBox>
+    </AdornerDecorator>
+</UserControl>

@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="ControlPenales.GenerarNIPView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:dic="clr-namespace:Resources.ControlPenales.Abogados;assembly=Resources"
+             xmlns:dicGeneral="clr-namespace:Resources;assembly=Resources"
+             Height="auto" Width="auto">
+    <Grid Margin="0 50 0 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0"  Content="Generación de NIP" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <GroupBox Header="Credenciales Pendientes" Grid.Column="0" Grid.Row="1">
+            <DataGrid MaxHeight="300" Style="{StaticResource MetroDataGrid}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{x:Static dic:GenerarNIPView.num_abogado}" />
+                    <DataGridTextColumn Header="{x:Static dicGeneral:General.apellido_pat}" />
+                    <DataGridTextColumn Header="{x:Static dicGeneral:General.apellido_mat}" />
+                    <DataGridTextColumn Header="{x:Static dicGeneral:General.nombre}" />
+                    <DataGridCheckBoxColumn Header="{x:Static dic:GenerarNIPView.gafete}" />
+                    <DataGridCheckBoxColumn Header="{x:Static dicGeneral:General.huella}" />
+                    <DataGridCheckBoxColumn Header="{x:Static dicGeneral:General.foto}"/>
+                    <DataGridTextColumn Header="{x:Static dic:GenerarNIPView.discapacitado}"/>
+                    <DataGridTextColumn Header="{x:Static dic:GenerarNIPView.titular}"/>
+                    <DataGridTextColumn Header="{x:Static dic:GenerarNIPView.fecha_captura}"/>
+                    <DataGridTextColumn Header="{x:Static dicGeneral:General.min}"/>
+                    <DataGridTextColumn Header="{x:Static dic:GenerarNIPView.tijuana}"/>
+                    <DataGridTextColumn Header="{x:Static dic:GenerarNIPView.mexicali}"/>
+                    <DataGridTextColumn Header="{x:Static dic:GenerarNIPView.el_hongo}"/>
+                    <DataGridTextColumn Header="{x:Static dic:GenerarNIPView.ensenada}"/>
+                    <DataGridCheckBoxColumn Header="{x:Static dicGeneral:General.elige}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</UserControl>

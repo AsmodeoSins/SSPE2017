@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="ControlPenales.ExcarcelacionView"
+             x:Name="ExcarcelacionWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CmdExcarcelacionOnLoad}" CommandParameter="{Binding ElementName=ExcarcelacionWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuExcarcelacionesView Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1"  Content="Excarcelación" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <Views:DatosExpediente2View Grid.Row="2" ></Views:DatosExpediente2View>
+        <Views:ExcarcelacionDatosView Grid.Row="3"></Views:ExcarcelacionDatosView>
+    </Grid>
+</UserControl>

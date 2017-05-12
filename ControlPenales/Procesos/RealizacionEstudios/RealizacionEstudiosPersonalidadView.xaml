@@ -1,0 +1,133 @@
+﻿<UserControl 
+    x:Class="ControlPenales.RealizacionEstudiosPersonalidadView" 
+    x:Name="RealizacionEstudiosPersonalidadWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:Views="clr-namespace:ControlPenales" 
+    Height="auto" Width="auto">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="UnLoaded">
+            <i:InvokeCommandAction Command="{Binding RealizacionEstudiosPUnLoaded}" CommandParameter="{Binding ElementName=RealizacionEstudiosPersonalidadWindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding RealizacionEstudiosLoading}" CommandParameter="{Binding ElementName=RealizacionEstudiosPersonalidadWindow}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <i:InvokeCommandAction Command="{Binding MedicoUnLoad}" CommandParameter="{ Binding ElementName= EstudioMedicoFCView}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <i:InvokeCommandAction Command="{Binding PsicologicoUnLoad}" CommandParameter="{ Binding ElementName= EstudioPsicologicoFCView}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <i:InvokeCommandAction Command="{Binding PsiquiatricoUnLoad}" CommandParameter="{ Binding ElementName= EstudioPsiquiatricoFCView}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <i:InvokeCommandAction Command="{Binding CriminoUnLoad}" CommandParameter="{ Binding ElementName= EstudioCriminodiagnosticoFCView}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <i:InvokeCommandAction Command="{Binding SocioFamUnLoad}" CommandParameter="{ Binding ElementName= EstudioSocioFamiliarFCView}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <i:InvokeCommandAction Command="{Binding EducativoUnLoad}" CommandParameter="{ Binding ElementName= EstudioEducativoCulturalDepFCView}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <i:InvokeCommandAction Command="{Binding CapacitacionUnLoad}" CommandParameter="{ Binding ElementName= EstudioCapacitacionYTrabajoPenitFCView}"  />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="LostFocus">
+            <i:InvokeCommandAction Command="{Binding SeguridadUnLoad}" CommandParameter="{ Binding ElementName= InformeSeguridadCustodiaFCView}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+        <Label Grid.Column="0" Grid.Row="1" Content="Realización de Estudios de Personalidad" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Datos del Expediente">
+            <Views:DatosExpediente2View />
+        </GroupBox>
+        <Controls:MetroAnimatedSingleRowTabControl Grid.Column="0" Grid.Row="3" Visibility="{ Binding VisiblePrincipal, Converter={StaticResource booleanToVisibilityConverter}}" Controls:TabControlHelper.IsUnderlined="True" 
+             ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"  SelectedIndex="{Binding OrdenPrincipal,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" TabStripPlacement="Top">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SourceUpdated">
+                    <i:InvokeCommandAction Command="{Binding CmdModelChanged}" CommandParameter="cambio_tabs_realizacion_personalidad"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+            <TabItem Header="Fuero Común" Style="{StaticResource HeaderTabStyle}" Visibility="{ Binding VisibleComun, Converter={ StaticResource booleanToVisibilityConverter}}" IsSelected="{Binding TabEstudiosFueroComun, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{ Binding IsEnablesFueroComunPrincipal, UpdateSourceTrigger=PropertyChanged}">
+                
+                <Controls:MetroAnimatedSingleRowTabControl Visibility="{ Binding VisibleComunMain, Converter={ StaticResource booleanToVisibilityConverter}}" Controls:TabControlHelper.IsUnderlined="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                                                           TabStripPlacement="Top" SelectedIndex="{ Binding IndexComun, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+                    
+                    <TabItem Header="Estudio Médico" IsEnabled="{ Binding EnabledComun1 }" TabIndex="0" Visibility="{ Binding EnabledMedicoFueroComun, Converter={ StaticResource booleanToVisibilityConverter}}" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabEstudioMedicoFC, UpdateSourceTrigger=PropertyChanged}" >
+                        <Views:EstudioMedicoFCView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio Psiquiátrico" IsEnabled="{ Binding EnabledComun2 }" TabIndex="1" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabEstudioPsiqFC, UpdateSourceTrigger=PropertyChanged}"  Visibility="{ Binding EnabledPsiquiatricoFueroComun, Converter={ StaticResource booleanToVisibilityConverter}}">
+                        <Views:EstudioPsiquiatricoFCView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio Psicológico" TabIndex="2" IsEnabled="{ Binding EnabledComun3 }" Style="{StaticResource SubHeaderTabStyle}"  IsSelected="{Binding TabEstudioPsicFC, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding EnabledPsicologicoFueroComun, Converter={ StaticResource booleanToVisibilityConverter}}" >
+                        <Views:EstudioPsicologicoFCView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio Crimino Diagnóstico" TabIndex="3" IsEnabled="{ Binding EnabledComun4 }" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabCriminoDFC, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding EnabledCriminodiagnosticoFueroComun, Converter={ StaticResource booleanToVisibilityConverter}}" >
+                        <Views:EstudioCriminodiagnosticoFCView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio Socio Familiar" TabIndex="4" IsEnabled="{ Binding EnabledComun5 }" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabEstudioSocioFamFC, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding EnabledSocioFamiliarFueroComun, Converter={ StaticResource booleanToVisibilityConverter}}" >
+                        <Views:EstudioSocioFamiliarFCView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio Educativo, Cultural y Deportivo" IsEnabled="{ Binding EnabledComun6 }" TabIndex="5" Style="{StaticResource SubHeaderTabStyle}" Visibility="{ Binding EnabledEducativoFueroComun, Converter={ StaticResource booleanToVisibilityConverter}}" IsSelected="{Binding TabEstudioEducCultDepFC, UpdateSourceTrigger=PropertyChanged}">
+                        <Views:EstudioEducativoCulturalDepFCView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio Sobre Capacitación y Trabajo Penitenciario" IsEnabled="{ Binding EnabledComun7 }" TabIndex="6" Style="{StaticResource SubHeaderTabStyle}" Visibility="{ Binding EnabledCapacitacionFueroComun, Converter={ StaticResource booleanToVisibilityConverter}}" IsSelected="{Binding TabEstudioCapacitacionTrabajoPenitFC, UpdateSourceTrigger=PropertyChanged}">
+                        <Views:EstudioCapacitacionYTrabajoPenitFCView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Área de Seguridad y Custodia" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{ Binding EnabledComun8 }" TabIndex="7" IsSelected="{Binding TabSeguriddCustodiaFC, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding EnabledSeguridadFueroComun, Converter={ StaticResource booleanToVisibilityConverter}}" >
+                        <Views:InformeSeguridadCustodiaFCView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+                
+            </TabItem>
+
+            <TabItem Header="Fuero Federal" Style="{ StaticResource HeaderTabStyle}" Visibility="{ Binding VisibleFederal, Converter={ StaticResource booleanToVisibilityConverter}}" IsSelected="{ Binding TabFueroFederal , UpdateSourceTrigger=PropertyChanged}" IsEnabled="{ Binding IsEnabledFueroFederalPrincipal, UpdateSourceTrigger=PropertyChanged}">
+
+                <Controls:MetroAnimatedSingleRowTabControl Visibility="{ Binding VisibleMainFederal, Converter={ StaticResource booleanToVisibilityConverter }}" Controls:TabControlHelper.IsUnderlined="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                                           TabStripPlacement="Top" SelectedIndex="{ Binding IndexFederal, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+                    
+                    <!--<TabItem Header="Consejo Técnico Interdisciplinario" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabConsejoTecInterdFF, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding IsEnabledActaConsejoT,Converter={ StaticResource booleanToVisibilityConverter }, UpdateSourceTrigger=PropertyChanged}">
+                        <Views:ActaConsejoTecnicoInterdisciplinarioFFView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>-->
+                    <TabItem Header="Estudio Médico" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{ Binding EnabledFederal1}" TabIndex="0"  IsSelected="{Binding TabEstudioMedicoFF, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding IsEnabledMedicoFederal,Converter={ StaticResource booleanToVisibilityConverter }}">
+                        <Views:EstudioMedicoFFView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio Psicologico" Style="{StaticResource SubHeaderTabStyle}" IsEnabled="{ Binding EnabledFederal2}" TabIndex="1" IsSelected="{Binding TabEstudioPsicoFF, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding IsEnabledPsicoFederal,Converter={ StaticResource booleanToVisibilityConverter }}" >
+                        <Views:EstudioPsicologicoFFView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio de Trabajo Social" IsEnabled="{ Binding EnabledFederal3}" TabIndex="2" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabEstudioTrabajoSocialFF, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding IsTrabajoSocialEnabled,Converter={ StaticResource booleanToVisibilityConverter }}" >
+                        <Views:EstudioTrabajoSocialFFView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Actividades Productivas de Capacitación" IsEnabled="{ Binding EnabledFederal4}" TabIndex="3" Style="{StaticResource SubHeaderTabStyle}" IsSelected="{Binding TabActivProductCapacitFF, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding IsEnabledActivProd ,Converter={ StaticResource booleanToVisibilityConverter }, UpdateSourceTrigger=PropertyChanged}">
+                        <Views:InformeActividadesProductivasCapacFFView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Actividades Educativas, Culturales, Deportivas, Recreativas y Cívicas"  TabIndex="4" IsEnabled="{ Binding EnabledFederal5}" Style="{StaticResource SubHeaderTabStyle}" Visibility="{ Binding IsEnabledActivEducFederal,Converter={ StaticResource booleanToVisibilityConverter }, UpdateSourceTrigger=PropertyChanged}" IsSelected="{Binding TabActEducCultDepRecCivFF, UpdateSourceTrigger=PropertyChanged}">
+                        <Views:InformeActividadesEducCulturalesDepRecFFView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Sección de Vigilancia" Style="{StaticResource SubHeaderTabStyle}" TabIndex="5" IsEnabled="{ Binding EnabledFederal6}" IsSelected="{Binding TabVigilanciaFF, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding IsEnabledVigilanciaFederal,Converter={ StaticResource booleanToVisibilityConverter }, UpdateSourceTrigger=PropertyChanged}" >
+                        <Views:InformeSeccionVigilanciaFFView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                    <TabItem Header="Estudio Criminológico" Style="{StaticResource SubHeaderTabStyle}" TabIndex="6" IsEnabled="{ Binding EnabledFederal7}" IsSelected="{Binding TabEstudioCriminologico, UpdateSourceTrigger=PropertyChanged}" Visibility="{ Binding IsEnabledCriminologicoFederal,Converter={ StaticResource booleanToVisibilityConverter }, UpdateSourceTrigger=PropertyChanged}">
+                        <Views:EstudioCriminologicoFFView Style="{StaticResource ViewTabStyle}" />
+                    </TabItem>
+                </Controls:MetroAnimatedSingleRowTabControl>
+            </TabItem>
+        
+        </Controls:MetroAnimatedSingleRowTabControl>
+    </Grid>
+</UserControl>

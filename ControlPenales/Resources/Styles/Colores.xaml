@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <!-- ESTE ES EL COLOR PARA LA CAPTURA DE LOS CAMPOS-->
+    <Color x:Key="Captura">
+        #FFFFE0
+    </Color>
+
+    <!--DATAGRID-->
+    <Color x:Key="ColorSeleccionBackground">
+        #FFFFE0
+    </Color>
+    
+    <!-- HEADER-->
+    <Color x:Key="Header">
+        #427399
+    </Color>
+
+    <!--FIN VENTANA -->
+    <Color x:Key="FinVentana">
+        #427399
+    </Color>
+    
+    <!--MENU -->
+    <Color x:Key="MenuFill">#6097BF</Color>
+    <Color x:Key="MenuStroke">#DEDEDE</Color>
+    <Color x:Key="BackGroundMenu">#427399</Color>
+
+    <!-- LISTVIEW -->
+    <Color x:Key="Alternativo1">#FFFFFF</Color>
+    <Color x:Key="Alternativo2">#E4DDD7</Color>
+
+    <SolidColorBrush x:Key="ColorCaptura" Color="{StaticResource Captura}" options:Freeze="True" />
+    <SolidColorBrush x:Key="ColorSeleccion" Color="{StaticResource ColorSeleccionBackground}" options:Freeze="True" />
+    <SolidColorBrush x:Key="ColorHeader" Color="{StaticResource Header}" options:Freeze="True" />
+    <SolidColorBrush x:Key="ColorFinVentana" Color="{StaticResource FinVentana}" options:Freeze="True" />
+    <SolidColorBrush x:Key="ColorAlternativo1" Color="{StaticResource Alternativo1}" options:Freeze="True" />
+    <SolidColorBrush x:Key="ColorAlternativo2" Color="{StaticResource Alternativo2}" options:Freeze="True" />
+</ResourceDictionary>

@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="ControlPenales.NotaTecnicaView"
+             x:Name="NotaTecnicaWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:WPF="clr-namespace:TXTextControl.WPF;assembly=TXTextControl.WPF"
+             xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoaded}" CommandParameter="{Binding ElementName=NotaTecnicaWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <Views:AtendioAtencionRecibida x:Key="CoverterAtendio"></Views:AtendioAtencionRecibida>
+    </UserControl.Resources>
+    <AdornerDecorator>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!--MENU-->
+        <Views:MenuIconosView Grid.Column="0" Grid.Row="0" />
+        <!--TITULO-->
+        <Label Grid.Column="0" Grid.Row="1"  Content="Nota Técnica" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Datos del Ingreso">
+                <Views:DatosExpedienteView />
+                <!--<Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="75"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="1" Content="Año" VerticalAlignment="Bottom"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Content="/" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                <Label Grid.Column="2" Grid.Row="1" Content="Folio" VerticalAlignment="Bottom"></Label>
+                <Label Grid.Column="3" Grid.Row="1" Content="Apellido Paterno" VerticalAlignment="Bottom"></Label>
+                <Label Grid.Column="4" Grid.Row="1" Content="Apellido Materno" VerticalAlignment="Bottom"></Label>
+                <Label Grid.Column="5" Grid.Row="1" Content="Nombre" VerticalAlignment="Bottom"></Label>
+
+                <TextBox Grid.Column="0" Grid.Row="2" IsEnabled="False" Text="{Binding Anio}"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="2" IsEnabled="False" Text="{Binding Folio}" ></TextBox>
+                <TextBox Grid.Column="3" Grid.Row="2" IsEnabled="False" Text="{Binding Paterno}"></TextBox>
+                <TextBox Grid.Column="4" Grid.Row="2" IsEnabled="False" Text="{Binding Materno}"></TextBox>
+                <TextBox Grid.Column="5" Grid.Row="2" IsEnabled="False" Text="{Binding Nombre}"></TextBox>
+                <Image Grid.Column="7" Grid.Row="0"  Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding ImagenIngreso}"></Image>
+            </Grid>-->
+        </GroupBox>
+
+        <GroupBox Grid.Column="0" Grid.Row="3" Header="Datos del Ingreso">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0">Área Técnica</Label>
+                    <ComboBox Grid.Row="1" ItemsSource="{Binding LstAreaTecnica}" SelectedValuePath="ID_TECNICA" DisplayMemberPath="DESCR" SelectedItem="{Binding SelectedAreaTecnica}" SelectedValue="{Binding AreaTecnica,ValidatesOnDataErrors=True}" Width="250" HorizontalAlignment="Left" IsEnabled="{Binding AreaTecnicaEnabled}"></ComboBox>
+                </Grid>
+        </GroupBox>
+
+            <GroupBox Grid.Column="0" Grid.Row="4" Header="Atención Recibida">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Atención" Name="etiqueta"></Label>
+                    <TextBox Grid.Row="1" MaxHeight="75" MinHeight="75" TextWrapping="Wrap" CharacterCasing="Upper" Margin="5" MaxWidth="{Binding ElementName=etiqueta,Path=ActualWidth}" MaxLength="4000"
+                             Text="{Binding AtencionTxt,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox>
+                </Grid>
+            </GroupBox>
+
+            <!--<Controls:MetroAnimatedSingleRowTabControl TabStripPlacement="Top" Height="auto" Grid.Column="0" Grid.Row="4" Controls:TabControlHelper.IsUnderlined="True" SelectedIndex="{Binding IndexTab}" >
+            <TabItem Header="Atención Recibida" Style="{StaticResource HeaderTabStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Atención" Margin="5" Name="etiqueta"></Label>
+                    <TextBox Grid.Row="1" MaxHeight="75" MinHeight="75" TextWrapping="Wrap" CharacterCasing="Upper" Margin="5" MaxWidth="{Binding ElementName=etiqueta,Path=ActualWidth}" MaxLength="4000"
+                             Text="{Binding AtencionTxt,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"></TextBox> 
+                    
+                    --><!--<DockPanel Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="20" Visibility="Hidden" >
+                        <WPF:ButtonBar Name="ButtonBar1"/>
+                        <WPF:StatusBar Name="StatusBar1"/>
+                        <WPF:RulerBar Name="RulerBar1"/>
+                        <WPF:TextControl Name="editor" ButtonBar="ButtonBar1" StatusBar="StatusBar1" RulerBar="RulerBar1"  />
+                    </DockPanel>--><!--
+                </Grid>
+            </TabItem>
+            <TabItem Header="Historial de Atención Recibida" Style="{StaticResource HeaderTabStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="500"></RowDefinition>
+                    </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0" Margin="10" HorizontalAlignment="Center">
+                            <WindowsFormsHost Width="1038" HorizontalAlignment="Center">
+                                <rv:ReportViewer x:Name="Report"></rv:ReportViewer>
+                            </WindowsFormsHost>
+                        </DockPanel>
+
+                        --><!--<DataGrid Grid.Row="0" CanUserAddRows="False" IsReadOnly="true" AutoGenerateColumns="False" MaxHeight="250" ItemsSource="{Binding LstAtencionRecibidaHistorico}" SelectedItem="{Binding SelectedAtencionRecibidaHistorico}" Style="{StaticResource MetroDataGrid}" Padding="0 5 0 0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick" >
+                                <i:InvokeCommandAction CommandParameter="{Binding ElementName=Listado,Path=SelectedItem}" Command="{Binding DoubleClickGridCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Fecha" Binding="{Binding ATENCION_FEC, StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Atendio" Binding="{Binding Converter={StaticResource CoverterAtendio}}" ></DataGridTextColumn>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Width="95" HorizontalAlignment="Left" Style="{DynamicResource AccentedSquareButtonStyle}" Content="Ver" Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="ver_historico" ></Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Row="0" Content="No hay información" FontStyle="Italic" HorizontalAlignment="Center" Margin="0 30 0 0" Visibility="{Binding HistoricoVisible}"></Label>--><!--
+                </Grid>
+            </TabItem>
+        </Controls:MetroAnimatedSingleRowTabControl>-->
+    </Grid>
+    </AdornerDecorator>
+</UserControl>

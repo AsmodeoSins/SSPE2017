@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="ControlPenales.InsertarDelitoView"
+             x:Name="IngresosCausaPenalWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Height="auto" Width="auto">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding IngresosCausaPenalLoading}" CommandParameter="{Binding ElementName=IngresosCausaPenalWindow}"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid VerticalAlignment="Stretch" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="250"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="ingresos" Grid.Row="0" Grid.Column="0" VerticalAlignment="Stretch" >
+            <DataGrid VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False"
+                    ItemsSource="{Binding LstIngresosCentro,UpdateSourceTrigger=PropertyChanged}" Name="gridIngresos" SelectedItem="{Binding SelectedIngreso,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MetroDataGrid}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick" >
+                        <i:InvokeCommandAction CommandParameter="{Binding ElementName=gridIngresos, Path=SelectedItem}"  Command="{Binding MouseDoubleClickCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Núm. Ingreso" Binding="{Binding ID_INGRESO}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Activo"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha Ingreso" Binding="{Binding FEC_REGISTRO, StringFormat=dd/mm/yyyy}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha Ing Cereso" Binding="{Binding FEC_INGRESO_CERESO, StringFormat=dd/mm/yyyy}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Núm. Oficio Internación" Binding="{Binding DOCINTERNACION_NUM_OFICIO}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Autoridad Interno" Binding="{Binding TIPO_AUTORIDAD_INTERNA.DESCR}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Estatus Administrativo" Binding="{Binding ESTATUS_ADMINISTRATIVO.DESCR}"></DataGridTextColumn>
+                </DataGrid.Columns>
+               
+            </DataGrid>
+        </GroupBox>
+
+        <GroupBox Header="{Binding TituloCausasPenales}" Grid.Row="2" Grid.Column="0" VerticalAlignment="Stretch" >
+            <DataGrid VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" 
+                      ItemsSource="{Binding CausasPenalesIngreso}" SelectedItem="{Binding SelectedCausaPenalIngreso}" Name="dgCausaPenal" Style="{StaticResource MetroDataGrid}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick" >
+                        <i:InvokeCommandAction CommandParameter="{Binding ElementName=dgCausaPenal, Path=SelectedItem}" Command="{Binding MouseDoubleClickCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CausaPenal" Binding="{Binding Cp}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha Inicio Compurgación" Binding="{Binding FecSentencia, StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Juzgado / Fuero" Binding="{Binding JuzgadoFuero}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha Sentencia" Binding="{Binding FecInicioCompurgacion, StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Fecha Ejecutoria" Binding="{Binding FecEjecutoria, StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                </DataGrid.Columns>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Insertar" CommandParameter="agregar_causa_penal" Command="{Binding MenuMouseClick}" />
+                        <MenuItem Header="Borrar" CommandParameter="eliminar_causa_penal" Command="{Binding MenuMouseClick}"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</UserControl>

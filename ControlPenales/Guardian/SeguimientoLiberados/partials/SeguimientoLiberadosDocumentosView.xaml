@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="ControlPenales.SeguimientoLiberadosDocumentosView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">
+            <Label HorizontalAlignment="Center" Content="Buscar" Padding="0"/>
+            <Button Width="50" Height="50" ToolTip="Buscar"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="menu_buscar" Command="{Binding OnClick}">
+                <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_fingerprint}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+        
+
+        <DataGrid Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" ItemsSource="{Binding Imputado.documentos}" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Dependencia" Binding="{Binding dependencia}"></DataGridTextColumn>
+                <DataGridTextColumn Header="No.Oficio" Binding="{Binding no_oficio}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fuero" Binding="{Binding fuero}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Documento" Binding="{Binding documento}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Asunto" Binding="{Binding asunto}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fecha Agenda" Binding="{Binding fecha}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Asesor" Binding="{Binding asesor}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        
+
+    </Grid>
+    </UserControl>
+
+    

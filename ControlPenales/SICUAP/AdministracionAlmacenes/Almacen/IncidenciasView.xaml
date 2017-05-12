@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="ControlPenales.IncidenciasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <StackPanel>
+        <Label Margin="5" Content="Incidencias" Style="{DynamicResource DescriptionHeaderStyle}" />
+        <GroupBox Header="Datos de la Incidencia">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">Tipo de Incidencia</Label>
+                <Label Grid.Row="0" Grid.Column="2">Fecha de la Incidencia</Label>
+                <Label Grid.Row="1" Grid.Column="0">Proveedor</Label>
+                <Label Grid.Row="1" Grid.Column="2">Orden de Compra</Label>
+                <Label Grid.Row="2" Grid.Column="0">Producto</Label>
+                <ComboBox Grid.Row="0" Grid.Column="1" MinWidth="150"></ComboBox>
+                <DatePicker Grid.Row="0" Grid.Column="3" Controls:TextBoxHelper.Watermark="Selecciona una fecha" />
+                <ComboBox Grid.Row="1" Grid.Column="1"></ComboBox>
+                <TextBox Grid.Row="1" Grid.Column="3" MinWidth="150"></TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                <Button Grid.Row="2" Grid.Column="2" Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_buscar_incidencias_productos" 
+                        Command="{Binding OnClick}" Margin="10,0,0,0">Buscar</Button>
+
+                <DataGrid Grid.Row="3" Grid.ColumnSpan="4" Margin="10" MinWidth="200" MinHeight="150" Style="{StaticResource MetroDataGrid}"
+                          Visibility="{Binding GridBuscarVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Producto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Cantidad"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Unidad de Medida">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock></TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Observaciones">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox MinWidth="200" MinHeight="70"></TextBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Button Grid.Row="4" Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_guardar_producto_incidencia" 
+                        Command="{Binding OnClick}" Margin="10" Visibility="{Binding GridBuscarVisible, Converter={StaticResource booleanToVisibilityConverter}}">Guardar</Button>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Seleccione el Producto" Visibility="{Binding ProductosVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <StackPanel>
+                <DataGrid Grid.Row="3" Grid.ColumnSpan="4" Margin="10" MinWidth="200" MinHeight="150" IsReadOnly="True" Style="{StaticResource MetroDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="Producto"></DataGridCheckBoxColumn>
+                        <DataGridCheckBoxColumn Header="Unidad de Medida"></DataGridCheckBoxColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Orientation="Vertical">
+                    <Rectangle HorizontalAlignment="Stretch" Margin="2" Stroke="LightGray" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_aceptar_producto_incidencia" 
+                        Command="{Binding OnClick}" Margin="10">Aceptar</Button>
+                    <Button Width="140" Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_cerrar_producto_incidencia" 
+                        Command="{Binding OnClick}" Margin="10">Cerrar</Button>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

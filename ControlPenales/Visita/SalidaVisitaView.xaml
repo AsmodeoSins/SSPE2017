@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="ControlPenales.SalidaVisitaView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             Height="auto" Width="auto" >
+    <StackPanel>
+        <Views:MenuIconosView />
+        <StackPanel Visibility="{Binding Path=GeneralVisible, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Label Content="SALIDA" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+            <GroupBox Header="Visitante">
+                <!--<Views:DatosVisitanteView />-->
+                <Views:CapturaVisitaView />
+            </GroupBox>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <GroupBox Grid.Column="0" Header="Salida">
+                    <StackPanel>
+                        <Label Grid.Column="0">Fecha y Hora de Salida</Label>
+                        <DatePicker Grid.Column="1" Controls:TextBoxHelper.Watermark="Selecciona una fecha" MinWidth="250" HorizontalAlignment="Left"></DatePicker>
+                        <Label Grid.Column="2">Salida a Pertenencias?</Label>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton Grid.Column="3" GroupName="pertenencias" Margin="10,0,20,0">Sí</RadioButton>
+                            <RadioButton Grid.Column="4" GroupName="pertenencias">No</RadioButton>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Column="1" Header="Entrada">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0">Fecha y Hora de Entrada</Label>
+                        <Label Grid.Row="2">Pertenencias</Label>
+
+                        <DatePicker Grid.Row="1" MinWidth="250" HorizontalAlignment="Left" Controls:TextBoxHelper.Watermark="Selecciona una fecha"></DatePicker>
+                        <TextBox Grid.Row="3" Height="80"></TextBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+
+            <StackPanel Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">
+                <Label HorizontalAlignment="Center" Content="Salida" Padding="0" />
+                <Button Width="50" Height="50" ToolTip="Salida"
+                        IsEnabled="{Binding BotonesEnables}" Style="{DynamicResource MetroCircleButtonStyle}" CommandParameter="boton_salir_visita" Command="{Binding OnClick}">
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" >
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_door_leave}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+            
+        </StackPanel>
+        <StackPanel>
+            <Views:BuscarView Visibility="{Binding Path=BuscarVisible, Converter={StaticResource booleanToVisibilityConverter}}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

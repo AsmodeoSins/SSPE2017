@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="GESAL.Views.BusquedaRequisicionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+             xmlns:Converters="clr-namespace:MVVMShared.Converters;assembly=MVVMShared">
+    <Grid>
+        <Border Background="#90000000">
+            <Border BorderBrush="Black" BorderThickness="1" Background="#fff" Width="888"
+					CornerRadius="10,0,10,0"  HorizontalAlignment="Center" VerticalAlignment="Center" MaxHeight="420" MinHeight="320">
+                <StackPanel>
+                    <Label Style="{StaticResource estiloTituloControl}" Content="Busqueda de Requisiciones"></Label>
+                    <DataGrid Margin="5 10 0 0" MaxHeight="200"  AutoGenerateColumns="False" ItemsSource="{Binding RequisicionesExtraordinarias}" SelectedItem="{Binding SelectedRequisicionExtraordinariaPop_Up}" Style="{StaticResource MetroDataGrid}"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False" CanUserResizeColumns="False" SelectionMode="Single" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="FOLIO" MinWidth="100" Binding="{Binding ID_REQUISICION}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="CENTRO" MinWidth="200" Binding="{Binding ALMACEN.CENTRO.DESCR}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="ALMACEN" MinWidth="150" Binding="{Binding ALMACEN.DESCRIPCION}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="FECHA" MinWidth="60" Binding="{Binding FECHA, StringFormat=d}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="ESTATUS" MinWidth="150" Binding="{Binding REQ_CENTRO_ESTATUS.DESCR}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Aceptar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdSeleccionarBusquedaPopUp}" CommandParameter="seleccionarRequisicion" HorizontalAlignment="Center"></Button>
+                        <Button Content="Cancelar" Style="{DynamicResource AccentedSquareButtonStyle}" Width="100" Margin="5" Command="{Binding CmdCancelarBusquedaPopup}" CommandParameter="cancelarRequisicion" HorizontalAlignment="Center" ></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

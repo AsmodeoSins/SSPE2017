@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="ControlPenales.RequesicionAlimentoPreparadoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Views="clr-namespace:ControlPenales"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" >
+    <StackPanel>
+
+        <Label Grid.Row="0" Margin="10" Content="Requisiciones de Alimentos Preparados" Style="{DynamicResource DescriptionHeaderStyle}" />
+
+        <DataGrid MinHeight="250" Margin="10" ItemsSource="{Binding Lista2}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedItem}" Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding DataContext.CheckAll,RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" HorizontalAlignment="Center"
+                            Command="{Binding DataContext.OnClick,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="checked_item" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Nombre" MinWidth="200" Binding="{Binding Producto}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Porciones" MinWidth="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox IsEnabled="{Binding IsSelected}" Views:FocusExtension.IsFocused="{Binding IsSelected}" CharacterCasing="Upper" >
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsEnabled" Value="True">
+                                                <Setter Property="Background" Value="White"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="Background" Value="LightGray"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="140" Margin="10"
+                Style="{DynamicResource AccentedSquareButtonStyle}" CommandParameter="boton_generar_requesicion" Command="{Binding OnClick}">Generar Requisición</Button>
+    </StackPanel>
+</UserControl>
